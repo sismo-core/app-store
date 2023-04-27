@@ -11,7 +11,7 @@ type Table = string[][] | null;
 
 export class GoogleSheet {
  // readonly SPREADSHEET_ID = "1E3ck2MrItc11UaO4GzfIRwT7qNTTPOazabQ0csA3t9A";
-  readonly BASE_SPREASHEET_ID = "1mu33CWRWH27u4VXrhoXDEgw0bEC2nXy37eLxZGKM_Xg";
+  readonly ROOT_SPREASHEET_ID = "1mu33CWRWH27u4VXrhoXDEgw0bEC2nXy37eLxZGKM_Xg";
   //private spreadsheetId: string;
   private readonly TABLE_SIZE = 250;
   private readonly SCOPES = ["https://www.googleapis.com/auth/spreadsheets"];
@@ -40,35 +40,92 @@ export class GoogleSheet {
   // }
 
 
-  public async getSpreadsheetId(slug : string): Promise<string> {
-    const table = await this.loadTable(this.BASE_SPREASHEET_ID);
+  public async saveNewApplication (spaceSlug : string) : Promise<void> {
+    const table = await this.loadTable(this.ROOT_SPREASHEET_ID);
+
+    if (!table) {
+      return;
+    }
+
+    const row = table.find((row) => row[0]?.toString() === spaceSlug?.toString());
+    if (row) {
+      return;
+    }
+
+    const newTable = [...table, [spaceSlug, ""]];
+  }
+
+  public async getSpreadsheetIdFromRoot(spaceSlug : string): Promise<string> {
+    const table = await this.loadTable(this.ROOT_SPREASHEET_ID);
     if (!table) {
       return "";
     }
-
-    console.log("table", table)
-    const row = table.find((row) => row[0]?.toString() === slug?.toString());
-
+    const row = table.find((row) => row[0]?.toString() === spaceSlug?.toString());
     if (!row) {
       return "";
     }
-
     const [slugId, spreadsheetId] = row;
     return spreadsheetId;
   }
 
 
-  private async loadTable(spreadsheetId : string): Promise<Table> {
+  public async createNewSpreadsheet(spaceSlug: string, appName: string ): Promise<void> {
+    // create a new spreadsheet
+    const resource = {
+      properties: {
+        title: spaceSlug,
+      },
 
-    console.log("spreadsheetId", spreadsheetId)
+      sheets: [
+        {
+          properties: {
+            title: appName,
+            gridProperties: {
+              rowCount: this.TABLE_SIZE,
+              columnCount: 7,
+            },
+          },
+        },
+      ],
+    } as sheets_v4.Schema$Spreadsheet;
+
+    const spreadsheet = await this.service.spreadsheets.create({
+      resource: resource,
+    } as any);
+    const spreadsheetId = spreadsheet.data.spreadsheetId;
+
+    // add the spreadsheet id to the root spreadsheet
+    const table = await this.loadTable(this.ROOT_SPREASHEET_ID);
+    if (!table) {
+      return;
+    }
+
+    const row = table.find((row) => row[0]?.toString() === spaceSlug?.toString());
+    if (row) {
+      return;
+    }
+
+    const newTable = [...table, [spaceSlug, spreadsheetId]];
+
+    await this.service.spreadsheets.values.update({
+      spreadsheetId: this.ROOT_SPREASHEET_ID,
+      range: "A1:B250",
+      valueInputOption: "RAW",
+      requestBody: {
+        values: newTable,
+      },
+    });
+  }
+
+  private async loadTable(spreadsheetId : string): Promise<Table> {
     const result = await this.service.spreadsheets.values.get({
       spreadsheetId,
       range: "A1:G250",
     });
-
-    console.log("result", result)
     return result?.data?.values as Table;
   }
+
+
 
   // public async getUser(id: string): Promise<any | null> {
   //   const table = await this.loadTable();

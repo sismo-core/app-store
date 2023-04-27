@@ -12,8 +12,12 @@ import { GoogleSheet } from "./google-sheet";
 describe("NativeGoogleUserStore", () => {
   const googleSheet = new GoogleSheet();
 
-  it("should return the spreadsheetId", () => {
-    expect(googleSheet.getSpreadsheetId("aave")).toEqual("123456")
+  it("should return the spreadsheetId", async () => {
+    expect(await googleSheet.getSpreadsheetIdFromRoot("aave")).toEqual("123456")
+  })
+
+  it("should create a new spreadsheet", async () => {
+  //  await googleSheet.createNewSpreadsheet("aave2")
   })
 
   //let mockGet : jest.SpyInstance;

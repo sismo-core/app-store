@@ -1,17 +1,3 @@
-type Config = {
-  spaces: {
-    name: string;
-    description: string;
-    logo: string; // can be an url or local file
-    banner: string; // can be an url or local file
-    publicContact: {
-      type: PublicContactType;
-      link: string;
-    }[],
-    apps: (ZkSubAppConfig | ZkDropAppConfig | ExternalAppConfig)[];
-  }[];
-};
-
 type SpaceConfig= {
   slug: string;
   name: string;

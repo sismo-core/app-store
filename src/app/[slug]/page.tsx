@@ -24,7 +24,7 @@ export default async function SpacePage({
   const space = await stringifiedSpace.json();
 
   let banner;
-  if (space.banner) {
+  if (space?.banner) {
      space.banner.startsWith("http")
       ? (banner = space.banner)
       : (banner = await import(
@@ -39,7 +39,7 @@ export default async function SpacePage({
       <div> Slug: {slug}</div>
       <div> PAGE: {space.name}</div>
       <div> DESCRIPTION: {space.description}</div>
-      {space.banner && <Image src={banner} alt={space.name} width={500} height={300} />}
+      {space?.banner && <Image src={banner} alt={space.name} width={500} height={300} />}
     </main>
   );
 }

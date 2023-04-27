@@ -1,4 +1,4 @@
-import * as config from "../../../../../space-configs";
+import * as config from "../../../../../space-config";
 
 export async function POST(request: Request) {
   // Find / Call the space config that matches the request body

@@ -1,4 +1,4 @@
-import * as config from "@/space-configs";
+import * as config from "@/space-config";
 
 export async function GET(request: Request, { params }: { params: { slug: string } }) {
 

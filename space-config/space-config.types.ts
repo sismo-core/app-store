@@ -25,9 +25,7 @@ type SpaceConfig= {
   apps?: (ZkSubAppConfig | ZkDropAppConfig | ExternalAppConfig)[];
 }
 
-
 type PublicContactType = 'twitter' | 'discord' | 'link' | 'github' | 'telegram';
-
 
 // Every App will inherit this type
 type AppCommonConfig = {
@@ -69,8 +67,6 @@ type ZkSubAppConfig = AppCommonConfig & {
   output: 'google_sheet';
   };
     
-
-
 
 type InputCommon = {
   name: string;

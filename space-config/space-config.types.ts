@@ -1,4 +1,4 @@
-type SpaceConfig= {
+export type SpaceConfig= {
   slug: string;
   name: string;
   description: string;

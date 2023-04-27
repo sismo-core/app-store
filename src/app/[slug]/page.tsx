@@ -1,5 +1,7 @@
 import Image from "next/image";
-import classes from "./page.module.scss";
+import classNames from "classnames";
+import styles from "./page.module.scss";
+import getImgSrcFromConfig from "@/src/helpers/getImgSrcFromConfig";
 
 // This function runs at build time on the server it generates the static paths for each page
 export async function generateStaticParams() {
@@ -13,21 +15,21 @@ export async function generateStaticParams() {
 }
 
 // This function runs at build time on the server it generates the HTML metadata for each page
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
-}) {
-  const { slug } = params;
-  const stringifiedSpace = await fetch(
-    "http://localhost:3000/api/spaces/" + slug
-  );
-  const space = await stringifiedSpace.json();
-  return {
-    title: space.name,
-    description: space.description,
-  };
-}
+// export async function generateMetadata({
+//   params,
+// }: {
+//   params: { slug: string };
+// }) {
+//   const { slug } = params;
+//   const stringifiedSpace = await fetch(
+//     "http://localhost:3000/api/spaces/" + slug
+//   );
+//   const space = await stringifiedSpace.json();
+//   return {
+//     title: space.name,
+//     description: space.description,
+//   };
+// }
 
 // This function runs at build time on the server it generates the HTML for each page
 export default async function SpacePage({
@@ -40,24 +42,20 @@ export default async function SpacePage({
   const stringifiedSpace = await fetch(
     "http://localhost:3000/api/spaces/" + slug
   );
+
   const space = await stringifiedSpace.json();
 
   // Dynamically import the banner image
-  let banner;
-  if (space?.banner) {
-     space.banner.startsWith("http")
-      ? (banner = space.banner)
-      : (banner = await import(
-          `@/space-config/${slug}/images/${space.banner}`
-        ));
-  }
+  let banner = await getImgSrcFromConfig(space.slug, space.banner)
 
   return (
-    <main className={classes.main}>
-      <div className={classes.code}> Slug: {slug}</div>
-      <div className={classes.card}> PAGE: {space.name}</div>
+    <main className={classNames({ [styles.main]: true })}>
+      <div className={styles.code}> Slug: {slug}</div>
+      <div className={styles.card}> PAGE: {space.name}</div>
       <div> DESCRIPTION: {space.description}</div>
-      {space?.banner && <Image src={banner} alt={space.name} width={500} height={300} />}
+      {space?.banner && (
+        <Image src={banner} alt={styles.name} width={500} height={300} />
+      )}
     </main>
   );
 }

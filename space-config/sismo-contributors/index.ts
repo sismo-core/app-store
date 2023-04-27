@@ -1,3 +1,5 @@
+// add an images folder in your space folder if you would like Sismo to host your images
+
 export const sismoContributorsConfig : SpaceConfig = {
   slug: 'sismo-contributors',
   name: 'Sismo Contributors',

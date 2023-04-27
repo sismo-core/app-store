@@ -1,0 +1,62 @@
+const colors = {
+  // no modification on targeted color
+  primary: "#C08AFF",
+  safe: "#E2C488",
+  background: "#13203D",
+  test: "#A0F2E0",
+  success: "#A0F2E0",
+  error: "#D92848",
+  warning: "#E2C488",
+
+  pinkO: "#FEF3F7",
+  pink1: "#F2A1B0",
+  pink2: "#F193A4",
+
+  purple0: "#EADAF2",
+  purple1: "#DAB2F9",
+  purple2: "#C08AFF", 
+  purple3: "#9552DD",
+  purple4: "#742DBB",
+  purple5: "#581699",
+  purple6: "#3F0977",
+  purple7: "#280255",
+  purple8: "#150033",
+
+  green0: "#DAF2F2",
+  green1: "#A0F2E0",
+  green2: "#64D7C0",
+  green3: "#3ABBA4",
+  green4: "#1EA08A",
+  green5: "#0E8570",
+  green6: "#056A54",
+  green7: "#014E3A",
+  green8: "#003322",
+
+  orange0: "#F2EADA",
+  orange1: "#EAD8B3",
+  orange2: "#E2C488", 
+  orange3: "#DAAD5A",
+  orange4: "#D29329",
+  orange5: "#A76F22",
+  orange6: "#7C4D19",
+  orange7: "#512E0F",
+  orange8: "#261408",
+
+  blue0: "#E9ECFF",
+  blue1: "#D0D7FB",
+  blue2: "#B1BCF1",
+  blue3: "#7C87C4",
+  blue4: "#6771A9",
+  blue5: "#525C8F",
+  blue6: "#3F4973",
+  blue7: "#323E64",
+  blue8: "#343D65",
+  blue9: "#2A3557",
+  blue10: "#1C2847",
+  blue11: "#13203D",
+  blue12: "#0A101F",
+
+  white: "#FFFFFF",
+};
+
+export default colors;

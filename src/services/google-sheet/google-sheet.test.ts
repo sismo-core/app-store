@@ -17,7 +17,7 @@ describe("NativeGoogleUserStore", () => {
   })
 
   it("should create a new spreadsheet", async () => {
-  //  await googleSheet.createNewSpreadsheet("aave2")
+   await googleSheet.createNewSpreadsheet("aave3", "app1")
   })
 
   //let mockGet : jest.SpyInstance;

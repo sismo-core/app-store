@@ -1,5 +1,3 @@
-import { SpaceConfig } from "@/space-config/space-config.types";
-
 export default async function getImgSrcFromConfig(
   slug: string,
   fileName: string

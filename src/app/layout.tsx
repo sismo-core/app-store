@@ -1,4 +1,4 @@
-import "./globals.scss";
+import "../styles/globals.scss";
 import fonts from "../themes/font";
 import classes from "classnames";
 

@@ -2,8 +2,7 @@ import styles from "./page.module.scss";
 import Link from "next/link";
 
 export default async function Home() {
-  const stringifiedConfig = await fetch("http://localhost:3000/api/spaces");
-  const config = await stringifiedConfig.json();
+  const config = await fetch("http://localhost:3000/api/spaces").then(res => res.json());
   const spaces = Object.values(config).map((space: any) => {
     return space;
   });

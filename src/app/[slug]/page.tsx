@@ -10,7 +10,7 @@ export async function generateStaticParams() {
   const config = await stringifiedConfig.json();
   return Object.values(config).map((space: any) => {
     return {
-      space: space.slug,
+      slug: space.slug,
     };
   });
 }

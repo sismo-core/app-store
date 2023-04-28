@@ -1,5 +1,5 @@
 export type SpaceConfig = {
-  slug: string; // must be unique
+  slug: string; // your unique slug
   name: string;
   description: string;
   logo?: string; // can be an url or local file

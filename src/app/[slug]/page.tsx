@@ -6,7 +6,7 @@ import { notFound } from "next/navigation";
 
 // This function runs at build time on the server it generates the static paths for each page
 export async function generateStaticParams() {
-  const stringifiedConfig = await fetch("http://localhost:3000/api/spaces");
+  const stringifiedConfig = await fetch(`${process.env.API_URL}/spaces`);
   const config = await stringifiedConfig.json();
   return Object.values(config).map((space: any) => {
     return {
@@ -22,7 +22,7 @@ export async function generateMetadata({
   params: { slug: string };
 }) {
   const { slug } = params;
-  const space = await fetch("http://localhost:3000/api/spaces/" + slug)
+  const space = await fetch(`${process.env.API_URL}/spaces/` + slug)
     .then((res) => res.json())
     .catch(() => {
       notFound();
@@ -42,7 +42,7 @@ export default async function SpacePage({
 }) {
   const { slug } = params;
   // server-side fetch of space data
-  const space = await fetch("http://localhost:3000/api/spaces/" + slug)
+  const space = await fetch(`${process.env.API_URL}/spaces/` + slug)
     .then((res) => res.json())
     .catch(() => {
       notFound();

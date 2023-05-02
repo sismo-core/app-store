@@ -3,7 +3,11 @@ import Link from "next/link";
 import { getBaseUrl } from "../libs/getBaseUrl";
 
 export default async function Home() {
-  const config = await fetch(`${getBaseUrl()}/spaces/`).then(res => res.json());
+  console.log("Home", getBaseUrl())
+  const res = await fetch(`${getBaseUrl()}/api/spaces`)
+  console.log("res Home", res);
+  const config = await res.json();
+  console.log("config Home", config);
   const spaces = Object.values(config).map((space: any) => {
     return space;
   });

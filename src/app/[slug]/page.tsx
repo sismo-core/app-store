@@ -7,8 +7,10 @@ import { getBaseUrl } from "@/src/libs/getBaseUrl";
 
 // This function runs at build time on the server it generates the static paths for each page
 export async function generateStaticParams() {
-  const stringifiedConfig = await fetch(`${getBaseUrl()}/spaces`);
-  const config = await stringifiedConfig.json();
+  const res = await fetch(`${getBaseUrl()}/api/spaces`).catch(() => {
+    notFound();
+  });
+  const config = await res.json();
   return Object.values(config).map((space: any) => {
     return {
       slug: space.slug,
@@ -23,11 +25,10 @@ export async function generateMetadata({
   params: { slug: string };
 }) {
   const { slug } = params;
-  const space = await fetch(`${getBaseUrl()}/spaces/` + slug)
-    .then((res) => res.json())
-    .catch(() => {
-      notFound();
-    });
+  const res = await fetch(`${getBaseUrl()}/api/spaces/` + slug).catch(() => {
+    notFound();
+  });
+  const space = await res.json();
 
   return {
     title: space.name,
@@ -43,11 +44,9 @@ export default async function SpacePage({
 }) {
   const { slug } = params;
   // server-side fetch of space data
-  const space = await fetch(`${getBaseUrl()}/spaces/` + slug)
-    .then((res) => res.json())
-    .catch(() => {
-      notFound();
-    });
+  const res = await fetch(`${getBaseUrl()}/api/spaces/` + slug);
+  const space = await res.json();
+    
 
   // Dynamically import the banner image
   let banner = await getImgSrcFromConfig(space?.slug, space?.banner);

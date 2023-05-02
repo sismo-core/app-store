@@ -2,14 +2,12 @@ import Image from "next/image";
 import classNames from "classnames";
 import styles from "./page.module.scss";
 import getImgSrcFromConfig from "@/src/helpers/getImgSrcFromConfig";
-import { notFound } from "next/navigation";
-import { getBaseUrl } from "@/src/libs/getBaseUrl";
+import { getSpace, getSpaces } from "../api/spaces/getSpaces";
 
 // This function runs at build time on the server it generates the static paths for each page
 export async function generateStaticParams() {
-  const stringifiedConfig = await fetch(`${getBaseUrl()}/spaces`);
-  const config = await stringifiedConfig.json();
-  return Object.values(config).map((space: any) => {
+  const spaces = await getSpaces();
+  return Object.values(spaces).map((space: any) => {
     return {
       slug: space.slug,
     };
@@ -23,11 +21,7 @@ export async function generateMetadata({
   params: { slug: string };
 }) {
   const { slug } = params;
-  const space = await fetch(`${getBaseUrl()}/spaces/` + slug)
-    .then((res) => res.json())
-    .catch(() => {
-      notFound();
-    });
+  const space = await getSpace({ slug });
 
   return {
     title: space.name,
@@ -42,13 +36,8 @@ export default async function SpacePage({
   params: { slug: string };
 }) {
   const { slug } = params;
-  // server-side fetch of space data
-  const space = await fetch(`${getBaseUrl()}/spaces/` + slug)
-    .then((res) => res.json())
-    .catch(() => {
-      notFound();
-    });
-
+  const space = await getSpace({ slug });
+  
   // Dynamically import the banner image
   let banner = await getImgSrcFromConfig(space?.slug, space?.banner);
 

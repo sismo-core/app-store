@@ -1,14 +1,9 @@
 import styles from "./page.module.scss";
 import Link from "next/link";
-import { getBaseUrl } from "../libs/getBaseUrl";
+import { getSpaces } from "./api/spaces/getSpaces";
 
 export default async function Home() {
-  console.log("Home", getBaseUrl())
-  const res = await fetch(`${getBaseUrl()}/api/spaces`)
-  console.log("res Home", res);
-  const config = await res.json();
-  console.log("config Home", config);
-  const spaces = Object.values(config).map((space: any) => {
+  const spaces = Object.values(await getSpaces()).map((space: any) => {
     return space;
   });
 

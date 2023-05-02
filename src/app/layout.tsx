@@ -1,6 +1,5 @@
 import "../styles/globals.scss";
-import fonts from "../themes/font";
-import classes from "classnames";
+import StyledComponentsRegistry from './StyledComponentsRegistry';
 
 export const metadata = {
   title: "Create Next App",
@@ -14,12 +13,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body
-        className={classes([
-          fonts.inter.className,
-        ])}
-      >
-        {children}
+      <head></head>
+      <body>
+        <StyledComponentsRegistry>
+          {children}
+        </StyledComponentsRegistry>
       </body>
     </html>
   );

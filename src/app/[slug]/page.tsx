@@ -7,7 +7,7 @@ import { getSpace, getSpaces } from "../api/spaces/getSpaces";
 // This function runs at build time on the server it generates the static paths for each page
 export async function generateStaticParams() {
   const spaces = await getSpaces();
-  return Object.values(spaces).map((space: any) => {
+  return spaces?.map((space: any) => {
     return {
       slug: space.slug,
     };

@@ -11,4 +11,9 @@ const env: Environment = {
     isDemo: process.env.IS_DEMO ? JSON.parse(process.env.IS_DEMO) : false
 }
 
+if (env.isDemo) {
+    console.log("Mode Demo");
+}
+
+
 export default env;

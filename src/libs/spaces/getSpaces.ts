@@ -1,6 +1,7 @@
 import { configs } from "@/space-config";
 import env from "@/src/environments";
 
+
 export function getSpaces() {
   if (env.isDemo) return configs.filter(config => config.demoEnabled);
   return configs;

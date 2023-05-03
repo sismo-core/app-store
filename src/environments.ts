@@ -8,7 +8,7 @@ type Environment = {
 };
 
 const env: Environment = {
-    isDemo: JSON.parse(process.env.IS_DEMO)
+    isDemo: process.env.IS_DEMO ? JSON.parse(process.env.IS_DEMO) : false
 }
 
 export default env;

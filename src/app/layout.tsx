@@ -1,5 +1,5 @@
 import "../styles/globals.scss";
-import StyledComponentsRegistry from './StyledComponentsRegistry';
+import StyledComponentsRegistry from '../libs/styled-components/StyledComponentsRegistry';
 
 export const metadata = {
   title: "Create Next App",

@@ -1,11 +1,9 @@
 import styles from "./page.module.scss";
 import Link from "next/link";
-import { getSpaces } from "./api/spaces/getSpaces";
+import { getSpaces } from "../libs/spaces/getSpaces";
 
 export default async function Home() {
   const spaces = await getSpaces();
-
-  console.log("spaces", spaces);
 
   return (
     <main className={styles.main}>

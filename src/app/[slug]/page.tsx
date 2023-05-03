@@ -2,7 +2,7 @@ import Image from "next/image";
 import classNames from "classnames";
 import styles from "./page.module.scss";
 import getImgSrcFromConfig from "@/src/helpers/getImgSrcFromConfig";
-import { getSpace, getSpaces } from "../api/spaces/getSpaces";
+import { getSpace, getSpaces } from "../../libs/spaces/getSpaces";
 
 // This function runs at build time on the server it generates the static paths for each page
 export async function generateStaticParams() {

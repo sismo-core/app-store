@@ -1,13 +1,17 @@
+import { AuthRequest, ClaimRequest } from "@sismo-core/sismo-connect-react";
+
 export type SpaceConfig = {
   slug: string; // your unique slug
   name: string;
   description: string;
   logo?: string; // can be an url or local file
   banner?: string; // can be an url or local file
-  publicContact?: {
+  publicContacts?: {
     type: PublicContactType;
     link: string;
   }[];
+  demoEnabled?: boolean; // default false
+  hidden?: boolean; // default false
   apps?: (ZkSubAppConfig | ZkDropAppConfig | ExternalAppConfig)[];
 };
 
@@ -19,13 +23,14 @@ type AppCommonConfig = {
   description: string;
   image: string; // can be an url or local file
   tags: string[];
-  // claimRequests?: ClaimRequest[];
-  // authRequests?: AuthRequest[];
+  claimRequests?: ClaimRequest[];
+  authRequests?: AuthRequest[];
   buttonText: string;
   callbackMessage?: {
     title: string;
     description: string;
   };
+  disabled?: boolean; // default false
 };
 
 export type ExternalAppConfig = AppCommonConfig & {
@@ -43,13 +48,7 @@ export type ZkDropAppConfig = AppCommonConfig & {
 // Will be in the ZkSub app folder
 export type ZkSubAppConfig = AppCommonConfig & {
   type: "zksub-app";
-  formGroup: {
-    title: string;
-    description: string;
-    tooltip?: string;
-    type: "custom" | "firstname-lastname" | "street-address | social-contacts"; // you can select either a preconfigured form group or a custom one
-    inputs?: (InputText | InputDropdown | InputOther)[]; // if type is custom then inputs are required
-  }[];
+  inputs?: (InputText | InputAddress)[]; // if type is custom then inputs are required
   output: "google_sheet";
 };
 
@@ -60,13 +59,15 @@ type InputCommon = {
   isRequired?: boolean; // you can set the input as required
 };
 
+type InputAddress = InputCommon & {
+  type: "street-address";
+};
+
 type InputText = InputCommon & {
   type:
     | "text"
-    | "textarea"
     | "number"
     | "email"
-    | "tel"
     | "url"
     | "twitter"
     | "github"
@@ -74,44 +75,4 @@ type InputText = InputCommon & {
     | "telegram"
     | "evm-address";
   placeholder?: string; // You can customize the placeholder of the input
-  validationRules?: {
-    regEx: string;
-    regExErrorMessage: string;
-  }[]; // You can add validation rules to the input and error messages
 };
-
-type InputDropdown = InputCommon & {
-  type: "dropdown";
-  placeholder: string;
-  options: {
-    name: string;
-  }[];
-};
-
-type InputOther = InputCommon & {
-  type:
-    | "checkbox"
-    | "color"
-    | "date"
-    | "datetime-local"
-    | "month"
-    | "time"
-    | "week";
-};
-
-// From sismo connect package
-// type ClaimRequest = {
-//   claimType?: ClaimType;
-//   groupId?: string;
-//   groupTimestamp?: number | "latest";
-//   value?: number;
-
-// 	isOptional?: boolean;
-//   isSelectableByUser?: boolean;
-
-//   extraData?: any;
-// };
-
-// config file => interface metiers
-
-// config-tech

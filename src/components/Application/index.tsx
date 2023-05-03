@@ -1,4 +1,4 @@
-import { ExternalAppConfig, ZkDropAppConfig, ZkSubAppConfig } from "@/space-config/space-config.types";
+import { ExternalAppConfig, ZkDropAppConfig, ZkSubAppConfig } from "@/space-config/types";
 import styles from "./index.module.scss";
 import classNames from "classnames";
 

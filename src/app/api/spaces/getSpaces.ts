@@ -4,6 +4,9 @@ import { notFound } from 'next/navigation';
 export async function getSpaces() {
   const res = await fetch(
     `${getBaseUrl()}/api/spaces`,
+    {
+      cache: 'no-cache',
+    }
   );
 
   if (!res.ok) {
@@ -11,12 +14,18 @@ export async function getSpaces() {
     throw new Error('Something went wrong!');
   }
 
-  const spaces = (await res.json());
+  const configs = (await res.json());
+
+  const spaces = Object.values(configs).map((space: any) => {
+    return space;
+  });
 
   if (spaces.length === 0) {
     // Render the closest `not-found.js` Error Boundary
     notFound();
   }
+
+  console.log("spaces", spaces);
 
   return spaces;
 }
@@ -24,6 +33,9 @@ export async function getSpaces() {
 export async function getSpace({ slug }: { slug?: string } = {}) {
     const res = await fetch(
       `${getBaseUrl()}/api/spaces/${slug}`,
+      {
+        cache: 'no-cache',
+      }
     );
   
     if (!res.ok) {
@@ -31,12 +43,5 @@ export async function getSpace({ slug }: { slug?: string } = {}) {
       throw new Error('Something went wrong!');
     }
   
-    const space = (await res.json());
-  
-    if (space.length === 0) {
-      // Render the closest `not-found.js` Error Boundary
-      notFound();
-    }
-  
-    return space;
+    return await res.json();
   }

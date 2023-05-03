@@ -3,25 +3,26 @@ import Link from "next/link";
 import { getSpaces } from "./api/spaces/getSpaces";
 
 export default async function Home() {
-  const spaces = Object.values(await getSpaces()).map((space: any) => {
-    return space;
-  });
+  const spaces = await getSpaces();
+
+  console.log("spaces", spaces);
 
   return (
     <main className={styles.main}>
       <div className={styles.grid}>
-        {spaces?.map((space: any) => (
-          <Link
-            key={space.slug}
-            href={space.slug}
-            className={styles.card}
-          >
-            <h2>
-              {space.name} <span>-&gt;</span>
-            </h2>
-            <p>{space.description}</p>
-          </Link>
-        ))}
+        {spaces && spaces?.map((space: any) => {
+          if (space.slug)
+            return <Link
+              key={space.slug}
+              href={space.slug}
+              className={styles.card}
+            >
+              <h2>
+                {space.name} <span>-&gt;</span>
+              </h2>
+              <p>{space.description}</p>
+            </Link>
+        })}
       </div>
     </main>
   );

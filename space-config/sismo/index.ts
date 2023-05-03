@@ -4,7 +4,7 @@ export const sismoConfig: SpaceConfig = {
   slug: "sismo",
   name: "Sismo",
   description:
-    "Sismo is a communication protocol...",
+    "Sismo is a communication protocol.",
   banner: "banner.png",
   apps: [
     {

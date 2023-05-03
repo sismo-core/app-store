@@ -1,0 +1,14 @@
+
+if (process.env.IS_DEMO && process.env.IS_DEMO !== "false" && process.env.IS_DEMO !== "true") {
+    throw new Error(`IS_DEMO cannot be different than "true" or "false"`);
+}
+
+type Environment = {
+    isDemo: boolean
+};
+
+const env: Environment = {
+    isDemo: JSON.parse(process.env.IS_DEMO)
+}
+
+export default env;

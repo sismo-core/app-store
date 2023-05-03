@@ -26,6 +26,4 @@ export async function POST(request: Request) {
       //
 
   //respond the templated response
-
-  
 }

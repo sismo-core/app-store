@@ -1,8 +1,10 @@
-import { SpaceConfig } from "./space-config.types";
+import { SpaceConfig } from "./types";
 import { aaveConfig } from "./aave";
 import { sismoContributorsConfig } from "./sismo-contributors";
+import { demoSpaceConfig } from "./demo-space";
 
 export const configs: SpaceConfig[] = [
     aaveConfig,
-    sismoContributorsConfig
+    sismoContributorsConfig,
+    demoSpaceConfig
 ]

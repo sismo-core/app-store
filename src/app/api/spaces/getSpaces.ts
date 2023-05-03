@@ -1,9 +1,7 @@
-import { aaveConfig, sismoContributorsConfig } from '@/space-config';
 import { getBaseUrl } from '@/src/libs/getBaseUrl';
 import { notFound } from 'next/navigation';
 
 export async function getSpaces() {
-    return [aaveConfig, sismoContributorsConfig];
   const res = await fetch(
     `${getBaseUrl()}/api/spaces`,
   );
@@ -24,11 +22,6 @@ export async function getSpaces() {
 }
 
 export async function getSpace({ slug }: { slug?: string } = {}) {
-    if (slug === "aave") return aaveConfig;
-    else return sismoContributorsConfig;
-    return [aaveConfig, sismoContributorsConfig];
-    if (!slug) return null;
-    
     const res = await fetch(
       `${getBaseUrl()}/api/spaces/${slug}`,
     );

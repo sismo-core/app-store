@@ -112,6 +112,7 @@ const colors = {
   blue11: "#13203D", // Sismo color & background
   blue12: "#0A101F",
 
+  red0: "#EE526E",
   // white modified
   white: "#FFFFFF",
 };

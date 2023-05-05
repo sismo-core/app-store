@@ -1,5 +1,10 @@
 import "../styles/globals.scss";
+import Navbar from '../components/Navbar';
 import StyledComponentsRegistry from '../libs/styled-components/StyledComponentsRegistry';
+import Footer from "../components/Footer";
+import Theme from "../themes/provider";
+import { PageContent } from "../components/Layouts/PageContent";
+import PageContainer from "../components/Layouts/PageContainer";
 
 export const metadata = {
   title: "Create Next App",
@@ -16,7 +21,15 @@ export default function RootLayout({
       <head></head>
       <body>
         <StyledComponentsRegistry>
-          {children}
+          <Theme>
+            <PageContainer>
+              <Navbar />
+              <PageContent>
+                {children}
+              </PageContent>
+              <Footer />
+            </PageContainer>
+          </Theme>
         </StyledComponentsRegistry>
       </body>
     </html>

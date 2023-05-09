@@ -36,12 +36,12 @@ export default async function SpacePage({
 }) {
   const { slug } = params;
   const config = await getSpaceConfig({ slug });
-  // Dynamically import the banner image
-  let banner = await getImgSrcFromConfig(config?.slug, config?.banner);
+  // Dynamically import the cover image
+  let coverImage = await getImgSrcFromConfig(config?.slug, config?.coverImage);
 
   return (
     <main>
-      <SpaceProfile config={config} banner={banner}/>
+      <SpaceProfile config={config} coverImage={coverImage}/>
       <Apps apps={config.apps}/>
     </main>
   );

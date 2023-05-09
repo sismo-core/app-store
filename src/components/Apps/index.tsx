@@ -40,9 +40,9 @@ export default function Apps({ apps }: Props): JSX.Element {
                     <AppCard 
                         app={app} 
                         onCTAClick={() => {
-                            if (app.type === "external-app") window.location.href = app.link;
-                            if (app.type === "zkdrop-app") setZkDropApp(app);
-                            if (app.type === "zksub-app") setZkSubApp(app);
+                            if (app.type === "external") window.location.href = app.link;
+                            if (app.type === "zkdrop") setZkDropApp(app);
+                            if (app.type === "zksub") setZkSubApp(app);
                         }} 
                     />
                 </div>)

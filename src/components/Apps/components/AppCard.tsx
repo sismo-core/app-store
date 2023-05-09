@@ -31,7 +31,7 @@ export default function AppCard({ app, onCTAClick }: Props): JSX.Element {
             {app.description}
         </div>
         <Button success onClick={onCTAClick} style={{ width: "100%" }}>
-            {app.buttonText}
+            {app.CTAText}
         </Button>
     </Container>;
 }

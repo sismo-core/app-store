@@ -7,36 +7,38 @@ export const aaveConfig: SpaceConfig = {
   name: "Aave",
   description:
     "Aave is a decentralized non-custodial liquidity protocol where users can participate as depositors or borrowers. Depositors provide liquidity to the market to earn a passive income, while borrowers are able to borrow in an overcollateralized (perpetually) or undercollateralized (one-block liquidity) fashion.",
-  banner: "https://aave.com/governanceGhosts.svg",
+  coverImage: "https://aave.com/governanceGhosts.svg",
   apps: [
     {
-      type: "external-app",
+      type: "external",
       name: "External app",
       description: "App description of an external app",
       tags: ["tag1", "tag2"],
       image: "https://aave.com/governanceGhosts.svg",
-      buttonText: "Go to Aave",
+      CTAText: "Go to Aave",
       link: "https://aave.com/",
     },
     {
-      type: "zkdrop-app",
+      type: "zkdrop",
       name: "ZkDrop app",
       description: "App description of a zkdrop app",
       tags: ["tag1", "tag2"],
       image: "https://aave.com/governanceGhosts.svg",
-      buttonText: "Get a drop",
+      CTAText: "Get a drop",
       contractAddress: "0x1234",
       chainId: 5
     },
     {
-      type: "zksub-app",
+      type: "zksub",
       name: "ZkSub app",
       description: "App description of a zkdrop app",
       tags: ["tag1", "tag2"],
       image: "https://aave.com/governanceGhosts.svg",
-      buttonText: "Subscribe to the Newsletter",
-      inputs: [],
-      output: "google_sheet"
+      CTAText: "Subscribe to the Newsletter",
+      fields: [],
+      output: "google_sheet",
+      appId: null,
+      spreadsheetId: null
     },
   ],
 };

@@ -38,9 +38,7 @@ type AppCommonConfig = {
   // App parameters
   startDate?: Date;
   endDate?: Date;
-  userSelection?: UserSelection; // default none
 
-  appId: string;
   disabled?: boolean; // default false
 };
 
@@ -86,6 +84,8 @@ export type ZkSubAppConfig = AppCommonConfig & {
     title: string;
     description: string;
   };
+  userSelection?: UserSelection; // default none
+  appId: string;
   output: "google_sheet";
   spreadsheetId?: string;
 };

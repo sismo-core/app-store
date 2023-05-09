@@ -12,14 +12,14 @@ const Container = styled.div`
 
 type Props = {
     config: SpaceConfig;
-    banner: string;
+    coverImage: string;
 }
 
-export default function SpaceProfile({ config, banner }: Props): JSX.Element {
+export default function SpaceProfile({ config, coverImage }: Props): JSX.Element {
 
     return <Container>
-        {config?.banner && banner && (
-            <Image src={banner} alt={"Space banner"} width={500} height={300} />
+        {config?.coverImage && coverImage && (
+            <Image src={coverImage} alt={"Space cover image"} width={500} height={300} />
         )}
         <div>
             {config.name}

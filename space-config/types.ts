@@ -1,78 +1,122 @@
 import { AuthRequest, ClaimRequest } from "@sismo-core/sismo-connect-react";
 
 export type SpaceConfig = {
-  slug: string; // your unique slug
-  name: string;
-  description: string;
-  logo?: string; // can be an url or local file
-  banner?: string; // can be an url or local file
-  publicContacts?: {
-    type: PublicContactType;
+  name: string; // 80 characters max
+  slug: string; // spaces.sismo.io/[slug]
+  description: string; // 300 characters max
+
+  profileImage?: string; // 160x160px can be an url or local file
+  coverImage?: string; // 1440x340px can be an url or local file
+
+  socialLinks?: {
+    type: SocialType;
     link: string;
   }[];
+  
   demoEnabled?: boolean; // default false
   hidden?: boolean; // default false
-  apps?: (ZkSubAppConfig | ZkDropAppConfig | ExternalAppConfig)[];
+  apps?: App[];
 };
 
-type PublicContactType = "twitter" | "discord" | "link" | "github" | "telegram";
+export type App = ZkSubAppConfig | ZkDropAppConfig | ExternalAppConfig | ZkBadgeAppConfig;
+
+type SocialType = "twitter" | "discord" | "link" | "github" | "telegram";
 
 // Every App will inherit this type
 type AppCommonConfig = {
-  name: string;
-  description: string;
-  image: string; // can be an url or local file
+  // App Card
+  name: string; // 40 characters max
+  description: string; // 200 characters max
+  image: string; // 550x390px can be an url or local file
   tags: string[];
+  CTAText: string;
+
+  // Eligibility
   claimRequests?: ClaimRequest[];
   authRequests?: AuthRequest[];
-  buttonText: string;
-  callbackMessage?: {
-    title: string;
-    description: string;
-  };
+
+  // App parameters
+  startDate?: Date;
+  endDate?: Date;
+  userSelection?: UserSelection; // default none
+
+  appId: string;
   disabled?: boolean; // default false
 };
 
+export type UserSelection = FirstInFirstServed | Lottery;
+
+export type Lottery = {
+  type: "FIFS";
+  maxNumberOfEntries: number;
+  numberOfWinners: number;
+}
+
+export type FirstInFirstServed = {
+  type: "FIFS"
+  maxNumberOfUsers: number;
+}
+
 export type ExternalAppConfig = AppCommonConfig & {
-  type: "external-app";
+  type: "external";
   link: string;
 };
 
-// Will be in the ZkDrop app folder
 export type ZkDropAppConfig = AppCommonConfig & {
-  type: "zkdrop-app";
-  contractAddress: string;
+  type: "zkdrop";
   chainId: number;
+  contractAddress: string;
 };
 
-// Will be in the ZkSub app folder
-export type ZkSubAppConfig = AppCommonConfig & {
-  type: "zksub-app";
-  inputs?: (InputText | InputAddress)[]; // if type is custom then inputs are required
-  output: "google_sheet";
+
+export type ZkBadgeAppConfig = AppCommonConfig & {
+  type: "zkbadge";
+  chainId: number;
+  collectionId: string;
 };
+
+export type ZkSubAppConfig = AppCommonConfig & {
+  type: "zksub";
+  fields?: (ShortText | LongText | Select | Number | Social)[]; 
+  congratulationsMessage?: {
+    title: string;
+    description: string;
+  };  
+  failedMessage?: {
+    title: string;
+    description: string;
+  };
+  output: "google_sheet";
+  spreadsheetId?: string;
+};
+
+type ShortText = InputCommon & {
+  type: "short-text"
+}
+
+type LongText = InputCommon & {
+  type: "long-text"
+}
+
+type Select = InputCommon & {
+  type: "select"
+  values: { id: string, label: string }[];
+}
+
+type Number = InputCommon & {
+  type: "number"
+}
+
+type Social = InputCommon & {
+  type: "social",
+  socialType: SocialType;
+}
 
 type InputCommon = {
-  name: string; // you can customize the name of the input that will be displayed in the form
-  initialValue?: string; // you can set an initial value for the input
-  tooltip?: string; // you can add a tooltip next to the input
-  isRequired?: boolean; // you can set the input as required
-};
-
-type InputAddress = InputCommon & {
-  type: "street-address";
-};
-
-type InputText = InputCommon & {
-  type:
-    | "text"
-    | "number"
-    | "email"
-    | "url"
-    | "twitter"
-    | "github"
-    | "discord"
-    | "telegram"
-    | "evm-address";
-  placeholder?: string; // You can customize the placeholder of the input
+  label: string;
+  placeholder: string;
+  initialValue?: string;
+  helperText?: string; // 80 characters max
+  maxCharacter?: number;
+  isRequired?: boolean;
 };

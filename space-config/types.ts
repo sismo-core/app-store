@@ -114,7 +114,7 @@ type Social = InputCommon & {
 
 type InputCommon = {
   label: string;
-  placeholder: string;
+  placeholder?: string;
   initialValue?: string;
   helperText?: string; // 80 characters max
   maxCharacter?: number;

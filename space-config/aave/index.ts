@@ -35,7 +35,23 @@ export const aaveConfig: SpaceConfig = {
       tags: ["tag1", "tag2"],
       image: "https://aave.com/governanceGhosts.svg",
       CTAText: "Subscribe to the Newsletter",
-      fields: [],
+      fields: [
+        {
+          type: "short-text",
+          label: "First name",
+          isRequired: true
+        },
+        {
+          type: "short-text",
+          label: "Last name",
+          isRequired: true
+        },
+        {
+          type: "short-text",
+          label: "Email",
+          isRequired: true
+        }
+      ],
       output: "google_sheet",
       appId: null,
       spreadsheetId: null

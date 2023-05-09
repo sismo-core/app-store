@@ -11,21 +11,32 @@ export const aaveConfig: SpaceConfig = {
   apps: [
     {
       type: "external-app",
-      name: "First app",
-      description: "App description",
+      name: "External app",
+      description: "App description of an external app",
       tags: ["tag1", "tag2"],
       image: "https://aave.com/governanceGhosts.svg",
-      buttonText: "register",
-      link: "https://aave.com/governanceGhosts.svg",
+      buttonText: "Go to Aave",
+      link: "https://aave.com/",
     },
     {
-      type: "external-app",
-      name: "Second app",
-      description: "App description",
+      type: "zkdrop-app",
+      name: "ZkDrop app",
+      description: "App description of a zkdrop app",
       tags: ["tag1", "tag2"],
       image: "https://aave.com/governanceGhosts.svg",
-      buttonText: "register",
-      link: "https://aave.com/governanceGhosts.svg",
+      buttonText: "Get a drop",
+      contractAddress: "0x1234",
+      chainId: 5
+    },
+    {
+      type: "zksub-app",
+      name: "ZkSub app",
+      description: "App description of a zkdrop app",
+      tags: ["tag1", "tag2"],
+      image: "https://aave.com/governanceGhosts.svg",
+      buttonText: "Subscribe to the Newsletter",
+      inputs: [],
+      output: "google_sheet"
     },
   ],
 };

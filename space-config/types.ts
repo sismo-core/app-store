@@ -12,8 +12,10 @@ export type SpaceConfig = {
   }[];
   demoEnabled?: boolean; // default false
   hidden?: boolean; // default false
-  apps?: (ZkSubAppConfig | ZkDropAppConfig | ExternalAppConfig)[];
+  apps?: App[];
 };
+
+export type App = ZkSubAppConfig | ZkDropAppConfig | ExternalAppConfig;
 
 type PublicContactType = "twitter" | "discord" | "link" | "github" | "telegram";
 
@@ -22,6 +24,7 @@ type AppCommonConfig = {
   name: string;
   description: string;
   image: string; // can be an url or local file
+  
   tags: string[];
   claimRequests?: ClaimRequest[];
   authRequests?: AuthRequest[];

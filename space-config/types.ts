@@ -75,7 +75,7 @@ export type ZkBadgeAppConfig = AppCommonConfig & {
 
 export type ZkSubAppConfig = AppCommonConfig & {
   type: "zksub";
-  fields?: (ShortText | LongText | Select | Number | Social)[]; 
+  fields?: Field[]; 
   congratulationsMessage?: {
     title: string;
     description: string;
@@ -84,30 +84,33 @@ export type ZkSubAppConfig = AppCommonConfig & {
     title: string;
     description: string;
   };
+  slug: string;
   userSelection?: UserSelection; // default none
   appId: string;
   output: "google_sheet";
   spreadsheetId?: string;
 };
 
-type ShortText = InputCommon & {
+export type Field = ShortText | LongText | Select | Number | Social;
+
+export type ShortText = InputCommon & {
   type: "short-text"
 }
 
-type LongText = InputCommon & {
+export type LongText = InputCommon & {
   type: "long-text"
 }
 
-type Select = InputCommon & {
+export type Select = InputCommon & {
   type: "select"
   values: { id: string, label: string }[];
 }
 
-type Number = InputCommon & {
+export type Number = InputCommon & {
   type: "number"
 }
 
-type Social = InputCommon & {
+export type Social = InputCommon & {
   type: "social",
   socialType: SocialType;
 }

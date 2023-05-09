@@ -52,8 +52,19 @@ export const aaveConfig: SpaceConfig = {
           isRequired: true
         }
       ],
+      claimRequests: [
+        {
+          groupId: "0x682544d549b8a461d7fe3e589846bb7b",
+        }
+      ],
+      authRequests: [
+        {
+          authType: 0
+        }
+      ],
       output: "google_sheet",
       appId: null,
+      slug: "zksub",
       spreadsheetId: null
     },
   ],

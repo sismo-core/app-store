@@ -1,11 +1,12 @@
 'use client'
 
-import { App } from "@/space-config/types";
-import React, { useState } from "react";
+import { App, SpaceConfig, ZkDropAppConfig, ZkSubAppConfig } from "@/space-config/types";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import AppCard from "./components/AppCard";
 import ZkDropApp from "./ZkDropApp";
 import ZkSubApp from "./ZkSubApp";
+import { useRouter } from 'next/navigation';
 
 const Container = styled.div`
     margin: 48px 0px 40px 0px;
@@ -24,31 +25,56 @@ const Grid = styled.div`
 `
 
 type Props = {
-    apps: App[];
+    config: SpaceConfig;
+    appSlug: string;
 }
 
-export default function Apps({ apps }: Props): JSX.Element {
-    const [zkSubApp, setZkSubApp] = useState(null);
-    const [zkDropApp, setZkDropApp] = useState(null);
+export default function Apps({ config, appSlug }: Props): JSX.Element {
+    const [zkSubApp, setZkSubApp] = useState<ZkSubAppConfig>(null);
+    const [zkDropApp, setZkDropApp] = useState<ZkDropAppConfig>(null);
+
+    useEffect(() => {
+        if (!config) return;
+        if (!appSlug) return;
+        const app = config.apps.find(app => app.type === "zksub" &&  app.slug === appSlug);
+        if (app && app.type === "zksub") {
+            setTimeout(() => {
+                setZkSubApp(app)
+            }, 300);
+        }
+    }, [config, appSlug])
 
     return <Container>
-        <ZkSubApp isOpen={Boolean(zkSubApp)} app={zkSubApp} onClose={() => setZkSubApp(null)}/>
+        <ZkSubApp 
+            isOpen={Boolean(zkSubApp)} 
+            app={zkSubApp} 
+            space={config}
+            onClose={() => {
+                let url = window.location.origin + `/${config.slug}`;
+                window.history.replaceState(null, "", url);
+                setZkSubApp(null);
+            }}
+        />
         <ZkDropApp isOpen={Boolean(zkDropApp)} app={zkDropApp} onClose={() => setZkDropApp(null)}/>
         <Grid>
             {
-                apps && apps.map(app => <div key={app.name + app.type}>
+                config?.apps && config.apps.map(app => <div key={app.name + app.type}>
                     <AppCard 
                         app={app} 
                         onCTAClick={() => {
                             if (app.type === "external") window.location.href = app.link;
                             if (app.type === "zkdrop") setZkDropApp(app);
-                            if (app.type === "zksub") setZkSubApp(app);
+                            if (app.type === "zksub") {
+                                let url = window.location.origin + `/${config.slug}/${app.slug}`;
+                                window.history.replaceState(null, "", url);
+                                setZkSubApp(app);
+                            }
                         }} 
                     />
                 </div>)
             }
             {
-                !apps && <div>
+                !config && <div>
                     No apps found for this space
                 </div>
             }

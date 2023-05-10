@@ -20,7 +20,8 @@ export const theMergeContributorsConfig: SpaceConfig = {
       CTAText: "Get NFT",
       link: "https://claim.zkdrop.io/mergooor-pass",
 
-      claimRequests: [{ groupId: "0x42c768bb8ae79e4c5c05d3b51a4ec74a" }]
+      claimRequests: [{ groupId: "0x42c768bb8ae79e4c5c05d3b51a4ec74a" }],
+      authRequests: [{ authType: 0 }]
     },
     {
       type: "zksub",
@@ -46,14 +47,15 @@ export const theMergeContributorsConfig: SpaceConfig = {
           isRequired: true
         }
       ],
-      congratulationsMessage: {
-        title: "Congratulations",
-        description: "You have successfully registered to receive exclusive tickets for web3 events.",
-      },
+      claimRequests: [{ groupId: "0x42c768bb8ae79e4c5c05d3b51a4ec74a" }],
+      authRequests: [{ authType: 0 }],
       output: "google_sheet",
       appId: "0x6de7c6f801c960f78168f67de13396cb",
       spreadsheetId: "1y94lpA5kWbGi_u50C-GlYKpeJp8aYxhI37D2GDVg",
-      claimRequests: [{ groupId: "0x42c768bb8ae79e4c5c05d3b51a4ec74a" }]
+      congratulationsMessage: {
+        title: "Congratulations",
+        description: "You have successfully registered to receive exclusive tickets for web3 events.",
+      }
     },
   ],
 };

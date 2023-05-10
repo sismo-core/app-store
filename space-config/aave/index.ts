@@ -17,6 +17,9 @@ export const aaveConfig: SpaceConfig = {
       image: "https://aave.com/governanceGhosts.svg",
       CTAText: "Go to Aave",
       link: "https://aave.com/",
+
+      claimRequests: [{ groupId: "0x123" }, { groupId: "0x1234", isOptional: true }],
+      authRequests: [{ authType: 0 }]
     },
     {
       type: "zkdrop",

@@ -9,7 +9,7 @@ import ZkSubApp from "./ZkSubApp";
 
 const Container = styled.div`
     margin: 48px 0px 40px 0px;
-    min-height: 150px;
+    //min-height: 150px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -19,7 +19,7 @@ const Container = styled.div`
 const Grid = styled.div`
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-gap: 40px;
+    grid-gap: 16px;
     width: 100%;
 `
 

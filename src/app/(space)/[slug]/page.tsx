@@ -41,9 +41,9 @@ export default async function SpacePage({
   let profileImage = await getImgSrcFromConfig(config?.slug, config?.profileImage);
 
   return (
-    <main>
+    <>
       <SpaceProfile config={config} coverImage={coverImage} profileImage={profileImage}/>
       <Apps apps={config.apps}/>
-    </main>
+    </>
   );
 }

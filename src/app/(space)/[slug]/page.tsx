@@ -1,7 +1,12 @@
 import getImgSrcFromConfig from "@/src/utils/getImgSrcFromConfig";
-import { getSpaceConfig, getSpacesConfigs } from "../../../libs/spaces/getSpaces";
+import {
+  getSpaceConfig,
+  getSpacesConfigs,
+} from "../../../libs/spaces/getSpaces";
 import SpaceProfile from "@/src/components/SpaceProfile";
 import Apps from "@/src/components/Apps";
+import { App } from "@/space-config/types";
+import { GroupProvider } from "@/src/libs/group-provider";
 
 // This function runs at build time on the server it generates the static paths for each page
 export async function generateStaticParams() {
@@ -38,12 +43,33 @@ export default async function SpacePage({
   const config = await getSpaceConfig({ slug });
   // Dynamically import the cover image
   let coverImage = await getImgSrcFromConfig(config?.slug, config?.coverImage);
-  let profileImage = await getImgSrcFromConfig(config?.slug, config?.profileImage);
+  let profileImage = await getImgSrcFromConfig(
+    config?.slug,
+    config?.profileImage
+  );
+
+  const groupProvider = new GroupProvider({
+    hubApiUrl: "https://hub.staging.zikies.io",
+  });
+
+  await Promise.all(
+    config?.apps.map(async (app: App & { importedImage: string }) => {
+      app.importedImage = await getImgSrcFromConfig(config?.slug, app?.image);
+    })
+  );
+
+  const loaded = true;
 
   return (
     <>
-      <SpaceProfile config={config} coverImage={coverImage} profileImage={profileImage}/>
-      <Apps apps={config.apps}/>
+      {config && coverImage && profileImage && (
+        <SpaceProfile
+          config={config}
+          coverImage={coverImage}
+          profileImage={profileImage}
+        />
+      )}
+      {config?.apps && loaded && <Apps apps={config?.apps} />}
     </>
   );
 }

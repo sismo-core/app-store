@@ -12,6 +12,11 @@ export const Container = styled.div<{scrollBarWidth: number}>`
         min-width: 1280px;
         padding: 0px ${props => 60 - props.scrollBarWidth / 2}px 0px ${props => 60 + props.scrollBarWidth / 2}px;
     } 
+
+    @media (max-width: 768px) {
+        margin: 0px ${props => 20 - props.scrollBarWidth}px 0px 20px;
+
+    }
 `;
 
 type Props = {

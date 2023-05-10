@@ -8,7 +8,7 @@ import ZkDropApp from "./ZkDropApp";
 import ZkSubApp from "./ZkSubApp";
 
 const Container = styled.div`
-    margin: 48px 0px 40px 0px;
+    margin: 48px 0px 80px 0px;
     //min-height: 150px;
     display: flex;
     justify-content: center;
@@ -18,16 +18,20 @@ const Container = styled.div`
 
 const Grid = styled.div`
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     grid-gap: 16px;
     width: 100%;
+
+    @media (max-width: 768px) {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
 `
 
 type Props = {
     apps: App[];
 }
 
-export default function Apps({ apps }: Props): JSX.Element {
+export default function Apps({ apps}: Props): JSX.Element {
     const [zkSubApp, setZkSubApp] = useState(null);
     const [zkDropApp, setZkDropApp] = useState(null);
 

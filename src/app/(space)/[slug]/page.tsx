@@ -38,10 +38,11 @@ export default async function SpacePage({
   const config = await getSpaceConfig({ slug });
   // Dynamically import the cover image
   let coverImage = await getImgSrcFromConfig(config?.slug, config?.coverImage);
+  let profileImage = await getImgSrcFromConfig(config?.slug, config?.profileImage);
 
   return (
     <main>
-      <SpaceProfile config={config} coverImage={coverImage}/>
+      <SpaceProfile config={config} coverImage={coverImage} profileImage={profileImage}/>
       <Apps apps={config.apps}/>
     </main>
   );

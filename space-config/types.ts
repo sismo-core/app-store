@@ -42,16 +42,16 @@ type AppCommonConfig = {
   disabled?: boolean; // default false
 };
 
-export type UserSelection = FirstInFirstServed | Lottery;
+export type UserSelection = FirstComeFirstServed | Lottery;
 
 export type Lottery = {
-  type: "FIFS";
+  type: "FCFS";
   maxNumberOfEntries: number;
   numberOfWinners: number;
 }
 
-export type FirstInFirstServed = {
-  type: "FIFS"
+export type FirstComeFirstServed = {
+  type: "FCFS"
   maxNumberOfUsers: number;
 }
 

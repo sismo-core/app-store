@@ -8,7 +8,7 @@ export const theMergeContributorsConfig: SpaceConfig = {
   description: "Tribute to contributors to the Ethereum merge.",
   profileImage: "pfp_Space_TheMergeContributors_400x400.png",
   coverImage: "Cover_Space_TheMergeContributors_1160x340.png",
-  demoEnabled: false,
+  demoEnabled: true,
   hidden: false,
   apps: [
     {

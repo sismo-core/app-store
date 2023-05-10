@@ -2,9 +2,10 @@ import path from "path";
 import process from "process";
 import { google, sheets_v4 } from "googleapis";
 import { GoogleAuth } from "google-auth-library";
-import { Store } from "./store";
+import { Entry, Store } from "./store";
 
 type Table = string[][] | null;
+type Column = string;
 
 const TABLE_SIZE = 250;
 const SCOPES = ["https://www.googleapis.com/auth/spreadsheets"];
@@ -12,13 +13,13 @@ const SCOPES = ["https://www.googleapis.com/auth/spreadsheets"];
 export class GoogleSpreadsheetStore extends Store {
   private readonly _spreadsheetId: string;
   private readonly _service: sheets_v4.Sheets;
-  private readonly _valuesNames: string[];
+  private readonly _columns: Column[];
   private _table: Table;
 
-  constructor({ valuesNames, spreadsheetId }: { valuesNames: string[], spreadsheetId: string } ) {
+  constructor({ columns, spreadsheetId }: { columns?: Column[], spreadsheetId: string } ) {
     super();
     this._service = google.sheets("v4");
-    this._valuesNames = valuesNames;
+    this._columns = columns;
     this._spreadsheetId = spreadsheetId;
     this._authenticate();
   }
@@ -26,26 +27,30 @@ export class GoogleSpreadsheetStore extends Store {
   public async init(): Promise<void> {
     const table = await this.load();
     if (!table) {
-      await this.write(this._valuesNames);
+      await this.write(this._columns);
     }
   }
 
-  public async write(values: string[]): Promise<string[]> {
-    const request: sheets_v4.Params$Resource$Spreadsheets$Values$Append = {
-      spreadsheetId: this._spreadsheetId,
-      range: `Sheet1!A1:G1`,
-      valueInputOption: "RAW",
-      responseValueRenderOption: "UNFORMATTED_VALUE",
-      insertDataOption: "INSERT_ROWS",
-      includeValuesInResponse: true,
-      requestBody: {
-        values: [values],
-        majorDimension: "ROWS",
-      },
-    };
-    const response = await this._service.spreadsheets.values.append(request);
-    const updatedRow = response?.data?.updates?.updatedData?.values?.[0];
-    return updatedRow;
+  public async get(entry: Entry): Promise<string[]> {
+    const table = await this.load();
+    const indexOfEntry = this._columns.findIndex(column => column === entry.name);
+    if (indexOfEntry === -1) return null;
+
+    for (let line of table) {
+      if (line[indexOfEntry] === entry.value) {
+        return line;
+      }
+    }
+    return null;
+  }
+
+  public async add(entries: Entry[]): Promise<string[]> {
+    const columns = [];
+    for (let column of this._columns) {
+      const value = entries.find(_value => _value.name === column)?.value;
+      columns.push(value);
+    }
+    return await this.write(columns);
   }
 
   public async load(): Promise<Table> {
@@ -59,6 +64,24 @@ export class GoogleSpreadsheetStore extends Store {
 
     this._table = result?.data?.values as Table
     return this._table;
+  }
+
+  private async write(column: Column[]): Promise<string[]> {
+    const request: sheets_v4.Params$Resource$Spreadsheets$Values$Append = {
+      spreadsheetId: this._spreadsheetId,
+      range: `Sheet1!A1:G1`,
+      valueInputOption: "RAW",
+      responseValueRenderOption: "UNFORMATTED_VALUE",
+      insertDataOption: "INSERT_ROWS",
+      includeValuesInResponse: true,
+      requestBody: {
+        values: [column],
+        majorDimension: "ROWS",
+      },
+    };
+    const response = await this._service.spreadsheets.values.append(request);
+    const updatedRow = response?.data?.updates?.updatedData?.values?.[0];
+    return updatedRow;
   }
 
   private _authenticate(): void {

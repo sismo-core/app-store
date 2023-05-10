@@ -63,9 +63,9 @@ export const aaveConfig: SpaceConfig = {
         }
       ],
       output: "google_sheet",
-      appId: null,
+      appId: "0x4c40e70b081752680ce258ad321f9e58",
       slug: "zksub",
-      spreadsheetId: null
+      spreadsheetId: "1dAS9iWv3jnWQnciP7aUffHgF-sbMX1FxwjHqu5Npm-4"
     },
   ],
 };

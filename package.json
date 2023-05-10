@@ -12,9 +12,11 @@
   "dependencies": {
     "@google-cloud/local-auth": "^2.1.1",
     "@sismo-core/sismo-connect-react": "^0.0.11",
+    "@sismo-core/sismo-connect-server": "^0.0.10",
     "@types/node": "18.16.1",
     "@types/react": "18.2.0",
     "@types/react-dom": "18.2.1",
+    "bufferutil": "^4.0.7",
     "classnames": "^2.3.2",
     "eslint": "8.39.0",
     "eslint-config-next": "13.3.1",
@@ -25,7 +27,8 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "styled-components": "^6.0.0-beta.15",
-    "typescript": "5.0.4"
+    "typescript": "5.0.4",
+    "utf-8-validate": "^6.0.3"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "5.16.4",

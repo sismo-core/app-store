@@ -45,7 +45,7 @@ type AppCommonConfig = {
 export type UserSelection = FirstInFirstServed | Lottery;
 
 export type Lottery = {
-  type: "FIFS";
+  type: "Lottery";
   maxNumberOfEntries: number;
   numberOfWinners: number;
 }

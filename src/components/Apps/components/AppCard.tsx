@@ -163,7 +163,7 @@ export default function AppCard({ app, onCTAClick, cover, groupMetadataList }: P
         {app?.CTAText && <TopText>{app?.CTAText}</TopText>}
         <ImageWrapper>
           {cover && (
-            <StyledImage src={cover} alt={app?.name} />
+            <StyledImage src={cover} alt={app?.name}  placeholder="blur"/>
           )}
           <TagWrapper>
             {app?.tags?.map((tag, index) => (

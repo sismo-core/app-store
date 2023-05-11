@@ -29,6 +29,7 @@ const ProfileImage = styled(Image)`
   border-radius: 50%;
   object-fit: cover;
   border: 8px solid ${(props) => props.theme.colors.neutral12};
+  background-color: ${(props) => props.theme.colors.neutral12};
   margin-left: 24px;
   margin-top: -108px;
   overflow: hidden;
@@ -69,11 +70,11 @@ export default function SpaceProfile({
     <Container>
       <BannerWrapper>
         {config?.coverImage && coverImage && (
-          <BannerImage src={coverImage} alt={"Space cover image"} />
+          <BannerImage src={coverImage} alt={"Space cover image"} placeholder="blur" />
         )}
 
         {config?.profileImage && profileImage && (
-          <ProfileImage src={profileImage} alt={"Space profile image"} />
+          <ProfileImage src={profileImage} alt={"Space profile image"} placeholder="blur" />
         )}
       </BannerWrapper>
 

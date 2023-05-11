@@ -1,6 +1,6 @@
 'use client'
 
-import Button3D from "@/src/ui/Button3D";
+//import Button3D from "@/src/ui/Button3D";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -23,8 +23,8 @@ export default function Navbar(): JSX.Element {
                 alt="Spaces logo"
             />
         </Link>
-        <Button3D>
+        {/* <Button3D>
             Apply for your space
-        </Button3D>
+        </Button3D> */}
     </Container>;
 }

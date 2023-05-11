@@ -2,18 +2,19 @@ import styled from "styled-components";
 import { Info } from "phosphor-react";
 import { useRef, useState } from "react";
 // import useOnClickOutside from "../../../../utils/useClickOutside";
-import { BigNumber } from "ethers";
 import { ClaimType } from "@sismo-core/sismo-connect-react";
 import colors from "@/src/themes/colors";
 import { ClaimRequestGroupMetadata } from "@/src/app/(space)/[slug]/page";
 import { textShorten } from "@/src/utils/textShorten";
 import EligibilityModal from "../EligibilityModal";
 
-const OuterContainer = styled.div`
+const OuterContainer = styled.div<{fullWidth: boolean}>`
   display: flex;
   align-items: center;
   gap: 4px;
-  flex-grow: 1;
+  ${props => props.fullWidth && `
+    flex-grow: 1;
+  `}
 `;
 
 const Container = styled.div`
@@ -72,12 +73,14 @@ const InfoWrapper = styled.div`
 
 type Props = {
   claimRequestGroupMetadata: ClaimRequestGroupMetadata;
+  fullWidth?: boolean;
   // onModal?: (id: string) => void;
 };
 
 export default function ShardTag({
   // groupMetadataClaimRequestEligibility,
   claimRequestGroupMetadata,
+  fullWidth
 }: // onModal,
 Props) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -100,7 +103,7 @@ Props) {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
       ></EligibilityModal>
-      <OuterContainer>
+      <OuterContainer fullWidth={fullWidth}>
         <Container color={color} ref={ref}>
           <Left>
             <Svg

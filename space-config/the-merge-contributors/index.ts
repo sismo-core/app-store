@@ -1,6 +1,5 @@
 // add an images folder in your space folder if you would like Sismo to host your images
 
-import { AuthType } from "@sismo-core/sismo-connect-server";
 import { SpaceConfig } from "../types";
 
 export const theMergeContributorsConfig: SpaceConfig = {
@@ -9,7 +8,7 @@ export const theMergeContributorsConfig: SpaceConfig = {
   description: "Tribute to contributors to the Ethereum Merge.",
   profileImage: "pfp_Space_TheMergeContributors_400x400.png",
   coverImage: "Cover_Space_TheMergeContributors_1160x340.png",
-  demoEnabled: true,
+  envs: ["Demo", "Prod"],
   hidden: false,
   apps: [
     {
@@ -24,7 +23,7 @@ export const theMergeContributorsConfig: SpaceConfig = {
       claimRequests: [{ groupId: "0x42c768bb8ae79e4c5c05d3b51a4ec74a" }],
       authRequests: [
         {
-          authType: AuthType.VAULT,
+          authType: 0,
         }
       ],
     },
@@ -58,15 +57,16 @@ export const theMergeContributorsConfig: SpaceConfig = {
         description:
           "You have successfully registered to receive exclusive tickets for web3 events.",
       },
+      slug: "ethcc-tickets",
       output: "google_sheet",
       appId: "0x6de7c6f801c960f78168f67de13396cb",
-      spreadsheetId: "1y94lpA5kWbGi_u50C-GlYKpeJp8aYxhI37D2GDVg",
+      spreadsheetId: "1y94lpA5kWbGi_u50C-GlYKpeJp8aYxhI37D2GDVg--w",
       claimRequests: [{ groupId: "0x42c768bb8ae79e4c5c05d3b51a4ec74a" }],
-      authRequests: [
-        {
-          authType: AuthType.VAULT,
-        }
-      ],
+      authRequests: [{ authType: 0 }],
+      demo: {
+        spreadsheetId: "1Wrh8gFPWuUfdip1wuOxBx_0bZQ_OJb2JsI5A-loRa-Y",
+        appId: "0xffe981d059744847a152d6917b93366a",
+      }
     },
   ],
 };

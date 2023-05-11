@@ -5,7 +5,7 @@ import {
 } from "../../../libs/spaces/getSpaces";
 import SpaceProfile from "@/src/components/SpaceProfile";
 import Apps from "@/src/components/Apps";
-import { App } from "@/space-config/types";
+import { App, SpaceConfig } from "@/space-config/types";
 import { GroupMetadata, GroupProvider } from "@/src/libs/group-provider";
 import env from "@/src/environments";
 import { ClaimRequest } from "@sismo-core/sismo-connect-server";
@@ -13,9 +13,9 @@ import { ClaimRequest } from "@sismo-core/sismo-connect-server";
 // This function runs at build time on the server it generates the static paths for each page
 export async function generateStaticParams() {
   const configs = await getSpacesConfigs();
-  return configs?.map((config: any) => {
+  return configs?.map((config: SpaceConfig) => {
     return {
-      slug: config.slug,
+      slug: [config.slug]
     };
   });
 }
@@ -24,10 +24,10 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: { slug: string[] };
 }) {
   const { slug } = params;
-  const config = await getSpaceConfig({ slug });
+  const config = await getSpaceConfig({ slug: slug[0] });
 
   return {
     title: config.name,
@@ -47,10 +47,10 @@ export type AppImageGroupMetadata = App & {
 export default async function SpacePage({
   params,
 }: {
-  params: { slug: string };
+  params: { slug: string[] };
 }) {
   const { slug } = params;
-  const config = await getSpaceConfig({ slug });
+  const config = await getSpaceConfig({ slug: slug[0] });
   // Dynamically import the cover image
   let coverImage = await getImgSrcFromConfig(config?.slug, config?.coverImage);
   let profileImage = await getImgSrcFromConfig(
@@ -97,7 +97,7 @@ export default async function SpacePage({
         />
       )}
       {config?.apps && loaded && (
-        <Apps apps={config?.apps as AppImageGroupMetadata[]} />
+        <Apps config={config} appSlug={slug[1]} apps={config?.apps as AppImageGroupMetadata[]} />
       )}
     </>
   );

@@ -182,7 +182,7 @@ export default function AppCard({ app, onCTAClick }: Props): JSX.Element {
       <Bottom>
         <ReqTitle>Requirements</ReqTitle>
         {!isFolded && (
-          <ReqList app={app} style={{ paddingTop: 8, paddingBottom: 16 }} />
+          <ReqList app={app} style={{ paddingTop: 8, paddingBottom: 16 }} fullWidth/>
         )}
         <FolderButton
           onMouseEnter={() => setIsHovered(true)}

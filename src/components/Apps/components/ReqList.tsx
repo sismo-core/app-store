@@ -1,14 +1,10 @@
 "use client";
 
-import { App } from "@/space-config/types";
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import Image from "next/image";
-import { textShorten } from "@/src/utils/textShorten";
-import { CaretDown, Info } from "phosphor-react";
+import { Info } from "phosphor-react";
 import colors from "@/src/themes/colors";
 import UserTag from "../../UserTag";
-import { GroupMetadata } from "@/src/libs/group-provider";
 import {
   AppImageGroupMetadata,
   ClaimRequestGroupMetadata,
@@ -16,7 +12,6 @@ import {
 import { AuthType } from "@sismo-core/sismo-connect-react";
 import ShardTag from "../../ShardTag";
 import HoverTooltip from "@/src/ui/HoverTooltip";
-import EligibilityModal from "../../EligibilityModal";
 
 const Container = styled.div`
   display: flex;
@@ -47,9 +42,10 @@ const Bold = styled.span`
 type Props = {
   app: AppImageGroupMetadata;
   style?: React.CSSProperties;
+  fullWidth?: boolean;
 };
 
-export default function ReqList({ app, style }: Props): JSX.Element {
+export default function ReqList({ app, style, fullWidth }: Props): JSX.Element {
   return (
     <Container style={style}>
       {app?.authRequests?.length > 0 &&
@@ -81,7 +77,7 @@ export default function ReqList({ app, style }: Props): JSX.Element {
           (claimRequest: ClaimRequestGroupMetadata, index) => (
             <ReqItem key={claimRequest?.groupId + index}>
               Own data:
-              <ShardTag claimRequestGroupMetadata={claimRequest} />
+              <ShardTag fullWidth={fullWidth} claimRequestGroupMetadata={claimRequest} />
             </ReqItem>
           )
         )}

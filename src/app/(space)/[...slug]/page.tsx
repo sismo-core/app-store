@@ -35,12 +35,9 @@ export async function generateMetadata({
   };
 }
 
-export type ClaimRequestGroupMetadata = ClaimRequest & {
-  groupMetadata: GroupMetadata;
-};
-export type AppImageGroupMetadata = App & {
-  importedImage: string;
-  claimRequests?: ClaimRequestGroupMetadata[];
+export type ImportedImage = {
+  link: string;
+  app: App;
 };
 
 // This function runs at build time on the server it generates the HTML for each page
@@ -62,23 +59,33 @@ export default async function SpacePage({
     hubApiUrl: env.hubApiUrl,
   });
 
+
+  const importedImages: ImportedImage[] = [] 
   await Promise.all(
-    config?.apps.map(async (app: AppImageGroupMetadata) => {
-      app.importedImage = await getImgSrcFromConfig(config?.slug, app?.image);
+    config?.apps.map(async (app: App) => {
+      const image = await getImgSrcFromConfig(config?.slug, app?.image)
+      importedImages.push({
+        app,
+        link: image
+      });
     })
   );
 
+  const groupMetadataList: GroupMetadata[] = [];
   await Promise.all(
-    config?.apps.map(async (app: AppImageGroupMetadata) => {
+    config?.apps.map(async (app: App) => {
       if (app?.claimRequests?.length === 0) return;
       await Promise.all(
         app?.claimRequests?.map(
-          async (claimRequest: ClaimRequestGroupMetadata) => {
-            claimRequest.groupMetadata = await groupProvider.getGroupMetadata({
-              groupId: claimRequest?.groupId,
-              timestamp: "latest",
-              revalidate: 60 * 10,
-            });
+          async (claimRequest: ClaimRequest) => {
+            if (!groupMetadataList.find(el => el.id === claimRequest?.groupId)) {
+              const metadata = await groupProvider.getGroupMetadata({
+                groupId: claimRequest?.groupId,
+                timestamp: "latest",
+                revalidate: 60 * 10,
+              })
+              groupMetadataList.push(metadata);
+            }
           }
         )
       );
@@ -97,7 +104,12 @@ export default async function SpacePage({
         />
       )}
       {config?.apps && loaded && (
-        <Apps config={config} appSlug={slug[1]} apps={config?.apps as AppImageGroupMetadata[]} />
+        <Apps 
+          config={config} 
+          appSlug={slug[1]} 
+          importedImages={importedImages}
+          groupMetadataList={groupMetadataList}
+        />
       )}
     </>
   );

@@ -5,8 +5,9 @@ import styled from "styled-components";
 import AppCard from "./components/AppCard";
 import ZkDropApp from "./ZkDropApp";
 import ZkSubApp from "./ZkSubApp";
-import { AppImageGroupMetadata } from "@/src/app/(space)/[slug]/page";
-import { SpaceConfig, ZkDropAppConfig, ZkSubAppConfig } from "@/space-config/types";
+import { App, SpaceConfig, ZkDropAppConfig, ZkSubAppConfig } from "@/space-config/types";
+import { GroupMetadata } from "@/src/libs/group-provider";
+import { ImportedImage } from "@/src/app/(space)/[...slug]/page";
 
 const Container = styled.div`
     margin: 48px 0px 80px 0px;
@@ -31,10 +32,11 @@ const Grid = styled.div`
 type Props = {
     config: SpaceConfig;
     appSlug: string;
-    apps: AppImageGroupMetadata[];
+    groupMetadataList: GroupMetadata[];
+    importedImages: ImportedImage[];
 }
 
-export default function Apps({ config, appSlug }: Props): JSX.Element {
+export default function Apps({ config, appSlug, groupMetadataList, importedImages }: Props): JSX.Element {
     const [zkSubApp, setZkSubApp] = useState<ZkSubAppConfig>(null);
     // Don't use Boolean(zkSubApp) to open the app in order to avoid seeing the app disappear during the close animation
     const [isZkSubAppOpen, setIsZkSubAppOpen] = useState(false);
@@ -63,6 +65,7 @@ export default function Apps({ config, appSlug }: Props): JSX.Element {
             isOpen={isZkSubAppOpen} 
             app={zkSubApp} 
             space={config}
+            groupMetadataList={groupMetadataList}
             onClose={() => {
                 let url = window.location.origin + `/${config.slug}`;
                 window.history.replaceState(null, "", url);
@@ -72,9 +75,11 @@ export default function Apps({ config, appSlug }: Props): JSX.Element {
         <ZkDropApp isOpen={isZkDropAppOpen} app={zkDropApp} onClose={() => setIsZkDropAppOpen(false)}/>
         <Grid>
             {
-                config?.apps && config.apps.map(app => <div key={app.name + app.type}>
+                config?.apps && config.apps.map(app => <div key={app.slug}>
                     <AppCard 
                         app={app} 
+                        groupMetadataList={groupMetadataList}
+                        cover={importedImages.find(image => image.app.slug === app.slug)?.link}
                         onCTAClick={() => {
                             if (zkSubAppOpening) return;
 

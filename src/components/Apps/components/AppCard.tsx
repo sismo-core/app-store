@@ -8,6 +8,14 @@ import { textShorten } from "@/src/utils/textShorten";
 import { CaretDown } from "phosphor-react";
 import colors from "@/src/themes/colors";
 import UserTag from "../../UserTag";
+import { GroupMetadata } from "@/src/libs/group-provider";
+import {
+  AppImageGroupMetadata,
+  ClaimRequestGroupMetadata,
+} from "@/src/app/(space)/[slug]/page";
+import { AuthType } from "@sismo-core/sismo-connect-react";
+import ShardTag from "../../ShardTag";
+import ReqList from "./ReqList";
 
 const Container = styled.div<{ isFolderHovered: boolean }>`
   display: flex;
@@ -129,7 +137,7 @@ const Description = styled.div`
   ${textShorten(5)}
 `;
 
-const Requirements = styled.div`
+const ReqTitle = styled.div`
   font-size: 14px;
   line-height: 20px;
   font-family: ${(props) => props.theme.fonts.regular};
@@ -137,28 +145,6 @@ const Requirements = styled.div`
   margin-bottom: 8px;
 `;
 
-const ReqList = styled.div`
-  padding-top: 8px;
-  padding-bottom: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  width: 100%;
-`;
-
-const ReqItem = styled.div`
-  display: flex;
-  align-items: center;
-  width: 100%;
-  font-size: 14px;
-  line-height: 20px;
-  font-family: ${(props) => props.theme.fonts.regular};
-  gap: 8px;
-`;
-
-const AuthItem = styled(ReqItem)`
-  padding-right: 22px;
-`;
 
 const CaretWrapper = styled.div<{ isFolded: boolean }>`
   display: flex;
@@ -168,7 +154,7 @@ const CaretWrapper = styled.div<{ isFolded: boolean }>`
 `;
 
 type Props = {
-  app: App & { importedImage?: string };
+  app: AppImageGroupMetadata;
   onCTAClick: () => void;
 };
 
@@ -181,7 +167,9 @@ export default function AppCard({ app, onCTAClick }: Props): JSX.Element {
       <Top>
         {app?.CTAText && <TopText>{app?.CTAText}</TopText>}
         <ImageWrapper>
-          {app?.importedImage && <StyledImage src={app?.importedImage} alt={app?.name} />}
+          {app?.importedImage && (
+            <StyledImage src={app?.importedImage} alt={app?.name} />
+          )}
           <TagWrapper>
             {app?.tags?.map((tag, index) => (
               <Tag key={app?.name + tag + index}>{tag}</Tag>
@@ -192,21 +180,9 @@ export default function AppCard({ app, onCTAClick }: Props): JSX.Element {
         {app?.description && <Description>{app.description}</Description>}
       </Top>
       <Bottom>
-        <Requirements>Requirements</Requirements>
+        <ReqTitle>Requirements</ReqTitle>
         {!isFolded && (
-          <ReqList>
-            {app?.claimRequests?.length > 0 &&
-              app?.claimRequests?.map((claimRequest, index) => (
-                <ReqItem key={claimRequest?.groupId + index}>Own data:</ReqItem>
-              ))}
-            {app?.authRequests?.length > 0 &&
-              app?.authRequests?.map((authRequest, index) => (
-                <AuthItem key={authRequest?.authType + index}>
-                  Own account:
-                  <UserTag authType={authRequest?.authType} />
-                </AuthItem>
-              ))}
-          </ReqList>
+          <ReqList app={app} style={{ paddingTop: 8, paddingBottom: 16 }} />
         )}
         <FolderButton
           onMouseEnter={() => setIsHovered(true)}

@@ -2,6 +2,7 @@ export default async function getImgSrcFromConfig(
   slug: string,
   fileName: string
 ): Promise<string> {
+
   if (!slug || !fileName) return "";
 
   console.log("FILE NAME", fileName)

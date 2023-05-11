@@ -1,6 +1,6 @@
 import "../styles/globals.scss";
-import Navbar from '../components/Navbar';
-import StyledComponentsRegistry from '../libs/styled-components/StyledComponentsRegistry';
+import Navbar from "../components/Navbar";
+import StyledComponentsRegistry from "../libs/styled-components/StyledComponentsRegistry";
 import Footer from "../components/Footer";
 import Theme from "../themes/provider";
 import { PageContent } from "../components/Layouts/PageContent";
@@ -20,13 +20,12 @@ export default function RootLayout({
     <html lang="en">
       <head></head>
       <body>
+        <div id="tooltip-root" style={{ position: "fixed", zIndex: 9999 }} />
         <StyledComponentsRegistry>
           <Theme>
             <PageContainer>
               <Navbar />
-              <PageContent>
-                {children}
-              </PageContent>
+              <PageContent>{children}</PageContent>
               <Footer />
             </PageContainer>
           </Theme>

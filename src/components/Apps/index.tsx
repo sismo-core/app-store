@@ -1,11 +1,11 @@
 'use client'
 
-import { App } from "@/space-config/types";
 import React, { useState } from "react";
 import styled from "styled-components";
 import AppCard from "./components/AppCard";
 import ZkDropApp from "./ZkDropApp";
 import ZkSubApp from "./ZkSubApp";
+import { AppImageGroupMetadata } from "@/src/app/(space)/[slug]/page";
 
 const Container = styled.div`
     margin: 48px 0px 80px 0px;
@@ -28,7 +28,7 @@ const Grid = styled.div`
 `
 
 type Props = {
-    apps: App[];
+    apps: AppImageGroupMetadata[];
 }
 
 export default function Apps({ apps}: Props): JSX.Element {

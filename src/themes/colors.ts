@@ -113,14 +113,6 @@ const colors = {
   blue12: "#0A101F",
   blueRYB: "#1234F5",
 
-  neutral1: "#E9EBF6",
-  neutral3: "#ADB3D6",
-  neutral5: "#656C97",
-  neutral6: "#4F5B7E",
-  neutral7: "#3A4161",
-  neutral8: "#262E45",
-  neutral11: "#0A101F",
-
   red0: "#EE526E",
   // white modified
   white: "#FFFFFF",

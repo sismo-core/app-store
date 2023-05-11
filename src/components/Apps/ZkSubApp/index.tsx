@@ -10,6 +10,7 @@ import { SismoConnectResponse } from "@sismo-core/sismo-connect-server";
 import Register, { FieldValue } from "./components/Register";
 import Section from "./components/Section";
 import Congratulations from "./components/Congratulations";
+import { GroupMetadata } from "@/src/libs/group-provider";
 
 const Content = styled.div`
     max-width: 580px;
@@ -69,12 +70,13 @@ const AlreadyRegistered = styled.div`
 type Props = {
     isOpen: boolean;
     onClose: () => void;
+    groupMetadataList: GroupMetadata[];
     app: ZkSubAppConfig;
     space: SpaceConfig;
 }
 
 
-export default function ZkSubApp({ isOpen, onClose, app, space }: Props): JSX.Element {
+export default function ZkSubApp({ isOpen, onClose, app, space, groupMetadataList }: Props): JSX.Element {
     const [error, setError] = useState(null);
     const [alreadySubscribed, setAlreadySubscribed] = useState(false);
     const [subscribed, setSubscribed] = useState(false);
@@ -122,7 +124,7 @@ export default function ZkSubApp({ isOpen, onClose, app, space }: Props): JSX.El
                         {app?.description}
                     </Description>
                     <Section number={1} isOpen={!response} title="Prove Eligibility" style={{marginBottom: 16}} success={Boolean(response)}>
-                        <ProveEligibility app={app} onEligible={(_response) => setResponse(_response)}/>
+                        <ProveEligibility app={app} onEligible={(_response) => setResponse(_response)} groupMetadataList={groupMetadataList}/>
                     </Section>
                     <Section number={2} isOpen={Boolean(response)} title={app?.CTAText} success={alreadySubscribed}>
                         {

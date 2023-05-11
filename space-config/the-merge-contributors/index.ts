@@ -21,6 +21,7 @@ export const theMergeContributorsConfig: SpaceConfig = {
       CTAText: "Get NFT",
       link: "https://claim.zkdrop.io/mergooor-pass",
       claimRequests: [{ groupId: "0x42c768bb8ae79e4c5c05d3b51a4ec74a" }],
+      slug: "zkbadge-mergooor",
       authRequests: [
         {
           authType: 0,

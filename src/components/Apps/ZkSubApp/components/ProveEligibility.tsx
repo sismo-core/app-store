@@ -6,6 +6,7 @@ import { SismoConnectButton } from "@sismo-core/sismo-connect-react";
 import React from "react";
 import { styled } from "styled-components";
 import ReqList from "../../components/ReqList";
+import { GroupMetadata } from "@/src/libs/group-provider";
 
 const Container = styled.div`
 
@@ -25,14 +26,15 @@ const ButtonContainer = styled.div`
 
 type Props = {
     app: ZkSubAppConfig;
+    groupMetadataList: GroupMetadata[];
     onEligible: (response) => void
 }
 
-export default function ProveEligibility({ app, onEligible }: Props): JSX.Element {
+export default function ProveEligibility({ app, groupMetadataList, onEligible }: Props): JSX.Element {
 
     return <Container>
         <Eligibility style={{marginBottom: 24}}>
-            <ReqList app={app} />
+            <ReqList app={app} groupMetadataList={groupMetadataList}/>
         </Eligibility>
         <ButtonContainer>
             {(app?.claimRequests || app?.authRequests) && 

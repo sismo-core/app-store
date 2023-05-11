@@ -1,21 +1,14 @@
 "use client";
 
-import { App } from "@/space-config/types";
 import React, { useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import { textShorten } from "@/src/utils/textShorten";
 import { CaretDown } from "phosphor-react";
 import colors from "@/src/themes/colors";
-import UserTag from "../../UserTag";
-import { GroupMetadata } from "@/src/libs/group-provider";
-import {
-  AppImageGroupMetadata,
-  ClaimRequestGroupMetadata,
-} from "@/src/app/(space)/[slug]/page";
-import { AuthType } from "@sismo-core/sismo-connect-react";
-import ShardTag from "../../ShardTag";
 import ReqList from "./ReqList";
+import { App } from "@/space-config/types";
+import { GroupMetadata } from "@/src/libs/group-provider";
 
 const Container = styled.div<{ isFolderHovered: boolean }>`
   display: flex;
@@ -154,11 +147,13 @@ const CaretWrapper = styled.div<{ isFolded: boolean }>`
 `;
 
 type Props = {
-  app: AppImageGroupMetadata;
+  app: App;
+  cover: string;
+  groupMetadataList: GroupMetadata[];
   onCTAClick: () => void;
 };
 
-export default function AppCard({ app, onCTAClick }: Props): JSX.Element {
+export default function AppCard({ app, onCTAClick, cover, groupMetadataList }: Props): JSX.Element {
   const [isFolded, setIsFolded] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
 
@@ -167,8 +162,8 @@ export default function AppCard({ app, onCTAClick }: Props): JSX.Element {
       <Top>
         {app?.CTAText && <TopText>{app?.CTAText}</TopText>}
         <ImageWrapper>
-          {app?.importedImage && (
-            <StyledImage src={app?.importedImage} alt={app?.name} />
+          {cover && (
+            <StyledImage src={cover} alt={app?.name} />
           )}
           <TagWrapper>
             {app?.tags?.map((tag, index) => (
@@ -182,7 +177,7 @@ export default function AppCard({ app, onCTAClick }: Props): JSX.Element {
       <Bottom>
         <ReqTitle>Requirements</ReqTitle>
         {!isFolded && (
-          <ReqList app={app} style={{ paddingTop: 8, paddingBottom: 16 }} fullWidth/>
+          <ReqList groupMetadataList={groupMetadataList} app={app} style={{ paddingTop: 8, paddingBottom: 16 }} fullWidth/>
         )}
         <FolderButton
           onMouseEnter={() => setIsHovered(true)}

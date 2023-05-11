@@ -1,12 +1,11 @@
 import styled from "styled-components";
 import { Info } from "phosphor-react";
 import { useRef, useState } from "react";
-// import useOnClickOutside from "../../../../utils/useClickOutside";
-import { ClaimType } from "@sismo-core/sismo-connect-react";
+import { ClaimRequest, ClaimType } from "@sismo-core/sismo-connect-react";
 import colors from "@/src/themes/colors";
-import { ClaimRequestGroupMetadata } from "@/src/app/(space)/[slug]/page";
 import { textShorten } from "@/src/utils/textShorten";
 import EligibilityModal from "../EligibilityModal";
+import { GroupMetadata } from "@/src/libs/group-provider";
 
 const OuterContainer = styled.div<{fullWidth: boolean}>`
   display: flex;
@@ -72,14 +71,14 @@ const InfoWrapper = styled.div`
 `;
 
 type Props = {
-  claimRequestGroupMetadata: ClaimRequestGroupMetadata;
+  claimRequest: ClaimRequest;
+  groupMetadata: GroupMetadata;
   fullWidth?: boolean;
-  // onModal?: (id: string) => void;
 };
 
 export default function ShardTag({
-  // groupMetadataClaimRequestEligibility,
-  claimRequestGroupMetadata,
+  claimRequest,
+  groupMetadata,
   fullWidth
 }: // onModal,
 Props) {
@@ -88,9 +87,8 @@ Props) {
   const ref = useRef(null);
   const color = colors.neutral1;
 
-  const requestedValue = claimRequestGroupMetadata?.value ?? 1;
-  const claimType = claimRequestGroupMetadata?.claimType ?? ClaimType.GTE;
-  const groupMetadata = claimRequestGroupMetadata?.groupMetadata;
+  const requestedValue = claimRequest?.value ?? 1;
+  const claimType = claimRequest?.claimType ?? ClaimType.GTE;
 
   const humanReadableGroupName = groupMetadata?.name
     ?.replace(/-/g, " ")

@@ -1,5 +1,3 @@
-import path from "path";
-import process from "process";
 import { google, sheets_v4 } from "googleapis";
 import { GoogleAuth } from "google-auth-library";
 import { Entry, Store } from "./store";
@@ -85,14 +83,8 @@ export class GoogleSpreadsheetStore extends Store {
   }
 
   private _authenticate(): void {
-    const keyPath = path.join(
-      process.cwd(),
-      "key",
-      "spaces-385613-255993e94b58.json"
-    );
-
     const auth : GoogleAuth = new google.auth.GoogleAuth({
-      keyFile: keyPath,
+      credentials: JSON.parse(process.env.SPREADSHEET_KEY),
       scopes: SCOPES,
     });
 

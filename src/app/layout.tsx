@@ -21,6 +21,7 @@ export default function RootLayout({
       <head></head>
       <body>
         <div id="tooltip-root" style={{ position: "fixed", zIndex: 9999 }} />
+        <div id="modal-root" style={{ zIndex: 9999 }} />
         <StyledComponentsRegistry>
           <Theme>
             <PageContainer>

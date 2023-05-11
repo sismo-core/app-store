@@ -13,7 +13,7 @@ export type SpaceConfig = {
     link: string;
   }[];
   
-  demoEnabled?: boolean; // default false
+  envs: ("Demo" | "Prod")[]; // default false
   hidden?: boolean; // default false
   apps?: App[];
 };
@@ -42,7 +42,7 @@ type AppCommonConfig = {
   disabled?: boolean; // default false
 };
 
-export type UserSelection = FirstInFirstServed | Lottery;
+export type UserSelection = FirstComeFirstServed | Lottery;
 
 export type Lottery = {
   type: "Lottery";
@@ -50,8 +50,8 @@ export type Lottery = {
   numberOfWinners: number;
 }
 
-export type FirstInFirstServed = {
-  type: "FIFS"
+export type FirstComeFirstServed = {
+  type: "FCFS"
   maxNumberOfUsers: number;
 }
 
@@ -89,6 +89,10 @@ export type ZkSubAppConfig = AppCommonConfig & {
   appId: string;
   output: "google_sheet";
   spreadsheetId?: string;
+  demo?: {
+    spreadsheetId?: string,
+    appId?: string,
+  }
 };
 
 export type Field = ShortText | LongText | Select | Number | Social;

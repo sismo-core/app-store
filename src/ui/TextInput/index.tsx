@@ -1,33 +1,21 @@
 'use client'
 
-// import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
 const Input = styled.input<{ small }>`
   border: none;
+  outline: none;
+  height: 36px;
   border-radius: 5px;
-  height: 40px;
-  padding: 2px 10px 0px 20px;
-  width: calc(100% - 30px);
-  position: relative;
-  font-family: ${(props) => props.theme.fonts.medium};
+  padding: 0px 10px;
+  background-color: ${props => props.theme.colors.neutral8};
 
-  ${(props) =>
-    props.small &&
-    `
-    height: 25px;
-  `}
-
+  font-family: ${props => props.theme.fonts.medium};
   font-size: 14px;
-  color: #13203d;
-  background-color: white;
+  color: ${props => props.theme.colors.neutral1};
 
-  :focus {
-    outline: none;
-  }
   ::placeholder {
-    color: #13203d;
-    font-style: italic;
+    color: ${props => props.theme.colors.neutral5};
   }
 `;
 
@@ -69,22 +57,10 @@ export default function TextInput({
   small,
   maxLength,
 }: TextInputProps): JSX.Element {
-  // const [isFocus, setIsFocus] = useState(false);
-  // const ref = useRef();
-
-  // useEffect(() => {
-  //   if (!ref.current) return;
-  //   if (document.activeElement === ref.current) {
-  //     setIsFocus(true);
-  //   } else {
-  //     setIsFocus(false);
-  //   }
-  // }, []);
 
   return (
     <Container>
       <Input
-        // ref={ref}
         type={password ? "password" : ""}
         onChange={(e) => onChange && onChange(e.target.value)}
         onBlur={onBlur}

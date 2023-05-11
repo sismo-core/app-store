@@ -1,4 +1,5 @@
 import { ZkSubAppConfig } from "@/space-config/types";
+import env from "@/src/environments";
 import { getSpaceConfig } from "@/src/libs/spaces";
 import { GoogleSpreadsheetStore, Store } from "@/src/libs/store";
 import { AuthType, SismoConnect, SismoConnectResponse, SismoConnectServerConfig, SismoConnectVerifiedResult } from "@sismo-core/sismo-connect-server";
@@ -13,26 +14,37 @@ export async function POST(req: Request) {
 
     if (app.type !== "zksub") return new Response(null, { status: 500, statusText: "Verify not available for other apps than zksub" });
 
-    const result = await verifyResponse(app, response);
-    if (!result) return new Response(null, { status: 500, statusText: "Invalid response" });
-
     const store = await getStore(app);
 
     let fieldsToAdd = fields;
-    if (needVaultAuth(app)) {
-        const vaultId = await result.getUserId(AuthType.VAULT);
-        if (!vaultId) return new Response(null, { status: 500, statusText: "No Vault Id" });
-        fieldsToAdd = [
-            ...fieldsToAdd,
-            {
-                name: "VaultId",
-                value: vaultId
-            }
-        ];
-        const isExist = await isVaultIdExist(store, vaultId);
-        if (isExist) return NextResponse.json({ status: "already-subscribed" })
-    } 
-    
+    if (!env.isDemo) {
+        const result = await verifyResponse(app, response);
+        if (!result) return new Response(null, { status: 500, statusText: "Invalid response" });
+        if (needVaultAuth(app)) {
+            const vaultId = await result.getUserId(AuthType.VAULT);
+            if (!vaultId) return new Response(null, { status: 500, statusText: "No Vault Id" });
+            fieldsToAdd = [
+                ...fieldsToAdd,
+                {
+                    name: "VaultId",
+                    value: vaultId
+                }
+            ];
+            const isExist = await isVaultIdExist(store, vaultId);
+            if (isExist) return NextResponse.json({ status: "already-subscribed" })
+        } 
+    } else {
+        if (needVaultAuth(app)) {
+            fieldsToAdd = [
+                ...fieldsToAdd,
+                {
+                    name: "VaultId",
+                    value: "0xDemo"
+                }
+            ];
+        } 
+    }
+
     await store.add(fieldsToAdd)
     
     return NextResponse.json({
@@ -49,7 +61,7 @@ const getStore = async (app: ZkSubAppConfig): Promise<Store> => {
     ] : appColumns;
 
     const store = new GoogleSpreadsheetStore({
-        spreadsheetId: app.spreadsheetId,
+        spreadsheetId: env.isDemo ? app.demo.spreadsheetId : app.spreadsheetId,
         columns
     });
 
@@ -61,7 +73,7 @@ const getStore = async (app: ZkSubAppConfig): Promise<Store> => {
     return store;
 }
 
-const needVaultAuth = async (app: ZkSubAppConfig): Promise<boolean> => {
+const needVaultAuth = (app: ZkSubAppConfig): boolean => {
     if(!app.authRequests) return null;
     const authRequest = app.authRequests.find(el => el.authType === AuthType.VAULT);
     return Boolean(authRequest);
@@ -75,9 +87,9 @@ const isVaultIdExist = async (store: Store, vaultId: string): Promise<boolean> =
 const verifyResponse = async (app: ZkSubAppConfig, response: SismoConnectResponse): Promise<SismoConnectVerifiedResult> => {
     try {
         const config: SismoConnectServerConfig = {
-            appId: app.appId,
+            appId: env.isDemo ? app.demo.appId : (env.isDev ? "0x4c40e70b081752680ce258ad321f9e58" : app.appId),
             devMode: {
-                enabled: true
+                enabled: env.isDemo || env.isDev
             }
         }
         const sismoConnect = SismoConnect(config);

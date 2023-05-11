@@ -11,7 +11,9 @@ const Container = styled.div`
 `
 
 const Label = styled.div`
-    
+    font-family: ${props => props.theme.fonts.bold};
+    color: ${props => props.theme.colors.neutral1};
+    margin-bottom: 8px;
 `
 
 type Props = {
@@ -25,6 +27,6 @@ export default function ShortTextField({ field, onChange }: Props): JSX.Element 
         <Label>
             {field.label}
         </Label>
-        <TextInput onChange={onChange}/>
+        <TextInput onChange={onChange} style={{ width: "100%" }} placeholder={field.placeholder}/>
     </Container>;
 }

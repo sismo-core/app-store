@@ -104,8 +104,8 @@ const Container = styled.div<{
 `;
 
 const Content = styled.div`
-  background-color: ${(props) => props.theme.colors.blue12};
-  border: 1px solid ${(props) => props.theme.colors.blue5};
+  background-color: ${(props) => props.theme.colors.neutral11};
+  border: 1px solid ${(props) => props.theme.colors.neutral6};
   color: ${(props) => props.theme.colors.blue0};
   padding: 32px;
 

@@ -5,14 +5,17 @@ import env from "@/src/environments";
 import { SismoConnectButton } from "@sismo-core/sismo-connect-react";
 import React from "react";
 import { styled } from "styled-components";
+import ReqList from "../../components/ReqList";
 
 const Container = styled.div`
 
 `
 
 const Eligibility = styled.div`
-    height: 44px;
     margin-top: 22px;
+    border-top: 1px solid #262E45;
+    border-bottom: 1px solid #262E45;
+    padding: 10px 0px;
 `
 
 const ButtonContainer = styled.div`
@@ -28,7 +31,8 @@ type Props = {
 export default function ProveEligibility({ app, onEligible }: Props): JSX.Element {
 
     return <Container>
-        <Eligibility>
+        <Eligibility style={{marginBottom: 24}}>
+            <ReqList app={app} />
         </Eligibility>
         <ButtonContainer>
             {(app?.claimRequests || app?.authRequests) && 

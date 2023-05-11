@@ -2,9 +2,11 @@ export default async function getImgSrcFromConfig(
   slug: string,
   fileName: string
 ): Promise<string> {
-  if (!slug || !fileName) return '';
 
-  if (fileName.startsWith('http')) {
+  if (!slug || !fileName) return "";
+
+  console.log("FILE NAME", fileName)
+  if (fileName?.startsWith("http")) {
     return fileName;
   } else {
     const importedImg = await import(

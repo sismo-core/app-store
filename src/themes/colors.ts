@@ -124,6 +124,32 @@ const colors = {
   red0: "#EE526E",
   // white modified
   white: "#FFFFFF",
+
+  // neutral
+  neutral1: "#E9EBF6",
+  neutral2: "#D9DDF3",
+  neutral3: "#ADB3D6",
+  neutral4: "#828AB4",
+  neutral5: "#656C97",
+  neutral6: "#4F5B7E",
+  neutral7: "#3A4161",
+  neutral8: "#262E45",
+  neutral9: "#1C243A",
+  neutral10: "#161C2B",
+  neutral11: "#0A101F",
+  neutral12: "#070B14",
+
+  // grey
+  grey6: "#F8F9FF",
+  grey7: "#F3F5FD",
+  grey8: "#EDEFFA",
+  grey9: "#DDE1F3",
+  grey95: "#CCD1E8",
+  grey10: "#BFC8DA",
+  grey11: "#8F9CBB",
+  grey12: "#7E879B",
+  grey13: "#A1A6B1",
+  grey14: "#5A6377",
 };
 
 export default colors;

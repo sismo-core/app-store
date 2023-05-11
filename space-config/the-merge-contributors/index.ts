@@ -14,17 +14,24 @@ export const theMergeContributorsConfig: SpaceConfig = {
     {
       type: "external",
       name: "Mergooor Pass",
-      description: "Claim your Mergooor Pass NFT - open to contributors to The Merge.",
+      description:
+        "Claim your Mergooor Pass NFT - open to contributors to The Merge.",
       tags: ["NFT"],
-      image: "Mergooor NFT_1014x720px.png",
+      image: "Mergooor_NFT_1014x720px.png",
       CTAText: "Get NFT",
       link: "https://claim.zkdrop.io/mergooor-pass",
-      claimRequests: [{ groupId: "0x42c768bb8ae79e4c5c05d3b51a4ec74a" }]
+      claimRequests: [{ groupId: "0x42c768bb8ae79e4c5c05d3b51a4ec74a" }],
+      authRequests: [
+        {
+          authType: 0,
+        }
+      ],
     },
     {
       type: "zksub",
       name: "EthCC ticket exclusive access",
-      description: "Register your email address to receive exclusive tickets for web3 events - open to contributors to The Merge.",
+      description:
+        "Register your email address to receive exclusive tickets for web3 events - open to contributors to The Merge.",
       tags: ["Event"],
       image: "EthCCtickets_1014x720px.png",
       CTAText: "Register to get tickets",
@@ -32,22 +39,23 @@ export const theMergeContributorsConfig: SpaceConfig = {
         {
           type: "short-text",
           label: "First name",
-          isRequired: true
+          isRequired: true,
         },
         {
           type: "short-text",
           label: "Last name",
-          isRequired: true
+          isRequired: true,
         },
         {
           type: "short-text",
           label: "Email",
-          isRequired: true
-        }
+          isRequired: true,
+        },
       ],
       congratulationsMessage: {
         title: "Congratulations",
-        description: "You have successfully registered to receive exclusive tickets for web3 events.",
+        description:
+          "You have successfully registered to receive exclusive tickets for web3 events.",
       },
       slug: "ethcc-tickets",
       output: "google_sheet",

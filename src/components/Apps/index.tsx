@@ -1,15 +1,16 @@
 'use client'
 
-import { SpaceConfig, ZkDropAppConfig, ZkSubAppConfig } from "@/space-config/types";
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import AppCard from "./components/AppCard";
 import ZkDropApp from "./ZkDropApp";
 import ZkSubApp from "./ZkSubApp";
+import { AppImageGroupMetadata } from "@/src/app/(space)/[slug]/page";
+import { SpaceConfig, ZkDropAppConfig, ZkSubAppConfig } from "@/space-config/types";
 
 const Container = styled.div`
-    margin: 48px 0px 40px 0px;
-    min-height: 150px;
+    margin: 48px 0px 80px 0px;
+    //min-height: 150px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -18,14 +19,19 @@ const Container = styled.div`
 
 const Grid = styled.div`
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 40px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-gap: 16px;
     width: 100%;
+
+    @media (max-width: 768px) {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
 `
 
 type Props = {
     config: SpaceConfig;
     appSlug: string;
+    apps: AppImageGroupMetadata[];
 }
 
 export default function Apps({ config, appSlug }: Props): JSX.Element {

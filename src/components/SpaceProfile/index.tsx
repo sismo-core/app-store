@@ -1,31 +1,84 @@
-'use client'
+"use client";
 
 import { SpaceConfig } from "@/space-config/types";
 import Image from "next/image";
 import React from "react";
 import styled from "styled-components";
 
-const Container = styled.div`
-    color: white;
-    background-color: blue;
+const Container = styled.div``;
+
+const BannerWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+`;
+
+const BannerImage = styled(Image)`
+  width: 100%;
+  height: 360px;
+  border-radius: 8px;
+  object-fit: cover;
+
+  @media (max-width: 768px) {
+    height: 200px;
+  }
+`;
+const ProfileImage = styled(Image)`
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 8px solid ${(props) => props.theme.colors.neutral12};
+  margin-left: 24px;
+  margin-top: -108px;
+  overflow: hidden;
+
+  @media (max-width: 768px) {
+    width: 140px;
+    height: 140px;
+    margin-left: 16px;
+    margin-top: -88px;
+  }
+`;
+
+const Title = styled.div`
+  font-size: 32px;
+  line-height: 38px;
+  font-family: ${(props) => props.theme.fonts.semibold};
+  margin-bottom: 8px;
+`;
+
+const SubTitle = styled.div`
+  font-size: 16px;
+  line-height: 22px;
+  font-family: ${(props) => props.theme.fonts.regular};
 `;
 
 type Props = {
-    config: SpaceConfig;
-    coverImage: string;
-}
+  config: SpaceConfig;
+  coverImage: string;
+  profileImage: string;
+};
 
-export default function SpaceProfile({ config, coverImage }: Props): JSX.Element {
-
-    return <Container>
+export default function SpaceProfile({
+  config,
+  coverImage,
+  profileImage,
+}: Props): JSX.Element {
+  return (
+    <Container>
+      <BannerWrapper>
         {config?.coverImage && coverImage && (
-            <Image src={coverImage} alt={"Space cover image"} width={500} height={300} />
+          <BannerImage src={coverImage} alt={"Space cover image"} />
         )}
-        <div>
-            {config.name}
-        </div>
-        <div>
-            {config.description}
-        </div>
-    </Container>;
+
+        {config?.profileImage && profileImage && (
+          <ProfileImage src={profileImage} alt={"Space profile image"} />
+        )}
+      </BannerWrapper>
+
+      {config?.name && <Title>{config?.name}</Title>}
+      {config?.description && <SubTitle>{config.description}</SubTitle>}
+    </Container>
+  );
 }

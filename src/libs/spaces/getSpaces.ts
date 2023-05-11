@@ -3,8 +3,8 @@ import env from "@/src/environments";
 
 
 export function getSpacesConfigs() {
-  if (env.isDemo) return configs.filter(config => config.demoEnabled);
-  return configs;
+  if (env.isDemo) return configs.filter(config => config.envs.find(env => env === "Demo"));
+  return configs.filter(config => config.envs.find(env => env === "Prod"));
 }
 
 export function getSpaceConfig({ slug }: { slug?: string } = {}) {

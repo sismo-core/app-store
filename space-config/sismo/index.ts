@@ -7,8 +7,8 @@ export const sismoConfig: SpaceConfig = {
   slug: "sismo",
   name: "Sismo",
   description: "Sismo enables users to selectively disclose personal data to apps with Sismo Connect (SSO) and ZK Badges (SBTs). Get the most of your data.",
-  profileImage: "pfp_Space_TheMergeContributors_400x400.png",
-  coverImage: "Cover_Space_TheMergeContributors_1160x340.png",
+  profileImage: "space_sismo_pfp_400x400.png",
+  coverImage: "space_sismo_cover_1740x540.png",
   socialLinks: [
     {
       type: "link",
@@ -35,7 +35,7 @@ export const sismoConfig: SpaceConfig = {
       name: "Sismo Contributor ZK Badge",
       description: "Claim your Sismo Contributor ZK Badge to voice your opinion in Sismo Governance - open to Sismo Contributors.",
       tags: ["ZK Badge"],
-      image: "Mergooor_NFT_1014x720px.png",
+      image: "sismoapps_zkbadge_contrib_1014x720.png",
       CTAText: "Get ZK Badge",
       chainId: 137,
       collectionId: "5151110",
@@ -59,7 +59,7 @@ export const sismoConfig: SpaceConfig = {
       description:
         "Register your email address to receive the Sismo newsletter - open to all.",
       tags: ["Newsletter"],
-      image: "EthCCtickets_1014x720px.png",
+      image: "sismoapps_newletter_1014x720.png",
       CTAText: "Subscribe to the Newsletter",
       fields: [
         {
@@ -89,7 +89,7 @@ export const sismoConfig: SpaceConfig = {
       description:
         "Provide feedback to help us improve your Sismo Space experience and become a Sismo Contributor Level 1 - open to all.",
       tags: ["Feedback"],
-      image: "EthCCtickets_1014x720px.png",
+      image: "sismoapps_feedback_1014x720.png",
       CTAText: "Give Feedback",
       fields: [
         {
@@ -142,7 +142,7 @@ export const sismoConfig: SpaceConfig = {
       description:
         "Register to become a Sismo Alpha Tester - open to Ethereum Power Users & Gitcoin Passport holders.",
       tags: ["Alpha"],
-      image: "EthCCtickets_1014x720px.png",
+      image: "sismoapps_alpha_tester_1014x720.png",
       CTAText: "Become an Alpha Tester",
       fields: [
         {
@@ -173,7 +173,7 @@ export const sismoConfig: SpaceConfig = {
       description:
         "Write a public message on the Sismo Contributors' Anon Wall - open to Sismo Contributors.",
       tags: ["Feedback"],
-      image: "EthCCtickets_1014x720px.png",
+      image: "sismoapps_anon_wall_1014x720.png",
       CTAText: "Publish on Contributors' Anon Wall",
       fields: [
         {
@@ -203,7 +203,7 @@ export const sismoConfig: SpaceConfig = {
       description:
         "Pre-register to the future Sismo events - open to Sismo Contributors.",
       tags: ["Event"],
-      image: "EthCCtickets_1014x720px.png",
+      image: "sismoapps_sismo_events_1014x720.png",
       CTAText: "Pre-register to Sismo events",
       fields: [
         {
@@ -238,7 +238,7 @@ export const sismoConfig: SpaceConfig = {
       description:
         "Register to have a chance to be one of 10 lucky winners to get Sismo swag - open to Sismo GitHub Contributors.",
       tags: ["Swag"],
-      image: "EthCCtickets_1014x720px.png",
+      image: "sismoapps_swag_lotery_1014x720.png",
       CTAText: "Participate in the Swag Lottery",
       fields: [
         {

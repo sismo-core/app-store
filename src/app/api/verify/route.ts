@@ -18,8 +18,8 @@ export async function POST(req: Request) {
 
     let fieldsToAdd = fields;
     if (!env.isDemo) {
-        // const result = await verifyResponse(app, response);
-        // if (!result) return new Response(null, { status: 500, statusText: "Invalid response" });
+        const result = await verifyResponse(app, response);
+        if (!result) return new Response(null, { status: 500, statusText: "Invalid response" });
         // if (needVaultAuth(app)) {
         //     const vaultId = await result.getUserId(AuthType.VAULT);
         //     if (!vaultId) return new Response(null, { status: 500, statusText: "No Vault Id" });

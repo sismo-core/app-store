@@ -2053,10 +2053,10 @@
   dependencies:
     "@sismo-core/sismo-connect-client" "^0.0.10"
 
-"@sismo-core/sismo-connect-server@^0.0.10":
-  version "0.0.10"
-  resolved "https://registry.yarnpkg.com/@sismo-core/sismo-connect-server/-/sismo-connect-server-0.0.10.tgz#ec491feeea6b89cc3589f7adf4a0ce1a40546fbf"
-  integrity sha512-IkEOVnfluv9ZnubDf8jJZ7s8p0CdQY6EXySHwX6oWfCvzhPC/UM1R3ZEOFVXVIOUaO6SiruDwlM49YsyPc8ntg==
+"@sismo-core/sismo-connect-server@^0.0.11":
+  version "0.0.11"
+  resolved "https://registry.npmjs.org/@sismo-core/sismo-connect-server/-/sismo-connect-server-0.0.11.tgz#bf8239b2bf75faad56d8bfd776c43f3f08086a43"
+  integrity sha512-IMaJdnZfJy+/P7D7trTCfJ847huF/8v2ITuC1+PuNC6nL/h70y8eX1fV/I2xmrV1b/GEisyjRY9HO2VkPuNygw==
   dependencies:
     "@ethersproject/bignumber" "^5.7.0"
     "@sismo-core/hydra-s2" "^1.0.0"

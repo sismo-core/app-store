@@ -92,6 +92,7 @@ const verifyResponse = async (app: ZkSubAppConfig, response: SismoConnectRespons
                 enabled: env.isDemo || env.isDev
             }
         }
+        console.log('before');
         const sismoConnect = SismoConnect(config);
         return await sismoConnect.verify(
             response,

@@ -29,7 +29,7 @@ export async function generateMetadata({
 }) {
   const { slug } = params;
   const config = await getSpaceConfig({ slug: slug[0] });
-  let coverImage = await getImgSrcFromConfig(config?.slug, config?.coverImage);
+  const coverImage = await getImgSrcFromConfig(config?.slug, config?.coverImage);
 
   if (!config) return notFound();
 
@@ -46,7 +46,7 @@ export async function generateMetadata({
     openGraph: {
       title: config.name,
       description: config.description,
-      images: ["https://i.imgur.com/ejGRXen.png"],
+      images: [coverImage],
       locale: 'en-US',
       type: 'website',
     },

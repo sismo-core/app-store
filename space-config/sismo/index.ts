@@ -70,7 +70,8 @@ export const sismoConfig: SpaceConfig = {
       output: "google_sheet",
       appId: null,
       spreadsheetId: null,
-      authRequests: [{ authType: 0 }, { authType: 2 }, { authType: 1, isOptional: true }],
+      claimRequests: [{ groupId: "0x42c768bb8ae79e4c5c05d3b51a4ec74a" }],
+      authRequests: [{ authType: 0 }],//, { authType: 2 }, { authType: 1, isOptional: true }
       demo: {
         spreadsheetId: "1Z61ZMWOFhXhp8rt2T6ewpFRMR_CtF0XL6sBIUz4KeQQ-loRa-Y",
         appId: "0xe083ec4268d2c75e41ec6e08b4373882",
@@ -122,7 +123,7 @@ export const sismoConfig: SpaceConfig = {
       output: "google_sheet",
       appId: null,
       spreadsheetId: null,
-      authRequests: [{ authType: 0 }, { authType: 2 }],
+      authRequests: [{ authType: 0 }],//, { authType: 2 }
       demo: {
         spreadsheetId: "1VBYLvo6x1R34kPhr9DVxYmNx6uzm_FtHczsbaDL-7dU",
         appId: "0xc429ae9dc0e1fea6591244cdc70ee626",

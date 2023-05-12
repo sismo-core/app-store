@@ -20,8 +20,8 @@ export const theMergeContributorsConfig: SpaceConfig = {
       image: "Mergooor_NFT_1014x720px.png",
       CTAText: "Get NFT",
       link: "https://claim.zkdrop.io/mergooor-pass",
-      claimRequests: [{ groupId: "0x42c768bb8ae79e4c5c05d3b51a4ec74a" }],
       slug: "zkbadge-mergooor",
+      claimRequests: [{ groupId: "0x42c768bb8ae79e4c5c05d3b51a4ec74a" }],
       authRequests: [
         {
           authType: 0,

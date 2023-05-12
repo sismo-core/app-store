@@ -82,7 +82,8 @@ export default function Apps({ config, appSlug, groupMetadataList, importedImage
                         cover={importedImages.find(image => image.app.slug === app.slug)?.link}
                         onCTAClick={() => {
                             if (zkSubAppOpening) return;
-
+                            
+                            if (app.type === "zkbadge") window.location.href = "https://app.sismo.io/?badge=sismo-contributor-zk-badge";
                             if (app.type === "external") window.location.href = app.link;
                             if (app.type === "zkdrop") {
                                 setZkDropApp(app);

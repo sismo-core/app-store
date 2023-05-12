@@ -44,7 +44,7 @@ export default function ProveEligibility({ app, groupMetadataList, onEligible }:
                         vaultAppBaseUrl: env.isDemo ? "https://demo.vault-beta.sismo.io" : null,
                         devMode: {
                             enabled: env.isDemo || env.isDev,
-                            devGroups: env.isDemo || env.isDev ? [{
+                            devGroups:  (env.isDemo || env.isDev) && app?.claimRequests ? [{
                                 groupId: app?.claimRequests[0]?.groupId,
                                 data: [
                                     // Vitalik address

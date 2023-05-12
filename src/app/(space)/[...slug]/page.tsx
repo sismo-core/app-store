@@ -67,6 +67,7 @@ export default async function SpacePage({
   const { slug } = params;
   const config = await getSpaceConfig({ slug: slug[0] });
   // Dynamically import the cover image
+  console.log("config", config);
   let coverImage = await getImgSrcFromConfig(config?.slug, config?.coverImage);
   let profileImage = await getImgSrcFromConfig(
     config?.slug,
@@ -94,20 +95,21 @@ export default async function SpacePage({
     await Promise.all(
       config?.apps.map(async (app: App) => {
         if (app?.claimRequests?.length === 0) return;
-        await Promise.all(
-          app?.claimRequests?.map(async (claimRequest: ClaimRequest) => {
-            if (
-              !groupMetadataList.find((el) => el.id === claimRequest?.groupId)
-            ) {
-              const metadata = await groupProvider.getGroupMetadata({
-                groupId: claimRequest?.groupId,
-                timestamp: "latest",
-                revalidate: 60 * 10,
-              });
-              groupMetadataList.push(metadata);
-            }
-          })
-        );
+        if (app?.claimRequests)
+          await Promise.all(
+            app?.claimRequests?.map(async (claimRequest: ClaimRequest) => {
+              if (
+                !groupMetadataList.find((el) => el.id === claimRequest?.groupId)
+              ) {
+                const metadata = await groupProvider.getGroupMetadata({
+                  groupId: claimRequest?.groupId,
+                  timestamp: "latest",
+                  revalidate: 60 * 10,
+                });
+                groupMetadataList.push(metadata);
+              }
+            })
+          );
       })
     );
 

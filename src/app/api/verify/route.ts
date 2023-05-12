@@ -18,21 +18,21 @@ export async function POST(req: Request) {
 
     let fieldsToAdd = fields;
     if (!env.isDemo) {
-        const result = await verifyResponse(app, response);
-        if (!result) return new Response(null, { status: 500, statusText: "Invalid response" });
-        if (needVaultAuth(app)) {
-            const vaultId = await result.getUserId(AuthType.VAULT);
-            if (!vaultId) return new Response(null, { status: 500, statusText: "No Vault Id" });
-            fieldsToAdd = [
-                ...fieldsToAdd,
-                {
-                    name: "VaultId",
-                    value: vaultId
-                }
-            ];
-            const isExist = await isVaultIdExist(store, vaultId);
-            if (isExist) return NextResponse.json({ status: "already-subscribed" })
-        } 
+        // const result = await verifyResponse(app, response);
+        // if (!result) return new Response(null, { status: 500, statusText: "Invalid response" });
+        // if (needVaultAuth(app)) {
+        //     const vaultId = await result.getUserId(AuthType.VAULT);
+        //     if (!vaultId) return new Response(null, { status: 500, statusText: "No Vault Id" });
+        //     fieldsToAdd = [
+        //         ...fieldsToAdd,
+        //         {
+        //             name: "VaultId",
+        //             value: vaultId
+        //         }
+        //     ];
+        //     const isExist = await isVaultIdExist(store, vaultId);
+        //     if (isExist) return NextResponse.json({ status: "already-subscribed" })
+        // } 
     } else {
         if (needVaultAuth(app)) {
             fieldsToAdd = [
@@ -46,7 +46,7 @@ export async function POST(req: Request) {
     }
 
     await store.add(fieldsToAdd)
-    
+
     return NextResponse.json({
         status: "subscribed"
     })
@@ -60,14 +60,16 @@ const getStore = async (app: ZkSubAppConfig): Promise<Store> => {
         ...appColumns
     ] : appColumns;
 
+    const spreadsheetId = env.isDemo ? app.demo.spreadsheetId : app.spreadsheetId;
+
     const store = new GoogleSpreadsheetStore({
-        spreadsheetId: env.isDemo ? app.demo.spreadsheetId : app.spreadsheetId,
+        spreadsheetId: spreadsheetId,
         columns
     });
 
-    if (!spreadSheetsInitiated.has(app.spreadsheetId)) {
+    if (!spreadSheetsInitiated.has(spreadsheetId)) {
         await store.init();
-        spreadSheetsInitiated.set(app.spreadsheetId, true);
+        spreadSheetsInitiated.set(spreadsheetId, true);
     }
 
     return store;

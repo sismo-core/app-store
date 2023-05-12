@@ -94,12 +94,13 @@ export default function ZkSubApp({ isOpen, onClose, app, space, groupMetadataLis
         }
         setError(null);
         setVerifying(true);
-        const res = await fetch("/api/verify", {
+        const res = await fetch("/api/test", {
             method: "POST",
             body: JSON.stringify(body)
         })
         setVerifying(false);
         if (!res.ok || res.status !== 200) {
+            console.error(res);
             setError("Server error")
             return;
         }

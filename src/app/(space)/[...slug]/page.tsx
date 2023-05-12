@@ -29,12 +29,28 @@ export async function generateMetadata({
 }) {
   const { slug } = params;
   const config = await getSpaceConfig({ slug: slug[0] });
+  let coverImage = await getImgSrcFromConfig(config?.slug, config?.coverImage);
 
   if (!config) return notFound();
 
   return {
     title: config.name,
     description: config.description,
+    twitter: {
+      card: 'summary_large_image',
+      title: config.name,
+      description: config.description,
+      creator: '@sismo_eth',
+      creatorId: '1467726470533754880',
+      images: coverImage,
+    },
+    openGraph: {
+      title: config.name,
+      description: config.description,
+      images: coverImage,
+      locale: 'en-US',
+      type: 'website',
+    },
   };
 }
 

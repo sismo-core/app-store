@@ -28,7 +28,7 @@ export const sismoConfig: SpaceConfig = {
     },
   ],
   envs: ["Demo"],
-  hidden: true,
+  hidden: false,
   apps: [
     {
       type: "zkbadge",

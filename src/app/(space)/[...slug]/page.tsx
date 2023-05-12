@@ -47,7 +47,7 @@ export async function generateMetadata({
     openGraph: {
       title: config.name,
       description: config.description,
-      images: coverImage,
+      images: "https://i.imgur.com/ejGRXen.png",
       locale: 'en-US',
       type: 'website',
     },

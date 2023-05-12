@@ -1,4 +1,7 @@
+"use client";
+
 import { useEffect, useMemo, useRef, useState } from "react";
+import ReactDOM from "react-dom";
 import styled from "styled-components";
 import useOnClickOutside from "../../utils/useClickOutside";
 import { X } from "phosphor-react";
@@ -151,6 +154,7 @@ export default function Modal({
   useOnClickOutside(ref, () => {
     if (!disabled && outsideClosable) isOpen && onClose && onClose();
   });
+  const [element, setElement] = useState(null);
   const ticket = useMemo(() => Math.random(), []);
 
   useEffect(() => {
@@ -178,7 +182,16 @@ export default function Modal({
     }
   }, [isOpen]);
 
-  return (
+  useEffect(() => {
+    if(!isOpen) return;
+    const _element = document.getElementById("modal-root");
+    setElement(_element);
+    
+  }, [isOpen]);
+
+  if(!element) return null;
+
+  return ( ReactDOM.createPortal(
     <>
       {disabled && <Disabled zIndex={zIndex}></Disabled>}
       <Background
@@ -197,15 +210,14 @@ export default function Modal({
         <Content ref={ref}>
           {onClose && (
             <Close onClick={onClose}>
-              <X
-                size={24}
-                color={"white"}
-              />
+              <X size={24} color={"white"} />
             </Close>
           )}
           {children}
         </Content>
       </Container>
-    </>
-  );
+    </>,
+    element 
+  )
+  )
 }

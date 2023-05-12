@@ -20,19 +20,19 @@ export async function POST(req: Request) {
     if (!env.isDemo) {
         const result = await verifyResponse(app, response);
         if (!result) return new Response(null, { status: 500, statusText: "Invalid response" });
-        // if (needVaultAuth(app)) {
-        //     const vaultId = await result.getUserId(AuthType.VAULT);
-        //     if (!vaultId) return new Response(null, { status: 500, statusText: "No Vault Id" });
-        //     fieldsToAdd = [
-        //         ...fieldsToAdd,
-        //         {
-        //             name: "VaultId",
-        //             value: vaultId
-        //         }
-        //     ];
-        //     const isExist = await isVaultIdExist(store, vaultId);
-        //     if (isExist) return NextResponse.json({ status: "already-subscribed" })
-        // } 
+        if (needVaultAuth(app)) {
+            const vaultId = await result.getUserId(AuthType.VAULT);
+            if (!vaultId) return new Response(null, { status: 500, statusText: "No Vault Id" });
+            fieldsToAdd = [
+                ...fieldsToAdd,
+                {
+                    name: "VaultId",
+                    value: vaultId
+                }
+            ];
+            const isExist = await isVaultIdExist(store, vaultId);
+            if (isExist) return NextResponse.json({ status: "already-subscribed" })
+        } 
     } else {
         if (needVaultAuth(app)) {
             fieldsToAdd = [

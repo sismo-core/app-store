@@ -5,6 +5,7 @@ const path = require('path');
 const nextConfig = {
   experimental: {
     appDir: true,
+    serverComponentsExternalPackages: ["@sismo-core/sismo-connect-server"],
   },
   sassOptions: {
     additionalData: `@use "styles/color" as color; @use "styles/mixin" as mixin;`,
@@ -22,4 +23,3 @@ const nextConfig = {
 }
 
 module.exports = nextConfig
-

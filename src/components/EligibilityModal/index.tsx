@@ -13,9 +13,9 @@ const Container = styled.div`
   gap: 30px;
   max-width: 800px;
   min-width: 795px;
-  padding: 60px;
+  /* padding: 60px; */
   color: ${colors.blue0};
-  background-color: ${colors.blue11};
+  background-color: ${colors.neutral11};
   border-radius: 10px;
 
   @media (max-width: 900px) {
@@ -103,6 +103,7 @@ const Specifications = styled.div`
   font-size: 14px;
   line-height: 20px;
   color: ${colors.blue1};
+  white-space: pre-wrap;
 
   @media (max-width: 900px) {
     font-size: 12px;

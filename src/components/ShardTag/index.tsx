@@ -7,11 +7,13 @@ import { textShorten } from "@/src/utils/textShorten";
 import EligibilityModal from "../EligibilityModal";
 import { GroupMetadata } from "@/src/libs/group-provider";
 
-const OuterContainer = styled.div<{fullWidth: boolean}>`
+const OuterContainer = styled.div<{ fullWidth: boolean }>`
   display: flex;
   align-items: center;
   gap: 4px;
-  ${props => props.fullWidth && `
+  ${(props) =>
+    props.fullWidth &&
+    `
     flex-grow: 1;
   `}
 `;
@@ -79,7 +81,7 @@ type Props = {
 export default function ShardTag({
   claimRequest,
   groupMetadata,
-  fullWidth
+  fullWidth,
 }: // onModal,
 Props) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -99,7 +101,9 @@ Props) {
       <EligibilityModal
         groupMetadata={groupMetadata}
         isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        onClose={() => {
+          setIsModalOpen(false);
+        }}
       ></EligibilityModal>
       <OuterContainer fullWidth={fullWidth}>
         <Container color={color} ref={ref}>
@@ -143,10 +147,11 @@ Props) {
           </Right>
         </Container>
         <InfoWrapper
-          onClick={(e) => {
-            e.stopPropagation();
-            setIsModalOpen(true);
-          }}
+        //   onClick={(e) => {
+        //     e.stopPropagation();
+        //     setIsModalOpen(true);
+        //   }
+        // }
         >
           <Info size={18} color={color} />
         </InfoWrapper>

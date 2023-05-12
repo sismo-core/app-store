@@ -102,7 +102,7 @@ export default function Footer(): JSX.Element {
       <ArtWrapper>
         <DesktopImage src={Art} alt="Sismo Art" />
         <Text>
-          Build by <Bold>Sismo</Bold>
+          Built by <Bold>Sismo</Bold>
         </Text>
       </ArtWrapper>
     </Container>

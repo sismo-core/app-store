@@ -9,13 +9,14 @@ import { App, SpaceConfig } from "@/space-config/types";
 import { GroupMetadata, GroupProvider } from "@/src/libs/group-provider";
 import env from "@/src/environments";
 import { ClaimRequest } from "@sismo-core/sismo-connect-server";
+import { notFound } from "next/navigation";
 
 // This function runs at build time on the server it generates the static paths for each page
 export async function generateStaticParams() {
   const configs = await getSpacesConfigs();
   return configs?.map((config: SpaceConfig) => {
     return {
-      slug: [config.slug]
+      slug: [config.slug],
     };
   });
 }
@@ -28,10 +29,27 @@ export async function generateMetadata({
 }) {
   const { slug } = params;
   const config = await getSpaceConfig({ slug: slug[0] });
+  const coverImage = await getImgSrcFromConfig(config?.slug, config?.coverImage);
+
+  if (!config) return notFound();
 
   return {
     title: config.name,
     description: config.description,
+    twitter: {
+      card: 'summary_large_image',
+      title: config.name,
+      description: config.description,
+      creator: '@sismo_eth',
+      images: [coverImage],
+    },
+    openGraph: {
+      title: config.name,
+      description: config.description,
+      images: [coverImage],
+      locale: 'en-US',
+      type: 'website',
+    },
   };
 }
 
@@ -59,38 +77,39 @@ export default async function SpacePage({
     hubApiUrl: env.hubApiUrl,
   });
 
-
-  const importedImages: ImportedImage[] = [] 
-  await Promise.all(
-    config?.apps.map(async (app: App) => {
-      const image = await getImgSrcFromConfig(config?.slug, app?.image)
-      importedImages.push({
-        app,
-        link: image
-      });
-    })
-  );
+  const importedImages: ImportedImage[] = [];
+  if (config?.apps)
+    await Promise.all(
+      config?.apps.map(async (app: App) => {
+        const image = await getImgSrcFromConfig(config?.slug, app?.image);
+        importedImages.push({
+          app,
+          link: image,
+        });
+      })
+    );
 
   const groupMetadataList: GroupMetadata[] = [];
-  await Promise.all(
-    config?.apps.map(async (app: App) => {
-      if (app?.claimRequests?.length === 0) return;
-      await Promise.all(
-        app?.claimRequests?.map(
-          async (claimRequest: ClaimRequest) => {
-            if (!groupMetadataList.find(el => el.id === claimRequest?.groupId)) {
+  if (config?.apps)
+    await Promise.all(
+      config?.apps.map(async (app: App) => {
+        if (app?.claimRequests?.length === 0) return;
+        await Promise.all(
+          app?.claimRequests?.map(async (claimRequest: ClaimRequest) => {
+            if (
+              !groupMetadataList.find((el) => el.id === claimRequest?.groupId)
+            ) {
               const metadata = await groupProvider.getGroupMetadata({
                 groupId: claimRequest?.groupId,
                 timestamp: "latest",
                 revalidate: 60 * 10,
-              })
+              });
               groupMetadataList.push(metadata);
             }
-          }
-        )
-      );
-    })
-  );
+          })
+        );
+      })
+    );
 
   const loaded = true;
 
@@ -104,9 +123,9 @@ export default async function SpacePage({
         />
       )}
       {config?.apps && loaded && (
-        <Apps 
-          config={config} 
-          appSlug={slug[1]} 
+        <Apps
+          config={config}
+          appSlug={slug[1]}
           importedImages={importedImages}
           groupMetadataList={groupMetadataList}
         />

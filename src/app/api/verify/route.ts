@@ -3,6 +3,7 @@ import env from "@/src/environments";
 import { getSpaceConfig } from "@/src/libs/spaces";
 import { GoogleSpreadsheetStore, Store } from "@/src/libs/store";
 import { AuthType, SismoConnect, SismoConnectResponse, SismoConnectServerConfig, SismoConnectVerifiedResult } from "@sismo-core/sismo-connect-server";
+import { ethers } from "ethers";
 import { NextResponse } from "next/server";
 
 const spreadSheetsInitiated = new Map<string, boolean>();
@@ -86,10 +87,16 @@ const isVaultIdExist = async (store: Store, vaultId: string): Promise<boolean> =
 
 const verifyResponse = async (app: ZkSubAppConfig, response: SismoConnectResponse): Promise<SismoConnectVerifiedResult> => {
     try {
+        const provider = new ethers.providers.JsonRpcProvider({
+            url: 'https://rpc.ankr.com/gnosis'
+        })
         const config: SismoConnectServerConfig = {
             appId: env.isDemo ? app.demo.appId : (env.isDev ? "0x4c40e70b081752680ce258ad321f9e58" : app.appId),
             devMode: {
                 enabled: env.isDemo || env.isDev
+            },
+            options: {
+                provider: provider
             }
         }
         const sismoConnect = SismoConnect(config);

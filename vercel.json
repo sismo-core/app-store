@@ -1,6 +1,6 @@
 {
     "functions": {
-      "api/**/*.ts": {
+      "app/api/verify/route.ts": {
         "memory": 3008,
         "maxDuration": 60
       }

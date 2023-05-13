@@ -78,7 +78,7 @@ export const sismoConfig: SpaceConfig = {
       spreadsheetId: null,
       authRequests: [{ authType: AuthType.VAULT }, { authType: AuthType.TWITTER, isSelectableByUser: true }, { authType: AuthType.GITHUB, isOptional: true }],
       demo: {
-        spreadsheetId: "1Z61ZMWOFhXhp8rt2T6ewpFRMR_CtF0XL6sBIUz4KeQQ-loRa-Y",
+        spreadsheetId: "1Z61ZMWOFhXhp8rt2T6ewpFRMR_CtF0XL6sBIUz4KeQQ",
         appId: "0xe083ec4268d2c75e41ec6e08b4373882",
       }
     },

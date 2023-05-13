@@ -64,7 +64,7 @@ const Container = styled.div<{
   zIndex: number;
 }>`
   width: 100vw;
-  height: calc(100vh - 80px);
+  height: 100vh;
   position: fixed;
   top: 0px;
   left: 0px;
@@ -102,7 +102,7 @@ const Container = styled.div<{
     padding-bottom: 20px;
     margin-bottom: 20px;
     overflow-y: auto;
-    height: calc(100vh - 60px);
+    height: 100vh;
   }
 `;
 

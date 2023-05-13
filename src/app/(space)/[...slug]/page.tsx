@@ -93,7 +93,7 @@ export default async function SpacePage({
   if (config?.apps)
     await Promise.all(
       config?.apps.map(async (app: App) => {
-        if (app?.claimRequests?.length === 0) return;
+        if (!app?.claimRequests?.length) return;
         await Promise.all(
           app?.claimRequests?.map(async (claimRequest: ClaimRequest) => {
             if (

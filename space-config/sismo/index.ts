@@ -1,7 +1,6 @@
 // add an images folder in your space folder if you would like Sismo to host your images
 import { AuthType } from "@sismo-core/sismo-connect-server";
 import { SpaceConfig } from "../types";
-import { ClaimType } from "@sismo-core/sismo-connect-react";
 
 export const sismoConfig: SpaceConfig = {
   slug: "sismo",
@@ -30,29 +29,29 @@ export const sismoConfig: SpaceConfig = {
   envs: ["Demo"],
   hidden: false,
   apps: [
-    {
-      type: "zkbadge",
-      name: "Sismo Contributor ZK Badge",
-      description: "Claim your Sismo Contributor ZK Badge to voice your opinion in Sismo Governance - open to Sismo Contributors.",
-      tags: ["ZK Badge"],
-      image: "sismoapps_zkbadge_contrib_1014x720.png",
-      CTAText: "Get ZK Badge",
-      chainId: 137,
-      collectionId: "5151110",
-      claimRequests: [
-        { 
-          groupId: "0xe9ed316946d3d98dfcd829a53ec9822e",
-          value: 1,
-          isSelectableByUser: true
-        }
-      ],
-      authRequests: [
-        {
-          authType: AuthType.VAULT,
-        }
-      ],
-      slug: "contributor-zkbadge",
-    },
+    // {
+    //   type: "zkbadge",
+    //   name: "Sismo Contributor ZK Badge",
+    //   description: "Claim your Sismo Contributor ZK Badge to voice your opinion in Sismo Governance - open to Sismo Contributors.",
+    //   tags: ["ZK Badge"],
+    //   image: "sismoapps_zkbadge_contrib_1014x720.png",
+    //   CTAText: "Get ZK Badge",
+    //   chainId: 137,
+    //   collectionId: "5151110",
+    //   claimRequests: [
+    //     { 
+    //       groupId: "0xe9ed316946d3d98dfcd829a53ec9822e",
+    //       value: 1,
+    //       isSelectableByUser: true
+    //     }
+    //   ],
+    //   authRequests: [
+    //     {
+    //       authType: AuthType.VAULT,
+    //     }
+    //   ],
+    //   slug: "contributor-zkbadge",
+    // },
     {
       type: "zksub",
       name: "Sismo Newsletter",
@@ -167,133 +166,133 @@ export const sismoConfig: SpaceConfig = {
         appId: "0x7cef438f591d7b391a3eae11b2bd7868",
       }
     },
-    {
-      type: "zksub",
-      name: "Sismo Contributors' Anon Wall",
-      description:
-        "Write a public message on the Sismo Contributors' Anon Wall - open to Sismo Contributors.",
-      tags: ["Feedback"],
-      image: "sismoapps_anon_wall_1014x720.png",
-      CTAText: "Publish on Contributors' Anon Wall",
-      fields: [
-        {
-          type: "short-text",
-          label: "What would you like to tell us?",
-          isRequired: true,
-        }
-      ],
-      congratulationsMessage: {
-        title: "Thank you for your message",
-        description:
-          "It will be forever published on the Sismo Contributors' Anon Wall 💜",
-      },
-      slug: "anon-wall",
-      output: "google_sheet",
-      appId: null,
-      spreadsheetId: null,
-      claimRequests: [{ groupId: "0xe9ed316946d3d98dfcd829a53ec9822e", value: 1, isSelectableByUser: true }],
-      demo: {
-        spreadsheetId: "1-sb-qxoicB6OKF_ERE8HCYlEA8CQHBYU3M9dQNksML4",
-        appId: "0x90db0519f15b523cd41bc3557f6d6b91",
-      }
-    },
-    {
-      type: "zksub",
-      name: "Sismo Events",
-      description:
-        "Pre-register to the future Sismo events - open to Sismo Contributors.",
-      tags: ["Event"],
-      image: "sismoapps_sismo_events_1014x720.png",
-      CTAText: "Pre-register to Sismo events",
-      fields: [
-        {
-          type: "short-text",
-          label: "Email",
-          isRequired: true,
-        }
-      ],
-      congratulationsMessage: {
-        title: "Congratulations",
-        description:
-          "We hope to see you at our future events 💜",
-      },
-      failedMessage: {
-        title: "Sorry, too late this time 😕",
-        description: "Stay in touch for the next one 💜",
-      },
-      slug: "event",
-      output: "google_sheet",
-      appId: null,
-      spreadsheetId: null,
-      claimRequests: [{ groupId: "0xe9ed316946d3d98dfcd829a53ec9822e", value: 1, isSelectableByUser: true }],
-      userSelection: { type: "FCFS", maxNumberOfUsers: 100 },
-      demo: {
-        spreadsheetId: "1XTLPEOM0RL8WpjMm1dXYNpkYq3Wk1G1K7Jk-RntqfjA",
-        appId: "0xb3a074e124ff04ee0d703b528bfd5f4d",
-      }
-    },
-    {
-      type: "zksub",
-      name: "Sismo Swag Lottery",
-      description:
-        "Register to have a chance to be one of 10 lucky winners to get Sismo swag - open to Sismo GitHub Contributors.",
-      tags: ["Swag"],
-      image: "sismoapps_swag_lotery_1014x720.png",
-      CTAText: "Participate in the Swag Lottery",
-      fields: [
-        {
-          type: "short-text",
-          label: "Email",
-          isRequired: true,
-        },
-        {
-          type: "short-text",
-          label: "First name",
-          isRequired: true,
-        },
-        {
-          type: "short-text",
-          label: "Family name",
-          isRequired: true,
-        },
-        {
-          type: "short-text",
-          label: "Country",
-          isRequired: true,
-        },
-        {
-          type: "short-text",
-          label: "City",
-          isRequired: true,
-        },
-        {
-          type: "short-text",
-          label: "Postal code",
-          isRequired: true,
-        },
-        {
-          type: "short-text",
-          label: "Street address",
-          isRequired: true,
-        }
-      ],
-      congratulationsMessage: {
-        title: "Fingers crossed!",
-        description:
-          "We hope to have you as a lucky winner 💜 ",
-      },
-      startDate: new Date("2023-05-12T18:00"),
-      endDate: new Date("2023-05-26T18:00"),
-      slug: "swag",
-      output: "google_sheet",
-      appId: null,
-      spreadsheetId: null,
-      claimRequests: [{ groupId: "0xd138c33e8a6a450336a6c5dda990cf95" }],
-      userSelection: { type: "Lottery", maxNumberOfEntries: null, numberOfWinners: 10 },
-      demo: {
-        spreadsheetId: "1GaSpQ3-SO_mWDreh97Nri2YSF5LeRYKUEuUjImF8Cxk",
-        appId: "0x4f7fef07fcdce0a81e8f2ea14e8ea6c0",
-      }
-    }
+    // {
+    //   type: "zksub",
+    //   name: "Sismo Contributors' Anon Wall",
+    //   description:
+    //     "Write a public message on the Sismo Contributors' Anon Wall - open to Sismo Contributors.",
+    //   tags: ["Feedback"],
+    //   image: "sismoapps_anon_wall_1014x720.png",
+    //   CTAText: "Publish on Contributors' Anon Wall",
+    //   fields: [
+    //     {
+    //       type: "short-text",
+    //       label: "What would you like to tell us?",
+    //       isRequired: true,
+    //     }
+    //   ],
+    //   congratulationsMessage: {
+    //     title: "Thank you for your message",
+    //     description:
+    //       "It will be forever published on the Sismo Contributors' Anon Wall 💜",
+    //   },
+    //   slug: "anon-wall",
+    //   output: "google_sheet",
+    //   appId: null,
+    //   spreadsheetId: null,
+    //   claimRequests: [{ groupId: "0xe9ed316946d3d98dfcd829a53ec9822e", value: 1, isSelectableByUser: true }],
+    //   demo: {
+    //     spreadsheetId: "1-sb-qxoicB6OKF_ERE8HCYlEA8CQHBYU3M9dQNksML4",
+    //     appId: "0x90db0519f15b523cd41bc3557f6d6b91",
+    //   }
+    // },
+    // {
+    //   type: "zksub",
+    //   name: "Sismo Events",
+    //   description:
+    //     "Pre-register to the future Sismo events - open to Sismo Contributors.",
+    //   tags: ["Event"],
+    //   image: "sismoapps_sismo_events_1014x720.png",
+    //   CTAText: "Pre-register to Sismo events",
+    //   fields: [
+    //     {
+    //       type: "short-text",
+    //       label: "Email",
+    //       isRequired: true,
+    //     }
+    //   ],
+    //   congratulationsMessage: {
+    //     title: "Congratulations",
+    //     description:
+    //       "We hope to see you at our future events 💜",
+    //   },
+    //   failedMessage: {
+    //     title: "Sorry, too late this time 😕",
+    //     description: "Stay in touch for the next one 💜",
+    //   },
+    //   slug: "event",
+    //   output: "google_sheet",
+    //   appId: null,
+    //   spreadsheetId: null,
+    //   claimRequests: [{ groupId: "0xe9ed316946d3d98dfcd829a53ec9822e", value: 1, isSelectableByUser: true }],
+    //   userSelection: { type: "FCFS", maxNumberOfUsers: 100 },
+    //   demo: {
+    //     spreadsheetId: "1XTLPEOM0RL8WpjMm1dXYNpkYq3Wk1G1K7Jk-RntqfjA",
+    //     appId: "0xb3a074e124ff04ee0d703b528bfd5f4d",
+    //   }
+    // },
+    // {
+    //   type: "zksub",
+    //   name: "Sismo Swag Lottery",
+    //   description:
+    //     "Register to have a chance to be one of 10 lucky winners to get Sismo swag - open to Sismo GitHub Contributors.",
+    //   tags: ["Swag"],
+    //   image: "sismoapps_swag_lotery_1014x720.png",
+    //   CTAText: "Participate in the Swag Lottery",
+    //   fields: [
+    //     {
+    //       type: "short-text",
+    //       label: "Email",
+    //       isRequired: true,
+    //     },
+    //     {
+    //       type: "short-text",
+    //       label: "First name",
+    //       isRequired: true,
+    //     },
+    //     {
+    //       type: "short-text",
+    //       label: "Family name",
+    //       isRequired: true,
+    //     },
+    //     {
+    //       type: "short-text",
+    //       label: "Country",
+    //       isRequired: true,
+    //     },
+    //     {
+    //       type: "short-text",
+    //       label: "City",
+    //       isRequired: true,
+    //     },
+    //     {
+    //       type: "short-text",
+    //       label: "Postal code",
+    //       isRequired: true,
+    //     },
+    //     {
+    //       type: "short-text",
+    //       label: "Street address",
+    //       isRequired: true,
+    //     }
+    //   ],
+    //   congratulationsMessage: {
+    //     title: "Fingers crossed!",
+    //     description:
+    //       "We hope to have you as a lucky winner 💜 ",
+    //   },
+    //   startDate: new Date("2023-05-12T18:00"),
+    //   endDate: new Date("2023-05-26T18:00"),
+    //   slug: "swag",
+    //   output: "google_sheet",
+    //   appId: null,
+    //   spreadsheetId: null,
+    //   claimRequests: [{ groupId: "0xd138c33e8a6a450336a6c5dda990cf95" }],
+    //   userSelection: { type: "Lottery", maxNumberOfEntries: null, numberOfWinners: 10 },
+    //   demo: {
+    //     spreadsheetId: "1GaSpQ3-SO_mWDreh97Nri2YSF5LeRYKUEuUjImF8Cxk",
+    //     appId: "0x4f7fef07fcdce0a81e8f2ea14e8ea6c0",
+    //   }
+    // }
   ],
 };

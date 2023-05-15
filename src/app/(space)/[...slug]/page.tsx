@@ -10,6 +10,7 @@ import { GroupMetadata, GroupProvider } from "@/src/libs/group-provider";
 import env from "@/src/environments";
 import { ClaimRequest } from "@sismo-core/sismo-connect-server";
 import { notFound } from "next/navigation";
+import Image from "next/image";
 
 // This function runs at build time on the server it generates the static paths for each page
 export async function generateStaticParams() {
@@ -29,7 +30,17 @@ export async function generateMetadata({
 }) {
   const { slug } = params;
   const config = await getSpaceConfig({ slug: slug[0] });
-  const coverImage = await getImgSrcFromConfig(config?.slug, config?.coverImage);
+  const coverImageElement = await getImgSrcFromConfig(
+    config?.slug,
+    config?.coverImage
+  );
+  let coverImageUrl: string;
+
+  if (typeof coverImageElement === "string") {
+    coverImageUrl = coverImageElement;
+  } else {
+    coverImageUrl = coverImageElement.src;
+  }
 
   if (!config) return notFound();
 
@@ -37,18 +48,18 @@ export async function generateMetadata({
     title: config.name,
     description: config.description,
     twitter: {
-      card: 'summary_large_image',
+      card: "summary_large_image",
       title: config.name,
       description: config.description,
-      creator: '@sismo_eth',
-      images: [coverImage],
+      creator: "@sismo_eth",
+      images: [coverImageUrl],
     },
     openGraph: {
       title: config.name,
       description: config.description,
-      images: [coverImage],
-      locale: 'en-US',
-      type: 'website',
+      images: [coverImageUrl],
+      locale: "en-US",
+      type: "website",
     },
   };
 }

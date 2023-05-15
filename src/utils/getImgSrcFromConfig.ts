@@ -1,7 +1,7 @@
 export default async function getImgSrcFromConfig(
   slug: string,
   fileName: string
-): Promise<string> {
+): Promise<string | HTMLImageElement> {
 
   if (!slug || !fileName) return "";
 

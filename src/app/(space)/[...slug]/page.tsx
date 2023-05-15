@@ -1,4 +1,4 @@
-import getImgSrcFromConfig from "@/src/utils/getImgSrcFromConfig";
+import getImgSrcFromConfig, { ImportedNextImage } from "@/src/utils/getImgSrcFromConfig";
 import {
   getSpaceConfig,
   getSpacesConfigs,
@@ -64,7 +64,7 @@ export async function generateMetadata({
 }
 
 export type ImportedImage = {
-  link: string | HTMLImageElement;
+  link: string | ImportedNextImage;
   app: App;
 };
 

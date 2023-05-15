@@ -1,7 +1,17 @@
+import { ImageConfig } from "next/dist/shared/lib/image-config";
+import Image from "next/image";
+
+export type ImportedNextImage = {
+  src: string;
+  height: number;
+  width: number;
+  blurDataURL: string;
+}
+
 export default async function getImgSrcFromConfig(
   slug: string,
   fileName: string
-): Promise<string | HTMLImageElement> {
+): Promise<string | ImportedNextImage> {
 
   if (!slug || !fileName) return "";
 

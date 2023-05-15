@@ -71,6 +71,7 @@ export default function ProveEligibility({
             auths={app?.authRequests}
             callbackPath={window.location.pathname}
             onResponse={(response) => {
+              console.log("onResponse", response);
               response && onEligible(response);
             }}
           />

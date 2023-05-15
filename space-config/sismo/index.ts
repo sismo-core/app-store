@@ -29,29 +29,29 @@ export const sismoConfig: SpaceConfig = {
   envs: ["Demo"],
   hidden: false,
   apps: [
-    {
-      type: "zkbadge",
-      name: "Sismo Contributor ZK Badge",
-      description: "Claim your Sismo Contributor ZK Badge to voice your opinion in Sismo Governance - open to Sismo Contributors.",
-      tags: ["ZK Badge"],
-      image: "sismoapps_zkbadge_contrib_1014x720.png",
-      CTAText: "Get ZK Badge",
-      chainId: 137,
-      collectionId: "5151110",
-      claimRequests: [
-        { 
-          groupId: "0xe9ed316946d3d98dfcd829a53ec9822e",
-          value: 1,
-          isSelectableByUser: true
-        }
-      ],
-      authRequests: [
-        {
-          authType: AuthType.VAULT,
-        }
-      ],
-      slug: "contributor-zkbadge",
-    },
+    // {
+    //   type: "zkbadge",
+    //   name: "Sismo Contributor ZK Badge",
+    //   description: "Claim your Sismo Contributor ZK Badge to voice your opinion in Sismo Governance - open to Sismo Contributors.",
+    //   tags: ["ZK Badge"],
+    //   image: "sismoapps_zkbadge_contrib_1014x720.png",
+    //   CTAText: "Get ZK Badge",
+    //   chainId: 137,
+    //   collectionId: "5151110",
+    //   claimRequests: [
+    //     { 
+    //       groupId: "0xe9ed316946d3d98dfcd829a53ec9822e",
+    //       value: 1,
+    //       isSelectableByUser: true
+    //     }
+    //   ],
+    //   authRequests: [
+    //     {
+    //       authType: AuthType.VAULT,
+    //     }
+    //   ],
+    //   slug: "contributor-zkbadge",
+    // },
     {
       type: "zksub",
       name: "Sismo Newsletter",
@@ -111,11 +111,12 @@ export const sismoConfig: SpaceConfig = {
           label: "What improvements would make your experience with Spaces even better?",
           isRequired: true,
         },
-        {
-          type: "number",
-          label: "How easy was it to access this form?",
-          isRequired: true,
-        },
+        // Need to implement the number input
+        // {
+        //   type: "number",
+        //   label: "How easy was it to access this form?",
+        //   isRequired: true,
+        // },
       ],
       startDate: new Date("2023-05-12T18:00"),
       endDate: new Date("2023-05-26T18:00"),
@@ -224,6 +225,7 @@ export const sismoConfig: SpaceConfig = {
       output: "google_sheet",
       appId: null,
       spreadsheetId: null,
+      authRequests: [{ authType: AuthType.VAULT }],
       claimRequests: [{ groupId: "0xe9ed316946d3d98dfcd829a53ec9822e", value: 1, isSelectableByUser: true }],
       userSelection: { type: "FCFS", maxNumberOfUsers: 100 },
       demo: {
@@ -289,6 +291,7 @@ export const sismoConfig: SpaceConfig = {
       spreadsheetId: null,
       claimRequests: [{ groupId: "0xd138c33e8a6a450336a6c5dda990cf95" }],
       userSelection: { type: "Lottery", maxNumberOfEntries: null, numberOfWinners: 10 },
+      authRequests: [{ authType: AuthType.VAULT }],
       demo: {
         spreadsheetId: "1GaSpQ3-SO_mWDreh97Nri2YSF5LeRYKUEuUjImF8Cxk",
         appId: "0x4f7fef07fcdce0a81e8f2ea14e8ea6c0",

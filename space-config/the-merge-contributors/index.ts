@@ -60,13 +60,13 @@ export const theMergeContributorsConfig: SpaceConfig = {
       },
       slug: "ethcc-tickets",
       output: "google_sheet",
-      appId: "0xffe981d059744847a152d6917b93366a",
+      appId: "0x0f38b4eb4d51fbd7906c9c7574df075e",
       spreadsheetId: "1y94lpA5kWbGi_u50C-GlYKpeJp8aYxhI37D2GDVg--w",
-      claimRequests: [{ groupId: "0x42c768bb8ae79e4c5c05d3b51a4ec74a" }], // Mergooor contributor groupID "0x42c768bb8ae79e4c5c05d3b51a4ec74a"
+      claimRequests: [{ groupId: "0xe9ed316946d3d98dfcd829a53ec9822e" }], // Mergooor contributor groupID "0x42c768bb8ae79e4c5c05d3b51a4ec74a"
       authRequests: [{ authType: 0 }],
       demo: {
         spreadsheetId: "1Wrh8gFPWuUfdip1wuOxBx_0bZQ_OJb2JsI5A-loRa-Y",
-        appId: "0xffe981d059744847a152d6917b93366a",
+        appId: "0x0f38b4eb4d51fbd7906c9c7574df075e",
       }
     },
   ],

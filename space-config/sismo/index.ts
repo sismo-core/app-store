@@ -246,36 +246,6 @@ export const sismoConfig: SpaceConfig = {
           type: "short-text",
           label: "Email",
           isRequired: true,
-        },
-        {
-          type: "short-text",
-          label: "First name",
-          isRequired: true,
-        },
-        {
-          type: "short-text",
-          label: "Family name",
-          isRequired: true,
-        },
-        {
-          type: "short-text",
-          label: "Country",
-          isRequired: true,
-        },
-        {
-          type: "short-text",
-          label: "City",
-          isRequired: true,
-        },
-        {
-          type: "short-text",
-          label: "Postal code",
-          isRequired: true,
-        },
-        {
-          type: "short-text",
-          label: "Street address",
-          isRequired: true,
         }
       ],
       congratulationsMessage: {

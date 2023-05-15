@@ -9,6 +9,7 @@ import colors from "@/src/themes/colors";
 import ReqList from "./ReqList";
 import { App } from "@/space-config/types";
 import { GroupMetadata } from "@/src/libs/group-provider";
+import { ImportedNextImage } from "@/src/utils/getImgSrcFromConfig";
 
 const Container = styled.div<{ isFolderHovered: boolean }>`
   display: flex;
@@ -148,7 +149,7 @@ const CaretWrapper = styled.div<{ isFolded: boolean }>`
 
 type Props = {
   app: App;
-  cover: string;
+  cover: string | ImportedNextImage;
   groupMetadataList: GroupMetadata[];
   onCTAClick: () => void;
 };

@@ -57,8 +57,8 @@ const SubTitle = styled.div`
 
 type Props = {
   config: SpaceConfig;
-  coverImage: string;
-  profileImage: string;
+  coverImage: string | HTMLImageElement;
+  profileImage: string | HTMLImageElement;
 };
 
 export default function SpaceProfile({

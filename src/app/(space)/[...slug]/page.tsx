@@ -10,7 +10,6 @@ import { GroupMetadata, GroupProvider } from "@/src/libs/group-provider";
 import env from "@/src/environments";
 import { ClaimRequest } from "@sismo-core/sismo-connect-server";
 import { notFound } from "next/navigation";
-import Image from "next/image";
 
 // This function runs at build time on the server it generates the static paths for each page
 export async function generateStaticParams() {
@@ -65,7 +64,7 @@ export async function generateMetadata({
 }
 
 export type ImportedImage = {
-  link: string;
+  link: string | HTMLImageElement;
   app: App;
 };
 

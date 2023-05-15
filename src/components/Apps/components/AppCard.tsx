@@ -148,7 +148,7 @@ const CaretWrapper = styled.div<{ isFolded: boolean }>`
 
 type Props = {
   app: App;
-  cover: string;
+  cover: string | HTMLImageElement;
   groupMetadataList: GroupMetadata[];
   onCTAClick: () => void;
 };

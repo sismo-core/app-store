@@ -3,18 +3,22 @@ import env from "@/src/environments";
 import { getSpaceConfig } from "@/src/libs/spaces";
 import { GoogleSpreadsheetStore, Store } from "@/src/libs/store";
 import { AuthType, SismoConnect, SismoConnectResponse, SismoConnectServerConfig, SismoConnectVerifiedResult } from "@sismo-core/sismo-connect-server";
+import { Console } from "console";
 import { NextResponse } from "next/server";
 
 const spreadSheetsInitiated = new Map<string, boolean>();
 
 export async function POST(req: Request) {
+    console.log("///////POST/////////")
     const { fields, response, spaceSlug, appSlug } = await req.json();
     const space = getSpaceConfig({ slug: spaceSlug })
     const app = space.apps.find(_app => _app.type === "zksub" && _app.slug === appSlug);
 
     if (app.type !== "zksub") return new Response(null, { status: 500, statusText: "Verify not available for other apps than zksub" });
 
+    console.log("////////HERE/////////")
     const store = await getStore(app);
+    console.log("////////AFTER STORE/////////")
 
     let fieldsToAdd = fields;
     if (!env.isDemo) {

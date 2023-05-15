@@ -2,7 +2,7 @@
 
 import { SpaceConfig, ZkSubAppConfig } from "@/space-config/types";
 import Modal from "@/src/ui/Modal";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import Button3D from "@/src/ui/Button3D";
 import ProveEligibility from "./components/ProveEligibility";
@@ -84,7 +84,6 @@ export default function ZkSubApp({ isOpen, onClose, app, space, groupMetadataLis
     const [fields, setFields] = useState<FieldValue[]>(null);
     const [response, setResponse] = useState<SismoConnectResponse>(null);
 
-
     const submit = async () => {
         const body = {
             fields,
@@ -111,6 +110,20 @@ export default function ZkSubApp({ isOpen, onClose, app, space, groupMetadataLis
         if (data.status === "already-subscribed") {
             setAlreadySubscribed(true);
         }
+    }
+
+    useEffect(() => {
+        if (!isOpen) reset();
+    }, [isOpen])
+
+    const reset = () => {
+        setTimeout(() => {
+            setError(null);
+            setAlreadySubscribed(false);
+            setSubscribed(false);
+            setFields(null);
+            setResponse(null);
+        }, 300);
     }
 
     return <Modal isOpen={isOpen} onClose={onClose} animated>

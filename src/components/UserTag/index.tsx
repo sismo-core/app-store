@@ -6,8 +6,7 @@ import { GithubRounded } from "../SismoReactIcon";
 import { EthRounded } from "../SismoReactIcon/components/EthRounded";
 import { textShorten } from "@/src/utils/textShorten";
 
-const Container = styled.div`
-  flex-grow: 1;
+const Container = styled.div<{fullWidth: boolean}>`
   font-family: ${(props) => props.theme.fonts.medium};
   font-size: 14px;
   line-height: 20px;
@@ -17,6 +16,11 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   gap: 6px;
+  ${(props) =>
+    props.fullWidth &&
+    `
+    flex-grow: 1;
+  `}
 `;
 
 const Text = styled.div`
@@ -25,11 +29,12 @@ const Text = styled.div`
 
 type Props = {
   authType: AuthType;
+  fullWidth?: boolean;
 };
 
-export default function UserTag({ authType }: Props) {
+export default function UserTag({ authType, fullWidth }: Props) {
   return (
-    <Container>
+    <Container fullWidth={fullWidth}>
       {authType === AuthType.TWITTER ? (
         <TwitterRounded size={14} color={colors.neutral1} />
       ) : authType === AuthType.GITHUB ? (

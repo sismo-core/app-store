@@ -66,7 +66,7 @@ export default function ReqList({ app, groupMetadataList, style, fullWidth }: Pr
             ) : (
               <>
                 Own account:
-                <UserTag authType={authRequest?.authType} />
+                <UserTag authType={authRequest?.authType} fullWidth={fullWidth}/>
               </>
             )}
           </AuthItem>

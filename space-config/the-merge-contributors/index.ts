@@ -27,6 +27,7 @@ export const theMergeContributorsConfig: SpaceConfig = {
           authType: 0,
         }
       ],
+      envs: ["Demo", "Prod"],
     },
     {
       type: "zksub",
@@ -67,7 +68,8 @@ export const theMergeContributorsConfig: SpaceConfig = {
       demo: {
         spreadsheetId: "1Wrh8gFPWuUfdip1wuOxBx_0bZQ_OJb2JsI5A-loRa-Y",
         appId: "0x0f38b4eb4d51fbd7906c9c7574df075e",
-      }
+      },
+      envs: ["Demo", "Prod"],
     },
   ],
 };

@@ -6,14 +6,13 @@ import { SpaceConfig } from "@/space-config/types";
 
 export type SpaceImportedImage = {
   config: SpaceConfig,
-  link: string
+  link: any
 }
 
 export async function generateMetadata() {
   const title = "Sismo Spaces - Powerful Spaces for community builders who truly care";
   const description = "Bring joy to your community, get a Space, respect their privacy.";
   const image = `./home-thumbnail.svg`;
-  console.log("image", image);
   return {
     title,
     description,

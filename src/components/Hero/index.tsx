@@ -1,6 +1,5 @@
 'use client'
 
-import Button3D from "@/src/ui/Button3D";
 import Image from "next/image";
 import React from "react";
 import styled from "styled-components";

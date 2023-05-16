@@ -10,7 +10,31 @@ export type SpaceImportedImage = {
   link: string
 }
 
-export default async function LandingPage() {
+export async function generateMetadata() {
+  const title = "Sismo Spaces - Powerful Spaces for community builders who truly care";
+  const description = "Bring joy to your community, get a Space, respect their privacy.";
+  const imageUrl = "/home-thumbnail.svg";
+  return {
+    title,
+    description,
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      creator: '@sismo_eth',
+      images: [imageUrl],
+    },
+    openGraph: {
+      title,
+      description,
+      images: [imageUrl],
+      locale: 'en-US',
+      type: 'website',
+    },
+  };
+}
+
+export default async function HomePage() {
   const configs = await getSpacesConfigs();
 
   let spaceImportedImages: SpaceImportedImage[] = [];

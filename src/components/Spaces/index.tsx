@@ -4,7 +4,7 @@ import { SpaceConfig } from "@/space-config/types";
 import React from "react";
 import styled from "styled-components";
 import SpaceCard from "./SpaceCard";
-import { SpaceImportedImage } from "@/src/app/(landing)/page";
+import { SpaceImportedImage } from "@/src/app/(home)/page";
 
 const Container = styled.div`
     margin: 34px 0px 40px 0px;

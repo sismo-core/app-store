@@ -1,19 +1,17 @@
 import getImgSrcFromConfig, { ImportedNextImage } from "@/src/utils/getImgSrcFromConfig";
-import {
-  getSpaceConfig,
-  getSpacesConfigs,
-} from "../../../libs/spaces/getSpaces";
 import SpaceProfile from "@/src/components/SpaceProfile";
 import Apps from "@/src/components/Apps";
 import { App, SpaceConfig } from "@/space-config/types";
-import { GroupMetadata, GroupProvider } from "@/src/libs/group-provider";
+import { GroupMetadata, GroupProvider } from "@/src/services/group-provider";
 import env from "@/src/environments";
 import { ClaimRequest } from "@sismo-core/sismo-connect-server";
 import { notFound } from "next/navigation";
+import getServerServices from "@/src/services/service-factory/server";
 
 // This function runs at build time on the server it generates the static paths for each page
 export async function generateStaticParams() {
-  const configs = await getSpacesConfigs();
+  
+  const configs = await getServerServices().spaceConfig.getSpacesConfigs();
   return configs?.map((config: SpaceConfig) => {
     return {
       slug: [config.slug],
@@ -28,7 +26,7 @@ export async function generateMetadata({
   params: { slug: string[] };
 }) {
   const { slug } = params;
-  const config = await getSpaceConfig({ slug: slug[0] });
+  const config = await getServerServices().spaceConfig.getSpaceConfig({ slug: slug[0] });
   const coverImageElement = await getImgSrcFromConfig(
     config?.slug,
     config?.coverImage
@@ -75,7 +73,11 @@ export default async function SpacePage({
   params: { slug: string[] };
 }) {
   const { slug } = params;
-  const config = await getSpaceConfig({ slug: slug[0] });
+  const services = getServerServices();
+  const groupProvider = services.groupProvider;
+  const spaceConfig = services.spaceConfig;
+  
+  const config = await spaceConfig.getSpaceConfig({ slug: slug[0] });
   // Dynamically import the cover image
   let coverImage = await getImgSrcFromConfig(config?.slug, config?.coverImage);
   let profileImage = await getImgSrcFromConfig(
@@ -83,9 +85,7 @@ export default async function SpacePage({
     config?.profileImage
   );
 
-  const groupProvider = new GroupProvider({
-    hubApiUrl: env.hubApiUrl,
-  });
+
 
   const importedImages: ImportedImage[] = [];
   if (config?.apps)

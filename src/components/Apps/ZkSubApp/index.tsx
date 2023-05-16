@@ -10,7 +10,7 @@ import { SismoConnectResponse } from "@sismo-core/sismo-connect-server";
 import Register, { FieldValue } from "./components/Register";
 import Section from "./components/Section";
 import Congratulations from "./components/Congratulations";
-import { GroupMetadata } from "@/src/libs/group-provider";
+import { GroupMetadata } from "@/src/services/group-provider";
 
 const Content = styled.div`
     max-width: 580px;

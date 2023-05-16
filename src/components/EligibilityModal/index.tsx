@@ -1,4 +1,4 @@
-import { GroupMetadata } from "@/src/libs/group-provider";
+import { GroupMetadata } from "@/src/services/group-provider";
 import colors from "@/src/themes/colors";
 import Modal from "@/src/ui/Modal";
 import styled from "styled-components";

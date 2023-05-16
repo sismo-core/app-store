@@ -9,7 +9,7 @@ import { AuthType, ClaimRequest } from "@sismo-core/sismo-connect-react";
 import ShardTag from "../../ShardTag";
 import HoverTooltip from "@/src/ui/HoverTooltip";
 import { App } from "@/space-config/types";
-import { GroupMetadata } from "@/src/libs/group-provider";
+import { GroupMetadata } from "@/src/services/group-provider";
 
 const Container = styled.div`
   display: flex;

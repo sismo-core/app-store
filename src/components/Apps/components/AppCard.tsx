@@ -8,7 +8,7 @@ import { CaretDown } from "phosphor-react";
 import colors from "@/src/themes/colors";
 import ReqList from "./ReqList";
 import { App } from "@/space-config/types";
-import { GroupMetadata } from "@/src/libs/group-provider";
+import { GroupMetadata } from "@/src/services/group-provider";
 import { ImportedNextImage } from "@/src/utils/getImgSrcFromConfig";
 import AvailabilityProgressBar from "./AvailabilityProgressBar";
 

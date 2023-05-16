@@ -5,6 +5,7 @@ if (process.env.NEXT_PUBLIC_IS_DEMO && process.env.NEXT_PUBLIC_IS_DEMO !== "fals
 }
 
 type Environment = {
+    name: string;
     isDemo: boolean;
     isDev: boolean;
     hubApiUrl: string;
@@ -13,6 +14,7 @@ type Environment = {
 };
 
 const env: Environment = {
+    name: process.env.NEXT_PUBLIC_ENV_NAME,
     isDemo: process.env.NEXT_PUBLIC_IS_DEMO ? JSON.parse(process.env.NEXT_PUBLIC_IS_DEMO) : false,
     isDev: process.env.NEXT_PUBLIC_IS_DEV ? JSON.parse(process.env.NEXT_PUBLIC_IS_DEV) : false,
     hubApiUrl: process.env.HUB_API_URL,

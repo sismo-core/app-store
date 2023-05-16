@@ -5,8 +5,8 @@ import styled from "styled-components";
 import AppCard from "./components/AppCard";
 import ZkDropApp from "./ZkDropApp";
 import ZkSubApp from "./ZkSubApp";
-import { SpaceConfig, ZkDropAppConfig, ZkSubAppConfig } from "@/space-config/types";
-import { GroupMetadata } from "@/src/libs/group-provider";
+import { App, SpaceConfig, ZkDropAppConfig, ZkSubAppConfig } from "@/space-config/types";
+import { GroupMetadata } from "@/src/services/group-provider";
 import { ImportedImage } from "@/src/app/(space)/[...slug]/page";
 
 const Container = styled.div`

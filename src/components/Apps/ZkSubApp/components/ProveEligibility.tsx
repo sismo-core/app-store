@@ -6,7 +6,7 @@ import { ClaimType, SismoConnectButton } from "@sismo-core/sismo-connect-react";
 import React from "react";
 import { styled } from "styled-components";
 import ReqList from "../../components/ReqList";
-import { GroupMetadata } from "@/src/libs/group-provider";
+import { GroupMetadata } from "@/src/services/group-provider";
 
 const Container = styled.div``;
 

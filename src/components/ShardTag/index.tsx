@@ -5,7 +5,7 @@ import { ClaimRequest, ClaimType } from "@sismo-core/sismo-connect-react";
 import colors from "@/src/themes/colors";
 import { textShorten } from "@/src/utils/textShorten";
 import EligibilityModal from "../EligibilityModal";
-import { GroupMetadata } from "@/src/libs/group-provider";
+import { GroupMetadata } from "@/src/services/group-provider";
 
 const OuterContainer = styled.div<{ fullWidth: boolean }>`
   display: flex;

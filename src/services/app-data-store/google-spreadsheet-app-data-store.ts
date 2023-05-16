@@ -1,6 +1,6 @@
 import { google, sheets_v4 } from "googleapis";
 import { GoogleAuth } from "google-auth-library";
-import { Entry, Store } from "./store";
+import { Entry, AppDataStore } from "./app-data-store";
 
 type Table = string[][] | null;
 type Column = string;
@@ -8,7 +8,7 @@ type Column = string;
 const TABLE_SIZE = 250;
 const SCOPES = ["https://www.googleapis.com/auth/spreadsheets"];
 
-export class GoogleSpreadsheetStore extends Store {
+export class GoogleSpreadsheetAppDataStore extends AppDataStore {
   private readonly _spreadsheetId: string;
   private readonly _service: sheets_v4.Sheets;
   private readonly _columns: Column[];

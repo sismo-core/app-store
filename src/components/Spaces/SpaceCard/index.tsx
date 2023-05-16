@@ -1,6 +1,7 @@
 'use client'
 
 import { SpaceConfig } from "@/space-config/types";
+import { ImportedNextImage } from "@/src/utils/getImgSrcFromConfig";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -52,7 +53,7 @@ const NumberOfApps = styled.div`
 
 type Props = {
     config: SpaceConfig;
-    image: string;
+    image: string | ImportedNextImage;
 }
 
 export default function SpaceCard({ config, image }: Props): JSX.Element {

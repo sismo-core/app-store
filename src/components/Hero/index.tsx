@@ -171,7 +171,7 @@ const ImageBadgeTop = styled(Image)`
     }
 `
 const ImageBadgeBottom = styled(Image)`
-    bottom: 146px;
+    bottom: calc(146px - 33px);
     left: 370px;
     position: absolute;
     @media(max-width: 1200px) {

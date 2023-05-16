@@ -9,7 +9,7 @@ import Image from "next/image";
 import Art from "@/src/assets/footer-art.svg";
 
 const Container = styled.div`
-  height: 183px;
+  height: 153px;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;

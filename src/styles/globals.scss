@@ -35,6 +35,11 @@
   src: local("Inter"), url(../themes/assets/Inter/Inter-Medium.ttf) format("truetype");
 }
 
+@font-face {
+  font-family: "Sarabun-Bold";
+  src: local("Inter"), url(../themes/assets/Sarabun/Sarabun-Bold.ttf) format("truetype");
+}
+
 * {
   box-sizing: border-box;
   padding: 0;

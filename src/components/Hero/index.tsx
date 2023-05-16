@@ -1,5 +1,6 @@
 'use client'
 
+import Button3D from "@/src/ui/Button3D";
 import Image from "next/image";
 import React from "react";
 import styled from "styled-components";
@@ -27,7 +28,7 @@ const Title = styled.div`
     font-family: Sarabun-Bold;
     font-size: 36px;
     line-height: 46px;
-    margin-top: calc(92px + 33px);
+    margin-top: 92px;
     @media(max-width: 700px) {
         max-width: 335px;
         margin-top: calc(118px + 33px);
@@ -171,7 +172,7 @@ const ImageBadgeTop = styled(Image)`
     }
 `
 const ImageBadgeBottom = styled(Image)`
-    bottom: calc(146px - 33px);
+    bottom: 146px;
     left: 370px;
     position: absolute;
     @media(max-width: 1200px) {
@@ -237,9 +238,9 @@ export default function Hero(): JSX.Element {
                 <LetterBlue bold>.</LetterBlue>
                 {" "} 
             </Subtitle>
-            {/* <Button3D>
+            <Button3D onClick={() => window.open("https://app.deform.cc/form/5d8438a7-75a9-4b02-bf0d-b42b63cd2b85/",'_blank')}>
                 Join the waitlist
-            </Button3D> */}
+            </Button3D>
         </TextContainer>
     </Container>;
 }

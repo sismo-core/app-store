@@ -1,4 +1,3 @@
-
 import Hero from "@/src/components/Hero";
 import Spaces from "@/src/components/Spaces";
 import { getSpacesConfigs } from "../../libs/spaces/getSpaces";
@@ -13,7 +12,8 @@ export type SpaceImportedImage = {
 export async function generateMetadata() {
   const title = "Sismo Spaces - Powerful Spaces for community builders who truly care";
   const description = "Bring joy to your community, get a Space, respect their privacy.";
-  const imageUrl = "/home-thumbnail.svg";
+  const image = `./home-thumbnail.svg`;
+  console.log("image", image);
   return {
     title,
     description,
@@ -21,15 +21,15 @@ export async function generateMetadata() {
       card: "summary_large_image",
       title,
       description,
-      creator: '@sismo_eth',
-      images: [imageUrl],
+      creator: "@sismo_eth",
+      images: [image],
     },
     openGraph: {
       title,
       description,
-      images: [imageUrl],
-      locale: 'en-US',
-      type: 'website',
+      images: [image],
+      locale: "en-US",
+      type: "website",
     },
   };
 }
@@ -45,8 +45,6 @@ export default async function HomePage() {
         config?.profileImage
       )
   })));
-
-  console.log("spaceImportedImages", spaceImportedImages);
 
   return (<>
       <Hero />

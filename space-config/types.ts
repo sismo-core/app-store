@@ -66,6 +66,7 @@ export type ExternalAppConfig = AppCommonConfig & {
 export type ZkDropAppConfig = AppCommonConfig & {
   type: "zkdrop";
   chainId: number;
+  userSelection?: UserSelection; // default none
   contractAddress: string;
 };
 

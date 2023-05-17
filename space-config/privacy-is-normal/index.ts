@@ -57,12 +57,11 @@ export const privacyIsNormalConfig: SpaceConfig = {
       output: "google_sheet",
       appId: "0x9dd13bc62ae6809fe9de95475111fc2a",
       spreadsheetId: "17uLGyCtSduW7PBTS2S2WKyourj9Z2nPKmAvzUD6kRM4",
-      userSelection: { type: "Lottery", maxNumberOfEntries: 1000, numberOfWinners: 10 },
       authRequests: [{ authType: AuthType.VAULT }],
       claimRequests: [{ 
-        groupId: "0x23ff9e30e9957c65ee56b4c902b28eae" //tornado depositor: 0x433ae0c1cb3793f0971f3bf2bbcff10e
+        groupId: "0x433ae0c1cb3793f0971f3bf2bbcff10e"
       }, { 
-        groupId: "0x1cde61966decb8600dfd0749bd371f12", claimType: ClaimType.GTE , value: 15  //tornado-test-wei-ben
+        groupId: "0x1cde61966decb8600dfd0749bd371f12", claimType: ClaimType.GTE , value: 15
       }],
       demo: {
         spreadsheetId: null,
@@ -84,6 +83,7 @@ export const privacyIsNormalConfig: SpaceConfig = {
       startDate: new Date("2023-06-18T18:00"),
       endDate: new Date("2023-07-18T18:00"),
       slug: "nft-claim",
+      userSelection: { type: "Lottery", maxNumberOfEntries: 1000, numberOfWinners: 10 },
       authRequests: [{ authType: AuthType.VAULT }],
       envs: ["Prod"],
     },
@@ -157,89 +157,6 @@ export const privacyIsNormalConfig: SpaceConfig = {
         appId: "0x5749773b034573e615026216c628be4d",
       },
       envs: ["Demo"],
-    },
-
-    /******************************************************************************************/
-    /***************************************** TEST APPS **************************************/
-    /******************************************************************************************/
-
-    {
-      type: "zksub",
-      name: "[PROD TEST APP] ‘Privacy Is Normal’ NFT Lottery",
-      description:
-        "Register to have a chance to be among 100 lucky winners to claim a ‘Privacy Is Normal’ NFT and use it to redeem a physical version.- open to Tornado Cash depositors.",
-      tags: ["Lottery"],
-      image: "sismoapps_newletter_1014x720.png",
-      CTAText: "[PROD TEST APP] Participate in the NFT Lottery",
-      fields: [
-        {
-          type: "short-text",
-          label: "Email",
-          isRequired: false,
-        }
-      ],
-      congratulationsMessage: {
-        title: "Fingers crossed!",
-        description:
-          "We hope to have you among our lucky winners :purple_heart: We will contact you if you win!",
-      },
-      startDate: new Date("2023-05-19T16:00"),
-      endDate: new Date("2023-05-21T16:00"),
-      slug: "nft-lottery-test",
-      output: "google_sheet",
-      appId: "0x9dd13bc62ae6809fe9de95475111fc2a",
-      spreadsheetId: "17uLGyCtSduW7PBTS2S2WKyourj9Z2nPKmAvzUD6kRM4",
-      authRequests: [{ authType: AuthType.VAULT }],
-      claimRequests: [{
-        groupId: "0x23ff9e30e9957c65ee56b4c902b28eae"
-      }, {
-        groupId: "0x1cde61966decb8600dfd0749bd371f12",
-        claimType: ClaimType.GTE,
-        value: 5
-      }],
-      demo: {
-        spreadsheetId: null,
-        appId: null,
-      },
-      envs: ["Prod"],
-    },
-    {
-      type: "zksub",
-      name: "[PROD TEST APP CONTRIBUTOR] ‘Privacy Is Normal’ NFT Lottery",
-      description:
-        "Register to have a chance to be among 100 lucky winners to claim a ‘Privacy Is Normal’ NFT and use it to redeem a physical version.- open to Tornado Cash depositors.",
-      tags: ["Lottery"],
-      image: "sismoapps_newletter_1014x720.png",
-      CTAText: "[PROD TEST APP CONTRIBUTOR] Participate in the NFT Lottery",
-      fields: [
-        {
-          type: "short-text",
-          label: "Email",
-          isRequired: false,
-        }
-      ],
-      congratulationsMessage: {
-        title: "Fingers crossed!",
-        description:
-          "We hope to have you among our lucky winners :purple_heart: We will contact you if you win!",
-      },
-      startDate: new Date("2023-05-19T16:00"),
-      endDate: new Date("2023-05-21T16:00"),
-      slug: "nft-lottery-test-contributor",
-      output: "google_sheet",
-      appId: "0x9dd13bc62ae6809fe9de95475111fc2a",
-      spreadsheetId: "17uLGyCtSduW7PBTS2S2WKyourj9Z2nPKmAvzUD6kRM4",
-      authRequests: [{ authType: AuthType.VAULT }],
-      claimRequests: [{
-        groupId: "0xe9ed316946d3d98dfcd829a53ec9822e",
-        claimType: ClaimType.GTE,
-        value: 2
-      }],
-      demo: {
-        spreadsheetId: null,
-        appId: null,
-      },
-      envs: ["Prod"],
     },
   ],
 };

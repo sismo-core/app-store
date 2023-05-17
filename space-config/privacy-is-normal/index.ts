@@ -7,8 +7,8 @@ export const privacyIsNormalConfig: SpaceConfig = {
   slug: "privacy-is-normal",
   name: "Privacy Is Normal Space",
   description: "This Space celebrates privacy as a fundamental human right. Prove in a privacy-preserving way that you're a Tornado Cash user to claim a 'Privacy Is Normal' NFT - a tribute to Tornado Cash's revolutionary code - and have a chance to get the physical version.",
-  profileImage: "space_sismo_pfp_400x400.png",
-  coverImage: "space_sismo_cover_1740x540.png",
+  profileImage: "space_privacy_is_normal_pfp_400x400.png",
+  coverImage: "space_privacy_is_normal_cover_1740x540.png",
   socialLinks: [
     {
       type: "link",
@@ -36,7 +36,7 @@ export const privacyIsNormalConfig: SpaceConfig = {
       description:
         "Register to have a chance to be among 10 lucky winners to get physical version of ‘Privacy Is Normal’ NFT - open to Tornado Cash depositors. First 1,000 participants will receive the NFT.",
       tags: ["Lottery"],
-      image: "sismoapps_newletter_1014x720.png",
+      image: "privacy_is_normal_apps_lotery_1014x720.png",
       CTAText: "Participate in the Print Lottery",
       fields: [
         {
@@ -76,7 +76,7 @@ export const privacyIsNormalConfig: SpaceConfig = {
       description:
         "Claim your ‘Privacy Is Normal’ NFT - a tribute to Tornado Cash's revolutionary code. Open to first 1,000 participants registered to our ‘Privacy Is Normal’ Print Lottery.",
       tags: ["NFT"],
-      image: "sismoapps_newletter_1014x720.png",
+      image: "space_privacy_is_normal_cover_1740x540.png",
       CTAText: "Claim ‘Privacy Is Normal’ NFT",
       chainId: 1,
       contractAddress: null,
@@ -93,7 +93,7 @@ export const privacyIsNormalConfig: SpaceConfig = {
       description:
         "Check if you win a physical version of the ‘Privacy Is Normal’ NFT - a tribute to Tornado Cash's revolutionary code - and provide us your shipping address.",
       tags: ["Print"],
-      image: "sismoapps_newletter_1014x720.png",
+      image: "space_privacy_is_normal_cover_1740x540.png",
       CTAText: "Check if you are a winner",
       fields: [
         {
@@ -129,7 +129,7 @@ export const privacyIsNormalConfig: SpaceConfig = {
       description:
         "Register to have a chance to be among 10 lucky winners to get a ‘Privacy Is Normal’ Print - open at our ETHDam Sismo Booth.",
       tags: ["Lottery"],
-      image: "sismoapps_newletter_1014x720.png",
+      image: "privacy_is_normal_apps_lotery_1014x720.png",
       CTAText: "Participate in the Print Lottery",
       fields: [
         {

@@ -7,9 +7,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "yarn jest"
+    "test": "yarn jest --runInBand"
   },
   "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.332.0",
+    "@aws-sdk/lib-dynamodb": "^3.332.0",
     "@google-cloud/local-auth": "^2.1.1",
     "@sismo-core/sismo-connect-react": "^0.0.11",
     "@sismo-core/sismo-connect-server": "^0.0.10",
@@ -26,11 +28,13 @@
     "eslint-config-next": "13.3.1",
     "google-auth-library": "^8.7.0",
     "googleapis": "^118.0.0",
+    "jest-environment-node-single-context": "^29.0.0",
     "luxon": "^3.3.0",
     "next": "13.4.2",
     "phosphor-react": "^1.4.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "reflect-metadata": "^0.1.13",
     "styled-components": "^6.0.0-beta.15",
     "typescript": "5.0.4",
     "utf-8-validate": "^6.0.3"

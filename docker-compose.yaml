@@ -1,0 +1,50 @@
+version: "3.8"
+services:
+  dynamodb-local:
+    command: "-jar /home/dynamodblocal/DynamoDBLocal.jar  -sharedDb -dbPath /tmp"
+    image: "amazon/dynamodb-local:latest"
+    ports:
+      - "9000:8000"
+    user: root
+  dynamodb-admin:
+    image: aaronshaf/dynamodb-admin
+    ports:
+      - "9001:9001"
+    environment:
+      - PORT=9001
+      - DYNAMO_ENDPOINT=http://dynamodb-local:8000
+  create-dynamodb-table:
+    image: amazon/aws-cli
+    environment:
+      - AWS_ACCESS_KEY_ID=local
+      - AWS_SECRET_ACCESS_KEY=local
+      - AWS_DEFAULT_REGION=eu-west-1
+    depends_on:
+      - dynamodb-local
+    volumes:
+      - ./dynamo-global-table.json:/conf/dynamo-global-table.json
+    entrypoint: >
+      /bin/sh -c "
+      sleep 5;
+      aws dynamodb create-table --endpoint-url http://dynamodb-local:8000 --cli-input-json file:///conf/dynamo-global-table.json;
+      exit 0;
+      "
+
+  minio:
+    image: minio/minio
+    command: server /tmp --console-address ":9002"
+    ports:
+      - "9002:9000" # S3
+      - "9003:9002" # S3 console
+  createbuckets:
+    image: minio/mc
+    depends_on:
+      - minio
+    entrypoint: >
+      /bin/sh -c "
+      sleep 5;
+      /usr/bin/mc alias set myminio http://minio:9000 minioadmin minioadmin;
+      /usr/bin/mc mb myminio/local;
+      /usr/bin/mc policy set public myminio/local;
+      exit 0;
+      "

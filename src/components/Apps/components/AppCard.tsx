@@ -173,8 +173,8 @@ export default function AppCard({ app, onCTAClick, cover, groupMetadataList }: P
             ))}
           </TagWrapper>
           {
-            app?.type === "zksub" && app?.userSelection?.type === "Lottery" &&
-            <AvailabilityProgressBar register={10} availableMax={app?.userSelection?.maxNumberOfEntries}/>
+            app?.type === "zksub" || app?.type === "zkdrop" && app?.userSelection?.type === "Lottery" &&
+            <AvailabilityProgressBar register={0} availableMax={app?.userSelection?.maxNumberOfEntries}/>
           }
         </ImageWrapper>
         {app?.name && <Title>{app.name}</Title>}

@@ -14,7 +14,7 @@ const Input = styled.input<{ small }>`
   font-size: 14px;
   color: ${props => props.theme.colors.neutral1};
 
-  ::placeholder {
+  &::placeholder {
     color: ${props => props.theme.colors.neutral5};
   }
 `;

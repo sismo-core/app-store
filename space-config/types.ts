@@ -13,11 +13,12 @@ export type SpaceConfig = {
     link: string;
   }[];
   
-  envs: ("Demo" | "Prod")[]; // default false
+  envs: Env[];
   hidden?: boolean; // default false
   apps?: App[];
 };
 
+export type Env = "Demo" | "Prod";
 export type App = ZkSubAppConfig | ZkDropAppConfig | ExternalAppConfig | ZkBadgeAppConfig;
 
 type SocialType = "twitter" | "discord" | "link" | "github" | "telegram";
@@ -40,6 +41,7 @@ type AppCommonConfig = {
   endDate?: Date;
   slug: string;
 
+  envs: Env[];
   disabled?: boolean; // default false
 };
 
@@ -64,6 +66,7 @@ export type ExternalAppConfig = AppCommonConfig & {
 export type ZkDropAppConfig = AppCommonConfig & {
   type: "zkdrop";
   chainId: number;
+  userSelection?: UserSelection; // default none
   contractAddress: string;
 };
 

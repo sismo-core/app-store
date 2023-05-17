@@ -118,10 +118,6 @@ export const privacyIsNormalConfig: SpaceConfig = {
       envs: ["Prod"],
     },
 
-    /******************************************************************************************/
-    /***************************************** TEST APPS **************************************/
-    /******************************************************************************************/
-
     {
       type: "zksub",
       name: "‘Privacy Is Normal’ Print Lottery",
@@ -149,7 +145,6 @@ export const privacyIsNormalConfig: SpaceConfig = {
       output: "google_sheet",
       appId: null,
       spreadsheetId: null,
-      userSelection: { type: "Lottery", maxNumberOfEntries: null, numberOfWinners: 10 },
       authRequests: [{ authType: AuthType.VAULT }],
       claimRequests: [{ groupId: "0x433ae0c1cb3793f0971f3bf2bbcff10e" }, { groupId: "0x1cde61966decb8600dfd0749bd371f12", claimType: ClaimType.GTE, value: 15 }],
       demo: {
@@ -158,6 +153,11 @@ export const privacyIsNormalConfig: SpaceConfig = {
       },
       envs: ["Demo"],
     },
+
+    /******************************************************************************************/
+    /***************************************** TEST APPS **************************************/
+    /******************************************************************************************/
+
     {
       type: "zksub",
       name: "[PROD TEST APP] ‘Privacy Is Normal’ NFT Lottery",
@@ -184,7 +184,6 @@ export const privacyIsNormalConfig: SpaceConfig = {
       output: "google_sheet",
       appId: "0x9dd13bc62ae6809fe9de95475111fc2a",
       spreadsheetId: "17uLGyCtSduW7PBTS2S2WKyourj9Z2nPKmAvzUD6kRM4",
-      userSelection: { type: "Lottery", maxNumberOfEntries: null, numberOfWinners: 100 },
       authRequests: [{ authType: AuthType.VAULT }],
       claimRequests: [{
         groupId: "0xe9ed316946d3d98dfcd829a53ec9822e"
@@ -225,7 +224,6 @@ export const privacyIsNormalConfig: SpaceConfig = {
       output: "google_sheet",
       appId: "0x9dd13bc62ae6809fe9de95475111fc2a",
       spreadsheetId: "17uLGyCtSduW7PBTS2S2WKyourj9Z2nPKmAvzUD6kRM4",
-      userSelection: { type: "Lottery", maxNumberOfEntries: null, numberOfWinners: 100 },
       authRequests: [{ authType: AuthType.VAULT }],
       claimRequests: [{
         groupId: "0xe9ed316946d3d98dfcd829a53ec9822e",

@@ -3,10 +3,11 @@ import env from "@/src/environments";
 import { getSpaceConfig } from "@/src/libs/spaces";
 import { GoogleSpreadsheetStore, Store } from "@/src/libs/store";
 import { AuthType, SismoConnect, SismoConnectResponse, SismoConnectServerConfig, SismoConnectVerifiedResult } from "@sismo-core/sismo-connect-server";
-import { Console } from "console";
 import { NextResponse } from "next/server";
 
 const spreadSheetsInitiated = new Map<string, boolean>();
+
+export let numberOfUsers = new Map<string, number>();
 
 export async function POST(req: Request) {
     console.log("///////POST/////////")
@@ -49,6 +50,10 @@ export async function POST(req: Request) {
         } 
     }
 
+    const spreadsheetId = env.isDemo ? app.demo.spreadsheetId : app.spreadsheetId;
+    if (!numberOfUsers.has(spreadsheetId)) numberOfUsers.set(spreadsheetId, 1);
+    else numberOfUsers.set(spreadsheetId, numberOfUsers.get(spreadsheetId) + 1);
+    
     await store.add(fieldsToAdd)
     
     return NextResponse.json({

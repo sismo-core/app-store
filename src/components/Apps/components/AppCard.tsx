@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import { textShorten } from "@/src/utils/textShorten";
@@ -11,6 +11,7 @@ import { App } from "@/space-config/types";
 import { GroupMetadata } from "@/src/libs/group-provider";
 import { ImportedNextImage } from "@/src/utils/getImgSrcFromConfig";
 import AvailabilityProgressBar from "./AvailabilityProgressBar";
+import axios from "axios";
 
 const Container = styled.div<{ isFolderHovered: boolean }>`
   display: flex;
@@ -158,6 +159,15 @@ type Props = {
 export default function AppCard({ app, onCTAClick, cover, groupMetadataList }: Props): JSX.Element {
   const [isFolded, setIsFolded] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
+
+  useEffect(() => {
+    const getUserCount = async () => {
+      if (app.type !== "zksub") return;
+      const res = await axios(`/api/count?spreadsheetId=${app.spreadsheetId}`);
+      console.log("res", res);
+    }
+    getUserCount();
+  }, [])
 
   return (
     <Container isFolderHovered={isHovered} onClick={onCTAClick}>

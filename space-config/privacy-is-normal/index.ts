@@ -108,7 +108,7 @@ export const privacyIsNormalConfig: SpaceConfig = {
         description:
           "You will soon receive the physical version of ‘Privacy Is Normal’ NFT :purple_heart: You can also claim the NFT version if not already.",
       },
-      startDate: new Date("2023-06-17T18:00Z"),
+      startDate: new Date("2023-06-18T18:00Z"),
       endDate: new Date("2023-07-18T18:00Z"),
       slug: "print-claim",
       output: "google_sheet",
@@ -144,7 +144,7 @@ export const privacyIsNormalConfig: SpaceConfig = {
         description:
           "We hope to have you among our lucky winners :purple_heart: We will contact you if you win!",
       },
-      startDate: new Date("2023-05-19T16:00Z"),
+      startDate: new Date("2023-05-17T16:00Z"),
       endDate: new Date("2023-05-20T18:00Z"),
       slug: "print-lottery",
       output: "google_sheet",

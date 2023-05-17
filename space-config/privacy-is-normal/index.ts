@@ -6,7 +6,7 @@ import { SpaceConfig } from "../types";
 export const privacyIsNormalConfig: SpaceConfig = {
   slug: "privacy-is-normal",
   name: "Privacy Is Normal Space",
-  description: "This Space celebrates censorship resistance and privacy as a fundamental human right. Prove in a privacy-preserving way that you're a Tornado Cash user to claim a 'Privacy Is Normal' NFT - a tribute to Tornado Cash's revolutionary code - and have a chance to get the physical version.",
+  description: "This Space celebrates privacy as a fundamental human right. Prove in a privacy-preserving way that you're a Tornado Cash user to claim a 'Privacy Is Normal' NFT - a tribute to Tornado Cash's revolutionary code - and have a chance to get the physical version.",
   profileImage: "space_sismo_pfp_400x400.png",
   coverImage: "space_sismo_cover_1740x540.png",
   socialLinks: [

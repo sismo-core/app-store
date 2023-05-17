@@ -110,9 +110,9 @@ export default function TimerModal({
     return number < 10 ? `0${number}` : number;
   }
 
-  const formattedDate = DateTime.fromJSDate(app?.startDate).toFormat(
-    "EEE, dd LLL yyyy HH:mm"
-  );
+  const date = DateTime.fromJSDate(app?.startDate);
+  const localDate = date.toLocal();
+  const formattedDate = localDate.toFormat("EEE, dd LLL yyyy HH:mm");
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} animated>

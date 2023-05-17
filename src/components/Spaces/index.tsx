@@ -41,7 +41,7 @@ export default function Spaces({ configs, spaceImportedImages }: Props): JSX.Ele
     return <Container>
         <Grid>
             {
-                configs.map(config => <div key={config.slug}>
+                configs.map(config => !config.hidden && <div key={config.slug}>
                     <SpaceCard config={config} image={spaceImportedImages.find(el => el.config.slug === config.slug).link}/>
                 </div>)
             }

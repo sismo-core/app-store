@@ -10,6 +10,7 @@ import ReqList from "./ReqList";
 import { App } from "@/space-config/types";
 import { GroupMetadata } from "@/src/libs/group-provider";
 import { ImportedNextImage } from "@/src/utils/getImgSrcFromConfig";
+import AvailabilityProgressBar from "./AvailabilityProgressBar";
 
 const Container = styled.div<{ isFolderHovered: boolean }>`
   display: flex;
@@ -171,6 +172,10 @@ export default function AppCard({ app, onCTAClick, cover, groupMetadataList }: P
               <Tag key={app?.name + tag + index}>{tag}</Tag>
             ))}
           </TagWrapper>
+          {
+            app?.type === "zksub" && app?.userSelection?.type === "Lottery" &&
+            <AvailabilityProgressBar register={10} availableMax={app?.userSelection?.maxNumberOfEntries}/>
+          }
         </ImageWrapper>
         {app?.name && <Title>{app.name}</Title>}
         {app?.description && <Description>{app.description}</Description>}

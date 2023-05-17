@@ -57,7 +57,7 @@ export const privacyIsNormalConfig: SpaceConfig = {
       spreadsheetId: "17uLGyCtSduW7PBTS2S2WKyourj9Z2nPKmAvzUD6kRM4",
       userSelection: { type: "Lottery", maxNumberOfEntries: null, numberOfWinners: 100 },
       authRequests: [{ authType: AuthType.VAULT }, { authType: AuthType.TWITTER, isSelectableByUser: true }],
-      claimRequests: [{ groupId: "0x1cde61966decb8600dfd0749bd371f12", value: 15 }], // add tornado group id
+      claimRequests: [{ groupId: "0x433ae0c1cb3793f0971f3bf2bbcff10e" }, { groupId: "0x1cde61966decb8600dfd0749bd371f12", value: 15 }],
       demo: {
         spreadsheetId: null,
         appId: null,
@@ -72,21 +72,28 @@ export const privacyIsNormalConfig: SpaceConfig = {
       tags: ["Lottery"],
       image: "sismoapps_newletter_1014x720.png",
       CTAText: "Participate in the Print Lottery",
-      fields: [],
+      fields: [
+        {
+          type: "short-text",
+          label: "Twitter",
+          placeholder: "@handle",
+          isRequired: true,
+        }
+      ],
       congratulationsMessage: {
         title: "Fingers crossed!",
         description:
           "We hope to have you among our lucky winners 💜 We will contact you if you win!",
       },
       startDate: new Date("2023-05-19T16:00"),
-      endDate: new Date("2023-05-20T16:00"),
+      endDate: new Date("2023-05-20T18:00"),
       slug: "print-lottery",
       output: "google_sheet",
       appId: null,
       spreadsheetId: null,
       userSelection: { type: "Lottery", maxNumberOfEntries: null, numberOfWinners: 10 },
       authRequests: [{ authType: AuthType.VAULT }, { authType: AuthType.TWITTER, isSelectableByUser: true }],
-      claimRequests: [{ groupId: "0x1cde61966decb8600dfd0749bd371f12", value: 15 }], // add tornado group id
+      claimRequests: [{ groupId: "0x433ae0c1cb3793f0971f3bf2bbcff10e" }, { groupId: "0x1cde61966decb8600dfd0749bd371f12", value: 15 }],
       demo: {
         spreadsheetId: "1WWN_o4KOMQ3gtgFasvPHZGbKqza3hsGuEon6ew2gMLE",
         appId: "0x5749773b034573e615026216c628be4d",

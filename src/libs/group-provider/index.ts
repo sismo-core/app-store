@@ -63,7 +63,10 @@ export class GroupProvider {
         fetchOptions
       )
         .then((res) => res.json())
-        .then((res) => res.items[0]);
+        .then((res) => res.items[0])
+        .catch((err) => {
+          console.log(err);
+        });
 
       return {
         id: groups.id,
@@ -73,7 +76,7 @@ export class GroupProvider {
         accountsNumber: groupsSnapshotMetadata.properties.accountsNumber,
         groupGeneratorName: groups.generatedBy,
         lastGenerationTimestamp: groupsSnapshotMetadata.timestamp,
-        generationFrequency: groupsGenerator.generationFrequency,
+        generationFrequency: groupsGenerator?.generationFrequency ?? "once",
         dataUrl: groupsSnapshotMetadata.dataUrl,
       };
     }

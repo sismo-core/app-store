@@ -97,7 +97,7 @@ export const privacyIsNormalConfig: SpaceConfig = {
       }, { 
         groupId: "0x1cde61966decb8600dfd0749bd371f12", 
         claimType: ClaimType.GTE, 
-        value: 15
+        value: 1
       }],
       demo: {
         spreadsheetId: null,

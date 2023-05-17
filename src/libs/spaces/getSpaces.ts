@@ -14,7 +14,7 @@ export function getSpacesConfigs(): SpaceConfig[] {
     else config.apps = config.apps.filter(app => app.envs.find(env => env === "Prod"))
   }
 
-  return configs;
+  return _configs;
 }
 
 export function getSpaceConfig({ slug }: { slug?: string } = {}): SpaceConfig {

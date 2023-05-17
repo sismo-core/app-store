@@ -238,14 +238,11 @@ export default function AppCard({
                     {getHumanReadableRemainingTimeTag(remainingTime)}
                   </Tag>
                 )}
-              {app?.type === "zksub" &&
-                app?.userSelection?.type === "Lottery" && (
-                  <AvailabilityProgressBar
-                    register={10}
-                    availableMax={app?.userSelection?.maxNumberOfEntries}
-                  />
-                )}
             </TagWrapper>
+               {
+            app?.type === "zksub" || app?.type === "zkdrop" && app?.userSelection?.type === "Lottery" &&
+            <AvailabilityProgressBar register={0} availableMax={app?.userSelection?.maxNumberOfEntries}/>
+          }
           </ImageWrapper>
           {app?.name && <Title>{app.name}</Title>}
           {app?.description && <Description>{app.description}</Description>}

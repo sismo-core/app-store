@@ -1,15 +1,19 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import { textShorten } from "@/src/utils/textShorten";
 import { CaretDown } from "phosphor-react";
 import colors from "@/src/themes/colors";
 import ReqList from "./ReqList";
-import { App } from "@/space-config/types";
+import { App, ZkSubAppConfig } from "@/space-config/types";
 import { GroupMetadata } from "@/src/libs/group-provider";
 import { ImportedNextImage } from "@/src/utils/getImgSrcFromConfig";
+import { Clock } from "phosphor-react";
+import { Duration } from "luxon";
+import TimerModal from "../TimerModal";
+import useRemainingTime from "@/src/utils/useRemainingTime";
 import AvailabilityProgressBar from "./AvailabilityProgressBar";
 
 const Container = styled.div<{ isFolderHovered: boolean }>`
@@ -94,6 +98,7 @@ const TagWrapper = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  gap: 8px;
 `;
 
 const Tag = styled.div`
@@ -106,6 +111,9 @@ const Tag = styled.div`
   line-height: 20px;
   font-family: ${(props) => props.theme.fonts.medium};
   color: ${(props) => props.theme.colors.neutral11};
+  display: flex;
+  align-items: center;
+  gap: 4px;
 `;
 
 const StyledImage = styled(Image)`
@@ -140,7 +148,6 @@ const ReqTitle = styled.div`
   margin-bottom: 8px;
 `;
 
-
 const CaretWrapper = styled.div<{ isFolded: boolean }>`
   display: flex;
   align-items: center;
@@ -152,52 +159,118 @@ type Props = {
   app: App;
   cover: string | ImportedNextImage;
   groupMetadataList: GroupMetadata[];
+  hasStarted: boolean;
   onCTAClick: () => void;
 };
 
-export default function AppCard({ app, onCTAClick, cover, groupMetadataList }: Props): JSX.Element {
+export default function AppCard({
+  app,
+  onCTAClick,
+  hasStarted,
+  cover,
+  groupMetadataList,
+}: Props): JSX.Element {
+  const [timerModalIsOpen, setTimerModalIsOpen] = useState(false);
   const [isFolded, setIsFolded] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
 
+  const remainingTime = useRemainingTime(app?.startDate);
+
+  //Close the timer modal when the app starts
+  useEffect(() => {
+    if (!hasStarted) return;
+    setTimerModalIsOpen(false);
+  }, [hasStarted]);
+
+  function getHumanReadableRemainingTimeTag(
+    remainingTimeForStartDate: Duration
+  ) {
+    if (remainingTimeForStartDate?.days > 0) {
+      return `Available in ${remainingTimeForStartDate.days} day${
+        remainingTimeForStartDate.days > 1 ? "s" : ""
+      }`;
+    }
+    if (remainingTimeForStartDate?.hours > 0) {
+      return `Available in ${remainingTimeForStartDate.hours} hour${
+        remainingTimeForStartDate.hours > 1 ? "s" : ""
+      }`;
+    }
+    if (remainingTimeForStartDate?.minutes > 0) {
+      return `Available in ${remainingTimeForStartDate.minutes} minute${
+        remainingTimeForStartDate.minutes > 1 ? "s" : ""
+      }`;
+    }
+    if (remainingTimeForStartDate?.seconds >= 0) {
+      return `Available in ${remainingTimeForStartDate.seconds.toFixed(
+        0
+      )} second${remainingTimeForStartDate.seconds > 1 ? "s" : ""}`;
+    }
+  }
+
   return (
-    <Container isFolderHovered={isHovered} onClick={onCTAClick}>
-      <Top>
-        {app?.CTAText && <TopText>{app?.CTAText}</TopText>}
-        <ImageWrapper>
-          {cover && (
-            <StyledImage src={cover} alt={app?.name}  placeholder="blur"/>
-          )}
-          <TagWrapper>
-            {app?.tags?.map((tag, index) => (
-              <Tag key={app?.name + tag + index}>{tag}</Tag>
-            ))}
-          </TagWrapper>
-          {
+    <>
+      <TimerModal
+        isOpen={timerModalIsOpen}
+        onClose={() => setTimerModalIsOpen(false)}
+        app={app as ZkSubAppConfig}
+      />
+      <Container
+        isFolderHovered={isHovered}
+        onClick={() => {
+          hasStarted ? onCTAClick() : setTimerModalIsOpen(true);
+        }}
+      >
+        <Top>
+          {app?.CTAText && <TopText>{app?.CTAText}</TopText>}
+          <ImageWrapper>
+            {cover && (
+              <StyledImage src={cover} alt={app?.name} placeholder="blur" />
+            )}
+            <TagWrapper>
+              {app?.tags?.map((tag, index) => (
+                <Tag key={app?.name + tag + index}>{tag}</Tag>
+              ))}
+              {app?.startDate &&
+                !hasStarted &&
+                getHumanReadableRemainingTimeTag(remainingTime) && (
+                  <Tag>
+                    <Clock size="18" />
+                    {getHumanReadableRemainingTimeTag(remainingTime)}
+                  </Tag>
+                )}
+            </TagWrapper>
+               {
             app?.type === "zksub" || app?.type === "zkdrop" && app?.userSelection?.type === "Lottery" &&
             <AvailabilityProgressBar register={0} availableMax={app?.userSelection?.maxNumberOfEntries}/>
           }
-        </ImageWrapper>
-        {app?.name && <Title>{app.name}</Title>}
-        {app?.description && <Description>{app.description}</Description>}
-      </Top>
-      <Bottom>
-        <ReqTitle>Requirements</ReqTitle>
-        {!isFolded && (
-          <ReqList groupMetadataList={groupMetadataList} app={app} style={{ paddingTop: 8, paddingBottom: 16 }} fullWidth/>
-        )}
-        <FolderButton
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-          onClick={(e) => {
-            e.stopPropagation();
-            setIsFolded(!isFolded);
-          }}
-        >
-          <CaretWrapper isFolded={isFolded}>
-            <CaretDown size={20} color={colors.neutral4} />
-          </CaretWrapper>
-        </FolderButton>
-      </Bottom>
-    </Container>
+          </ImageWrapper>
+          {app?.name && <Title>{app.name}</Title>}
+          {app?.description && <Description>{app.description}</Description>}
+        </Top>
+        <Bottom>
+          <ReqTitle>Requirements</ReqTitle>
+          {!isFolded && (
+            <ReqList
+              groupMetadataList={groupMetadataList}
+              app={app}
+              style={{ paddingTop: 8, paddingBottom: 16 }}
+              fullWidth
+            />
+          )}
+          <FolderButton
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsFolded(!isFolded);
+            }}
+          >
+            <CaretWrapper isFolded={isFolded}>
+              <CaretDown size={20} color={colors.neutral4} />
+            </CaretWrapper>
+          </FolderButton>
+        </Bottom>
+      </Container>
+    </>
   );
 }

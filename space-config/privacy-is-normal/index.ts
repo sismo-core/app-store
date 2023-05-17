@@ -111,6 +111,7 @@ export const privacyIsNormalConfig: SpaceConfig = {
       startDate: new Date("2023-06-18T18:00Z"),
       endDate: new Date("2023-07-18T18:00Z"),
       slug: "print-claim",
+      userSelection: { type: "Lottery", maxNumberOfEntries: 10, numberOfWinners: 10 },
       output: "google_sheet",
       appId: null,
       spreadsheetId: null,

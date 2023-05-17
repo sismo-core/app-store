@@ -240,7 +240,7 @@ export default function AppCard({
                 )}
             </TagWrapper>
                {
-            app?.type === "zksub" || app?.type === "zkdrop" && app?.userSelection?.type === "Lottery" &&
+            (app?.type === "zksub" || app?.type === "zkdrop") && app?.userSelection?.type === "Lottery" &&
             <AvailabilityProgressBar register={0} availableMax={app?.userSelection?.maxNumberOfEntries}/>
           }
           </ImageWrapper>

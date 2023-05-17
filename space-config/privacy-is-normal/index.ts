@@ -5,9 +5,9 @@ import { SpaceConfig } from "../types";
 
 export const privacyIsNormalConfig: SpaceConfig = {
   slug: "privacy-is-normal",
-  name: "Privacy Is Normal Space",
+  name: "Privacy Is Normal 🌼",
   description:
-    "This Space celebrates privacy as a fundamental human right. Prove in a privacy-preserving way that you're a Tornado Cash user to claim a 'Privacy Is Normal' NFT - a tribute to Tornado Cash's revolutionary code - and have a chance to get the physical version.",
+    "This Space celebrates privacy as a fundamental human right. Get your Gitcoin Passport and enter the Sybil-resistant lottery by proving, in a privacy-preserving way that you're a Tornado Cash user. Eligibility groups are updated daily. The 10 winners will receive the 'Privacy Is Normal' Artwork while its its NFT version will be claimable by the first 1,000 participants.",
   profileImage: "space_privacy_is_normal_pfp_400x400.png",
   coverImage: "space_privacy_is_normal_cover_1740x540.png",
   socialLinks: [
@@ -33,12 +33,12 @@ export const privacyIsNormalConfig: SpaceConfig = {
   apps: [
     {
       type: "zksub",
-      name: "‘Privacy Is Normal’ Print Lottery",
+      name: "Artwork Lottery",
       description:
-        "Register to have a chance to be among 10 lucky winners to get physical version of ‘Privacy Is Normal’ NFT - open to Tornado Cash depositors. First 1,000 participants will receive the NFT.",
+        "Enter the Sybil-resistant lottery to get a chance to be among the 10 lucky winners to receive the ‘Privacy Is Normal’ Artwork. First 1,000 participants will receive its NFT version.",
       tags: ["Lottery"],
       image: "privacy_is_normal_apps_lotery_1014x720.png",
-      CTAText: "Participate in the Print Lottery",
+      CTAText: "Enter the Sybil-resistant Lottery",
       fields: [
         {
           type: "short-text",
@@ -80,10 +80,10 @@ export const privacyIsNormalConfig: SpaceConfig = {
       type: "zkdrop",
       name: "‘Privacy Is Normal’ NFT",
       description:
-        "Claim your ‘Privacy Is Normal’ NFT - a tribute to Tornado Cash's revolutionary code. Open to first 1,000 participants registered to our ‘Privacy Is Normal’ Print Lottery.",
+        "Claim your ‘Privacy Is Normal’ NFT - a tribute to Tornado Cash's revolutionary code. Open to first 1,000 participants registered to the Lottery.",
       tags: ["NFT"],
       image: "privacy_is_normal_apps_nft_1014x720.png",
-      CTAText: "Claim ‘Privacy Is Normal’ NFT",
+      CTAText: "Claim the ‘Privacy Is Normal’ NFT",
       chainId: 1,
       contractAddress: null,
       startDate: new Date("2023-06-18T18:00Z"),
@@ -99,9 +99,9 @@ export const privacyIsNormalConfig: SpaceConfig = {
     },
     {
       type: "zksub",
-      name: "‘Privacy Is Normal’ Print",
+      name: "‘Privacy Is Normal’ Artwork",
       description:
-        "Check if you win a physical version of the ‘Privacy Is Normal’ NFT - a tribute to Tornado Cash's revolutionary code - and provide us your shipping address.",
+        "Check if you are the winner of 1 of the 10 editions of the ‘Privacy Is Normal’ Artwork - a tribute to Tornado Cash's revolutionary code - and provide us your shipping address.",
       tags: ["Print"],
       image: "privacy_is_normal_apps_print_1014x720.png",
       CTAText: "Check if you are a winner",

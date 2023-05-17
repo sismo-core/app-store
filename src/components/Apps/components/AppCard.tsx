@@ -14,6 +14,7 @@ import { Clock } from "phosphor-react";
 import { Duration } from "luxon";
 import TimerModal from "../TimerModal";
 import useRemainingTime from "@/src/utils/useRemainingTime";
+import AvailabilityProgressBar from "./AvailabilityProgressBar";
 
 const Container = styled.div<{ isFolderHovered: boolean }>`
   display: flex;
@@ -253,20 +254,37 @@ export default function AppCard({
               fullWidth
             />
           )}
-          <FolderButton
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-            onClick={(e) => {
-              e.stopPropagation();
-              setIsFolded(!isFolded);
-            }}
-          >
-            <CaretWrapper isFolded={isFolded}>
-              <CaretDown size={20} color={colors.neutral4} />
-            </CaretWrapper>
-          </FolderButton>
-        </Bottom>
-      </Container>
-    </>
+          <TagWrapper>
+            {app?.tags?.map((tag, index) => (
+              <Tag key={app?.name + tag + index}>{tag}</Tag>
+            ))}
+          </TagWrapper>
+          {
+            app?.type === "zksub" && app?.userSelection?.type === "Lottery" &&
+            <AvailabilityProgressBar register={10} availableMax={app?.userSelection?.maxNumberOfEntries}/>
+          }
+        </ImageWrapper>
+        {app?.name && <Title>{app.name}</Title>}
+        {app?.description && <Description>{app.description}</Description>}
+      </Top>
+      <Bottom>
+        <ReqTitle>Requirements</ReqTitle>
+        {!isFolded && (
+          <ReqList groupMetadataList={groupMetadataList} app={app} style={{ paddingTop: 8, paddingBottom: 16 }} fullWidth/>
+        )}
+        <FolderButton
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+          onClick={(e) => {
+            e.stopPropagation();
+            setIsFolded(!isFolded);
+          }}
+        >
+          <CaretWrapper isFolded={isFolded}>
+            <CaretDown size={20} color={colors.neutral4} />
+          </CaretWrapper>
+        </FolderButton>
+      </Bottom>
+    </Container>
   );
 }

@@ -56,7 +56,7 @@ export const privacyIsNormalConfig: SpaceConfig = {
       appId: "0x9dd13bc62ae6809fe9de95475111fc2a",
       spreadsheetId: "17uLGyCtSduW7PBTS2S2WKyourj9Z2nPKmAvzUD6kRM4",
       userSelection: { type: "Lottery", maxNumberOfEntries: null, numberOfWinners: 100 },
-      authRequests: [{ authType: AuthType.VAULT }, { authType: AuthType.TWITTER, isSelectableByUser: true }],
+      authRequests: [{ authType: AuthType.VAULT }],
       claimRequests: [{ groupId: "0x433ae0c1cb3793f0971f3bf2bbcff10e" }, { groupId: "0x1cde61966decb8600dfd0749bd371f12", claimType: ClaimType.GTE , value: 15 }],
       demo: {
         spreadsheetId: null,
@@ -172,7 +172,7 @@ export const privacyIsNormalConfig: SpaceConfig = {
       appId: null,
       spreadsheetId: null,
       userSelection: { type: "Lottery", maxNumberOfEntries: null, numberOfWinners: 10 },
-      authRequests: [{ authType: AuthType.VAULT }, { authType: AuthType.TWITTER, isSelectableByUser: true }],
+      authRequests: [{ authType: AuthType.VAULT }],
       claimRequests: [{ groupId: "0x433ae0c1cb3793f0971f3bf2bbcff10e" }, { groupId: "0x1cde61966decb8600dfd0749bd371f12", claimType: ClaimType.GTE, value: 15 }],
       demo: {
         spreadsheetId: "1WWN_o4KOMQ3gtgFasvPHZGbKqza3hsGuEon6ew2gMLE",

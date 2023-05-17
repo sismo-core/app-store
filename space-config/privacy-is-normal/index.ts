@@ -6,7 +6,8 @@ import { SpaceConfig } from "../types";
 export const privacyIsNormalConfig: SpaceConfig = {
   slug: "privacy-is-normal",
   name: "Privacy Is Normal Space",
-  description: "This Space celebrates privacy as a fundamental human right. Prove in a privacy-preserving way that you're a Tornado Cash user to claim a 'Privacy Is Normal' NFT - a tribute to Tornado Cash's revolutionary code - and have a chance to get the physical version.",
+  description:
+    "This Space celebrates privacy as a fundamental human right. Prove in a privacy-preserving way that you're a Tornado Cash user to claim a 'Privacy Is Normal' NFT - a tribute to Tornado Cash's revolutionary code - and have a chance to get the physical version.",
   profileImage: "space_privacy_is_normal_pfp_400x400.png",
   coverImage: "space_privacy_is_normal_cover_1740x540.png",
   socialLinks: [
@@ -27,7 +28,7 @@ export const privacyIsNormalConfig: SpaceConfig = {
       link: "https://github.com/sismo-core",
     },
   ],
-  envs: ["Prod","Demo"],
+  envs: ["Prod", "Demo"],
   hidden: true,
   apps: [
     {
@@ -44,7 +45,7 @@ export const privacyIsNormalConfig: SpaceConfig = {
           label: "Claiming Address",
           placeholder: "Provide the address you will use to claim the NFT",
           isRequired: true,
-        }
+        },
       ],
       congratulationsMessage: {
         title: "Fingers crossed!",
@@ -58,11 +59,16 @@ export const privacyIsNormalConfig: SpaceConfig = {
       appId: "0x9dd13bc62ae6809fe9de95475111fc2a",
       spreadsheetId: "17uLGyCtSduW7PBTS2S2WKyourj9Z2nPKmAvzUD6kRM4",
       authRequests: [{ authType: AuthType.VAULT }],
-      claimRequests: [{ 
-        groupId: "0x433ae0c1cb3793f0971f3bf2bbcff10e"
-      }, { 
-        groupId: "0x1cde61966decb8600dfd0749bd371f12", claimType: ClaimType.GTE , value: 15
-      }],
+      claimRequests: [
+        {
+          groupId: "0x433ae0c1cb3793f0971f3bf2bbcff10e",
+        },
+        {
+          groupId: "0x1cde61966decb8600dfd0749bd371f12",
+          claimType: ClaimType.GTE,
+          value: 15,
+        },
+      ],
       demo: {
         spreadsheetId: null,
         appId: null,
@@ -76,14 +82,18 @@ export const privacyIsNormalConfig: SpaceConfig = {
       description:
         "Claim your ‘Privacy Is Normal’ NFT - a tribute to Tornado Cash's revolutionary code. Open to first 1,000 participants registered to our ‘Privacy Is Normal’ Print Lottery.",
       tags: ["NFT"],
-      image: "space_privacy_is_normal_cover_1740x540.png",
+      image: "privacy_is_normal_apps_nft_1014x720.png",
       CTAText: "Claim ‘Privacy Is Normal’ NFT",
       chainId: 1,
       contractAddress: null,
       startDate: new Date("2023-06-18T18:00Z"),
       endDate: new Date("2023-07-18T18:00Z"),
       slug: "nft-claim",
-      userSelection: { type: "Lottery", maxNumberOfEntries: 1000, numberOfWinners: 10 },
+      userSelection: {
+        type: "Lottery",
+        maxNumberOfEntries: 1000,
+        numberOfWinners: 10,
+      },
       authRequests: [{ authType: AuthType.VAULT }],
       envs: ["Prod"],
     },
@@ -93,7 +103,7 @@ export const privacyIsNormalConfig: SpaceConfig = {
       description:
         "Check if you win a physical version of the ‘Privacy Is Normal’ NFT - a tribute to Tornado Cash's revolutionary code - and provide us your shipping address.",
       tags: ["Print"],
-      image: "space_privacy_is_normal_cover_1740x540.png",
+      image: "privacy_is_normal_apps_print_1014x720.png",
       CTAText: "Check if you are a winner",
       fields: [
         {
@@ -101,7 +111,7 @@ export const privacyIsNormalConfig: SpaceConfig = {
           label: "Claiming Address",
           placeholder: "Provide the address you will use to claim the NFT",
           isRequired: true,
-        }
+        },
       ],
       congratulationsMessage: {
         title: "Congratulations",
@@ -111,7 +121,11 @@ export const privacyIsNormalConfig: SpaceConfig = {
       startDate: new Date("2023-06-18T18:00Z"),
       endDate: new Date("2023-07-18T18:00Z"),
       slug: "print-claim",
-      userSelection: { type: "Lottery", maxNumberOfEntries: 10, numberOfWinners: 10 },
+      userSelection: {
+        type: "Lottery",
+        maxNumberOfEntries: 10,
+        numberOfWinners: 10,
+      },
       output: "google_sheet",
       appId: null,
       spreadsheetId: null,
@@ -138,7 +152,7 @@ export const privacyIsNormalConfig: SpaceConfig = {
           label: "Twitter",
           placeholder: "@handle",
           isRequired: true,
-        }
+        },
       ],
       congratulationsMessage: {
         title: "Fingers crossed!",
@@ -152,7 +166,14 @@ export const privacyIsNormalConfig: SpaceConfig = {
       appId: null,
       spreadsheetId: null,
       authRequests: [{ authType: AuthType.VAULT }],
-      claimRequests: [{ groupId: "0x433ae0c1cb3793f0971f3bf2bbcff10e" }, { groupId: "0x1cde61966decb8600dfd0749bd371f12", claimType: ClaimType.GTE, value: 15 }],
+      claimRequests: [
+        { groupId: "0x433ae0c1cb3793f0971f3bf2bbcff10e" },
+        {
+          groupId: "0x1cde61966decb8600dfd0749bd371f12",
+          claimType: ClaimType.GTE,
+          value: 15,
+        },
+      ],
       demo: {
         spreadsheetId: "1WWN_o4KOMQ3gtgFasvPHZGbKqza3hsGuEon6ew2gMLE",
         appId: "0x5749773b034573e615026216c628be4d",

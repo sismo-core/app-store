@@ -49,7 +49,7 @@ export const privacyIsNormalConfig: SpaceConfig = {
       congratulationsMessage: {
         title: "Fingers crossed!",
         description:
-          "We hope to have you among our lucky winners :purple_heart: Stay in touch!",
+          "We hope to have you among our lucky winners 💜 Stay in touch!",
       },
       startDate: new Date("2023-05-17T14:00Z"),
       endDate: new Date("2023-06-18T14:00Z"),
@@ -106,7 +106,7 @@ export const privacyIsNormalConfig: SpaceConfig = {
       congratulationsMessage: {
         title: "Congratulations",
         description:
-          "You will soon receive the physical version of ‘Privacy Is Normal’ NFT :purple_heart: You can also claim the NFT version if not already.",
+          "You will soon receive the physical version of ‘Privacy Is Normal’ NFT 💜 You can also claim the NFT version if not already.",
       },
       startDate: new Date("2023-06-18T18:00Z"),
       endDate: new Date("2023-07-18T18:00Z"),
@@ -143,7 +143,7 @@ export const privacyIsNormalConfig: SpaceConfig = {
       congratulationsMessage: {
         title: "Fingers crossed!",
         description:
-          "We hope to have you among our lucky winners :purple_heart: We will contact you if you win!",
+          "We hope to have you among our lucky winners 💜 We will contact you if you win!",
       },
       startDate: new Date("2023-05-17T16:00Z"),
       endDate: new Date("2023-05-20T18:00Z"),

@@ -34,7 +34,7 @@ export const privacyIsNormalConfig: SpaceConfig = {
       type: "zksub",
       name: "‘Privacy Is Normal’ Print Lottery",
       description:
-        "Register to have a chance to be among 10 lucky winners to get physical version of ‘Privacy Is Normal’ NFT - open to Tornado Cash depositors. Every participant can claim the NFT version.",
+        "Register to have a chance to be among 10 lucky winners to get physical version of ‘Privacy Is Normal’ NFT - open to Tornado Cash depositors. First 1,000 participants will receive the NFT.",
       tags: ["Lottery"],
       image: "sismoapps_newletter_1014x720.png",
       CTAText: "Participate in the Print Lottery",
@@ -49,7 +49,7 @@ export const privacyIsNormalConfig: SpaceConfig = {
       congratulationsMessage: {
         title: "Fingers crossed!",
         description:
-          "We hope to have you among our lucky winners :purple_heart: Come back to claim the NFT version either way!",
+          "We hope to have you among our lucky winners :purple_heart: Stay in touch!",
       },
       startDate: new Date("2023-05-18T14:00"),
       endDate: new Date("2023-06-18T14:00"),
@@ -59,18 +59,23 @@ export const privacyIsNormalConfig: SpaceConfig = {
       spreadsheetId: "17uLGyCtSduW7PBTS2S2WKyourj9Z2nPKmAvzUD6kRM4",
       userSelection: { type: "Lottery", maxNumberOfEntries: 1000, numberOfWinners: 10 },
       authRequests: [{ authType: AuthType.VAULT }],
-      claimRequests: [{ groupId: "0x433ae0c1cb3793f0971f3bf2bbcff10e" }, { groupId: "0x1cde61966decb8600dfd0749bd371f12", claimType: ClaimType.GTE , value: 15 }],
+      claimRequests: [{ 
+        groupId: "0x23ff9e30e9957c65ee56b4c902b28eae" //tornado depositor: 0x433ae0c1cb3793f0971f3bf2bbcff10e
+      }, { 
+        groupId: "0x1cde61966decb8600dfd0749bd371f12", claimType: ClaimType.GTE , value: 15  //tornado-test-wei-ben
+      }],
       demo: {
         spreadsheetId: null,
         appId: null,
       },
       envs: ["Prod"],
     },
+
     {
       type: "zkdrop",
       name: "‘Privacy Is Normal’ NFT",
       description:
-        "Claim your ‘Privacy Is Normal’ NFT - a tribute to Tornado Cash's revolutionary code. Open to Tornado Cash depositors that registered to our ‘Privacy Is Normal’ Print Lottery.",
+        "Claim your ‘Privacy Is Normal’ NFT - a tribute to Tornado Cash's revolutionary code. Open to first 1,000 participants registered to our ‘Privacy Is Normal’ Print Lottery.",
       tags: ["NFT"],
       image: "sismoapps_newletter_1014x720.png",
       CTAText: "Claim ‘Privacy Is Normal’ NFT",
@@ -186,7 +191,7 @@ export const privacyIsNormalConfig: SpaceConfig = {
       spreadsheetId: "17uLGyCtSduW7PBTS2S2WKyourj9Z2nPKmAvzUD6kRM4",
       authRequests: [{ authType: AuthType.VAULT }],
       claimRequests: [{
-        groupId: "0xe9ed316946d3d98dfcd829a53ec9822e"
+        groupId: "0x23ff9e30e9957c65ee56b4c902b28eae"
       }, {
         groupId: "0x1cde61966decb8600dfd0749bd371f12",
         claimType: ClaimType.GTE,

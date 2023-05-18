@@ -1,6 +1,7 @@
 // add an images folder in your space folder if you would like Sismo to host your images
 import { AuthType } from "@sismo-core/sismo-connect-server";
 import { SpaceConfig } from "../types";
+import { ClaimType } from "@sismo-core/sismo-connect-react";
 
 export const sismoConfig: SpaceConfig = {
   slug: "sismo",
@@ -130,7 +131,7 @@ export const sismoConfig: SpaceConfig = {
       output: "google_sheet",
       appId: null,
       spreadsheetId: null,
-      claimRequests: [{ groupId: "0x1cde61966decb8600dfd0749bd371f12", isOptional: true }],
+      claimRequests: [{ groupId: "0x1cde61966decb8600dfd0749bd371f12", claimType: ClaimType.GTE, value:15, isOptional: true }],
       authRequests: [{ authType: AuthType.VAULT }, { authType: AuthType.TWITTER, isSelectableByUser: true}],
       demo: {
         spreadsheetId: "1VBYLvo6x1R34kPhr9DVxYmNx6uzm_FtHczsbaDL-7dU",

@@ -29,7 +29,7 @@ export const privacyIsNormalConfig: SpaceConfig = {
     },
   ],
   envs: ["Prod", "Demo"],
-  hidden: true,
+  hidden: false,
   apps: [
     {
       type: "zksub",

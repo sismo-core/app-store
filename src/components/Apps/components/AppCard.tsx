@@ -15,6 +15,7 @@ import { Duration } from "luxon";
 import TimerModal from "../TimerModal";
 import useRemainingTime from "@/src/utils/useRemainingTime";
 import AvailabilityProgressBar from "./AvailabilityProgressBar";
+import { useModals } from "@/src/state/ModalState";
 
 const Container = styled.div<{ isFolderHovered: boolean }>`
   display: flex;
@@ -173,6 +174,7 @@ export default function AppCard({
   const [timerModalIsOpen, setTimerModalIsOpen] = useState(false);
   const [isFolded, setIsFolded] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
+  const { requirementsIsOpen } = useModals();
 
   const remainingTime = useRemainingTime(app?.startDate);
 
@@ -211,13 +213,16 @@ export default function AppCard({
     <>
       <TimerModal
         isOpen={timerModalIsOpen}
-        onClose={() => setTimerModalIsOpen(false)}
+        onClose={() => {
+          setTimerModalIsOpen(false)
+        }}
         app={app as ZkSubAppConfig}
       />
       <Container
         isFolderHovered={isHovered}
         onClick={() => {
-          hasStarted ? onCTAClick() : setTimerModalIsOpen(true);
+          if (!requirementsIsOpen)
+            hasStarted ? onCTAClick() : setTimerModalIsOpen(true);
         }}
       >
         <Top>

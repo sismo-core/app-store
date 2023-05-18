@@ -5,6 +5,7 @@ import Footer from "../components/Footer";
 import Theme from "../themes/provider";
 import { PageContent } from "../components/Layouts/PageContent";
 import PageContainer from "../components/Layouts/PageContainer";
+import ModalsProvider from "../state/ModalState";
 
 export const metadata = {
   title: "Create Next App",
@@ -42,13 +43,15 @@ export default function RootLayout({
         <div id="tooltip-root" style={{ position: "fixed", zIndex: 9999 }} />
         <div id="modal-root" style={{ zIndex: 9999 }} />
         <StyledComponentsRegistry>
-          <Theme>
-            <PageContainer>
-              <Navbar />
-              <PageContent>{children}</PageContent>
-              <Footer />
-            </PageContainer>
-          </Theme>
+          <ModalsProvider>
+            <Theme>
+              <PageContainer>
+                <Navbar />
+                <PageContent>{children}</PageContent>
+                <Footer />
+              </PageContainer>
+            </Theme>
+          </ModalsProvider>
         </StyledComponentsRegistry>
       </body>
     </html>

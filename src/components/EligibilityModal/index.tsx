@@ -6,6 +6,7 @@ import EligibleLink from "./components/EligibleLink";
 import { ArrowSquareOut } from "phosphor-react";
 import { GithubRounded } from "../SismoReactIcon";
 import Generation from "./components/Generation";
+import { useModals } from "@/src/state/ModalState";
 
 const Container = styled.div`
   display: flex;
@@ -200,8 +201,8 @@ export default function EligibilityModal({
       isOpen={isOpen}
       onClose={onClose}
       animated
-      outsideClosable
-      zIndex={2008}
+      outsideClosable={false}
+      zIndex={3008}
     >
       <Container>
         <Header>

@@ -13,6 +13,7 @@ import {
 import { GroupMetadata } from "@/src/libs/group-provider";
 import { ImportedImage } from "@/src/app/(space)/[...slug]/page";
 import { DateTime } from "luxon";
+import { useModals } from "@/src/state/ModalState";
 
 const Container = styled.div`
   margin: 48px 0px 80px 0px;
@@ -49,7 +50,7 @@ export default function Apps({
 }: Props): JSX.Element {
   const [zkSubApp, setZkSubApp] = useState<ZkSubAppConfig>(null);
   // Don't use Boolean(zkSubApp) to open the app in order to avoid seeing the app disappear during the close animation
-  const [isZkSubAppOpen, setIsZkSubAppOpen] = useState(false);
+  const { zkSubAppIsOpen, setZkSubAppIsOpen } = useModals();
   const [zkSubAppOpening, setZkAppOpening] = useState(false);
 
   const [zkDropApp, setZkDropApp] = useState<ZkDropAppConfig>(null);
@@ -66,7 +67,7 @@ export default function Apps({
       // Can open the modal only 300ms after the init due to animation
       setTimeout(() => {
         setZkSubApp(app);
-        setIsZkSubAppOpen(true);
+        setZkSubAppIsOpen(true);
         setZkAppOpening(false);
       }, 300);
     }
@@ -75,14 +76,14 @@ export default function Apps({
   return (
     <Container>
       <ZkSubApp
-        isOpen={isZkSubAppOpen}
+        isOpen={zkSubAppIsOpen}
         app={zkSubApp}
         space={config}
         groupMetadataList={groupMetadataList}
         onClose={() => {
           let url = window.location.origin + `/${config.slug}`;
           window.history.replaceState(null, "", url);
-          setIsZkSubAppOpen(false);
+          setZkSubAppIsOpen(false);
         }}
       />
       <ZkDropApp
@@ -124,7 +125,7 @@ export default function Apps({
                         window.location.origin + `/${config.slug}/${app.slug}`;
                       window.history.replaceState(null, "", url);
                       setZkSubApp(app);
-                      setIsZkSubAppOpen(true);
+                      setZkSubAppIsOpen(true);
                     }
                   }}
                 />

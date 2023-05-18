@@ -1,11 +1,12 @@
 import styled from "styled-components";
 import { Info } from "phosphor-react";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { ClaimRequest, ClaimType } from "@sismo-core/sismo-connect-react";
 import colors from "@/src/themes/colors";
 import { textShorten } from "@/src/utils/textShorten";
 import EligibilityModal from "../EligibilityModal";
 import { GroupMetadata } from "@/src/libs/group-provider";
+import { useModals } from "@/src/state/ModalState";
 
 const OuterContainer = styled.div<{ fullWidth: boolean }>`
   display: flex;
@@ -84,7 +85,7 @@ export default function ShardTag({
   fullWidth,
 }: // onModal,
 Props) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { requirementsIsOpen, setRequirementsIsOpen } = useModals();
 
   const ref = useRef(null);
   const color = colors.neutral1;
@@ -100,9 +101,9 @@ Props) {
     <>
       <EligibilityModal
         groupMetadata={groupMetadata}
-        isOpen={isModalOpen}
+        isOpen={requirementsIsOpen}
         onClose={() => {
-          setIsModalOpen(false);
+          setRequirementsIsOpen(false);
         }}
       ></EligibilityModal>
       <OuterContainer fullWidth={fullWidth}>
@@ -147,11 +148,11 @@ Props) {
           </Right>
         </Container>
         <InfoWrapper
-        //   onClick={(e) => {
-        //     e.stopPropagation();
-        //     setIsModalOpen(true);
-        //   }
-        // }
+           onClick={(e) => {
+              setRequirementsIsOpen(true);
+              e.stopPropagation();
+            }
+          }
         >
           <Info size={18} color={color} />
         </InfoWrapper>

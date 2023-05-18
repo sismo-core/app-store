@@ -11,6 +11,7 @@ import Register, { FieldValue } from "./components/Register";
 import Section from "./components/Section";
 import Congratulations from "./components/Congratulations";
 import { GroupMetadata } from "@/src/libs/group-provider";
+import { useModals } from "@/src/state/ModalState";
 
 const Content = styled.div`
     max-width: 580px;
@@ -83,6 +84,7 @@ export default function ZkSubApp({ isOpen, onClose, app, space, groupMetadataLis
     const [verifying, setVerifying] = useState<boolean>(false);
     const [fields, setFields] = useState<FieldValue[]>(null);
     const [response, setResponse] = useState<SismoConnectResponse>(null);
+    const { requirementsIsOpen } = useModals();
 
     const submit = async () => {
         const body = {
@@ -126,7 +128,7 @@ export default function ZkSubApp({ isOpen, onClose, app, space, groupMetadataLis
         }, 300);
     }
 
-    return <Modal isOpen={isOpen} onClose={onClose} animated>
+    return <Modal isOpen={isOpen} onClose={onClose} animated outsideClosable={!requirementsIsOpen}>
         <Content>
             {
                 subscribed ? <Congratulations onBackToSpace={onClose} app={app}/> : <>

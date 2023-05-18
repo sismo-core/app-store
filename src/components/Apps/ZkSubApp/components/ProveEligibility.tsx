@@ -48,10 +48,7 @@ export default function ProveEligibility({
         (env.isDemo || env.isDev) && app?.claimRequests?.length > 0
           ? app.claimRequests.map((claim) => {
               let value = 1;
-              console.log("config claim", claim);
               if (claim.value) {
-                console.log("config if")
-                console.log("config claim.claimType", claim.claimType);
                 switch(claim.claimType) {
                   case ClaimType.EQ:
                     value = claim.value;
@@ -83,8 +80,6 @@ export default function ProveEligibility({
     },
   };
 
-  console.log("config", config);
-
   return (
     <Container>
       <Eligibility style={{ marginBottom: 24 }}>
@@ -98,7 +93,6 @@ export default function ProveEligibility({
             auths={app?.authRequests}
             callbackPath={window.location.pathname}
             onResponse={(response) => {
-              console.log("onResponse", response);
               response && onEligible(response);
             }}
           />

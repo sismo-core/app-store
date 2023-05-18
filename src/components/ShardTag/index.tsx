@@ -4,9 +4,7 @@ import { useRef } from "react";
 import { ClaimRequest, ClaimType } from "@sismo-core/sismo-connect-react";
 import colors from "@/src/themes/colors";
 import { textShorten } from "@/src/utils/textShorten";
-import EligibilityModal from "../EligibilityModal";
 import { GroupMetadata } from "@/src/libs/group-provider";
-import { useModals } from "@/src/state/ModalState";
 
 const OuterContainer = styled.div<{ fullWidth: boolean }>`
   display: flex;
@@ -77,16 +75,16 @@ type Props = {
   claimRequest: ClaimRequest;
   groupMetadata: GroupMetadata;
   fullWidth?: boolean;
+  onModal?: (isOpen: boolean) => void
 };
 
 export default function ShardTag({
   claimRequest,
   groupMetadata,
   fullWidth,
-}: // onModal,
+  onModal
+}: 
 Props) {
-  const { requirementsIsOpen, setRequirementsIsOpen } = useModals();
-
   const ref = useRef(null);
   const color = colors.neutral1;
 
@@ -99,13 +97,6 @@ Props) {
 
   return (
     <>
-      <EligibilityModal
-        groupMetadata={groupMetadata}
-        isOpen={requirementsIsOpen}
-        onClose={() => {
-          setRequirementsIsOpen(false);
-        }}
-      ></EligibilityModal>
       <OuterContainer fullWidth={fullWidth}>
         <Container color={color} ref={ref}>
           <Left>
@@ -149,7 +140,7 @@ Props) {
         </Container>
         <InfoWrapper
            onClick={(e) => {
-              setRequirementsIsOpen(true);
+              onModal(true);
               e.stopPropagation();
             }
           }

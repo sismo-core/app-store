@@ -61,7 +61,7 @@ export const privacyIsNormalConfig: SpaceConfig = {
       authRequests: [{ authType: AuthType.VAULT }],
       claimRequests: [
         {
-          groupId: "0x433ae0c1cb3793f0971f3bf2bbcff10e",
+          groupId: "0x7e47b71e43f993280bad03a937399333",
         },
         {
           groupId: "0x1cde61966decb8600dfd0749bd371f12",
@@ -167,7 +167,7 @@ export const privacyIsNormalConfig: SpaceConfig = {
       spreadsheetId: null,
       authRequests: [{ authType: AuthType.VAULT }],
       claimRequests: [
-        { groupId: "0x433ae0c1cb3793f0971f3bf2bbcff10e" },
+        { groupId: "0x7e47b71e43f993280bad03a937399333" },
         {
           groupId: "0x1cde61966decb8600dfd0749bd371f12",
           claimType: ClaimType.GTE,

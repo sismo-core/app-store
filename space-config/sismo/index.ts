@@ -87,7 +87,7 @@ export const sismoConfig: SpaceConfig = {
       type: "zksub",
       name: "Sismo Space Feedback",
       description:
-        "Provide feedback to help us improve your Sismo Space experience and become a Sismo Contributor Level 1 - open to all.",
+        "Provide feedback to help us improve your Sismo Space experience and become a Sismo Contributor Level 1 - open to Gitcoin Passport holders.",
       tags: ["Feedback"],
       image: "sismoapps_feedback_1014x720.png",
       CTAText: "Give Feedback",
@@ -142,7 +142,7 @@ export const sismoConfig: SpaceConfig = {
       type: "zksub",
       name: "Sismo Alpha Tester",
       description:
-        "Register to become a Sismo Alpha Tester - open to Ethereum Power Users & Gitcoin Passport holders.",
+        "Register to become a Sismo Alpha Tester - open to Ethereum Power Users & ENS Domains Holders.",
       tags: ["Alpha"],
       image: "sismoapps_alpha_tester_1014x720.png",
       CTAText: "Become an Alpha Tester",

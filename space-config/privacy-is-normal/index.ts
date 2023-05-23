@@ -92,7 +92,7 @@ export const privacyIsNormalConfig: SpaceConfig = {
       userSelection: {
         type: "Lottery",
         maxNumberOfEntries: 1000,
-        numberOfWinners: 10,
+        numberOfWinners: 1000,
       },
       authRequests: [{ authType: AuthType.VAULT }],
       envs: ["Prod"],

@@ -1,12 +1,12 @@
 "use client";
 
 import { ZkSubAppConfig } from "@/space-config/types";
-import env from "@/src/environments";
-import { ClaimType, SismoConnectButton } from "@sismo-core/sismo-connect-react";
+import { SismoConnectButton, SismoConnectConfig, Vault } from "@sismo-core/sismo-connect-react";
 import React from "react";
 import { styled } from "styled-components";
 import ReqList from "../../components/ReqList";
 import { GroupMetadata } from "@/src/libs/group-provider";
+import env from "@/src/environments";
 
 const Container = styled.div``;
 
@@ -33,51 +33,14 @@ export default function ProveEligibility({
   groupMetadataList,
   onEligible,
 }: Props): JSX.Element {
-  const appId = env.isDemo
-  ? app?.demo.appId
-  : env.isDev
-  ? "0x4c40e70b081752680ce258ad321f9e58"
-  : app?.appId;
 
-  const config = {
-    appId: appId,
-    vaultAppBaseUrl: env.isDemo ? "https://demo.vault-beta.sismo.io" : null,
-    devMode: {
-      enabled: env.isDemo || env.isDev,
-      devGroups:
-        (env.isDemo || env.isDev) && app?.claimRequests?.length > 0
-          ? app.claimRequests.map((claim) => {
-              let value = 1;
-              if (claim.value) {
-                switch(claim.claimType) {
-                  case ClaimType.EQ:
-                    value = claim.value;
-                    break;
-                  case ClaimType.GT:
-                    value = claim.value + 1;
-                    break;
-                  case ClaimType.GTE:
-                    value = claim.value + 1;
-                    break;
-                  case ClaimType.LT:
-                    value = claim.value - 1;
-                    break;
-                  case ClaimType.LTE:
-                    value = claim.value - 1;
-                    break;
-                }
-              }
+  let appId = app?.appId;
+  if (env.isDemo) appId = app?.demo.appId;
+  if (env.isDev) appId = "0x4c40e70b081752680ce258ad321f9e58";
 
-              return {
-                groupId: claim.groupId,
-                data: {
-                  "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045":  value,
-                  "0xb01ee322C4f028B8A6BFcD2a5d48107dc5bC99EC": 1,
-                },
-              };
-            })
-          : null,
-    },
+  const config: SismoConnectConfig = {
+    appId,
+    vault: env.isDemo ? Vault.Demo : Vault.Main
   };
 
   return (
@@ -86,17 +49,16 @@ export default function ProveEligibility({
         <ReqList app={app} groupMetadataList={groupMetadataList} />
       </Eligibility>
       <ButtonContainer>
-        {(app?.claimRequests || app?.authRequests) && (
-          <SismoConnectButton
-            config={config}
-            claims={app?.claimRequests}
-            auths={app?.authRequests}
-            callbackPath={window.location.pathname}
-            onResponse={(response) => {
-              response && onEligible(response);
-            }}
-          />
-        )}
+        <SismoConnectButton
+          config={config}
+          claims={app.claimRequests}
+          auths={app.authRequests}
+          callbackPath={window.location.pathname}
+          onResponse={(response) => {
+            console.log("onResponse", response)
+            response && onEligible(response);
+          }}
+        />
       </ButtonContainer>
     </Container>
   );

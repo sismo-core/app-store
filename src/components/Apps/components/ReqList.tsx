@@ -60,9 +60,9 @@ export default function ReqList({ app, groupMetadataList, style, fullWidth }: Pr
         }}
       />
       <Container style={style}>
-        {app?.authRequests?.length > 0 &&
-          app?.authRequests?.map((authRequest, index) => (
-            <AuthItem key={authRequest?.authType + index}>
+        {app && app.authRequests?.length > 0 &&
+          app.authRequests.map((authRequest, index) => (
+            <AuthItem key={authRequest.authType + index}>
               {authRequest?.authType === AuthType.VAULT ? (
                 <>
                   Share: <Bold>Vault Id</Bold>

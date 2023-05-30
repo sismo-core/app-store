@@ -2,8 +2,7 @@ import { ZkSubAppConfig } from "@/space-config/types";
 import env from "@/src/environments";
 import { getSpaceConfig } from "@/src/libs/spaces";
 import { GoogleSpreadsheetStore, Store } from "@/src/libs/store";
-import { AuthType, SismoConnect, SismoConnectResponse, SismoConnectServerConfig, SismoConnectVerifiedResult } from "@sismo-core/sismo-connect-server";
-import { Console } from "console";
+import { AuthType, SismoConnect, SismoConnectConfig, SismoConnectResponse, SismoConnectVerifiedResult, Vault } from "@sismo-core/sismo-connect-server";
 import { NextResponse } from "next/server";
 
 const spreadSheetsInitiated = new Map<string, boolean>();
@@ -90,13 +89,15 @@ const isVaultIdExist = async (store: Store, vaultId: string): Promise<boolean> =
 
 const verifyResponse = async (app: ZkSubAppConfig, response: SismoConnectResponse): Promise<SismoConnectVerifiedResult> => {
     try {
-        const config: SismoConnectServerConfig = {
-            appId: env.isDemo ? app.demo.appId : (env.isDev ? "0x4c40e70b081752680ce258ad321f9e58" : app.appId),
-            devMode: {
-                enabled: env.isDemo || env.isDev
-            }
+        let appId = app?.appId;
+        if (env.isDemo) appId = app?.demo.appId;
+        if (env.isDev) appId = "0x4c40e70b081752680ce258ad321f9e58";
+      
+        const config: SismoConnectConfig = {
+            appId,
+            vault: env.isDemo ? Vault.Demo : Vault.Main
         }
-        const sismoConnect = SismoConnect(config);
+        const sismoConnect = SismoConnect({ config });
         return await sismoConnect.verify(
             response,
             {

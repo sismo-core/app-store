@@ -45,7 +45,7 @@ type Props = {
 }
 
 export default function AvailabilityProgressBar({ register, availableMax }: Props): JSX.Element {
-  const [progress, setProgress] = useState(0);
+  const [progress, setProgress] = useState(null);
 
   useEffect(() => {
     let _progress = register * 100 / availableMax;
@@ -56,7 +56,7 @@ export default function AvailabilityProgressBar({ register, availableMax }: Prop
   return (
     <Container>
       <ProgressContainer>
-        <Progress progress={progress}/>
+        <Progress progress={progress || 0}/>
       </ProgressContainer>
       <Text>
         {register} / {availableMax} available

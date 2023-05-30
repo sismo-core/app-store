@@ -17,7 +17,7 @@ import useRemainingTime from "@/src/utils/useRemainingTime";
 import AvailabilityProgressBar from "./AvailabilityProgressBar";
 import { useModals } from "@/src/state/ModalState";
 
-const Container = styled.div<{ isFolderHovered: boolean }>`
+const Container = styled.div<{ $isFolderHovered: boolean }>`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -32,7 +32,7 @@ const Container = styled.div<{ isFolderHovered: boolean }>`
 
   &:hover {
     background-color: ${(props) =>
-      props.isFolderHovered
+      props.$isFolderHovered
         ? props.theme.colors.neutral11
         : props.theme.colors.neutral10};
     border: 1px solid ${(props) => props.theme.colors.neutral4};
@@ -149,11 +149,11 @@ const ReqTitle = styled.div`
   margin-bottom: 8px;
 `;
 
-const CaretWrapper = styled.div<{ isFolded: boolean }>`
+const CaretWrapper = styled.div<{ $isFolded: boolean }>`
   display: flex;
   align-items: center;
   transform: ${(props) =>
-    props.isFolded ? "rotateX(0deg)" : "rotateX(180deg)"};
+    props.$isFolded ? "rotateX(0deg)" : "rotateX(180deg)"};
 `;
 
 type Props = {
@@ -219,7 +219,7 @@ export default function AppCard({
         app={app as ZkSubAppConfig}
       />
       <Container
-        isFolderHovered={isHovered}
+        $isFolderHovered={isHovered}
         onClick={() => {
           if (!requirementsIsOpen)
             hasStarted ? onCTAClick() : setTimerModalIsOpen(true);
@@ -232,7 +232,7 @@ export default function AppCard({
               <StyledImage src={cover} alt={app?.name} placeholder="blur" />
             )}
             <TagWrapper>
-              {app?.tags?.map((tag, index) => (
+              {app && app?.tags?.map((tag, index) => (
                 <Tag key={app?.name + tag + index}>{tag}</Tag>
               ))}
               {app?.startDate &&
@@ -245,8 +245,8 @@ export default function AppCard({
                 )}
             </TagWrapper>
                {
-            (app?.type === "zksub" || app?.type === "zkdrop") && app?.userSelection?.type === "Lottery" &&
-            <AvailabilityProgressBar register={0} availableMax={app?.userSelection?.maxNumberOfEntries}/>
+            (app && app.type === "zksub" || app.type === "zkdrop") && app.userSelection?.type === "Lottery" &&
+            <AvailabilityProgressBar register={0} availableMax={app.userSelection?.maxNumberOfEntries}/>
           }
           </ImageWrapper>
           {app?.name && <Title>{app.name}</Title>}
@@ -254,7 +254,7 @@ export default function AppCard({
         </Top>
         <Bottom>
           <ReqTitle>Requirements</ReqTitle>
-          {!isFolded && (
+          {app && !isFolded && (
             <ReqList
               groupMetadataList={groupMetadataList}
               app={app}
@@ -270,7 +270,7 @@ export default function AppCard({
               setIsFolded(!isFolded);
             }}
           >
-            <CaretWrapper isFolded={isFolded}>
+            <CaretWrapper $isFolded={isFolded}>
               <CaretDown size={20} color={colors.neutral4} />
             </CaretWrapper>
           </FolderButton>

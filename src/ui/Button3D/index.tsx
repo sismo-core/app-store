@@ -5,7 +5,7 @@ import Loader from "../Loader";
 const Container = styled.button<{
   hover?: boolean;
   disabled?: boolean;
-  clickable?: boolean;
+  clickable: boolean;
 }>`
   ${props => props.clickable && `
     cursor: pointer;

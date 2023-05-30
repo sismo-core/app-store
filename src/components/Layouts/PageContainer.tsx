@@ -3,18 +3,18 @@
 import { useEffect, useState } from "react";
 import { styled } from "styled-components";
 
-export const Container = styled.div<{scrollBarWidth: number}>`
+export const Container = styled.div<{$scrollBarWidth: number}>`
     max-width: 1280px;
     @media (min-width: 1281px) {
         min-width: 1280px;
-        padding: 0px ${props => 60 - props.scrollBarWidth / 2}px 0px ${props => 60 + props.scrollBarWidth / 2}px;
+        padding: 0px ${props => 60 - props.$scrollBarWidth / 2}px 0px ${props => 60 + props.$scrollBarWidth / 2}px;
     } 
     @media (max-width: 1280px) {
-        margin: 0px ${props => 60 - props.scrollBarWidth}px 0px 60px;
+        margin: 0px ${props => 60 - props.$scrollBarWidth}px 0px 60px;
         min-width: calc(100vw - 120px);
     } 
     @media (max-width: 768px) {
-        margin: 0px ${props => 20 - props.scrollBarWidth}px 0px 20px;
+        margin: 0px ${props => 20 - props.$scrollBarWidth}px 0px 20px;
         min-width: calc(100vw - 40px);
     }
 `;
@@ -35,7 +35,7 @@ export default function PageContainer({ children }: Props): JSX.Element {
           window.visualViewport.removeEventListener("resize", resizeHandler);
     }, []);
 
-    return <Container scrollBarWidth={scrollbarWidth}>
+    return <Container $scrollBarWidth={scrollbarWidth}>
         {children}
     </Container>;
 }

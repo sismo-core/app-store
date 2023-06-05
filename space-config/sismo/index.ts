@@ -272,6 +272,73 @@ export const sismoConfig: SpaceConfig = {
         appId: "0x4f7fef07fcdce0a81e8f2ea14e8ea6c0",
       },
       envs: ["Demo"],
-    }
+    },
+    {
+      type: "zksub",
+      name: "Sismo Swag Box",
+      description:
+        "Enter the Sybil-resistant lottery for a chance to win an exclusive swag box, available to all members of the Sismo Community (level 1, 2 and 3). Each level grants one lottery ticket.",
+      tags: ["Lottery"],
+      image: "sismoapps_swag_lotery_1014x720.png",
+      CTAText: "Win a Swag Box in the Lottery",
+      fields: [
+        {
+          type: "short-text",
+          label: "Email",
+          isRequired: true,
+        }
+      ],
+      congratulationsMessage: {
+        title: "Fingers crossed!",
+        description:
+          "We hope to have you as a lucky winner 💜 ",
+      },
+      startDate: null,
+      endDate: new Date("2023-06-21T14:00"),
+      slug: "swag-box",
+      output: "google_sheet",
+      appId: "0x80b2876a7dbe411813590a3b251de763",
+      spreadsheetId: "1HfINfePvhujt3Y9CkpDVb_DYgeCegLrPeuhKnjEocsU",
+      claimRequests: [
+        //{ groupId: null, value: 1, isSelectableByUser: true },
+        { groupId: "0x1cde61966decb8600dfd0749bd371f12", isOptional:true, isSelectableByUser: true },
+        { groupId: "0x682544d549b8a461d7fe3e589846bb7b", isOptional:true }
+      ],
+      userSelection: { type: "Lottery", maxNumberOfEntries: null, numberOfWinners: 10 },
+      authRequests: [{ authType: AuthType.VAULT }, { authType: AuthType.TWITTER, isOptional: true, isAnon: true, isSelectableByUser: true} ],
+      envs: ["Prod"],
+    },
+    {
+      type: "zksub",
+      name: "Future of France Invite",
+      description:
+        "Claim your ticket to the Future of France event during EthCC week. Exclusively for members of Sismo Community level 3.",
+      tags: ["Event"],
+      image: "sismoapps_sismo_events_1014x720.png",
+      CTAText: "Claim the ticket",
+      fields: [
+        {
+          type: "short-text",
+          label: "Email",
+          isRequired: true,
+        }
+      ],
+      congratulationsMessage: {
+        title: "Congratulations!",
+        description:
+          "We are excited to see you there 💜 Stay in touch for the details!",
+      },
+      startDate: null,
+      endDate: new Date("2023-07-17T18:00"),
+      slug: "event-fof",
+      output: "google_sheet",
+      appId: "0x73316ca511efe1e14a63fcebdc9d8b24",
+      spreadsheetId: "1sb_wAe84Im0VLaGsDv_IhNG-dSMjsJHb15Ur6hZ3mig",
+      /*claimRequests: [//add Sismo Community group once done lvl 3
+        { groupId: null, value: 3 }
+      ],*/
+      authRequests: [{ authType: AuthType.VAULT } ],
+      envs: ["Prod"],
+    },
   ],
 };

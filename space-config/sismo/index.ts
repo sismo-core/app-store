@@ -26,7 +26,7 @@ export const sismoConfig: SpaceConfig = {
       link: "https://github.com/sismo-core",
     },
   ],
-  envs: ["Demo"],
+  envs: ["Demo", "Prod"],
   hidden: false,
   apps: [
     // {

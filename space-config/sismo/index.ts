@@ -277,7 +277,7 @@ export const sismoConfig: SpaceConfig = {
       type: "zksub",
       name: "Sismo Swag Box",
       description:
-        "Enter the Sybil-resistant lottery for a chance to win an exclusive swag box, available to all members of the Sismo Community (level 1, 2 and 3). Each level grants one lottery ticket.",
+        "Enter the lottery to win an exclusive swag box, available to all members of the Sismo Community (level 1, 2 and 3). Each level grants one lottery ticket, and each Sybil-resistance ZKP shared multiplies your chances.",
       tags: ["Lottery"],
       image: "sismoapps_swag_lotery_1014x720.png",
       CTAText: "Win a Swag Box in the Lottery",

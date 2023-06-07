@@ -8,7 +8,8 @@ export function middleware(request: NextRequest) {
     const redirectDomain = "apps.sismo";
 
     if (currentDomain.includes(subDomain)) {
-        const newUrl = url.protocol + "//" + redirectDomain + url.pathname + url.search + url.hash;
+        const newDomain = currentDomain.replace(subDomain, redirectDomain);
+        const newUrl = url.protocol + "//" + newDomain + url.pathname + url.search + url.hash;
         return NextResponse.redirect(newUrl);
     }
     return null;

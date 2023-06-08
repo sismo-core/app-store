@@ -99,11 +99,16 @@ export const privacyIsNormalConfig: SpaceConfig = {
       type: "zksub",
       name: "Artwork Claiming",
       description:
-        "Check if you won in the lottery and enter your shipping address to receive the ‘Privacy Is Normal’ artwork.",
+        "Check if you won in the lottery and enter your shipping address to receive the ‘Privacy Is Normal’ artwork - without doxxing your wallet 👀",       
       tags: ["Artwork"],
       image: "privacy_is_normal_apps_print_1014x720.png",
       CTAText: "Claim Your Artwork",
       fields: [
+        {
+          type: "short-text",
+          label: "Email",
+          isRequired: true,
+        },
         {
           type: "short-text",
           label: "Full name",
@@ -147,17 +152,15 @@ export const privacyIsNormalConfig: SpaceConfig = {
         description:
           "You will receive the ‘Privacy Is Normal’ artwork soon 💜",
       },
-      startDate: new Date("2023-06-20T18:00Z"),
-      endDate: new Date("2023-07-18T18:00Z"),
+      endDate: new Date("2023-07-03T14:00Z"),
       slug: "artwork-claim",
       output: "google_sheet",
       appId: "0x1941996d7a0245ccc2b203847d682298",
       spreadsheetId: "15KaDhCGxs8E6mmYw5kZkUYTXQoTsH9UAt27TLsbT6TE",
       authRequests: [{ authType: AuthType.VAULT }],
-      claimRequests: [], //add winners lottery group
+      claimRequests: [ { groupId: "0x7e89f2add43b3597cdcacad5437595db" } ],//to be changed to 0x5981720e2223883ff387639125abee2f
       envs: ["Prod"],
     },
-
     {
       type: "zksub",
       name: "Lottery Registration",
@@ -201,6 +204,76 @@ export const privacyIsNormalConfig: SpaceConfig = {
           "0x85ff01cff157199527528788ec4ea6336615c989",
           "0x48724944608b7baacd2f7d10bdbc98d429967f7c"
         ]
+      },
+      envs: ["Demo"],
+    },
+    {
+      type: "zksub",
+      name: "Artwork Claiming",
+      description:
+        "Check if you won in the lottery and enter your shipping address to receive the ‘Privacy Is Normal’ artwork - without doxxing your wallet 👀",       
+      tags: ["Artwork"],
+      image: "privacy_is_normal_apps_print_1014x720.png",
+      CTAText: "Claim Your Artwork",
+      fields: [
+        {
+          type: "short-text",
+          label: "Email",
+          isRequired: true,
+        },
+        {
+          type: "short-text",
+          label: "Full name",
+          isRequired: true,
+        },
+        {
+          type: "short-text",
+          label: "Street address",
+          isRequired: true,
+        },
+        {
+          type: "short-text",
+          label: "Apartment, unit, suite, etc",
+          placeholder: "Optional",
+          isRequired: false,
+        },
+        {
+          type: "short-text",
+          label: "City",
+          isRequired: true,
+        },
+        {
+          type: "short-text",
+          label: "State/Province",
+          placeholder: "Optional",
+          isRequired: false,
+        },
+        {
+          type: "short-text",
+          label: "ZIP code",
+          isRequired: true,
+        },
+        {
+          type: "short-text",
+          label: "Country",
+          isRequired: true,
+        }
+      ],
+      congratulationsMessage: {
+        title: "Congratulations!",
+        description:
+          "You will receive the ‘Privacy Is Normal’ artwork soon 💜",
+      },
+      endDate: new Date("2023-07-03T14:00Z"),
+      slug: "artwork-claim",
+      output: "google_sheet",
+      appId: null,
+      spreadsheetId: null,
+      authRequests: [{ authType: AuthType.VAULT }],
+      claimRequests: [ { groupId: "0x7e89f2add43b3597cdcacad5437595db" } ],
+      demo: {
+        spreadsheetId: "1hlAxg69kX1Z7RRh-prmkkYTiMFXcmFluGv_dcfTP7bg",
+        appId: "0x325b16d643351175e190a43ce8066da9",
       },
       envs: ["Demo"],
     },

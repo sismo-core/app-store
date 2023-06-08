@@ -26,7 +26,7 @@ export const sismoAppsTutorialsConfig: SpaceConfig = {
       link: "https://github.com/sismo-core",
     },
   ],
-  envs: ["Prod"],
+  envs: ["Demo"],
   hidden: false,
   apps: [
     {
@@ -86,7 +86,7 @@ export const sismoAppsTutorialsConfig: SpaceConfig = {
       ],
       userSelection: { type: "Lottery", maxNumberOfEntries: null, numberOfWinners: 100 },
       authRequests: [{ authType: AuthType.VAULT }],
-      envs: ["Prod"],
+      envs: ["Demo"],
     }
   ],
 };

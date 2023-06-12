@@ -53,6 +53,8 @@ export default function AvailabilityProgressBar({ register, availableMax }: Prop
     setProgress(_progress);
   }, [register])
 
+  if (!availableMax) return;
+  
   return (
     <Container>
       <ProgressContainer>

@@ -1,5 +1,5 @@
 // add an images folder in your space folder if you would like Sismo to host your images
-import { AuthType } from "@sismo-core/sismo-connect-server";
+import { AuthType, ClaimType } from "@sismo-core/sismo-connect-server";
 import { SpaceConfig } from "../types";
 
 export const sismoConfig: SpaceConfig = {
@@ -80,7 +80,11 @@ export const sismoConfig: SpaceConfig = {
       userSelection: { type: "Lottery", numberOfWinners: 10 },
       claimRequests: [
         { groupId: "0xd630aa769278cacde879c5c0fe5d203c", isSelectableByUser: true },
-        { groupId: "0x1cde61966decb8600dfd0749bd371f12", value: 15, isOptional: true },
+        { 
+          groupId: "0x1cde61966decb8600dfd0749bd371f12", 
+          value: 15, 
+          isOptional: true 
+        },
         { groupId: "0x682544d549b8a461d7fe3e589846bb7b", isOptional: true },
       ],
       authRequests: [{ authType: AuthType.VAULT }, { authType: AuthType.TWITTER, isSelectableByUser: true, isAnon: true, isOptional: true } ],
@@ -196,7 +200,12 @@ export const sismoConfig: SpaceConfig = {
       output: "google_sheet",
       appId: null,
       spreadsheetId: null,
-      claimRequests: [{ groupId: "0x1cde61966decb8600dfd0749bd371f12", isOptional: true }],
+      claimRequests: [{ 
+        groupId: "0x1cde61966decb8600dfd0749bd371f12", 
+        claimType: ClaimType.GTE,
+        value: 15,
+        isOptional: true 
+      }],
       authRequests: [{ authType: AuthType.VAULT }, { authType: AuthType.TWITTER, isSelectableByUser: true}],
       demo: {
         spreadsheetId: "1VBYLvo6x1R34kPhr9DVxYmNx6uzm_FtHczsbaDL-7dU",

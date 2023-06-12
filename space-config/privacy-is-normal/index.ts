@@ -86,7 +86,7 @@ export const privacyIsNormalConfig: SpaceConfig = {
       CTAText: "Claim the ‘Privacy Is Normal’ NFT",
       chainId: 1,
       contractAddress: null,
-      startDate: new Date("2023-06-18T18:00Z"),
+      startDate: new Date("2023-07-03T18:00Z"),
       endDate: new Date("2023-07-18T18:00Z"),
       slug: "nft-claim",
       userSelection: {
@@ -118,7 +118,7 @@ export const privacyIsNormalConfig: SpaceConfig = {
         description:
           "You will soon receive the physical version of our ‘Privacy Is Normal’ NFT 💜 You can also claim the NFT version if you haven't already.",
       },
-      startDate: new Date("2023-06-18T18:00Z"),
+      startDate: new Date("2023-06-20T18:00Z"),
       endDate: new Date("2023-07-18T18:00Z"),
       slug: "print-claim",
       userSelection: {

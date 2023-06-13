@@ -1,5 +1,4 @@
 // add an images folder in your space folder if you would like Sismo to host your images
-// add an images folder in your space folder if you would like Sismo to host your images
 import { AuthType, ClaimType } from "@sismo-core/sismo-connect-server";
 import { SpaceConfig } from "../types";
 
@@ -75,8 +74,7 @@ export const privacyIsNormalConfig: SpaceConfig = {
       },
       envs: ["Prod"],
     },
-
-    {
+    /*{
       type: "zkdrop",
       name: "‘Privacy Is Normal’ NFT",
       description:
@@ -96,45 +94,65 @@ export const privacyIsNormalConfig: SpaceConfig = {
       },
       authRequests: [{ authType: AuthType.VAULT }],
       envs: ["Prod"],
-    },
+    },*/
     {
       type: "zksub",
       name: "‘Privacy Is Normal’ Artwork",
       description:
-        "Check if you won a printed version of the ‘Privacy Is Normal’ NFT - a tribute to Tornado Cash's revolutionary code - and provide us with your shipping address.",
+        "Check if you won ‘Privacy Is Normal’ artwork - a tribute to Tornado Cash's revolutionary code - and provide us with your shipping address.",
       tags: ["Print"],
       image: "privacy_is_normal_apps_print_1014x720.png",
       CTAText: "Check if you are a winner",
       fields: [
         {
           type: "short-text",
-          label: "Claiming Address",
-          placeholder: "Provide the address you will use to claim the NFT",
+          label: "Full name",
           isRequired: true,
         },
+        {
+          type: "short-text",
+          label: "Street address",
+          isRequired: true,
+        },
+        {
+          type: "short-text",
+          label: "Apartment, unit, suite, etc",
+          isRequired: false,
+        },
+        {
+          type: "short-text",
+          label: "City",
+          isRequired: true,
+        },
+        {
+          type: "short-text",
+          label: "State/Province",
+          isRequired: false,
+        },
+        {
+          type: "short-text",
+          label: "ZIP code",
+          isRequired: true,
+        },
+        {
+          type: "short-text",
+          label: "Country",
+          isRequired: true,
+        }
       ],
       congratulationsMessage: {
-        title: "Congratulations",
+        title: "Congratulations!",
         description:
-          "You will soon receive the physical version of our ‘Privacy Is Normal’ NFT 💜 You can also claim the NFT version if you haven't already.",
+          "You will receive the ‘Privacy Is Normal’ artwork soon 💜",
       },
       startDate: new Date("2023-06-20T18:00Z"),
       endDate: new Date("2023-07-18T18:00Z"),
       slug: "print-claim",
-      userSelection: {
-        type: "Lottery",
-        maxNumberOfEntries: 10,
-        numberOfWinners: 10,
-      },
       output: "google_sheet",
-      appId: null,
-      spreadsheetId: null,
+      appId: "0x1941996d7a0245ccc2b203847d682298",
+      spreadsheetId: "15KaDhCGxs8E6mmYw5kZkUYTXQoTsH9UAt27TLsbT6TE",
       authRequests: [{ authType: AuthType.VAULT }],
       claimRequests: [], //add winners lottery group
-      demo: {
-        spreadsheetId: null,
-        appId: null,
-      },
       envs: ["Prod"],
     },
 

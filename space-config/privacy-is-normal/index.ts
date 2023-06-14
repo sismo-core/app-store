@@ -6,7 +6,7 @@ export const privacyIsNormalConfig: SpaceConfig = {
   slug: "privacy-is-normal",
   name: "Privacy Is Normal 🌼",
   description:
-    "This Space celebrates privacy as a fundamental human right. Get your Gitcoin Passport and enter the Sybil-resistant lottery by proving you’re a Tornado Cash user in a privacy-preserving manner. Eligibility groups are updated daily. Ten winners will receive a printed 'Privacy Is Normal' artwork. The NFT version will be claimable by the first 1000 participants.",
+    "This Space celebrates privacy as a fundamental human right. Get your Gitcoin Passport and enter the Sybil-resistant lottery by proving you’re a Tornado Cash user in a privacy-preserving manner. Eligibility groups are updated daily. Ten winners will receive a printed 'Privacy Is Normal' artwork.",
   profileImage: "space_privacy_is_normal_pfp_400x400.png",
   coverImage: "space_privacy_is_normal_cover_1740x540.png",
   socialLinks: [

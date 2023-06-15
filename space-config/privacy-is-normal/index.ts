@@ -97,7 +97,7 @@ export const privacyIsNormalConfig: SpaceConfig = {
     },*/
     {
       type: "zksub",
-      name: "Lottery Winners Claiming App",
+      name: "Lottery Winners Claiming",
       description:
         "Check if you won ‘Privacy Is Normal’ artwork - a tribute to Tornado Cash's revolutionary code - and provide us with your shipping address.",
       tags: ["Print"],

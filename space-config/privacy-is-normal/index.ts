@@ -32,7 +32,7 @@ export const privacyIsNormalConfig: SpaceConfig = {
   apps: [
     {
       type: "zksub",
-      name: "Artwork Lottery",
+      name: "Artwork Lottery Registration",
       description:
         "Enter the Sybil-resistant lottery to get a chance to be among the 10 lucky winners to receive the ‘Privacy Is Normal’ artwork. The first 1000 participants will receive the NFT version.",
       tags: ["Lottery"],
@@ -97,7 +97,7 @@ export const privacyIsNormalConfig: SpaceConfig = {
     },*/
     {
       type: "zksub",
-      name: "‘Privacy Is Normal’ Artwork",
+      name: "Lottery Winners Claiming App",
       description:
         "Check if you won ‘Privacy Is Normal’ artwork - a tribute to Tornado Cash's revolutionary code - and provide us with your shipping address.",
       tags: ["Print"],
@@ -158,7 +158,7 @@ export const privacyIsNormalConfig: SpaceConfig = {
 
     {
       type: "zksub",
-      name: "‘Privacy Is Normal’ Print Lottery",
+      name: "Artwork Lottery Registration",
       description:
         "Register to have a chance to be among 10 lucky winners to get a ‘Privacy Is Normal’ print - open at our ETHDam Sismo booth.",
       tags: ["Lottery"],

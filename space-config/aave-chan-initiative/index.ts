@@ -7,7 +7,7 @@ export const aaveChanInitiativeConfig: SpaceConfig = {
   name: "Aave-Chan Initiative",
   description:
     "This Space is a tribute to delegates of Aave-Chan Initiative delegate address “Aavechan.eth”- an Aave protocol Delegate participating in governance discussions on Aave, and creating snapshot votes & AIPs for the benefit of the Aave protocol.",
-  profileImage: "space_aave_chan_initiative_pfp_400×400.png",
+  profileImage: "space_aave_chan_initiative_pfp_400x400.png",
   coverImage: "",
   socialLinks: [
     {
@@ -20,11 +20,11 @@ export const aaveChanInitiativeConfig: SpaceConfig = {
   apps: [
     {
       type: "zksub",
-      name: "Aave-Chan Initiative Swag Claiming",
+      name: "ACI Chads Swag Claiming",
       description:
-        "Enter your delivery address to claim your Aave-Chan Initiative Swag.",
+        "Enter your delivery address to claim your Aave-Chan Initiative Chads Swag.",
       tags: ["Swag"],
-      image: "aave_chan_initiative_apps_swag_400x400.png",
+      image: "aave_chan_initiative_apps_swag_1014x720.png",
       CTAText: "Claim",
       fields: [
         {
@@ -34,12 +34,14 @@ export const aaveChanInitiativeConfig: SpaceConfig = {
         },
         {
           type: "short-text",
-          label: "Full name (P.O Box ok)",
+          label: "Full name",
+          placeholder: "P.O Box ok",
           isRequired: true,
         },
         {
           type: "short-text",
-          label: "Street address ((P.O Box ok)",
+          label: "Street address",
+          placeholder: "P.O Box ok",
           isRequired: true,
         },
         {
@@ -59,21 +61,22 @@ export const aaveChanInitiativeConfig: SpaceConfig = {
         },
         {
           type: "short-text",
-          label: "Drop here if you have a weird address",
+          label: "(Optional) Drop here if you have a weird address",
           placeholder: "",
           isRequired: false,
         },
         {
           type: "short-text",
-          label: "T-shirt size (only if delegated more than 10)",
-          placeholder: "XS / S / M / L or XL (European Sizes, if you're US, take one Size above your usual one)",
+          label: "(Optional) T-shirt size - only if delegated more than 10",
+          placeholder: "XS/S/M/L/XL (EU Sizes)",
+          helperText: "If you're US, take one Size above your usual one",
           isRequired: false,
         },
       ],
       congratulationsMessage: {
         title: "Congratulations!",
         description:
-          "You will receive your exclusive Aave-Chan Initiative Swag soon 💜",
+          "You will receive your exclusive ACI Chads Swag soon 💜",
       },
       slug: "swag",
       output: "google_sheet",

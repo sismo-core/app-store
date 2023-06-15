@@ -8,7 +8,7 @@ export const aaveChanInitiativeConfig: SpaceConfig = {
   description:
     "This Space is a tribute to delegates of Aave-Chan Initiative delegate address “Aavechan.eth”- an Aave protocol Delegate participating in governance discussions on Aave, and creating snapshot votes & AIPs for the benefit of the Aave protocol.",
   profileImage: "space_aave_chan_initiative_pfp_400x400.png",
-  coverImage: "",
+  coverImage: "space_aave_chan_initiative_cover_1740x540.png",
   socialLinks: [
     {
       type: "twitter",

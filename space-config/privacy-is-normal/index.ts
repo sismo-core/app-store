@@ -34,10 +34,10 @@ export const privacyIsNormalConfig: SpaceConfig = {
       type: "zksub",
       name: "Lottery Registration",
       description:
-        "Enter the sybil-resistant lottery to get a chance to be among the 10 lucky winners to receive the ‘Privacy Is Normal’ artwork.",
+        "Enter the Sybil-resistant lottery to get a chance to be among the 10 lucky winners to receive the ‘Privacy Is Normal’ artwork.",
       tags: ["Artwork"],
       image: "privacy_is_normal_apps_lotery_1014x720.png",
-      CTAText: "Enter the Sybil-resistant Lottery",
+      CTAText: "Enter the Sybil-Resistant Lottery",
       fields: [
         {
           type: "short-text",
@@ -99,10 +99,10 @@ export const privacyIsNormalConfig: SpaceConfig = {
       type: "zksub",
       name: "Artwork Claiming",
       description:
-        "Check if you won in the lottery and enter your delivery address to receive the ‘Privacy Is Normal’ artwork.",
+        "Check if you won in the lottery and enter your shipping address to receive the ‘Privacy Is Normal’ artwork.",
       tags: ["Artwork"],
       image: "privacy_is_normal_apps_print_1014x720.png",
-      CTAText: "Claim your Artwork",
+      CTAText: "Claim Your Artwork",
       fields: [
         {
           type: "short-text",

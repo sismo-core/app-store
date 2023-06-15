@@ -34,7 +34,7 @@ export const privacyIsNormalConfig: SpaceConfig = {
       type: "zksub",
       name: "Artwork Lottery Registration",
       description:
-        "Enter the Sybil-resistant lottery to get a chance to be among the 10 lucky winners to receive the ‘Privacy Is Normal’ artwork. The first 1000 participants will receive the NFT version.",
+        "Enter the Sybil-resistant lottery to get a chance to be among the 10 lucky winners to receive the ‘Privacy Is Normal’ artwork.",
       tags: ["Lottery"],
       image: "privacy_is_normal_apps_lotery_1014x720.png",
       CTAText: "Enter the Sybil-resistant Lottery",

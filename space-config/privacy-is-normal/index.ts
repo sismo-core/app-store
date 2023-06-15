@@ -32,10 +32,10 @@ export const privacyIsNormalConfig: SpaceConfig = {
   apps: [
     {
       type: "zksub",
-      name: "Artwork Lottery Registration",
+      name: "Lottery Registration",
       description:
         "Enter the Sybil-resistant lottery to get a chance to be among the 10 lucky winners to receive the ‘Privacy Is Normal’ artwork.",
-      tags: ["Lottery"],
+      tags: ["Artwork"],
       image: "privacy_is_normal_apps_lotery_1014x720.png",
       CTAText: "Enter the Sybil-resistant Lottery",
       fields: [
@@ -97,12 +97,12 @@ export const privacyIsNormalConfig: SpaceConfig = {
     },*/
     {
       type: "zksub",
-      name: "Lottery Winners Claiming",
+      name: "Artwork Claiming",
       description:
-        "Check if you won ‘Privacy Is Normal’ artwork - a tribute to Tornado Cash's revolutionary code - and provide us with your shipping address.",
-      tags: ["Print"],
+        "Check if you won in the Lottery and provide us with your shipping address to claim ‘Privacy Is Normal’ artwork",
+      tags: ["Artwork"],
       image: "privacy_is_normal_apps_print_1014x720.png",
-      CTAText: "Check if you are a winner",
+      CTAText: "Claim your artwork",
       fields: [
         {
           type: "short-text",
@@ -158,12 +158,12 @@ export const privacyIsNormalConfig: SpaceConfig = {
 
     {
       type: "zksub",
-      name: "Artwork Lottery Registration",
+      name: "Lottery Registration",
       description:
         "Register to have a chance to be among 10 lucky winners to get a ‘Privacy Is Normal’ print - open at our ETHDam Sismo booth.",
-      tags: ["Lottery"],
+      tags: ["Artwork"],
       image: "privacy_is_normal_apps_lotery_1014x720.png",
-      CTAText: "Participate in the Print Lottery",
+      CTAText: "Participate in the Lottery",
       fields: [
         {
           type: "short-text",

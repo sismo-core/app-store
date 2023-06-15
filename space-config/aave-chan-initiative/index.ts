@@ -82,7 +82,7 @@ export const aaveChanInitiativeConfig: SpaceConfig = {
       authRequests: [{ authType: AuthType.VAULT }],
       claimRequests: [
         {
-          groupId: "0x433ae0c1cb3793f0971f3bf2bbcff10e",
+          groupId: "0x1c25264badc0d79792633e02a0f1a68b",
           isSelectableByUser: true,
           claimType: ClaimType.GTE,
           value: 1,

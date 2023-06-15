@@ -99,10 +99,10 @@ export const privacyIsNormalConfig: SpaceConfig = {
       type: "zksub",
       name: "Artwork Claiming",
       description:
-        "Check if you won in the Lottery and provide us with your shipping address to claim ‘Privacy Is Normal’ artwork",
+        "Check if you won in the lottery and provide us with your shipping address to claim ‘Privacy Is Normal’ artwork",
       tags: ["Artwork"],
       image: "privacy_is_normal_apps_print_1014x720.png",
-      CTAText: "Claim your artwork",
+      CTAText: "Claim your Artwork",
       fields: [
         {
           type: "short-text",

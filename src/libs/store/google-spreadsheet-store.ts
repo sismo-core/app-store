@@ -31,6 +31,7 @@ export class GoogleSpreadsheetStore extends Store {
 
   public async get(entry: Entry): Promise<string[]> {
     const table = await this.load();
+    if (!table) return null;
     const indexOfEntry = this._columns.findIndex(column => column === entry.name);
     if (indexOfEntry === -1) return null;
 

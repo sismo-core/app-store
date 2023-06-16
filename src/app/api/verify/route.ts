@@ -3,7 +3,6 @@ import env from "@/src/environments";
 import { getSpaceConfig } from "@/src/libs/spaces";
 import { GoogleSpreadsheetStore, Store } from "@/src/libs/store";
 import { AuthType, SismoConnect, SismoConnectResponse, SismoConnectServerConfig, SismoConnectVerifiedResult } from "@sismo-core/sismo-connect-server";
-import { Console } from "console";
 import { NextResponse } from "next/server";
 
 const spreadSheetsInitiated = new Map<string, boolean>();
@@ -24,7 +23,8 @@ export async function POST(req: Request) {
     if (!env.isDemo) {
         const result = await verifyResponse(app, response);
         if (!result) return new Response(null, { status: 500, statusText: "Invalid response" });
-        if (needVaultAuth(app)) {
+
+        if (!app.saveAuthRequests && needVaultAuth(app)) {
             const vaultId = await result.getUserId(AuthType.VAULT);
             if (!vaultId) return new Response(null, { status: 500, statusText: "No Vault Id" });
             fieldsToAdd = [
@@ -36,16 +36,43 @@ export async function POST(req: Request) {
             ];
             const isExist = await isVaultIdExist(store, vaultId);
             if (isExist) return NextResponse.json({ status: "already-subscribed" })
-        } 
-    } else {
-        if (needVaultAuth(app)) {
-            fieldsToAdd = [
-                ...fieldsToAdd,
-                {
-                    name: "VaultId",
-                    value: "0xDemo"
+        }
+        if (app.saveAuthRequests && app.authRequests?.length > 0) {
+            for (let authRequest of app.authRequests) {
+                const userId = await result.getUserId(authRequest.authType);
+                if (!userId && !authRequest.isOptional) return new Response(null, { status: 500, statusText: `No ${authRequest.authType} Id` });
+
+                if (authRequest.authType === AuthType.VAULT) {
+                    const isExist = await isVaultIdExist(store, userId);
+                    if (isExist) return NextResponse.json({ status: "already-subscribed" })
                 }
-            ];
+
+                fieldsToAdd = [
+                    ...fieldsToAdd,
+                    {
+                        name: getAuthColumnName(authRequest.authType),
+                        value: userId
+                    }
+                ];
+            }
+        } 
+        if (app.saveClaimRequests && app.claimRequests?.length > 0) {
+            for (let claimRequest of app.claimRequests) {
+                if (!claimRequest.isSelectableByUser) claimRequest.isSelectableByUser = false;
+                const claim = result.claims.find(claim => 
+                    claim.groupId === claimRequest.groupId && 
+                    claim.claimType === claimRequest.claimType &&
+                    claim.groupTimestamp === claimRequest.groupTimestamp && 
+                    claim.isSelectableByUser === claimRequest.isSelectableByUser
+                ) 
+                fieldsToAdd = [
+                    ...fieldsToAdd,
+                    {
+                        name: claim.groupId,
+                        value: claim.value
+                    }
+                ];
+            }
         } 
     }
 
@@ -56,24 +83,46 @@ export async function POST(req: Request) {
     })
 }
 
+const getAuthColumnName = (authType: AuthType) => {
+    if (authType === AuthType.EVM_ACCOUNT) {
+        return "Address";
+    }
+    if (authType === AuthType.TWITTER) {
+        return "TwitterId";
+    }
+    if (authType === AuthType.GITHUB) {
+        return "GithubId";
+    }
+    // if (authType === AuthType.TELEGRAM) {
+    //     return "TelegramId";
+    // }
+    if (authType === AuthType.VAULT) {
+        return "VaultId";
+    }
+}
+
 const getStore = async (app: ZkSubAppConfig): Promise<Store> => {
     const appColumns = app.fields.map(el => el.label);
 
-    const columns = needVaultAuth(app) ? [
-        "VaultId",
-        ...appColumns
-    ] : appColumns;
+    let authColumns = needVaultAuth(app) ? ["VaultId"] : [];
+    if (app.saveAuthRequests) 
+        authColumns = app.authRequests.map(authRequest => getAuthColumnName(authRequest.authType));
 
+    let claimColumns = [];
+    if (app.saveClaimRequests)
+        claimColumns = app.claimRequests.map(claimRequest => claimRequest.groupId);
+
+    const columns = [...authColumns, ...claimColumns, ...appColumns];
+
+    const spreadsheetId = env.isDemo ? app.demo.spreadsheetId : app.spreadsheetId;
     const store = new GoogleSpreadsheetStore({
-        spreadsheetId: env.isDemo ? app.demo.spreadsheetId : app.spreadsheetId,
+        spreadsheetId,
         columns
     });
-
     if (!spreadSheetsInitiated.has(app.spreadsheetId)) {
         await store.init();
         spreadSheetsInitiated.set(app.spreadsheetId, true);
     }
-
     return store;
 }
 

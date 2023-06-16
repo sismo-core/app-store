@@ -80,6 +80,8 @@ export type ZkBadgeAppConfig = AppCommonConfig & {
 export type ZkSubAppConfig = AppCommonConfig & {
   type: "zksub";
   fields?: Field[]; 
+  saveClaimRequests?: boolean;
+  saveAuthRequests?: boolean;
   congratulationsMessage?: {
     title: string;
     description: string;

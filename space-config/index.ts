@@ -6,5 +6,5 @@ import { privacyIsNormalConfig } from "./privacy-is-normal";
 export const configs: SpaceConfig[] = [
     theMergeContributorsConfig,
     sismoConfig,
-    privacyIsNormalConfig
+    privacyIsNormalConfig,
 ]

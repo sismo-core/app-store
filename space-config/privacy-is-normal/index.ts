@@ -32,12 +32,12 @@ export const privacyIsNormalConfig: SpaceConfig = {
   apps: [
     {
       type: "zksub",
-      name: "Artwork Lottery",
+      name: "Lottery Registration",
       description:
-        "Enter the Sybil-resistant lottery to get a chance to be among the 10 lucky winners to receive the ‘Privacy Is Normal’ artwork. The first 1000 participants will receive the NFT version.",
-      tags: ["Lottery"],
+        "Enter the Sybil-resistant lottery to get a chance to be among the 10 lucky winners to receive the ‘Privacy Is Normal’ artwork.",
+      tags: ["Artwork"],
       image: "privacy_is_normal_apps_lotery_1014x720.png",
-      CTAText: "Enter the Sybil-resistant Lottery",
+      CTAText: "Enter the Sybil-Resistant Lottery",
       fields: [
         {
           type: "short-text",
@@ -53,7 +53,7 @@ export const privacyIsNormalConfig: SpaceConfig = {
       },
       startDate: new Date("2023-05-17T14:00Z"),
       endDate: new Date("2023-06-18T14:00Z"),
-      slug: "print-lottery",
+      slug: "artwork-lottery",
       output: "google_sheet",
       appId: "0x9dd13bc62ae6809fe9de95475111fc2a",
       spreadsheetId: "17uLGyCtSduW7PBTS2S2WKyourj9Z2nPKmAvzUD6kRM4",
@@ -97,12 +97,12 @@ export const privacyIsNormalConfig: SpaceConfig = {
     },*/
     {
       type: "zksub",
-      name: "‘Privacy Is Normal’ Artwork",
+      name: "Artwork Claiming",
       description:
-        "Check if you won ‘Privacy Is Normal’ artwork - a tribute to Tornado Cash's revolutionary code - and provide us with your shipping address.",
-      tags: ["Print"],
+        "Check if you won in the lottery and enter your shipping address to receive the ‘Privacy Is Normal’ artwork.",
+      tags: ["Artwork"],
       image: "privacy_is_normal_apps_print_1014x720.png",
-      CTAText: "Check if you are a winner",
+      CTAText: "Claim Your Artwork",
       fields: [
         {
           type: "short-text",
@@ -117,6 +117,7 @@ export const privacyIsNormalConfig: SpaceConfig = {
         {
           type: "short-text",
           label: "Apartment, unit, suite, etc",
+          placeholder: "Optional",
           isRequired: false,
         },
         {
@@ -127,6 +128,7 @@ export const privacyIsNormalConfig: SpaceConfig = {
         {
           type: "short-text",
           label: "State/Province",
+          placeholder: "Optional",
           isRequired: false,
         },
         {
@@ -147,7 +149,7 @@ export const privacyIsNormalConfig: SpaceConfig = {
       },
       startDate: new Date("2023-06-20T18:00Z"),
       endDate: new Date("2023-07-18T18:00Z"),
-      slug: "print-claim",
+      slug: "artwork-claim",
       output: "google_sheet",
       appId: "0x1941996d7a0245ccc2b203847d682298",
       spreadsheetId: "15KaDhCGxs8E6mmYw5kZkUYTXQoTsH9UAt27TLsbT6TE",
@@ -158,12 +160,12 @@ export const privacyIsNormalConfig: SpaceConfig = {
 
     {
       type: "zksub",
-      name: "‘Privacy Is Normal’ Print Lottery",
+      name: "Lottery Registration",
       description:
-        "Register to have a chance to be among 10 lucky winners to get a ‘Privacy Is Normal’ print - open at our ETHDam Sismo booth.",
-      tags: ["Lottery"],
+        "Register to have a chance to be among 10 lucky winners to get a ‘Privacy Is Normal’ artwork - open at our ETHDam Sismo booth.",
+      tags: ["Artwork"],
       image: "privacy_is_normal_apps_lotery_1014x720.png",
-      CTAText: "Participate in the Print Lottery",
+      CTAText: "Participate in the Lottery",
       fields: [
         {
           type: "short-text",
@@ -179,7 +181,7 @@ export const privacyIsNormalConfig: SpaceConfig = {
       },
       startDate: new Date("2023-05-17T16:00Z"),
       endDate: new Date("2023-05-20T18:00Z"),
-      slug: "print-lottery",
+      slug: "artwork-lottery",
       output: "google_sheet",
       appId: null,
       spreadsheetId: null,

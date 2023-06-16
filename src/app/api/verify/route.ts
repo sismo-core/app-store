@@ -24,7 +24,7 @@ export async function POST(req: Request) {
         const result = await verifyResponse(app, response);
         if (!result) return new Response(null, { status: 500, statusText: "Invalid response" });
 
-        if (!app.saveAuthRequests && needVaultAuth(app)) {
+        if (!app.saveAuths && needVaultAuth(app)) {
             const vaultId = await result.getUserId(AuthType.VAULT);
             if (!vaultId) return new Response(null, { status: 500, statusText: "No Vault Id" });
             fieldsToAdd = [
@@ -37,7 +37,7 @@ export async function POST(req: Request) {
             const isExist = await isVaultIdExist(store, vaultId);
             if (isExist) return NextResponse.json({ status: "already-subscribed" })
         }
-        if (app.saveAuthRequests && app.authRequests?.length > 0) {
+        if (app.saveAuths && app.authRequests?.length > 0) {
             for (let authRequest of app.authRequests) {
                 const userId = await result.getUserId(authRequest.authType);
                 if (!userId && !authRequest.isOptional) return new Response(null, { status: 500, statusText: `No ${authRequest.authType} Id` });
@@ -56,7 +56,7 @@ export async function POST(req: Request) {
                 ];
             }
         } 
-        if (app.saveClaimRequests && app.claimRequests?.length > 0) {
+        if (app.saveClaims && app.claimRequests?.length > 0) {
             for (let claimRequest of app.claimRequests) {
                 if (!claimRequest.isSelectableByUser) claimRequest.isSelectableByUser = false;
                 const claim = result.claims.find(claim => 
@@ -105,11 +105,11 @@ const getStore = async (app: ZkSubAppConfig): Promise<Store> => {
     const appColumns = app.fields.map(el => el.label);
 
     let authColumns = needVaultAuth(app) ? ["VaultId"] : [];
-    if (app.saveAuthRequests) 
+    if (app.saveAuths) 
         authColumns = app.authRequests.map(authRequest => getAuthColumnName(authRequest.authType));
 
     let claimColumns = [];
-    if (app.saveClaimRequests)
+    if (app.saveClaims)
         claimColumns = app.claimRequests.map(claimRequest => claimRequest.groupId);
 
     const columns = [...authColumns, ...claimColumns, ...appColumns];

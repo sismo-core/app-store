@@ -69,7 +69,7 @@ export const aaveChanInitiativeConfig: SpaceConfig = {
         },
         {
           type: "short-text",
-          label: "(Optional) T-shirt size - only if delegated more than 10",
+          label: "(Optional) T-shirt size - only if delegated more than 100",
           placeholder: "XS/S/M/L/XL (EU Sizes)",
           helperText: "If you're US, take one Size above your usual one",
           isRequired: false,

@@ -334,7 +334,7 @@ export const sismoConfig: SpaceConfig = {
       appId: null,
       spreadsheetId: null,
       claimRequests: [{ groupId: "0xd138c33e8a6a450336a6c5dda990cf95" }],
-      userSelection: { type: "Lottery", maxNumberOfEntries: null, numberOfWinners: 10 },
+      userSelection: { type: "Lottery", numberOfWinners: 10 },
       authRequests: [{ authType: AuthType.VAULT }],
       demo: {
         spreadsheetId: "1GaSpQ3-SO_mWDreh97Nri2YSF5LeRYKUEuUjImF8Cxk",

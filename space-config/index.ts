@@ -8,8 +8,5 @@ export const configs: SpaceConfig[] = [
     theMergeContributorsConfig,
     sismoConfig,
     privacyIsNormalConfig,
-<<<<<<< HEAD
     aaveChanInitiativeConfig
-=======
->>>>>>> main
 ]

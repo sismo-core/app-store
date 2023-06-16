@@ -6,7 +6,7 @@ export const aaveChanInitiativeConfig: SpaceConfig = {
   slug: "aave-chan-initiative",
   name: "Aave-Chan Initiative",
   description:
-    "This Space is a tribute to delegators of Aave-Chan Initiative delegate address “Aavechan.eth”- an Aave protocol Delegate participating in governance discussions on Aave, and creating snapshot votes & AIPs for the benefit of the Aave protocol.",
+    "This Space is a tribute to delegators of Aave-Chan Initiative delegate address “Aavechan.eth” - an Aave protocol Delegate participating in governance discussions on Aave, and creating snapshot votes & AIPs for the benefit of the Aave protocol.",
   profileImage: "space_aave_chan_initiative_pfp_400x400.png",
   coverImage: "space_aave_chan_initiative_cover_1740x540.png",
   socialLinks: [
@@ -20,12 +20,14 @@ export const aaveChanInitiativeConfig: SpaceConfig = {
   apps: [
     {
       type: "zksub",
+      saveAuths: true,
+      saveClaims: true,
       name: "ACI Chads Swag Claiming",
       description:
         "Enter your delivery address to claim your Aave-Chan Initiative Chads Swag - without doxxing your wallet 👀",
       tags: ["Swag"],
       image: "aave_chan_initiative_apps_swag_1014x720.png",
-      CTAText: "Claim",
+      CTAText: "Claim your Swag",
       fields: [
         {
           type: "short-text",

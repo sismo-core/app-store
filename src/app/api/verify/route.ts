@@ -2,7 +2,7 @@ import { ZkSubAppConfig } from "@/space-config/types";
 import env from "@/src/environments";
 import { getSpaceConfig } from "@/src/libs/spaces";
 import { GoogleSpreadsheetStore, Store } from "@/src/libs/store";
-import { AuthType, SismoConnect, SismoConnectResponse, SismoConnectServerConfig, SismoConnectVerifiedResult } from "@sismo-core/sismo-connect-server";
+import { AuthType, SismoConnect, SismoConnectResponse, SismoConnectConfig, SismoConnectVerifiedResult } from "@sismo-core/sismo-connect-server";
 import { NextResponse } from "next/server";
 
 const spreadSheetsInitiated = new Map<string, boolean>();
@@ -93,9 +93,9 @@ const getAuthColumnName = (authType: AuthType) => {
     if (authType === AuthType.GITHUB) {
         return "GithubId";
     }
-    // if (authType === AuthType.TELEGRAM) {
-    //     return "TelegramId";
-    // }
+    if (authType === AuthType.TELEGRAM) {
+        return "TelegramId";
+    }
     if (authType === AuthType.VAULT) {
         return "VaultId";
     }
@@ -139,13 +139,11 @@ const isVaultIdExist = async (store: Store, vaultId: string): Promise<boolean> =
 
 const verifyResponse = async (app: ZkSubAppConfig, response: SismoConnectResponse): Promise<SismoConnectVerifiedResult> => {
     try {
-        const config: SismoConnectServerConfig = {
+        const config: SismoConnectConfig = {
             appId: env.isDemo ? app.demo.appId : (env.isDev ? "0x4c40e70b081752680ce258ad321f9e58" : app.appId),
-            devMode: {
-                enabled: env.isDemo || env.isDev
-            }
         }
-        const sismoConnect = SismoConnect(config);
+
+        const sismoConnect = SismoConnect({ config });
         return await sismoConnect.verify(
             response,
             {

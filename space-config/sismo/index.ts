@@ -135,6 +135,7 @@ export const sismoConfig: SpaceConfig = {
       demo: {
         spreadsheetId: "1VBYLvo6x1R34kPhr9DVxYmNx6uzm_FtHczsbaDL-7dU",
         appId: "0xc429ae9dc0e1fea6591244cdc70ee626",
+        impersonateAddresses: ["0x85ff01cff157199527528788ec4ea6336615c989"]
       },
       envs: ["Demo"],
     },
@@ -167,6 +168,7 @@ export const sismoConfig: SpaceConfig = {
       demo: {
         spreadsheetId: "1WF3taIR9qy1mAFOKhwZRQKeIBMfoxib7uMlXa_zV3-s",
         appId: "0x7cef438f591d7b391a3eae11b2bd7868",
+        impersonateAddresses: ["0x74ce5c3cab7bea5fe742a6636101f42f66909475", "0xff9a11ceca9f3f96e661cc549962984d770b615c"]
       },
       envs: ["Demo"],
     },
@@ -198,6 +200,7 @@ export const sismoConfig: SpaceConfig = {
       demo: {
         spreadsheetId: "1-sb-qxoicB6OKF_ERE8HCYlEA8CQHBYU3M9dQNksML4",
         appId: "0x90db0519f15b523cd41bc3557f6d6b91",
+        impersonateAddresses: ["0x0b5c7dc2181fa147ec439fd5a158e3012f9449ea"]
       },
       envs: ["Demo"],
     },
@@ -235,6 +238,7 @@ export const sismoConfig: SpaceConfig = {
       demo: {
         spreadsheetId: "1XTLPEOM0RL8WpjMm1dXYNpkYq3Wk1G1K7Jk-RntqfjA",
         appId: "0xb3a074e124ff04ee0d703b528bfd5f4d",
+        impersonateAddresses: ["0x0b5c7dc2181fa147ec439fd5a158e3012f9449ea"]
       },
       envs: ["Demo"],
     },
@@ -270,6 +274,7 @@ export const sismoConfig: SpaceConfig = {
       demo: {
         spreadsheetId: "1GaSpQ3-SO_mWDreh97Nri2YSF5LeRYKUEuUjImF8Cxk",
         appId: "0x4f7fef07fcdce0a81e8f2ea14e8ea6c0",
+        impersonateAddresses: ["github:Baoufa"]
       },
       envs: ["Demo"],
     }

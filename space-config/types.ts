@@ -97,6 +97,7 @@ export type ZkSubAppConfig = AppCommonConfig & {
   demo?: {
     spreadsheetId?: string,
     appId?: string,
+    impersonateAddresses?: string[]
   }
 };
 

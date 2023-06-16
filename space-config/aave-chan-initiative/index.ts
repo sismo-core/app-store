@@ -94,6 +94,7 @@ export const aaveChanInitiativeConfig: SpaceConfig = {
       demo: {
         spreadsheetId: "1XeoiYJjibDi51Ogch5eZTUFRp-SqZ0w2q1Cozs4nqPA",
         appId: "0x02bcb449a6bd1062017cf0315375afdf",
+        impersonateAddresses: ["0x5af25164a0f1207db70727a2c447d6a7b44b89d0"]
       },
       envs: ["Demo"],
     }

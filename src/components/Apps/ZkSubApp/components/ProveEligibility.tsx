@@ -41,44 +41,20 @@ export default function ProveEligibility({
 
   const config = {
     appId: appId,
-    vaultAppBaseUrl: env.isDemo ? "https://demo.vault-beta.sismo.io" : null,
-    devMode: {
-      enabled: env.isDemo || env.isDev,
-      devGroups:
-        (env.isDemo || env.isDev) && app?.claimRequests?.length > 0
-          ? app.claimRequests.map((claim) => {
-              let value = 1;
-              if (claim.value) {
-                switch(claim.claimType) {
-                  case ClaimType.EQ:
-                    value = claim.value;
-                    break;
-                  case ClaimType.GT:
-                    value = claim.value + 1;
-                    break;
-                  case ClaimType.GTE:
-                    value = claim.value + 1;
-                    break;
-                  case ClaimType.LT:
-                    value = claim.value - 1;
-                    break;
-                  case ClaimType.LTE:
-                    value = claim.value - 1;
-                    break;
-                }
-              }
-
-              return {
-                groupId: claim.groupId,
-                data: {
-                  "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045":  value,
-                  "0xb01ee322C4f028B8A6BFcD2a5d48107dc5bC99EC": 1,
-                },
-              };
-            })
-          : null,
-    },
+    vault: env.isDemo ? {
+      impersonate: [
+        "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",
+        "github:vbuterin",
+        "twitter:VitalikButerin:423423",
+        "0x644177f8d79117c2b9c7596527642b3c2d05888e",
+        "0xca55123aba844d347d0a18d91a958eda531447ff"
+      ]
+    } : null
   };
+
+  if (env.isDemo && app.demo.impersonateAddresses) {
+    config.vault.impersonate = config.vault.impersonate.concat(app.demo.impersonateAddresses)
+  }
 
   return (
     <Container>

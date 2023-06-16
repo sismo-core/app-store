@@ -28,6 +28,7 @@ export default function Register({ app, onFieldsComplete }: Props): JSX.Element 
 
     useEffect(() => {
         for (let appField of app.fields) {
+            if (!appField.isRequired) continue;
             const fieldAdded = fields.find(_field => _field.value && _field.name === appField.label)
             if (!fieldAdded) {
                 onFieldsComplete(null);

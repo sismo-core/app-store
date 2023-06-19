@@ -53,7 +53,7 @@ export default function ProveEligibility({
   };
 
   if (env.isDemo && app.demo.impersonateAddresses) {
-    config.vault.impersonate = config.vault.impersonate.concat(app.demo.impersonateAddresses)
+    config.vault.impersonate = app.demo.impersonateAddresses
   }
 
   return (

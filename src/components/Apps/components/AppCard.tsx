@@ -11,32 +11,35 @@ import { App, ZkSubAppConfig } from "@/space-config/types";
 import { GroupMetadata } from "@/src/libs/group-provider";
 import { ImportedNextImage } from "@/src/utils/getImgSrcFromConfig";
 import { Clock } from "phosphor-react";
-import { Duration } from "luxon";
+import { DateTime, Duration } from "luxon";
 import TimerModal from "../TimerModal";
 import useRemainingTime from "@/src/utils/useRemainingTime";
 import AvailabilityProgressBar from "./AvailabilityProgressBar";
 import { useModals } from "@/src/state/ModalState";
 
-const Container = styled.div<{ isFolderHovered: boolean }>`
+const Container = styled.div<{ isFolderHovered: boolean, disabled: boolean }>`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   // min-height: 588px;
-  cursor: pointer;
   border: 1px solid ${(props) => props.theme.colors.neutral6};
   background-color: ${(props) => props.theme.colors.neutral11};
   border-radius: 16px;
   padding: 16px 20px 20px;
   transition: all 0.1s;
 
-  &:hover {
-    background-color: ${(props) =>
-      props.isFolderHovered
-        ? props.theme.colors.neutral11
-        : props.theme.colors.neutral10};
-    border: 1px solid ${(props) => props.theme.colors.neutral4};
-  }
+  ${props => !props.disabled && `
+    cursor: pointer;
+    &:hover {
+      background-color: ${
+        props.isFolderHovered
+          ? props.theme.colors.neutral11
+          : props.theme.colors.neutral10};
+      border: 1px solid ${props.theme.colors.neutral4};
+    }
+  `}
+
 `;
 
 const FolderButton = styled.div`
@@ -67,6 +70,22 @@ const Top = styled.div`
   flex-direction: column;
   align-items: center;
 `;
+
+const ExpiredTag = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 0px 8px;
+
+  height: 28px;
+  background: rgba(28, 36, 58, 0.7);
+  border-radius: 20px;
+
+  font-size: 12px;
+  color: ${props => props.theme.neutral1};
+  font-family: ${(props) => props.theme.fonts.semibold};
+`
 
 const Bottom = styled.div`
   display: flex;
@@ -117,10 +136,13 @@ const Tag = styled.div`
   gap: 4px;
 `;
 
-const StyledImage = styled(Image)`
+const StyledImage = styled(Image)<{ disabled: boolean }>`
   width: 100%;
   height: 240px;
   object-fit: cover;
+  ${props => props.disabled && `
+    opacity: 0.5;
+  `}
 `;
 
 const Title = styled.div`
@@ -176,7 +198,11 @@ export default function AppCard({
   const [isHovered, setIsHovered] = useState(false);
   const { requirementsIsOpen } = useModals();
 
-  const remainingTime = useRemainingTime(app?.startDate);
+
+  const luxonUTCStartDate = app?.endDate && DateTime.fromJSDate(app?.endDate);
+  const hasExpired = luxonUTCStartDate ? DateTime.now().toUTC() > luxonUTCStartDate : false;
+
+  let remainingTime = useRemainingTime(app?.startDate);
 
   //Close the timer modal when the app starts
   useEffect(() => {
@@ -221,20 +247,30 @@ export default function AppCard({
       <Container
         isFolderHovered={isHovered}
         onClick={() => {
-          if (!requirementsIsOpen)
+          if (!requirementsIsOpen && !hasExpired)
             hasStarted ? onCTAClick() : setTimerModalIsOpen(true);
         }}
+        disabled={hasExpired}
       >
         <Top>
           {app?.CTAText && <TopText>{app?.CTAText}</TopText>}
           <ImageWrapper>
             {cover && (
-              <StyledImage src={cover} alt={app?.name} placeholder="blur" />
+              <StyledImage src={cover} alt={app?.name} placeholder="blur" disabled={hasExpired}/>
             )}
             <TagWrapper>
               {app?.tags?.map((tag, index) => (
                 <Tag key={app?.name + tag + index}>{tag}</Tag>
               ))}
+
+              {
+                hasExpired && 
+                <ExpiredTag>
+                  <Clock size="18" style={{ marginRight: 4 }}/>
+                  Expired
+                </ExpiredTag>
+              }
+
               {app?.startDate &&
                 !hasStarted &&
                 getHumanReadableRemainingTimeTag(remainingTime) && (

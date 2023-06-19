@@ -5,7 +5,7 @@ import { SpaceConfig } from "../types";
 export const sismoConfig: SpaceConfig = {
   slug: "sismo",
   name: "Sismo",
-  description: "Sismo enables users to selectively disclose personal data to apps with Sismo Connect (SSO) and ZK Badges (SBTs). Get the most of your data.",
+  description: "Sismo enables users to aggregate and selectively disclose personal data to apps with Sismo Connect.",
   profileImage: "space_sismo_pfp_400x400.png",
   coverImage: "space_sismo_cover_1740x540.png",
   socialLinks: [
@@ -282,5 +282,70 @@ export const sismoConfig: SpaceConfig = {
       },
       envs: ["Demo"],
     }
+    {
+      type: "zksub",
+      name: "Sismo Swag Box Lottery Registration",
+      description:
+        "Enter the lottery to win an exclusive swag box, available to all members of the Sismo Community (level 1, 2 and 3). Each level grants one lottery ticket, and each Sybil-resistance ZK Proof shared multiplies your chances.",
+      tags: ["Swag"],
+      image: "sismoapps_swag_lotery_1014x720.png",
+      CTAText: "Enter the Lottery",
+      fields: [
+        {
+          type: "short-text",
+          label: "Email",
+          isRequired: true,
+        }
+      ],
+      congratulationsMessage: {
+        title: "Fingers crossed!",
+        description:
+          "We hope to have you as a lucky winner 💜 ",
+      },
+      endDate: new Date("2023-07-03T14:00"),
+      slug: "swag-box",
+      output: "google_sheet",
+      appId: "0x80b2876a7dbe411813590a3b251de763",
+      spreadsheetId: "1HfINfePvhujt3Y9CkpDVb_DYgeCegLrPeuhKnjEocsU",
+      claimRequests: [
+        { groupId: "0xd630aa769278cacde879c5c0fe5d203c", isSelectableByUser: true },
+        { groupId: "0x1cde61966decb8600dfd0749bd371f12", isOptional: true, isSelectableByUser: true },
+        { groupId: "0x682544d549b8a461d7fe3e589846bb7b", isOptional:true }
+      ],
+      userSelection: { type: "Lottery", numberOfWinners: 10 },
+      authRequests: [{ authType: AuthType.VAULT }, { authType: AuthType.TWITTER, isOptional: true, isAnon: true, isSelectableByUser: true} ],
+      envs: ["Prod"],
+    },
+    {
+      type: "zksub",
+      name: "Future of France Invite Claiming",
+      description:
+        "Claim your ticket to the Future of France event during EthCC week. Exclusively for members of Sismo Community level 3.",
+      tags: ["Ticket"],
+      image: "sismoapps_sismo_events_1014x720.png",
+      CTAText: "Claim your Ticket",
+      fields: [
+        {
+          type: "short-text",
+          label: "Email",
+          isRequired: true,
+        }
+      ],
+      congratulationsMessage: {
+        title: "Congratulations!",
+        description:
+          "We are excited to see you there 💜 Stay in touch for the details!",
+      },
+      endDate: new Date("2023-07-17T18:00"),
+      slug: "ticket",
+      output: "google_sheet",
+      appId: "0x73316ca511efe1e14a63fcebdc9d8b24",
+      spreadsheetId: "1sb_wAe84Im0VLaGsDv_IhNG-dSMjsJHb15Ur6hZ3mig",
+      claimRequests: [
+        { groupId: "0xd630aa769278cacde879c5c0fe5d203c", value: 3 }
+      ],
+      authRequests: [{ authType: AuthType.VAULT } ],
+      envs: ["Prod"],
+    },
   ],
 };

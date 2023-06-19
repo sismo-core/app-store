@@ -49,7 +49,7 @@ export type UserSelection = FirstComeFirstServed | Lottery;
 
 export type Lottery = {
   type: "Lottery";
-  maxNumberOfEntries: number;
+  maxNumberOfEntries?: number;
   numberOfWinners: number;
 }
 

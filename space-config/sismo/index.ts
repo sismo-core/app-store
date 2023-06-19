@@ -120,7 +120,6 @@ export const sismoConfig: SpaceConfig = {
         // },
       ],
       startDate: new Date("2023-05-12T18:00"),
-      endDate: new Date("2023-05-26T18:00"),
       congratulationsMessage: {
         title: "Thank you",
         description:
@@ -135,7 +134,10 @@ export const sismoConfig: SpaceConfig = {
       demo: {
         spreadsheetId: "1VBYLvo6x1R34kPhr9DVxYmNx6uzm_FtHczsbaDL-7dU",
         appId: "0xc429ae9dc0e1fea6591244cdc70ee626",
-        impersonateAddresses: ["0x85ff01cff157199527528788ec4ea6336615c989"]
+        impersonateAddresses: [
+          "twitter:VitalikButerin:423423",
+          "0x85ff01cff157199527528788ec4ea6336615c989"
+        ]
       },
       envs: ["Demo"],
     },
@@ -204,7 +206,10 @@ export const sismoConfig: SpaceConfig = {
       demo: {
         spreadsheetId: "1-sb-qxoicB6OKF_ERE8HCYlEA8CQHBYU3M9dQNksML4",
         appId: "0x90db0519f15b523cd41bc3557f6d6b91",
-        impersonateAddresses: ["0x0b5c7dc2181fa147ec439fd5a158e3012f9449ea"]
+        impersonateAddresses: [
+          "twitter:VitalikButerin:423423",
+          "0x0b5c7dc2181fa147ec439fd5a158e3012f9449ea"
+        ]
       },
       envs: ["Demo"],
     },
@@ -267,7 +272,6 @@ export const sismoConfig: SpaceConfig = {
           "We hope to have you as a lucky winner 💜 ",
       },
       startDate: new Date("2023-05-12T18:00"),
-      endDate: new Date("2023-05-26T18:00"),
       slug: "swag",
       output: "google_sheet",
       appId: null,

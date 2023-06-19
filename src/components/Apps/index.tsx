@@ -63,8 +63,8 @@ export default function Apps({
       (app) => app.type === "zksub" && app.slug === appSlug
     );
     if (app && app.type === "zksub") {
-      const luxonUTCStartDate = app?.endDate && DateTime.fromJSDate(app?.endDate);
-      const hasExpired = luxonUTCStartDate ? DateTime.now().toUTC() > luxonUTCStartDate : true;
+      const luxonUTCEndDate = app?.endDate && DateTime.fromJSDate(app?.endDate);
+      const hasExpired = luxonUTCEndDate ? DateTime.now().toUTC() > luxonUTCEndDate : false;
       if (hasExpired) return;
       setZkAppOpening(true);
       // Can open the modal only 300ms after the init due to animation

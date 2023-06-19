@@ -288,7 +288,7 @@ export const sismoConfig: SpaceConfig = {
       saveClaims: true,
       name: "Swag Box Lottery Registration",
       description:
-        "Enter the lottery to win an exclusive swag box, available to all members of the Sismo Community (level 1, 2 and 3). Each level grants one lottery ticket, and each Sybil-resistance ZK Proof shared multiplies your chances.",
+        "Enter the lottery to win an exclusive swag box, available to all members of the Sismo Community. Each level grants one lottery ticket, and each Sybil-resistance ZK Proof shared multiplies your chances.",
       tags: ["Swag"],
       image: "sismoapps_swag_lotery_1014x720.png",
       CTAText: "Enter the Lottery",
@@ -322,7 +322,7 @@ export const sismoConfig: SpaceConfig = {
       type: "zksub",
       name: "Future of France Invite Claiming",
       description:
-        "Claim your ticket to the Future of France event during EthCC week. Exclusively for members of Sismo Community level 3.",
+        "Claim your ticket to the Future of France event during EthCC week.",
       tags: ["Ticket"],
       image: "sismoapps_sismo_events_1014x720.png",
       CTAText: "Claim your Ticket",

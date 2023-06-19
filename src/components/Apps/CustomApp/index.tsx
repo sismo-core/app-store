@@ -1,21 +1,13 @@
 'use client'
 
-import { SpaceConfig, ZkSubAppConfig } from "@/space-config/types";
+import { CustomAppConfig, SpaceConfig } from "@/space-config/types";
 import Modal from "@/src/ui/Modal";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { styled } from "styled-components";
-import Button3D from "@/src/ui/Button3D";
-import ProveEligibility from "../components/ProveEligibility";
-import { SismoConnectResponse } from "@sismo-core/sismo-connect-server";
-import Register, { FieldValue } from "./components/Register";
-import Section from "../components/Section";
 import Congratulations from "../components/Congratulations";
-import { GroupMetadata } from "@/src/libs/group-provider";
-import { useModals } from "@/src/state/ModalState";
-
-const Content = styled.div`
-    max-width: 580px;
-`
+import Button3D from "@/src/ui/Button3D";
+import Section from "../components/Section";
+import ProveEligibility from "../components/ProveEligibility";
 
 const Title = styled.div`
     margin-bottom: 16px;
@@ -23,6 +15,7 @@ const Title = styled.div`
     color: ${props => props.theme.colors.neutral1};
     font-size: 32px;
 `
+
 
 const Description = styled.div`
     margin-bottom: 32px;
@@ -68,67 +61,26 @@ const AlreadyRegistered = styled.div`
     border-radius: 4px;
 `
 
+const Content = styled.div`
+    max-width: 580px;
+`
+
 type Props = {
     isOpen: boolean;
     onClose: () => void;
-    groupMetadataList: GroupMetadata[];
-    app: ZkSubAppConfig;
+    app: CustomAppConfig;
     space: SpaceConfig;
 }
 
 
-export default function ZkSubApp({ isOpen, onClose, app, space, groupMetadataList }: Props): JSX.Element {
-    const [error, setError] = useState(null);
-    const [alreadySubscribed, setAlreadySubscribed] = useState(false);
-    const [subscribed, setSubscribed] = useState(false);
-    const [verifying, setVerifying] = useState<boolean>(false);
-    const [fields, setFields] = useState<FieldValue[]>(null);
-    const [response, setResponse] = useState<SismoConnectResponse>(null);
-    const { requirementsIsOpen } = useModals();
+export default function CustomApp({ isOpen, onClose, app, space }: Props): JSX.Element {
+    const [response, setResponse] = useState();
 
     const submit = async () => {
-        const body = {
-            fields,
-            response: response,
-            appSlug: app.slug,
-            spaceSlug: space.slug
-        }
-        setError(null);
-        setVerifying(true);
-        const res = await fetch("/api/verify", {
-            method: "POST",
-            body: JSON.stringify(body)
-        })
-        setVerifying(false);
-        if (!res.ok || res.status !== 200) {
-            setError("Server error")
-            return;
-        }
-        
-        const data = await res.json();
-        if (data.status === "subscribed") {
-            setSubscribed(true);
-        }
-        if (data.status === "already-subscribed") {
-            setAlreadySubscribed(true);
-        }
+       
     }
 
-    useEffect(() => {
-        if (!isOpen) reset();
-    }, [isOpen])
-
-    const reset = () => {
-        setTimeout(() => {
-            setError(null);
-            setAlreadySubscribed(false);
-            setSubscribed(false);
-            setFields(null);
-            setResponse(null);
-        }, 300);
-    }
-
-    return <Modal isOpen={isOpen} onClose={onClose} animated outsideClosable={!requirementsIsOpen}>
+    return <Modal isOpen={isOpen} onClose={onClose} animated>
         <Content>
             {
                 subscribed ? <Congratulations onBackToSpace={onClose} app={app}/> : <>

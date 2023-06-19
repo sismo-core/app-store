@@ -1,6 +1,6 @@
 'use client'
 
-import { ZkSubAppConfig } from "@/space-config/types";
+import { App, CustomAppConfig, ZkSubAppConfig } from "@/space-config/types";
 import Button3D from "@/src/ui/Button3D";
 import React from "react";
 import { styled } from "styled-components";
@@ -28,7 +28,7 @@ const Subtitle = styled.div`
 
 type Props = {
     onBackToSpace: () => void,
-    app: ZkSubAppConfig
+    app: ZkSubAppConfig | CustomAppConfig
 }
 
 export default function Congratulations({ onBackToSpace, app }: Props): JSX.Element {

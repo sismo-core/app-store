@@ -6,6 +6,7 @@ import AppCard from "./components/AppCard";
 import ZkDropApp from "./ZkDropApp";
 import ZkSubApp from "./ZkSubApp";
 import {
+  CustomAppConfig,
   SpaceConfig,
   ZkDropAppConfig,
   ZkSubAppConfig,
@@ -14,6 +15,7 @@ import { GroupMetadata } from "@/src/libs/group-provider";
 import { ImportedImage } from "@/src/app/(space)/[...slug]/page";
 import { DateTime } from "luxon";
 import { useModals } from "@/src/state/ModalState";
+import CustomApp from "./CustomApp";
 
 const Container = styled.div`
   margin: 48px 0px 80px 0px;
@@ -52,6 +54,9 @@ export default function Apps({
   // Don't use Boolean(zkSubApp) to open the app in order to avoid seeing the app disappear during the close animation
   const { zkSubAppIsOpen, setZkSubAppIsOpen } = useModals();
   const [zkSubAppOpening, setZkAppOpening] = useState(false);
+
+  const [customApp, setCustomApp] = useState<CustomAppConfig>(null);
+  const [isCustomAppOpen, setIsCustomAppOpen] = useState(false);
 
   const [zkDropApp, setZkDropApp] = useState<ZkDropAppConfig>(null);
   const [isZkDropAppOpen, setIsZkDropAppOpen] = useState(false);
@@ -92,6 +97,12 @@ export default function Apps({
         app={zkDropApp}
         onClose={() => setIsZkDropAppOpen(false)}
       />
+      <CustomApp
+        isOpen={isCustomAppOpen}
+        app={customApp}
+        space={config}
+        onClose={() => setIsCustomAppOpen(false)}
+      />
       <Grid>
         {config?.apps &&
           config.apps.map((app) => {
@@ -120,6 +131,11 @@ export default function Apps({
                     if (app.type === "zkdrop") {
                       setZkDropApp(app);
                       setIsZkDropAppOpen(true);
+                    }
+                    if (app.type === "custom") {
+                      console.log("custom")
+                      setCustomApp(app);
+                      setIsCustomAppOpen(true);
                     }
                     if (app.type === "zksub") {
                       let url =

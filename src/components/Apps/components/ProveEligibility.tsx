@@ -1,11 +1,11 @@
 "use client";
 
-import { ZkSubAppConfig } from "@/space-config/types";
+import { CustomAppConfig, ZkSubAppConfig } from "@/space-config/types";
 import env from "@/src/environments";
-import { ClaimType, SismoConnectButton } from "@sismo-core/sismo-connect-react";
+import { SismoConnectButton } from "@sismo-core/sismo-connect-react";
 import React from "react";
 import { styled } from "styled-components";
-import ReqList from "../../components/ReqList";
+import ReqList from "./ReqList";
 import { GroupMetadata } from "@/src/libs/group-provider";
 
 const Container = styled.div``;
@@ -23,8 +23,8 @@ const ButtonContainer = styled.div`
 `;
 
 type Props = {
-  app: ZkSubAppConfig;
-  groupMetadataList: GroupMetadata[];
+  app: ZkSubAppConfig | CustomAppConfig;
+  groupMetadataList?: GroupMetadata[];
   onEligible: (response) => void;
 };
 

@@ -19,7 +19,7 @@ export type SpaceConfig = {
 };
 
 export type Env = "Demo" | "Prod";
-export type App = ZkSubAppConfig | ZkDropAppConfig | ExternalAppConfig | ZkBadgeAppConfig;
+export type App = ZkSubAppConfig | ZkDropAppConfig | ExternalAppConfig | ZkBadgeAppConfig | CustomAppConfig;
 
 type SocialType = "twitter" | "discord" | "link" | "github" | "telegram";
 
@@ -56,6 +56,19 @@ export type Lottery = {
 export type FirstComeFirstServed = {
   type: "FCFS"
   maxNumberOfUsers: number;
+}
+ 
+export type CustomAppConfig = AppCommonConfig & {
+  type: "custom";
+  appId: string;
+  congratulationsMessage?: {
+    title: string;
+    description: string;
+  };  
+  demo?: {
+    appId?: string,
+    impersonateAddresses?: string[]
+  }
 }
 
 export type ExternalAppConfig = AppCommonConfig & {

@@ -41,7 +41,7 @@ const Bold = styled.span`
 
 type Props = {
   app: App;
-  groupMetadataList: GroupMetadata[];
+  groupMetadataList?: GroupMetadata[];
   style?: React.CSSProperties;
   fullWidth?: boolean;
 };
@@ -85,6 +85,7 @@ export default function ReqList({ app, groupMetadataList, style, fullWidth }: Pr
             </AuthItem>
           ))}
         {app?.claimRequests?.length > 0 &&
+          groupMetadataList &&
           app?.claimRequests?.map(
             (claimRequest: ClaimRequest, index) => {
               const groupMetadata = groupMetadataList?.find(el => el.id === claimRequest.groupId)

@@ -75,7 +75,6 @@ export default async function SpacePage({
   params: { slug: string[] };
 }) {
   const { slug } = params;
-  console.log("slug///////", slug)
   const config = await getSpaceConfig({ slug: slug[0] });
   // Dynamically import the cover image
   let coverImage = await getImgSrcFromConfig(config?.slug, config?.coverImage);

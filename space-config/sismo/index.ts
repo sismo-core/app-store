@@ -322,7 +322,7 @@ export const sismoConfig: SpaceConfig = {
       type: "zksub",
       name: "Future of France Invite Claiming",
       description:
-        "Claim your ticket to the Future of France event during EthCC week - available exclusively to members of the Sismo Community level 3",
+        "Claim your ticket to the Future of France event during EthCC week - available exclusively to members of the Sismo Community level 3.",
       tags: ["Ticket"],
       image: "sismo_appstore_fof_tickets.png",
       CTAText: "Claim your Ticket",

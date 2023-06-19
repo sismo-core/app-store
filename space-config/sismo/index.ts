@@ -315,7 +315,7 @@ export const sismoConfig: SpaceConfig = {
         { groupId: "0x682544d549b8a461d7fe3e589846bb7b", isOptional:true }
       ],
       userSelection: { type: "Lottery", numberOfWinners: 10 },
-      authRequests: [{ authType: AuthType.VAULT }, { authType: AuthType.TWITTER, isOptional: true, isAnon: true, isSelectableByUser: true} ],
+      authRequests: [{ authType: AuthType.VAULT }, { authType: AuthType.TWITTER, isOptional: true, isSelectableByUser: true} ],
       envs: ["Prod"],
     },
     {

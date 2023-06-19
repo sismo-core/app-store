@@ -281,7 +281,7 @@ export const sismoConfig: SpaceConfig = {
         impersonateAddresses: ["github:Baoufa"]
       },
       envs: ["Demo"],
-    }
+    },
     {
       type: "zksub",
       name: "Sismo Swag Box Lottery Registration",

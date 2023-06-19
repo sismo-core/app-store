@@ -1,4 +1,5 @@
 // add an images folder in your space folder if you would like Sismo to host your images
+import { AuthType } from "@sismo-core/sismo-connect-server";
 import { SpaceConfig } from "../types";
 
 export const synapsConfig: SpaceConfig = {
@@ -18,8 +19,18 @@ export const synapsConfig: SpaceConfig = {
       tags: ["KYC"],
       image: "synaps_pfp.jpeg",
       CTAText: "Prove liveness",
-      slug: "synaps-proof-of-liveness",
+      slug: "proof-of-liveness",
       envs: ["Demo", "Prod"],
+      spreadsheetId: "1i1xC7C1I8dBxTYcxtg5Wzz3v55Lt_j_JoJbz_riswUE",
+      authRequests: [{ authType: AuthType.VAULT }],
+      demo: {
+        spreadsheetId: "1i1xC7C1I8dBxTYcxtg5Wzz3v55Lt_j_JoJbz_riswUE"
+      },
+      congratulationsMessage: {
+        title: "Congratulations",
+        description:
+          "You have successfully prove your liveness.",
+      },
     }
   ],
 };

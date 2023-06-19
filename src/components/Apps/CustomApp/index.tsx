@@ -8,6 +8,7 @@ import Congratulations from "../components/Congratulations";
 import Button3D from "@/src/ui/Button3D";
 import Section from "../components/Section";
 import ProveEligibility from "../components/ProveEligibility";
+import Synaps from "./components/Synaps";
 
 const Title = styled.div`
     margin-bottom: 16px;
@@ -75,6 +76,10 @@ type Props = {
 
 export default function CustomApp({ isOpen, onClose, app, space }: Props): JSX.Element {
     const [response, setResponse] = useState();
+    const [subscribed, setSubscribed] = useState(false);
+    const [alreadySubscribed, setAlreadySubscribed] = useState();
+    const [error, setError] = useState();
+    const [verifying, setVerifying] = useState();
 
     const submit = async () => {
        
@@ -91,27 +96,22 @@ export default function CustomApp({ isOpen, onClose, app, space }: Props): JSX.E
                         {app?.description}
                     </Description>
                     <Section number={1} isOpen={!response} title="Prove Eligibility" style={{marginBottom: 16}} success={Boolean(response)}>
-                        <ProveEligibility app={app} onEligible={(_response) => setResponse(_response)} groupMetadataList={groupMetadataList}/>
+                        <ProveEligibility app={app} onEligible={(_response) => setResponse(_response)}/>
                     </Section>
                     <Section number={2} isOpen={Boolean(response)} title={app?.CTAText} success={alreadySubscribed}>
+                        <Synaps onSuccess={() => setSubscribed(true)} response={response}/>
                         {
-                            alreadySubscribed ?
+                            alreadySubscribed &&
                             <AlreadyRegistered style={{marginTop: 24}}>
                                 You already registered.
                             </AlreadyRegistered>
-                            :
-                            <Register app={app} onFieldsComplete={(_fields) => setFields(_fields)}/>
                         }
                     </Section>
                     <Bottom>
                         {
-                            alreadySubscribed ?
+                            alreadySubscribed &&
                             <Button3D onClick={onClose} secondary>
                                 Back to the Space
-                            </Button3D>
-                            :
-                            <Button3D onClick={submit} secondary disabled={!fields || !response} loading={verifying}>
-                                {verifying ? "Verifying..." : "Submit"}
                             </Button3D>
                         }
                         <ErrorMsg>

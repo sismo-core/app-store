@@ -65,10 +65,12 @@ export type CustomAppConfig = AppCommonConfig & {
     title: string;
     description: string;
   };  
+  spreadsheetId: string;
   demo?: {
     appId?: string,
+    spreadsheetId?: string,
     impersonateAddresses?: string[]
-  }
+  },
 }
 
 export type ExternalAppConfig = AppCommonConfig & {

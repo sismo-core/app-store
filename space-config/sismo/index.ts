@@ -320,12 +320,12 @@ export const sismoConfig: SpaceConfig = {
     },
     {
       type: "zksub",
-      name: "Future of France Invite Claiming",
+      name: "Future of France Invitation",
       description:
-        "Claim your ticket to the Future of France event during EthCC week - available exclusively to members of the Sismo Community level 3.",
+        "Register your email address to receive a ticket for the Future of France Party. The event will take place on July 17th during the EthCC week. Exclusively for members of Sismo Community Level 3.",
       tags: ["Ticket"],
       image: "sismo_appstore_fof_tickets.png",
-      CTAText: "Claim your Ticket",
+      CTAText: "Register to get your Ticket",
       fields: [
         {
           type: "short-text",
@@ -336,7 +336,7 @@ export const sismoConfig: SpaceConfig = {
       congratulationsMessage: {
         title: "Congratulations!",
         description:
-          "We are excited to see you there 💜 Stay in touch for the details!",
+          "We are excited to see you there 💜 You will receive the ticket in a few days!",
       },
       endDate: new Date("2023-07-17T18:00"),
       slug: "ticket",

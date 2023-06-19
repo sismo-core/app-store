@@ -5,7 +5,7 @@ import { SpaceConfig } from "../types";
 export const sismoConfig: SpaceConfig = {
   slug: "sismo",
   name: "Sismo",
-  description: "This Space is a tribute to members of the Sismo Community (level 1, 2 and 3). Prove you are a Sismo Community member and access Apps based on your level. Eligibility groups are updated daily. Learn more to upgrade: https://www.notion.so/sismo/Sismo-Community-feccb6916d3d49f391b23b31a1100ad4",
+  description: "This Space is a tribute to members of the Sismo Community (level 1, 2 and 3). Prove you are a Sismo Community member and access Apps based on your level. Eligibility groups are updated daily. Learn more to upgrade: community.sismo.io",
   profileImage: "space_sismo_pfp_400x400.png",
   coverImage: "space_sismo_cover_1740x540.png",
   socialLinks: [
@@ -288,7 +288,7 @@ export const sismoConfig: SpaceConfig = {
       saveClaims: true,
       name: "Swag Box Lottery Registration",
       description:
-        "Enter the lottery to win an exclusive swag box, available to all members of the Sismo Community. Each level grants one lottery ticket, and each Sybil-resistance ZK Proof shared multiplies your chances.",
+        "Enter the lottery to win an exclusive swag box - available to all members of the Sismo Community. Each level grants one lottery ticket, and each Sybil-resistance ZK Proof shared multiplies your chances.",
       tags: ["Swag"],
       image: "sismoapps_swag_lotery_1014x720.png",
       CTAText: "Enter the Lottery",
@@ -322,9 +322,9 @@ export const sismoConfig: SpaceConfig = {
       type: "zksub",
       name: "Future of France Invite Claiming",
       description:
-        "Claim your ticket to the Future of France event during EthCC week.",
+        "Claim your ticket to the Future of France event during EthCC week - available exclusively to members of the Sismo Community level 3",
       tags: ["Ticket"],
-      image: "sismoapps_sismo_events_1014x720.png",
+      image: "sismo_appstore_fof_tickets.png",
       CTAText: "Claim your Ticket",
       fields: [
         {

@@ -134,7 +134,10 @@ export const sismoConfig: SpaceConfig = {
       demo: {
         spreadsheetId: "1VBYLvo6x1R34kPhr9DVxYmNx6uzm_FtHczsbaDL-7dU",
         appId: "0xc429ae9dc0e1fea6591244cdc70ee626",
-        impersonateAddresses: ["0x85ff01cff157199527528788ec4ea6336615c989"]
+        impersonateAddresses: [
+          "twitter:VitalikButerin:423423",
+          "0x85ff01cff157199527528788ec4ea6336615c989"
+        ]
       },
       envs: ["Demo"],
     },

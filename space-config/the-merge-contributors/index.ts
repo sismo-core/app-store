@@ -89,5 +89,47 @@ export const theMergeContributorsConfig: SpaceConfig = {
       },
       envs: ["Demo", "Prod"],
     },
+    {
+      type: "zksub",
+      name: "TEST",
+      description:
+        "Register your email address to receive exclusive tickets for web3 events - open to contributors to The Merge.",
+      tags: ["Event"],
+      image: "EthCCtickets_1014x720px.png",
+      CTAText: "Register to get tickets",
+      fields: [
+        {
+          type: "short-text",
+          label: "First name",
+          isRequired: true,
+        },
+        {
+          type: "short-text",
+          label: "Last name",
+          isRequired: true,
+        },
+        {
+          type: "short-text",
+          label: "Email",
+          isRequired: true,
+        },
+      ],
+      congratulationsMessage: {
+        title: "Congratulations",
+        description:
+          "You have successfully registered to receive exclusive tickets for web3 events.",
+      },
+      slug: "ethcc-tickets",
+      output: "google_sheet",
+      appId: "0x0f38b4eb4d51fbd7906c9c7574df075e",
+      spreadsheetId: "1iRxYsIsT_kJqt7qEpvNxbz2Kw1JBFCQVehu4NgN3-A8",
+      claimRequests: [{ groupId: "0x1cde61966decb8600dfd0749bd371f12" }], // Mergooor contributor groupID "0x42c768bb8ae79e4c5c05d3b51a4ec74a"
+      authRequests: [{ authType: 0 }],
+      demo: {
+        spreadsheetId: "1iRxYsIsT_kJqt7qEpvNxbz2Kw1JBFCQVehu4NgN3-A8",
+        appId: "0x0f38b4eb4d51fbd7906c9c7574df075e",
+      },
+      envs: ["Prod"],
+    },
   ],
 };

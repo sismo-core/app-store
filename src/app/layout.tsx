@@ -38,7 +38,7 @@ export default function RootLayout({
           sizes="16x16"
           href="/favicon-16x16.png"
         />
-        <link rel="manifest" href="/site.webmanifest" />
+        {/* <link rel="manifest" href="/site.webmanifest" /> */}
       </head>
       <body>
         <div id="tooltip-root" style={{ position: "fixed", zIndex: 9999 }} />

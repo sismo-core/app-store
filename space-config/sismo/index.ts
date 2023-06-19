@@ -5,7 +5,7 @@ import { SpaceConfig } from "../types";
 export const sismoConfig: SpaceConfig = {
   slug: "sismo",
   name: "Sismo",
-  description: "Sismo enables users to aggregate and selectively disclose personal data to apps with Sismo Connect.",
+  description: "This Space is a tribute to members of the Sismo Community (level 1, 2 and 3). Prove you are a Sismo Community member and access Apps based on your level. Eligibility groups are updated daily. Learn more to upgrade: https://www.notion.so/sismo/Sismo-Community-feccb6916d3d49f391b23b31a1100ad4",
   profileImage: "space_sismo_pfp_400x400.png",
   coverImage: "space_sismo_cover_1740x540.png",
   socialLinks: [
@@ -286,7 +286,7 @@ export const sismoConfig: SpaceConfig = {
       type: "zksub",
       saveAuths: true,
       saveClaims: true,
-      name: "Sismo Swag Box Lottery Registration",
+      name: "Swag Box Lottery Registration",
       description:
         "Enter the lottery to win an exclusive swag box, available to all members of the Sismo Community (level 1, 2 and 3). Each level grants one lottery ticket, and each Sybil-resistance ZK Proof shared multiplies your chances.",
       tags: ["Swag"],

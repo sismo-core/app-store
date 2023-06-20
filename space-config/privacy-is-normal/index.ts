@@ -158,7 +158,7 @@ export const privacyIsNormalConfig: SpaceConfig = {
       appId: "0x1941996d7a0245ccc2b203847d682298",
       spreadsheetId: "15KaDhCGxs8E6mmYw5kZkUYTXQoTsH9UAt27TLsbT6TE",
       authRequests: [{ authType: AuthType.VAULT }],
-      claimRequests: [ { groupId: "0x7e89f2add43b3597cdcacad5437595db" } ],//to be changed to 0x5981720e2223883ff387639125abee2f
+      claimRequests: [ { groupId: "0xd97967d89d4be46b43c0ae789749e650" } ],//to be changed to 0xa199ee8b75688035fb40f8660adbcdac
       envs: ["Prod"],
     },
     {
@@ -193,8 +193,7 @@ export const privacyIsNormalConfig: SpaceConfig = {
         appId: "0x5749773b034573e615026216c628be4d",
         impersonateAddresses: [
           "0x85ff01cff157199527528788ec4ea6336615c989",
-          "0x48724944608b7baacd2f7d10bdbc98d429967f7c",
-          "0x6aa9b699fFC8525BB157949f0696c11246aDE7CA"
+          "0x48724944608b7baacd2f7d10bdbc98d429967f7c"
         ]
       },
       envs: ["Demo"],

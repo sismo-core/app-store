@@ -268,7 +268,7 @@ export const privacyIsNormalConfig: SpaceConfig = {
         impersonateAddresses: [
           "0xfC43f5F9dd45258b3AFf31Bdbe6561D97e8B71de",
           "github:demo",
-          "twitter:159203775",
+          "twitter:demo:159203775",
         ]
       },
       envs: ["Demo"],

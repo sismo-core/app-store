@@ -3,10 +3,12 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import AppCard from "./components/AppCard";
+import ZkBotApp from "./ZkBotApp";
 import ZkDropApp from "./ZkDropApp";
 import ZkSubApp from "./ZkSubApp";
 import {
   SpaceConfig,
+  ZkTelegramBotAppConfig,
   ZkDropAppConfig,
   ZkSubAppConfig,
 } from "@/space-config/types";
@@ -53,6 +55,10 @@ export default function Apps({
   const { zkSubAppIsOpen, setZkSubAppIsOpen } = useModals();
   const [zkSubAppOpening, setZkAppOpening] = useState(false);
 
+  const [zkBotApp, setZkBotApp] = useState<ZkTelegramBotAppConfig>(null);
+  const { zkBotAppIsOpen, setZkBotAppIsOpen } = useModals();
+  const [zkBotAppOpening, setZkBotOpening] = useState(false);
+
   const [zkDropApp, setZkDropApp] = useState<ZkDropAppConfig>(null);
   const [isZkDropAppOpen, setIsZkDropAppOpen] = useState(false);
 
@@ -60,7 +66,7 @@ export default function Apps({
     if (!config) return;
     if (!appSlug) return;
     const app = config.apps.find(
-      (app) => app.type === "zksub" && app.slug === appSlug
+      (app) => (app.type === "zksub"  || app.type == "zkTelegramBot") && app.slug === appSlug
     );
     if (app && app.type === "zksub") {
       const luxonUTCEndDate = app?.endDate && DateTime.fromJSDate(app?.endDate);
@@ -74,11 +80,31 @@ export default function Apps({
         setZkAppOpening(false);
       }, 300);
     }
+    if (app && app.type === "zkTelegramBot") {
+      setZkAppOpening(true);
+      // Can open the modal only 300ms after the init due to animation
+      setTimeout(() => {
+        setZkBotApp(app);
+        setZkBotAppIsOpen(true);
+        setZkAppOpening(false);
+      }, 300);
+    }
   }, [config, appSlug]);
 
 
   return (
     <Container>
+      <ZkBotApp
+        isOpen={zkBotAppIsOpen}
+        app={zkBotApp}
+        space={config}
+        groupMetadataList={groupMetadataList}
+        onClose={() => {
+          let url = window.location.origin + `/${config.slug}`;
+          window.history.replaceState(null, "", url);
+          setZkBotAppIsOpen(false);
+        }}
+      />
       <ZkSubApp
         isOpen={zkSubAppIsOpen}
         app={zkSubApp}
@@ -118,6 +144,8 @@ export default function Apps({
 
                     if (zkSubAppOpening) return;
 
+                    if (zkBotAppOpening) return;
+
                     if (app.type === "external")
                       window.location.href = app.link;
                     if (app.type === "zkdrop") {
@@ -130,6 +158,13 @@ export default function Apps({
                       window.history.replaceState(null, "", url);
                       setZkSubApp(app);
                       setZkSubAppIsOpen(true);
+                    }
+                    if (app.type === "zkTelegramBot") {
+                      let url =
+                        window.location.origin + `/${config.slug}/${app.slug}`;
+                      window.history.replaceState(null, "", url);
+                      setZkBotApp(app);
+                      setZkBotAppIsOpen(true);
                     }
                   }}
                 />

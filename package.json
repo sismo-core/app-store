@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "yarn jest"
+    "test": "yarn jest --coverage"
   },
   "dependencies": {
     "@google-cloud/local-auth": "^2.1.1",
@@ -27,10 +27,12 @@
     "luxon": "^3.3.0",
     "next": "13.4.2",
     "next-plausible": "^3.7.2",
+    "pg": "^8.11.1",
     "phosphor-react": "^1.4.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "styled-components": "^6.0.0-beta.15",
+    "typeorm": "^0.3.17",
     "typescript": "5.0.4",
     "utf-8-validate": "^6.0.3"
   },

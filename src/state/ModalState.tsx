@@ -7,6 +7,8 @@ type Modals = {
     requirementsIsOpen: boolean;
     setZkSubAppIsOpen: (isOpen: boolean) => void;
     zkSubAppIsOpen: boolean;
+    setZkBotAppIsOpen: (isOpen: boolean) => void;
+    zkBotAppIsOpen: boolean;
 };
 
 export const useModals = (): Modals => {
@@ -22,6 +24,7 @@ export default function ModalsProvider({
 }): JSX.Element {
   const [requirementsIsOpen, setRequirementsIsOpen] = useState<boolean>(false);
   const [zkSubAppIsOpen, setZkSubAppIsOpen] = useState<string>(null);
+  const [zkBotAppIsOpen, setZkBotAppIsOpen] = useState<string>(null);
 
   return (
     <ModalsContext.Provider
@@ -29,7 +32,9 @@ export default function ModalsProvider({
         setRequirementsIsOpen,
         requirementsIsOpen,
         setZkSubAppIsOpen,
-        zkSubAppIsOpen
+        zkSubAppIsOpen,
+        setZkBotAppIsOpen,
+        zkBotAppIsOpen
       }}
     >
       {children}

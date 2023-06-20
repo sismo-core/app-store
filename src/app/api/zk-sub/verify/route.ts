@@ -4,6 +4,7 @@ import { getSpaceConfig } from "@/src/libs/spaces";
 import { GoogleSpreadsheetStore, Store } from "@/src/libs/store";
 import { AuthType, SismoConnect, SismoConnectResponse, SismoConnectConfig, SismoConnectVerifiedResult } from "@sismo-core/sismo-connect-server";
 import { NextResponse } from "next/server";
+import { mapAuthTypeToSheetColumnName } from "@/src/utils/mapAuthTypeToSheetColumnName";
 
 const spreadSheetsInitiated = new Map<string, boolean>();
 
@@ -50,7 +51,7 @@ export async function POST(req: Request) {
                 fieldsToAdd = [
                     ...fieldsToAdd,
                     {
-                        name: getAuthColumnName(authRequest.authType),
+                        name: mapAuthTypeToSheetColumnName(authRequest.authType),
                         value: userId
                     }
                 ];
@@ -83,30 +84,12 @@ export async function POST(req: Request) {
     })
 }
 
-const getAuthColumnName = (authType: AuthType) => {
-    if (authType === AuthType.EVM_ACCOUNT) {
-        return "Address";
-    }
-    if (authType === AuthType.TWITTER) {
-        return "TwitterId";
-    }
-    if (authType === AuthType.GITHUB) {
-        return "GithubId";
-    }
-    if (authType === AuthType.TELEGRAM) {
-        return "TelegramId";
-    }
-    if (authType === AuthType.VAULT) {
-        return "VaultId";
-    }
-}
-
 const getStore = async (app: ZkSubAppConfig): Promise<Store> => {
     const appColumns = app?.fields ? app?.fields.map(el => el.label) : [];
 
     let authColumns = needVaultAuth(app) ? ["VaultId"] : [];
     if (app.saveAuths) 
-        authColumns = app.authRequests.map(authRequest => getAuthColumnName(authRequest.authType));
+        authColumns = app.authRequests.map(authRequest => mapAuthTypeToSheetColumnName(authRequest.authType));
 
     let claimColumns = [];
     if (app.saveClaims)

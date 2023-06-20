@@ -9,7 +9,7 @@ type Environment = {
     isDev: boolean;
     hubApiUrl: string;
     redirection: string;
-
+    telegramBotToken:string;
 };
 
 const env: Environment = {
@@ -17,6 +17,7 @@ const env: Environment = {
     isDev: process.env.NEXT_PUBLIC_IS_DEV ? JSON.parse(process.env.NEXT_PUBLIC_IS_DEV) : false,
     hubApiUrl: process.env.HUB_API_URL,
     redirection: process.env.NEXT_PUBLIC_REDIRECTION,
+    telegramBotToken: process.env.TELEGRAM_BOT_TOKEN
 }
 
 if (env.isDemo) {

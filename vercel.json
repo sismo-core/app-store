@@ -1,6 +1,6 @@
 {
     "functions": {
-      "app/api/verify/route.ts": {
+      "app/api/zk-sub/verify/route.ts": {
         "memory": 3008,
         "maxDuration": 60
       }

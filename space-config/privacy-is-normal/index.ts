@@ -6,7 +6,7 @@ export const privacyIsNormalConfig: SpaceConfig = {
   slug: "privacy-is-normal",
   name: "Privacy Is Normal 🌼",
   description:
-  "This Space celebrates privacy as a fundamental human right. By proving you are a Tornado Cash user in a privacy-preserving manner and with a Gitcoin Passport, you were able to participate in our Sybil-resistant lottery. You can now check if you are among the 10 winners to receive a printed ‘Privacy Is Normal’ artwork.",
+    "This Space celebrates privacy as a fundamental human right. By proving you are a Tornado Cash user in a privacy-preserving manner and with a Gitcoin Passport, you were able to participate in our Sybil-resistant lottery. 10 winners have been selected to receive a printed ‘Privacy Is Normal’ artwork.",
   profileImage: "space_privacy_is_normal_pfp_400x400.png",
   coverImage: "space_privacy_is_normal_cover_1740x540.png",
   socialLinks: [
@@ -169,21 +169,12 @@ export const privacyIsNormalConfig: SpaceConfig = {
       tags: ["Artwork"],
       image: "privacy_is_normal_apps_lotery_1014x720.png",
       CTAText: "Participate in the Lottery",
-      fields: [
-        {
-          type: "short-text",
-          label: "Twitter",
-          placeholder: "@handle",
-          isRequired: true,
-        },
-      ],
       congratulationsMessage: {
         title: "Fingers crossed!",
         description:
           "We hope to have you among our lucky winners 💜 We will contact you if you win!",
       },
       startDate: new Date("2023-05-17T16:00Z"),
-      endDate: new Date("2023-05-20T18:00Z"),
       slug: "artwork-lottery",
       output: "google_sheet",
       appId: null,
@@ -202,7 +193,8 @@ export const privacyIsNormalConfig: SpaceConfig = {
         appId: "0x5749773b034573e615026216c628be4d",
         impersonateAddresses: [
           "0x85ff01cff157199527528788ec4ea6336615c989",
-          "0x48724944608b7baacd2f7d10bdbc98d429967f7c"
+          "0x48724944608b7baacd2f7d10bdbc98d429967f7c",
+          "0x6aa9b699fFC8525BB157949f0696c11246aDE7CA"
         ]
       },
       envs: ["Demo"],

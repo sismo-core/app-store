@@ -202,7 +202,7 @@ export const privacyIsNormalConfig: SpaceConfig = {
       type: "zksub",
       name: "Artwork Claiming",
       description:
-        "Check if you won in the lottery and enter your shipping address to receive the ‘Privacy Is Normal’ artwork - without doxxing your wallet 👀",       
+        "Artwork Claiming App faked by impersonating 'demo.eth' - unique winner address in the demo Data Group: 'Privacy Is Normal Lottery Winners Demo'. You can now test the fake winning app!",       
       tags: ["Artwork"],
       image: "privacy_is_normal_apps_print_1014x720.png",
       CTAText: "Claim Your Artwork",
@@ -265,6 +265,11 @@ export const privacyIsNormalConfig: SpaceConfig = {
       demo: {
         spreadsheetId: "1hlAxg69kX1Z7RRh-prmkkYTiMFXcmFluGv_dcfTP7bg",
         appId: "0x325b16d643351175e190a43ce8066da9",
+        impersonateAddresses: [
+          "demo.eth",
+          "github:demo",
+          "twitter:demo",
+        ]
       },
       envs: ["Demo"],
     },

@@ -261,7 +261,7 @@ export const privacyIsNormalConfig: SpaceConfig = {
       appId: null,
       spreadsheetId: null,
       authRequests: [{ authType: AuthType.VAULT }],
-      claimRequests: [ { groupId: "0xd97967d89d4be46b43c0ae789749e650" } ],
+      claimRequests: [ { groupId: "0x406925cbd710f4fd10c5b304777cd073" } ],
       demo: {
         spreadsheetId: "1hlAxg69kX1Z7RRh-prmkkYTiMFXcmFluGv_dcfTP7bg",
         appId: "0x325b16d643351175e190a43ce8066da9",

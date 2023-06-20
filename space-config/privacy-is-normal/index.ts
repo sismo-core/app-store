@@ -158,7 +158,7 @@ export const privacyIsNormalConfig: SpaceConfig = {
       appId: "0x1941996d7a0245ccc2b203847d682298",
       spreadsheetId: "15KaDhCGxs8E6mmYw5kZkUYTXQoTsH9UAt27TLsbT6TE",
       authRequests: [{ authType: AuthType.VAULT }],
-      claimRequests: [ { groupId: "0xd97967d89d4be46b43c0ae789749e650" } ],//to be changed to 0xa199ee8b75688035fb40f8660adbcdac
+      claimRequests: [ { groupId: "0xa199ee8b75688035fb40f8660adbcdac" } ],
       envs: ["Prod"],
     },
     {

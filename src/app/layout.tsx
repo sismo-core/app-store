@@ -44,17 +44,19 @@ export default function RootLayout({
         <div id="tooltip-root" style={{ position: "fixed", zIndex: 9999 }} />
         <div id="modal-root" style={{ zIndex: 9999 }} />
         <PlausibleProvider domain="apps.sismo.io">
-          <StyledComponentsRegistry>
-            <ModalsProvider>
-              <Theme>
-                <PageContainer>
-                  <Navbar />
-                  <PageContent>{children}</PageContent>
-                  <Footer />
-                </PageContainer>
-              </Theme>
-            </ModalsProvider>
-          </StyledComponentsRegistry>
+          <PlausibleProvider domain="demo.apps.sismo.io">
+            <StyledComponentsRegistry>
+              <ModalsProvider>
+                <Theme>
+                  <PageContainer>
+                    <Navbar />
+                    <PageContent>{children}</PageContent>
+                    <Footer />
+                  </PageContainer>
+                </Theme>
+              </ModalsProvider>
+            </StyledComponentsRegistry>
+          </PlausibleProvider>
         </PlausibleProvider>
       </body>
     </html>

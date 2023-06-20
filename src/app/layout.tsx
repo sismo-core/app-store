@@ -7,6 +7,7 @@ import { PageContent } from "../components/Layouts/PageContent";
 import PageContainer from "../components/Layouts/PageContainer";
 import ModalsProvider from "../state/ModalState";
 import PlausibleProvider from 'next-plausible';
+import env from "../environments";
 
 export const metadata = {
   title: "Create Next App",
@@ -43,8 +44,7 @@ export default function RootLayout({
       <body>
         <div id="tooltip-root" style={{ position: "fixed", zIndex: 9999 }} />
         <div id="modal-root" style={{ zIndex: 9999 }} />
-        <PlausibleProvider domain="apps.sismo.io">
-          <PlausibleProvider domain="demo.apps.sismo.io">
+        <PlausibleProvider domain={env.isDemo ? "demo.apps.sismo.io" : "apps.sismo.io"}>
             <StyledComponentsRegistry>
               <ModalsProvider>
                 <Theme>
@@ -56,7 +56,6 @@ export default function RootLayout({
                 </Theme>
               </ModalsProvider>
             </StyledComponentsRegistry>
-          </PlausibleProvider>
         </PlausibleProvider>
       </body>
     </html>

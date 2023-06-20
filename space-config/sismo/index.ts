@@ -296,7 +296,7 @@ export const sismoConfig: SpaceConfig = {
       congratulationsMessage: {
         title: "Fingers crossed!",
         description:
-          "We hope to have you as a lucky winner 💜 ",
+          "We hope to have you as a lucky winner 💜 Stay in touch!",
       },
       endDate: new Date("2023-07-03T14:00"),
       slug: "swag-box",

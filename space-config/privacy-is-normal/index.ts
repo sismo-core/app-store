@@ -266,9 +266,9 @@ export const privacyIsNormalConfig: SpaceConfig = {
         spreadsheetId: "1hlAxg69kX1Z7RRh-prmkkYTiMFXcmFluGv_dcfTP7bg",
         appId: "0x325b16d643351175e190a43ce8066da9",
         impersonateAddresses: [
-          "demo.eth",
+          "0xfC43f5F9dd45258b3AFf31Bdbe6561D97e8B71de",
           "github:demo",
-          "twitter:demo",
+          "twitter:159203775",
         ]
       },
       envs: ["Demo"],

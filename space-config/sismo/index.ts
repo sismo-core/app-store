@@ -54,9 +54,9 @@ export const sismoConfig: SpaceConfig = {
     // },
     {
       type: "zksub",
-      name: "Sismo Newsletter",
+      name: "Newsletter Subscription",
       description:
-        "Register your email address to receive the Sismo newsletter - open to all.",
+        "Register your email address to receive the Sismo newsletter.",
       tags: ["Newsletter"],
       image: "sismoapps_newletter_1014x720.png",
       CTAText: "Subscribe to the Newsletter",
@@ -87,7 +87,7 @@ export const sismoConfig: SpaceConfig = {
       type: "zksub",
       name: "Sismo Space Feedback",
       description:
-        "Provide feedback to help us improve your Sismo Space experience and become a Sismo Contributor Level 1 - open to Gitcoin Passport holders.",
+        "Provide feedback to help us improve your Sismo Space experience and become a Sismo Contributor Level 1.",
       tags: ["Feedback"],
       image: "sismoapps_feedback_1014x720.png",
       CTAText: "Give Feedback",
@@ -114,7 +114,6 @@ export const sismoConfig: SpaceConfig = {
         },
       ],
       startDate: new Date("2023-05-12T18:00"),
-      endDate: new Date("2023-05-26T18:00"),
       congratulationsMessage: {
         title: "Thank you",
         description:
@@ -135,7 +134,7 @@ export const sismoConfig: SpaceConfig = {
     },
     {
       type: "zksub",
-      name: "Sismo Alpha Tester",
+      name: "Alpha Tester Registration",
       description:
         "Register to become a Sismo Alpha Tester - open to Ethereum Power Users & ENS Domains Holders.",
       tags: ["Alpha"],
@@ -172,9 +171,9 @@ export const sismoConfig: SpaceConfig = {
     },
     {
       type: "zksub",
-      name: "Sismo Contributors' Anon Wall",
+      name: "Contributors' Anon Wall Publication",
       description:
-        "Write a public message on the Sismo Contributors' Anon Wall - open to Sismo Contributors.",
+        "Write a public message on the Sismo Contributors' Anon Wall.",
       tags: ["Feedback"],
       image: "sismoapps_anon_wall_1014x720.png",
       CTAText: "Publish on Contributors' Anon Wall",
@@ -202,7 +201,7 @@ export const sismoConfig: SpaceConfig = {
       },
       envs: ["Demo"],
     },
-    {
+    /*{
       type: "zksub",
       name: "Sismo Events",
       description:
@@ -274,6 +273,81 @@ export const sismoConfig: SpaceConfig = {
         appId: "0x4f7fef07fcdce0a81e8f2ea14e8ea6c0",
         impersonateAddresses: ["github:Baoufa"]
       },
+      envs: ["Demo"],
+    },*/
+    {
+      type: "zksub",
+      saveAuths: true,
+      saveClaims: true,
+      name: "Swag Box Lottery Registration",
+      description:
+        "Enter the lottery to win an exclusive swag box - available to all members of the Sismo Community. Each level grants one lottery ticket, and each Sybil-resistance ZK Proof shared multiplies your chances.",
+      tags: ["Swag"],
+      image: "sismoapps_swag_lotery_1014x720.png",
+      CTAText: "Enter the Lottery",
+      fields: [
+        {
+          type: "short-text",
+          label: "Email",
+          isRequired: true,
+        }
+      ],
+      congratulationsMessage: {
+        title: "Fingers crossed!",
+        description:
+          "We hope to have you as a lucky winner 💜 Stay in touch!",
+      },
+      slug: "swag-box",
+      output: "google_sheet",
+      appId: null,
+      spreadsheetId: null,
+      demo: {
+        spreadsheetId: "1zD03W9S8mJVwkxMrjjGqX-jfxoQ3F3FQwOh1Ekmwdt4",
+        appId: "0x0646e49829328aa58e4e13de4c6eb958",
+        impersonateAddresses: ["0x8ab1760889F26cBbf33A75FD2cF1696BFccDc9e6"]
+      },
+      claimRequests: [
+        { groupId: "0xd630aa769278cacde879c5c0fe5d203c", isSelectableByUser: true },
+        { groupId: "0x1cde61966decb8600dfd0749bd371f12", isOptional: true, isSelectableByUser: true },
+        { groupId: "0x682544d549b8a461d7fe3e589846bb7b", isOptional:true }
+      ],
+      userSelection: { type: "Lottery", numberOfWinners: 10 },
+      authRequests: [{ authType: AuthType.VAULT }, { authType: AuthType.TWITTER, isOptional: true, isSelectableByUser: true} ],
+      envs: ["Demo"],
+    },
+    {
+      type: "zksub",
+      name: "Future of France Invitation",
+      description:
+        "Register your email address to receive a ticket for the Future of France Party. The event will take place on July 17th during the EthCC week. Exclusively for members of Sismo Community Level 3.",
+      tags: ["Ticket"],
+      image: "sismo_appstore_fof_tickets.png",
+      CTAText: "Register to get your Ticket",
+      fields: [
+        {
+          type: "short-text",
+          label: "Email",
+          isRequired: true,
+        }
+      ],
+      congratulationsMessage: {
+        title: "Congratulations!",
+        description:
+          "See you there 💜 You will receive the ticket in a few days!",
+      },
+      slug: "ticket",
+      output: "google_sheet",
+      appId: null,
+      spreadsheetId: null,
+      demo: {
+        spreadsheetId: "16NuT1HIJvM2jikRmHzN-ZSwJmjg_Ef1-6e-XbPff3z4",
+        appId: "0x08ffa7336eb7bc0907a9f76ebc55aa4d",
+        impersonateAddresses: ["0x8ab1760889F26cBbf33A75FD2cF1696BFccDc9e6"]
+      },
+      claimRequests: [
+        { groupId: "0xd630aa769278cacde879c5c0fe5d203c", value: 3 }
+      ],
+      authRequests: [{ authType: AuthType.VAULT } ],
       envs: ["Demo"],
     },
     {

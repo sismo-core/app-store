@@ -204,7 +204,7 @@ export const sismoConfig: SpaceConfig = {
       demo: {
         spreadsheetId: "1-sb-qxoicB6OKF_ERE8HCYlEA8CQHBYU3M9dQNksML4",
         appId: "0x90db0519f15b523cd41bc3557f6d6b91",
-        impersonateAddresses: ["0x0b5c7dc2181fa147ec439fd5a158e3012f9449ea"]
+        impersonateAddresses: ["0x8ab1760889F26cBbf33A75FD2cF1696BFccDc9e6"]
       },
       envs: ["Demo"],
     },
@@ -242,7 +242,7 @@ export const sismoConfig: SpaceConfig = {
       demo: {
         spreadsheetId: "1XTLPEOM0RL8WpjMm1dXYNpkYq3Wk1G1K7Jk-RntqfjA",
         appId: "0xb3a074e124ff04ee0d703b528bfd5f4d",
-        impersonateAddresses: ["0x0b5c7dc2181fa147ec439fd5a158e3012f9449ea"]
+        impersonateAddresses: ["0x8ab1760889F26cBbf33A75FD2cF1696BFccDc9e6"]
       },
       envs: ["Demo"],
     },

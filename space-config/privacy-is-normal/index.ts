@@ -202,7 +202,7 @@ export const privacyIsNormalConfig: SpaceConfig = {
       type: "zksub",
       name: "Artwork Claiming",
       description:
-        "Artwork Claiming App faked by impersonating 'demo.eth' - unique winner address in the demo Data Group: 'Privacy Is Normal Lottery Winners Demo'. You can now test the fake winning app!",       
+        "[DEMO] Artwork Claiming App: you will impersonate ‘demo.eth’ that is the unique winner in the demo environment of the ‘Privacy Is Normal’ lottery.",       
       tags: ["Artwork"],
       image: "privacy_is_normal_apps_print_1014x720.png",
       CTAText: "Claim Your Artwork",

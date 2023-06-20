@@ -56,7 +56,7 @@ export const sismoConfig: SpaceConfig = {
       type: "zksub",
       name: "Newsletter Subscription",
       description:
-        "Register your email address to receive the Sismo newsletter.",
+        "Register your email address to receive the Sismo newsletter - open to all.",
       tags: ["Newsletter"],
       image: "sismoapps_newletter_1014x720.png",
       CTAText: "Subscribe to the Newsletter",
@@ -173,7 +173,7 @@ export const sismoConfig: SpaceConfig = {
       type: "zksub",
       name: "Contributors' Anon Wall Publication",
       description:
-        "Write a public message on the Sismo Contributors' Anon Wall.",
+        "Write a public message on the Sismo Contributors' Anon Wall - available to all members of the Sismo Community.",
       tags: ["Feedback"],
       image: "sismoapps_anon_wall_1014x720.png",
       CTAText: "Publish on Contributors' Anon Wall",
@@ -193,7 +193,7 @@ export const sismoConfig: SpaceConfig = {
       output: "google_sheet",
       appId: null,
       spreadsheetId: null,
-      claimRequests: [{ groupId: "0xe9ed316946d3d98dfcd829a53ec9822e", value: 1, isSelectableByUser: true }],
+      claimRequests: [{ groupId: "0xd630aa769278cacde879c5c0fe5d203c", value: 1, isSelectableByUser: true }],
       demo: {
         spreadsheetId: "1-sb-qxoicB6OKF_ERE8HCYlEA8CQHBYU3M9dQNksML4",
         appId: "0x90db0519f15b523cd41bc3557f6d6b91",

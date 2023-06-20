@@ -165,7 +165,7 @@ export const privacyIsNormalConfig: SpaceConfig = {
       type: "zksub",
       name: "Lottery Registration",
       description:
-        "Register to have a chance to be among 10 lucky winners to get a ‘Privacy Is Normal’ artwork'",
+        "Register to have a chance to be among 10 lucky winners to get a ‘Privacy Is Normal’ artwork'.",
       tags: ["Artwork"],
       image: "privacy_is_normal_apps_lotery_1014x720.png",
       CTAText: "Participate in the Lottery",

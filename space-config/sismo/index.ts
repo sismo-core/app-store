@@ -330,7 +330,7 @@ export const sismoConfig: SpaceConfig = {
       congratulationsMessage: {
         title: "Congratulations!",
         description:
-          "We are excited to see you there 💜 You will receive the ticket in a few days!",
+          "See you there 💜 You will receive the ticket in a few days!",
       },
       endDate: new Date("2023-07-17T18:00"),
       slug: "ticket",

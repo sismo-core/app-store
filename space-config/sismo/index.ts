@@ -112,12 +112,6 @@ export const sismoConfig: SpaceConfig = {
           label: "What improvements would make your experience with Spaces even better?",
           isRequired: true,
         },
-        // Need to implement the number input
-        // {
-        //   type: "number",
-        //   label: "How easy was it to access this form?",
-        //   isRequired: true,
-        // },
       ],
       startDate: new Date("2023-05-12T18:00"),
       endDate: new Date("2023-05-26T18:00"),

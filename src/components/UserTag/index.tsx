@@ -5,6 +5,7 @@ import { TwitterRounded } from "../SismoReactIcon/components/TwitterRounded";
 import { GithubRounded } from "../SismoReactIcon";
 import { EthRounded } from "../SismoReactIcon/components/EthRounded";
 import { textShorten } from "@/src/utils/textShorten";
+import { TelegramRounded } from "../SismoReactIcon/components/TelegramRounded";
 
 const Container = styled.div<{fullWidth: boolean}>`
   font-family: ${(props) => props.theme.fonts.medium};
@@ -39,6 +40,8 @@ export default function UserTag({ authType, fullWidth }: Props) {
         <TwitterRounded size={14} color={colors.neutral1} />
       ) : authType === AuthType.GITHUB ? (
         <GithubRounded size={14} color={colors.neutral1} />
+      ) : authType === AuthType.TELEGRAM ? (
+        <TelegramRounded size={14} color={colors.neutral1} />
       ) : (
         <EthRounded size={14} color={colors.neutral1} />
       )}
@@ -47,6 +50,8 @@ export default function UserTag({ authType, fullWidth }: Props) {
           ? "Twitter account"
           : authType === AuthType.GITHUB
           ? "Github account"
+          : authType === AuthType.TELEGRAM
+          ? "Telegram account"
           : "Vault id"}
       </Text>
     </Container>

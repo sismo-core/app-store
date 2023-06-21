@@ -65,7 +65,7 @@ export default function Apps({
     if (!config) return;
     if (!appSlug) return;
     const app = config.apps.find(
-      (app) => app.type === "zksub" || app.type === "custom" && app.slug === appSlug
+      (app) => app.type === "zksub" && app.slug === appSlug
     );
     if (app && app.type === "zksub") {
       setZkAppOpening(true);
@@ -74,14 +74,6 @@ export default function Apps({
         setZkSubApp(app);
         setZkSubAppIsOpen(true);
         setZkAppOpening(false);
-      }, 300);
-    }
-    if (app && app.type === "custom") {
-      setZkAppOpening(true);
-      // Can open the modal only 300ms after the init due to animation
-      setTimeout(() => {
-        setCustomApp(app);
-        setIsCustomAppOpen(true);
       }, 300);
     }
   }, [config, appSlug]);
@@ -135,17 +127,10 @@ export default function Apps({
                     if (zkSubAppOpening) return;
 
                     if (app.type === "external")
-                      window.location.href = app.link;
+                      window.open(app.link, '_blank');
                     if (app.type === "zkdrop") {
                       setZkDropApp(app);
                       setIsZkDropAppOpen(true);
-                    }
-                    if (app.type === "custom") {
-                      let url =
-                        window.location.origin + `/${config.slug}/${app.slug}`;
-                      window.history.replaceState(null, "", url);
-                      setCustomApp(app);
-                      setIsCustomAppOpen(true);
                     }
                     if (app.type === "zksub") {
                       let url =

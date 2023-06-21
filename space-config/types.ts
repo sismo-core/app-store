@@ -19,7 +19,7 @@ export type SpaceConfig = {
 };
 
 export type Env = "Demo" | "Prod";
-export type App = ZkSubAppConfig | ZkDropAppConfig | ExternalAppConfig | ZkBadgeAppConfig | CustomAppConfig;
+export type App = ZkSubAppConfig | ZkDropAppConfig | ExternalAppConfig | ZkBadgeAppConfig;
 
 type SocialType = "twitter" | "discord" | "link" | "github" | "telegram";
 

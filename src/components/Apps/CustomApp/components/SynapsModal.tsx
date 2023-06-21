@@ -50,7 +50,7 @@ export default function SynapsModal({
             lang={"en"}
             onReady={() => setLoading(false)}
             onFinish={() => {
-              console.log("Finish")
+              alert("onfinish")
               onFinish();
             }}
             color={{

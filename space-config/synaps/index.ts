@@ -5,32 +5,23 @@ import { SpaceConfig } from "../types";
 export const synapsConfig: SpaceConfig = {
   slug: "synaps",
   name: "Synaps",
-  description: "Synaps space.",
-  profileImage: "synaps_pfp.jpeg",
-  coverImage: "space_sismo_cover_1740x540.png",
+  description: "Synaps provides identity verification solutions from Personhood validation to regulated KYC / AML and KYB processes.",
+  profileImage: "synaps_pfp.png",
+  coverImage: "synaps_cover.png",
   envs: ["Demo", "Prod"],
   hidden: false,
   apps: [
     {
-      type: "custom",
-      appId: "0x5b379992e5da74bfa4aaff4d3e52d6a8",
+      type: "external",
       name: "Synaps Liveness",
-      description: "Synaps proof of liveness.",
+      description: "Synaps provides identity verification solutions from Personhood validation to regulated KYC / AML and KYB processes",
       tags: ["KYC"],
-      image: "synaps_pfp.jpeg",
+      image: "synaps_liveness_img.png",
       CTAText: "Prove liveness",
       slug: "proof-of-liveness",
       envs: ["Demo", "Prod"],
-      spreadsheetId: "1i1xC7C1I8dBxTYcxtg5Wzz3v55Lt_j_JoJbz_riswUE",
       authRequests: [{ authType: AuthType.VAULT }],
-      demo: {
-        spreadsheetId: "1i1xC7C1I8dBxTYcxtg5Wzz3v55Lt_j_JoJbz_riswUE"
-      },
-      congratulationsMessage: {
-        title: "Congratulations",
-        description:
-          "You have successfully prove your liveness.",
-      },
+      link: "http://localhost:3004?callbackUrl=http://localhost:3000"
     }
   ],
 };

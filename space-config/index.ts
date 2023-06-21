@@ -9,6 +9,8 @@ import { sismoConfigDemo } from "@/space-config/sismo/demo";
 import { privacyIsNormalConfigDemo } from "@/space-config/privacy-is-normal/demo";
 import { aaveChanInitiativeConfigDemo } from "@/space-config/aave-chan-initiative/demo";
 import { cowSwapConfigDemo } from "@/space-config/cow-swap/demo";
+import { synapsConfigMain } from "./synaps/main";
+import { worldcoinConfigMain } from "./worldcoin/main";
 
 export const configsMain: SpaceConfig[] = [
   theMergeContributorsConfigMain,
@@ -16,6 +18,8 @@ export const configsMain: SpaceConfig[] = [
   aaveChanInitiativeConfigMain,
   sismoConfigMain,
   cowSwapConfigMain,
+  synapsConfigMain,
+  worldcoinConfigMain
 ];
 
 export const configsDemo: SpaceConfig[] = [

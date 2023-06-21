@@ -1,4 +1,3 @@
-import { initAppDataSource } from "../../src/libs/user-store/postgres-user-store/initAppDataSource";
 // add an images folder in your space folder if you would like Sismo to host your images
 import { AuthType } from "@sismo-core/sismo-connect-server";
 import { SpaceConfig } from "../types";

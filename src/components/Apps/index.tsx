@@ -119,7 +119,7 @@ export default function Apps({
                     if (zkSubAppOpening) return;
 
                     if (app.type === "external")
-                      window.location.href = app.link;
+                      window.open(app.link, "_blank");
                     if (app.type === "zkdrop") {
                       setZkDropApp(app);
                       setIsZkDropAppOpen(true);

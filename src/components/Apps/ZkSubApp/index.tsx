@@ -141,7 +141,7 @@ export default function ZkSubApp({ isOpen, onClose, app, space, groupMetadataLis
                     <Section number={1} isOpen={!response} title="Prove Eligibility" style={{marginBottom: 16}} success={Boolean(response)}>
                         <ProveEligibility app={app} onEligible={(_response) => setResponse(_response)} groupMetadataList={groupMetadataList}/>
                     </Section>
-                    <Section number={2} isOpen={Boolean(response)} title={app?.CTAText} success={alreadySubscribed}>
+                    <Section number={2} isOpen={Boolean(response)} title={app?.CTAText} success={alreadySubscribed || (fields && fields.length === 0)}>
                         {
                             alreadySubscribed ?
                             <AlreadyRegistered style={{marginTop: 24}}>

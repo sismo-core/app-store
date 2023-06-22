@@ -304,7 +304,7 @@ export const sismoConfig: SpaceConfig = {
       demo: {
         spreadsheetId: "1zD03W9S8mJVwkxMrjjGqX-jfxoQ3F3FQwOh1Ekmwdt4",
         appId: "0x0646e49829328aa58e4e13de4c6eb958",
-        impersonateAddresses: ["0x8ab1760889F26cBbf33A75FD2cF1696BFccDc9e6"]
+        impersonateAddresses: ["0x8ab1760889F26cBbf33A75FD2cF1696BFccDc9e6", "twitter:dhadrien_:2390703980"]
       },
       claimRequests: [
         { groupId: "0xd630aa769278cacde879c5c0fe5d203c", isSelectableByUser: true },

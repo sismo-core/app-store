@@ -5,7 +5,7 @@ import { SpaceConfig } from "../types";
 export const synapsConfig: SpaceConfig = {
   slug: "synaps",
   name: "Synaps",
-  description: "Synaps provides identity verification solutions from Personhood validation to regulated KYC / AML and KYB processes.",
+  description: "Synaps provides identity verification solutions from Personhood validation to regulated KYC / AML and KYB processes. Personhood validation is performed through a liveness verification session, where a privacy-preserving encrypted vector graph is generated. It contains no biometric data and cannot be used to recreate your face.",
   profileImage: "synaps_pfp.png",
   coverImage: "synaps_cover.png",
   envs: ["Demo", "Prod"],
@@ -14,7 +14,7 @@ export const synapsConfig: SpaceConfig = {
     {
       type: "external",
       name: "Liveness Verification",
-      description: "Perform liveness verification with Synaps to join the 'Proof of Liveness' Data Group to access Sismo Apps that request to be part of it. Through this liveness session, a privacy-preserving encrypted vector graph is generated. It contains no biometric data and cannot be used to recreate your face.",
+      description: "Perform liveness verification with Synaps to join the 'Proof of Liveness' Data Group and access Sismo Apps that request to be part of it. This liveness session stores no personal data.",
       tags: ["Liveness"],
       image: "synaps_liveness_img.png",
       CTAText: "Prove your Liveness",

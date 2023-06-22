@@ -5,7 +5,7 @@ import { SpaceConfig } from "../types";
 export const synapsConfig: SpaceConfig = {
   slug: "synaps",
   name: "Synaps",
-  description: "Synaps provides identity verification solutions from Personhood validation to regulated KYC / AML and KYB processes. Personhood validation is performed through a liveness verification session, where a privacy-preserving encrypted vector graph is generated. It contains no biometric data and cannot be used to recreate your face.",
+  description: "This Space is a tribute to users willing to prove their liveness with Synaps - a crypto-native identity verification provider. Proof of Liveness is performed through a liveness verification session, where a privacy-preserving encrypted vector graph is generated. It contains no biometric data and cannot be used to recreate your face.",
   profileImage: "synaps_pfp.png",
   coverImage: "synaps_cover.png",
   envs: ["Demo", "Prod"],

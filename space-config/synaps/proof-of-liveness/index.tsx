@@ -10,6 +10,8 @@ import SynapsModal from "./components/SynapsModal";
 import { synapsConfig } from "@/space-config/synaps";
 import CustomAppContainer from "@/src/components/CustomAppContainer";
 import { CustomAppConfig } from "@/space-config/types";
+import Button3D from "@/src/ui/Button3D";
+import { useRouter } from "next/navigation";
 
 const Title = styled.div`
     margin-bottom: 16px;
@@ -42,12 +44,21 @@ const Content = styled.div`
     max-width: 580px;
 `
 
+const Bottom = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+`
+
 const ErrorMsg = styled.div`
     color: ${props => props.theme.colors.error};
     font-family: ${props => props.theme.fonts.regular};
 `
 
 export default function ProofOfLivenessCustomApp(): JSX.Element {
+    const router = useRouter();
     const app = synapsConfig.apps[0] as CustomAppConfig;
     const api = app.extraData.api;
     const [response, setResponse] = useState();
@@ -139,6 +150,14 @@ export default function ProofOfLivenessCustomApp(): JSX.Element {
                             </>
                         }
                     </Section>
+                    {
+                        alreadySubscribed && 
+                        <Bottom>
+                            <Button3D onClick={() => router.push("/synaps")} secondary>
+                                Back to the space
+                            </Button3D>
+                        </Bottom>
+                    }
                 </>
             }
             {

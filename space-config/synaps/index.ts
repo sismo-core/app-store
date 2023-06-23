@@ -1,5 +1,4 @@
 // add an images folder in your space folder if you would like Sismo to host your images
-import { AuthType } from "@sismo-core/sismo-connect-server";
 import { SpaceConfig } from "../types";
 
 export const synapsConfig: SpaceConfig = {
@@ -12,16 +11,24 @@ export const synapsConfig: SpaceConfig = {
   hidden: false,
   apps: [
     {
-      type: "external",
+      type: "custom",
       name: "Liveness Verification",
+      appId: "0x5b379992e5da74bfa4aaff4d3e52d6a8",
       description: "Perform liveness verification with Synaps to join the 'Proof of Liveness' Data Group and access Sismo Apps that request to be part of it. This liveness session stores no personal data.",
       tags: ["Liveness"],
       image: "synaps_liveness_img.png",
       CTAText: "Prove your Liveness",
       slug: "proof-of-liveness",
       envs: ["Demo", "Prod"],
-      authRequests: [{ authType: AuthType.VAULT }],
-      link: "https://synaps-integration.vercel.app"
+      authRequests: [{ authType: 0 }],
+      path: "/synaps/proof-of-liveness",
+      extraData: {
+        api: "https://synaps-integration.vercel.app/api/proof-of-liveness",
+        congratulationsMessage: {
+          title: "Congratulations",
+          description: "You have successfully proven your liveliness. Your proof of liveliness will be available in your Sismo Vault within 24 hours.",
+        }
+      }
     }
   ],
 };

@@ -10,6 +10,8 @@ import { GroupMetadata, GroupProvider } from "@/src/libs/group-provider";
 import env from "@/src/environments";
 import { ClaimRequest } from "@sismo-core/sismo-connect-server";
 import { notFound } from "next/navigation";
+import ProofOfLivenessCustomApp from "@/space-config/synaps/proof-of-liveness";
+import { PageContent } from "@/src/components/Layouts/PageContent";
 
 // This function runs at build time on the server it generates the static paths for each page
 export async function generateStaticParams() {
@@ -75,7 +77,9 @@ export default async function SpacePage({
   params: { slug: string[] };
 }) {
   const { slug } = params;
+
   const config = await getSpaceConfig({ slug: slug[0] });
+
   // Dynamically import the cover image
   let coverImage = await getImgSrcFromConfig(config?.slug, config?.coverImage);
   let profileImage = await getImgSrcFromConfig(
@@ -122,6 +126,15 @@ export default async function SpacePage({
     );
 
   const loaded = true;
+
+  if (slug[1]) {
+    const app = config.apps.find(app => app.slug === slug[1]);
+    if (app.type === "custom") {
+      if (app.path === "/synaps/proof-of-liveness") {
+        return <ProofOfLivenessCustomApp />
+      }
+    }
+  }
 
   return (
     <>

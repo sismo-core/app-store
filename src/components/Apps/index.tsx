@@ -14,6 +14,7 @@ import { GroupMetadata } from "@/src/libs/group-provider";
 import { ImportedImage } from "@/src/app/(space)/[...slug]/page";
 import { DateTime } from "luxon";
 import { useModals } from "@/src/state/ModalState";
+import { useRouter } from 'next/navigation'
 
 const Container = styled.div`
   margin: 48px 0px 80px 0px;
@@ -48,6 +49,7 @@ export default function Apps({
   groupMetadataList,
   importedImages,
 }: Props): JSX.Element {
+  const router = useRouter()
   const [zkSubApp, setZkSubApp] = useState<ZkSubAppConfig>(null);
   // Don't use Boolean(zkSubApp) to open the app in order to avoid seeing the app disappear during the close animation
   const { zkSubAppIsOpen, setZkSubAppIsOpen } = useModals();
@@ -118,8 +120,12 @@ export default function Apps({
 
                     if (zkSubAppOpening) return;
 
+                    if (app.type === "custom")
+                      router.push(app.path)
+                      
                     if (app.type === "external")
-                      window.open(app.link, "_blank");
+                        window.open(app.link, "_blank");
+
                     if (app.type === "zkdrop") {
                       setZkDropApp(app);
                       setIsZkDropAppOpen(true);

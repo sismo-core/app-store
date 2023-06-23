@@ -1932,6 +1932,11 @@
   dependencies:
     tslib "^2.4.0"
 
+"@synaps-io/react-verify@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@synaps-io/react-verify/-/react-verify-1.0.3.tgz#134ba30a4e4f92e058416752d31ce418b878f44c"
+  integrity sha512-jsZLuHHjjnWz/p/+DpokHkLeMc7/i8N2AhHYA6FFOxT0xuJwMCq6vc8IHREvpAaTMiikvW7CqnAiPMRTI+Nvuw==
+
 "@testing-library/dom@^9.0.0":
   version "9.3.0"
   resolved "https://registry.yarnpkg.com/@testing-library/dom/-/dom-9.3.0.tgz#ed8ce10aa5e05eb6eaf0635b5b8975d889f66075"

@@ -69,11 +69,14 @@ export default function ProofOfLivenessCustomApp(): JSX.Element {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [finished, setFinished] = useState(false);
     const [error, setError] = useState(false);
+    const [loading, setLoading] = useState(false);
   
     const prove = async () => {
+        setLoading(true);
         const res = await fetch(`${api}/start-session`, {
             method: "POST"
         });
+        setLoading(false);
         if (!res.ok) throw new Error("Error while creating Synaps session");
         const data = await res.json();
         setSessionId(data.sessionId);
@@ -138,7 +141,7 @@ export default function ProofOfLivenessCustomApp(): JSX.Element {
                             </AlreadyRegistered>
                             :
                             <>
-                            <Button onClick={prove} loading={verifying} style={{ width: "100%", marginTop: 16}}>
+                            <Button onClick={prove} loading={verifying || loading} style={{ width: "100%", marginTop: 16}}>
                                 {verifying ? "Verifying..." : "Prove liveness" }
                             </Button>
                             {

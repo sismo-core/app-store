@@ -304,12 +304,13 @@ export const sismoConfig: SpaceConfig = {
       demo: {
         spreadsheetId: "1zD03W9S8mJVwkxMrjjGqX-jfxoQ3F3FQwOh1Ekmwdt4",
         appId: "0x0646e49829328aa58e4e13de4c6eb958",
-        impersonateAddresses: ["0x8ab1760889F26cBbf33A75FD2cF1696BFccDc9e6", "twitter:dhadrien_:2390703980"]
+        impersonateAddresses: ["0xfc43f5f9dd45258b3aff31bdbe6561d97e8b71de","0x8ab1760889F26cBbf33A75FD2cF1696BFccDc9e6", "twitter:dhadrien_:2390703980"]
       },
       claimRequests: [
         { groupId: "0xd630aa769278cacde879c5c0fe5d203c", isSelectableByUser: true },
         { groupId: "0x1cde61966decb8600dfd0749bd371f12", isOptional: true, isSelectableByUser: true },
-        { groupId: "0x682544d549b8a461d7fe3e589846bb7b", isOptional:true }
+        { groupId: "0x682544d549b8a461d7fe3e589846bb7b", isOptional:true },
+        { groupId: "0x62b10d162a7ff12704f2d2eb8058cb3a", isOptional:true }
       ],
       userSelection: { type: "Lottery", numberOfWinners: 10 },
       authRequests: [{ authType: AuthType.VAULT }, { authType: AuthType.TWITTER, isOptional: true, isSelectableByUser: true} ],

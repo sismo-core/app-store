@@ -308,7 +308,7 @@ export const sismoConfig: SpaceConfig = {
       },
       claimRequests: [
         { groupId: "0xd630aa769278cacde879c5c0fe5d203c", isSelectableByUser: true },
-        { groupId: "0x1cde61966decb8600dfd0749bd371f12", isOptional: true, isSelectableByUser: true },
+        //{ groupId: "0x1cde61966decb8600dfd0749bd371f12", isOptional: true, isSelectableByUser: true },
         { groupId: "0x682544d549b8a461d7fe3e589846bb7b", isOptional:true },
         { groupId: "0x62b10d162a7ff12704f2d2eb8058cb3a", isOptional:true }
       ],

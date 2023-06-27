@@ -18,7 +18,7 @@ const Container = styled.div`
      width: 72.4vw;
    // width: 428px;
     padding: 16px;
-    scroll-snap-align: start;
+    scroll-snap-align: center;
   }
 `;
 

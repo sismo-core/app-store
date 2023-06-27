@@ -1,5 +1,9 @@
 "use client";
-import { AppFront, SpaceConfigFront, SpaceImportedImage } from "@/src/app/(home)/page";
+import {
+  AppFront,
+  SpaceConfigFront,
+  SpaceImportedImage,
+} from "@/src/app/(home)/page";
 import env from "@/src/environments";
 import Link from "next/link";
 import styled from "styled-components";
@@ -14,6 +18,7 @@ const Container = styled.main`
 `;
 
 const Section = styled.section`
+  position: relative;
   color: ${({ theme }) => theme.colors.neutral1};
   display: flex;
   flex-direction: column;
@@ -54,25 +59,23 @@ const Grid = styled.div`
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 32px;
 
-   @media (max-width: 900px) {
+  @media (max-width: 900px) {
     display: flex;
     gap: 24px;
     width: 100%;
     overflow-x: scroll;
     /* Create a scrollable area */
-    scroll-snap-type: x mandatory;
+    scroll-snap-type: x inherit;
+    scroll-behavior: smooth;
     scroll-snap-stop: always;
-  
+    white-space: nowrap;
+  }
 
-  
-  } 
-
-    /* Hide the scrollbar */
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE and Edge */
-  &:-webkit-scrollbar {
-      display: none; /* Hide the scrollbar for WebKit browsers */
-    }
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  &::-webkit-scrollbar {
+    display: none; /* Hide the scrollbar for WebKit browsers */
+  }
 `;
 
 type Props = {

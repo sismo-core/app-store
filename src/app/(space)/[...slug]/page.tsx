@@ -1,4 +1,6 @@
-import getImgSrcFromConfig, { ImportedNextImage } from "@/src/utils/getImgSrcFromConfig";
+import getImgSrcFromConfig, {
+  ImportedNextImage,
+} from "@/src/utils/getImgSrcFromConfig";
 import {
   getSpaceConfig,
   getSpacesConfigs,
@@ -29,11 +31,13 @@ export async function generateMetadata({
 }) {
   const { slug } = params;
   const config = await getSpaceConfig({ slug: slug[0] });
-  const coverImageElement = await getImgSrcFromConfig(
-    config?.slug,
-    config?.coverImage
-  );
+  const coverImageElement = await getImgSrcFromConfig({
+    configSlug: config?.slug,
+    fileName: config?.coverImage,
+  });
   let coverImageUrl: string;
+
+  console.log("spaceconfig", config);
 
   if (typeof coverImageElement === "string") {
     coverImageUrl = coverImageElement;
@@ -77,11 +81,14 @@ export default async function SpacePage({
   const { slug } = params;
   const config = await getSpaceConfig({ slug: slug[0] });
   // Dynamically import the cover image
-  let coverImage = await getImgSrcFromConfig(config?.slug, config?.coverImage);
-  let profileImage = await getImgSrcFromConfig(
-    config?.slug,
-    config?.profileImage
-  );
+  let coverImage = await getImgSrcFromConfig({
+    configSlug: config?.slug,
+    fileName: config?.coverImage,
+  });
+  let profileImage = await getImgSrcFromConfig({
+    configSlug: config?.slug,
+    fileName: config?.profileImage,
+  });
 
   const groupProvider = new GroupProvider({
     hubApiUrl: env.hubApiUrl,
@@ -91,7 +98,7 @@ export default async function SpacePage({
   if (config?.apps)
     await Promise.all(
       config?.apps.map(async (app: App) => {
-        const image = await getImgSrcFromConfig(config?.slug, app?.image);
+        const image = await getImgSrcFromConfig({configSlug: config?.slug, fileName: app?.image});
         importedImages.push({
           app,
           link: image,

@@ -6,21 +6,23 @@ export type ImportedNextImage = {
   height: number;
   width: number;
   blurDataURL: string;
-}
+};
 
-export default async function getImgSrcFromConfig(
-  slug: string,
-  fileName: string
-): Promise<string | ImportedNextImage> {
+export default async function getImgSrcFromConfig({
+  configSlug,
+  fileName,
+}: {
+  configSlug: string;
+  fileName: string;
+}): Promise<string | ImportedNextImage> {
+  if (!configSlug || !fileName) return "";
 
-  if (!slug || !fileName) return "";
-
-  console.log("FILE NAME", fileName)
+  console.log("FILE NAME", fileName);
   if (fileName?.startsWith("http")) {
     return fileName;
   } else {
     const importedImg = await import(
-      `@/space-config/${slug}/images/${fileName}`
+      `@/space-config/${configSlug}/images/${fileName}`
     );
     return importedImg.default;
   }

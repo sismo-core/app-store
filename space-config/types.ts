@@ -35,11 +35,13 @@ type AppCommonConfig = {
   // Eligibility
   claimRequests?: ClaimRequest[];
   authRequests?: AuthRequest[];
-
+  
   // App parameters
   startDate?: Date;
   endDate?: Date;
   slug: string;
+  isFeatured?: Env[]; // default false
+  createdAt?: Date;
 
   envs: Env[];
   disabled?: boolean; // default false

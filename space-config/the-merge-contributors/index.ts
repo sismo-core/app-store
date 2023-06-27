@@ -22,6 +22,7 @@ export const theMergeContributorsConfig: SpaceConfig = {
       link: "https://demo.zkdrop.io/mergooor-pass",
       claimRequests: [{ groupId: "0x42c768bb8ae79e4c5c05d3b51a4ec74a" }],
       slug: "zkbadge-mergooor",
+      isFeatured: ["Prod"],
       authRequests: [
         {
           authType: 0,
@@ -40,6 +41,7 @@ export const theMergeContributorsConfig: SpaceConfig = {
       link: "https://claim.zkdrop.io/mergooor-pass",
       claimRequests: [{ groupId: "0x42c768bb8ae79e4c5c05d3b51a4ec74a" }],
       slug: "zkbadge-mergooor",
+      isFeatured: ["Prod"],
       authRequests: [
         {
           authType: 0,
@@ -77,6 +79,7 @@ export const theMergeContributorsConfig: SpaceConfig = {
         description:
           "You have successfully registered to receive exclusive tickets for web3 events.",
       },
+      isFeatured: ["Prod", "Demo"],
       slug: "ethcc-tickets",
       output: "google_sheet",
       appId: "0x0f38b4eb4d51fbd7906c9c7574df075e",

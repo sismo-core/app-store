@@ -25,8 +25,8 @@ export const synapsConfig: SpaceConfig = {
       extraData: {
         api: "https://synaps-integration.vercel.app/api/proof-of-liveness",
         congratulationsMessage: {
-          title: "Congratulations",
-          description: "You have successfully proven your liveliness. Your proof of liveliness will be available in your Sismo Vault within 24 hours.",
+          title: "Congratulations!",
+          description: "Your Proof of Liveness will be available in your Sismo Data Vault within 24 hours.",
         }
       }
     }

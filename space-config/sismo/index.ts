@@ -274,7 +274,7 @@ export const sismoConfig: SpaceConfig = {
         impersonateAddresses: ["github:Baoufa"]
       },
       envs: ["Demo"],
-    },*/
+    },
     {
       type: "zksub",
       saveAuths: true,
@@ -314,7 +314,7 @@ export const sismoConfig: SpaceConfig = {
       userSelection: { type: "Lottery", numberOfWinners: 10 },
       authRequests: [{ authType: AuthType.VAULT }, { authType: AuthType.TWITTER, isOptional: true, isSelectableByUser: true} ],
       envs: ["Demo"],
-    },
+    },*/
     {
       type: "zksub",
       name: "Future of France Invitation",
@@ -350,7 +350,7 @@ export const sismoConfig: SpaceConfig = {
       authRequests: [{ authType: AuthType.VAULT } ],
       envs: ["Demo"],
     },
-    {
+    /*{
       type: "zksub",
       saveAuths: true,
       saveClaims: true,
@@ -385,7 +385,7 @@ export const sismoConfig: SpaceConfig = {
       userSelection: { type: "Lottery", numberOfWinners: 10 },
       authRequests: [{ authType: AuthType.VAULT }, { authType: AuthType.TWITTER, isOptional: true, isSelectableByUser: true} ],
       envs: ["Prod"],
-    },
+    },*/
     {
       type: "zksub",
       name: "Future of France Invitation",

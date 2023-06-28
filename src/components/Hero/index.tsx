@@ -274,6 +274,7 @@ export default function Hero(): JSX.Element {
           Sismo Connect
         </Subtitle>
         <Button3D
+        secondary={true}
           onClick={() =>
             window.open(
               "https://app.deform.cc/form/5d8438a7-75a9-4b02-bf0d-b42b63cd2b85/",

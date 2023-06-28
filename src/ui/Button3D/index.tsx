@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Loader from "../Loader";
 
-const Main = styled.div<{ $isDisabled: boolean }>`
+const Main = styled.div<{ $isDisabled: boolean; $isSecondary: boolean }>`
   position: relative;
   z-index: 1;
   display: flex;
@@ -10,7 +10,8 @@ const Main = styled.div<{ $isDisabled: boolean }>`
   gap: 8px;
   padding: 0 13px;
   background-color: ${({ theme }) => theme.colors.neutral11};
-  border: 3px solid ${({ theme }) => theme.colors.green2};
+  border: ${({ $isSecondary }) => ($isSecondary ? "1px" : "3px")} solid
+    ${({ theme }) => theme.colors.green2};
   border-radius: 10px;
   transition: all ${(props) => props.theme.animations.transition};
   height: 46px;
@@ -21,14 +22,17 @@ const Main = styled.div<{ $isDisabled: boolean }>`
   cursor: ${({ $isDisabled }) => ($isDisabled ? "default" : "pointer")};
 `;
 
-const Container = styled.button`
+const Container = styled.button<{ $isSecondary }>`
   position: relative;
   color: #e9ebf6;
   background-color: transparent;
   border: none;
 
   &:hover ${Main} {
-    transform: translate(4px, 4px);
+    transform: translate(
+      ${({ $isSecondary }) => ($isSecondary ? "5px" : "4px")},
+      ${({ $isSecondary }) => ($isSecondary ? "5px" : "4px")}
+    );
   }
 
   &:disabled {
@@ -40,14 +44,18 @@ const Container = styled.button`
   }
 `;
 
-const Underline = styled.div`
+const Underline = styled.div<{ $isSecondary: boolean }>`
   position: absolute;
   z-index: 0;
-  top: 4px;
-  left: 4px;
+  top: ${({ $isSecondary }) => ($isSecondary ? "5px" : "4px")};
+  left: ${({ $isSecondary }) => ($isSecondary ? "5px" : "4px")};
   width: 100%;
   height: 100%;
-  background-color: ${({ theme }) => theme.colors.red};
+  background-color: ${({ theme, $isSecondary }) =>
+    $isSecondary ? "transparent" : theme.colors.red};
+  border: 1px solid
+    ${({ theme, $isSecondary }) =>
+      $isSecondary ? theme.colors.blueRYB : "transparent"};
   border-radius: 10px;
 `;
 
@@ -57,6 +65,7 @@ type Props = {
   isLoading?: boolean;
   style?: React.CSSProperties;
   className?: string;
+  secondary?: boolean;
   onClick: () => void;
 };
 
@@ -66,20 +75,25 @@ export default function Button({
   className,
   disabled,
   isLoading,
+  secondary,
   onClick,
 }: Props) {
   return (
     <Container
+      $isSecondary={secondary}
       onClick={() => !disabled && onClick()}
       disabled={disabled}
       style={style}
       className={className}
     >
-      <Main $isDisabled={Boolean(disabled) || Boolean(isLoading)}>
+      <Main
+        $isDisabled={Boolean(disabled) || Boolean(isLoading)}
+        $isSecondary={secondary}
+      >
         {isLoading && <Loader size={18} />}
         {children}
       </Main>
-      <Underline />
+      <Underline $isSecondary={secondary} />
     </Container>
   );
 }

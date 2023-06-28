@@ -22,7 +22,7 @@ export const aaveChanInitiativeConfig: SpaceConfig = {
       type: "zksub",
       saveAuths: true,
       saveClaims: true,
-      name: "ACI Chads Swag Claiming",
+      name: "ACI Chads Swag Claim",
       description:
         "Enter your delivery address to claim your Aave-Chan Initiative Chads Swag - without doxxing your wallet 👀 Don't forget to share your 'Aavechan Delegators' highest level to get more swags!",
       tags: ["Swag"],

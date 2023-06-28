@@ -62,7 +62,7 @@ const Underline = styled.div<{ $isSecondary: boolean }>`
 type Props = {
   children: React.ReactNode;
   disabled?: boolean;
-  isLoading?: boolean;
+  loading?: boolean;
   style?: React.CSSProperties;
   className?: string;
   secondary?: boolean;
@@ -74,7 +74,7 @@ export default function Button({
   style,
   className,
   disabled,
-  isLoading,
+  loading,
   secondary,
   onClick,
 }: Props) {
@@ -87,10 +87,10 @@ export default function Button({
       className={className}
     >
       <Main
-        $isDisabled={Boolean(disabled) || Boolean(isLoading)}
+        $isDisabled={Boolean(disabled) || Boolean(loading)}
         $isSecondary={secondary}
       >
-        {isLoading && <Loader size={18} />}
+        {loading && <Loader size={18} />}
         {children}
       </Main>
       <Underline $isSecondary={secondary} />

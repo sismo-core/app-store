@@ -107,9 +107,6 @@ const AppTitle = styled.h3`
   }
 `;
 
-
-
-
 const Description = styled.p<{ $isDisabled: boolean }>`
   color: ${({ theme, $isDisabled }) =>
     $isDisabled ? theme.colors.neutral5 : theme.colors.neutral4};
@@ -134,7 +131,7 @@ const BottomLine = styled.div`
   font-size: 14px;
   font-family: ${({ theme }) => theme.fonts.medium};
   line-height: 20px;
-  column-gap:8px;
+  column-gap: 8px;
   @media (max-width: 900px) {
     display: none;
   }
@@ -151,7 +148,7 @@ const BottomOverlay = styled.div`
   position: absolute;
   bottom: 0;
   left: 0;
-  column-gap:8px;
+  column-gap: 8px;
   background: linear-gradient(
     180deg,
     rgba(10, 16, 31, 0) 0%,
@@ -245,10 +242,7 @@ export default function AppCardLarge({ app }: Props): JSX.Element {
             <DescriptionContainer>
               {app.name && <AppTitle>{app.name}</AppTitle>}
               {app.configImage && app.space && (
-                <SpaceTag 
-                  app={app}
-                  isDisabled={isDisabled}
-                />
+                <SpaceTag app={app} isDisabled={isDisabled} />
               )}
               {app.description && (
                 <Description $isDisabled={isDisabled}>
@@ -276,10 +270,8 @@ export default function AppCardLarge({ app }: Props): JSX.Element {
               </BottomItem>
             )}
             {maxNumberOfEntries && (
-                <BottomItem>
-                  {maxNumberOfEntries} available
-                </BottomItem>
-              )}
+              <BottomItem>{maxNumberOfEntries} available</BottomItem>
+            )}
           </BottomLine>
         </Content>
       </Container>

@@ -25,9 +25,7 @@ const Container = styled.div<{ $isDisabled: boolean }>`
   cursor: ${({ $isDisabled }) => ($isDisabled ? "default" : "pointer")};
 
   @media (max-width: 900px) {
-    flex-direction: column;
-    // width: 72.4vw;
-    padding: 16px;
+    gap: 12px;
   }
 `;
 
@@ -56,6 +54,7 @@ const Content = styled.div`
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
+  gap: 4px;
 `;
 
 const Left = styled.div`
@@ -101,11 +100,10 @@ const Description = styled.p<{ $isDisabled: boolean }>`
   font-size: 14px;
   font-family: ${({ theme }) => theme.fonts.regular};
   line-height: 20px;
-  ${textShorten(3)}
+  ${textShorten(2)}
   margin-top: 8px;
 
   @media (max-width: 900px) {
-    ${textShorten(2)}
     display: none;
   }
 `;
@@ -116,38 +114,10 @@ const BottomLine = styled.div`
   align-items: flex-start;
   align-self: stretch;
   flex-wrap: wrap;
-  font-size: 14px;
-  font-family: ${({ theme }) => theme.fonts.medium};
-  line-height: 20px;
-  gap: 8px;
-  @media (max-width: 900px) {
-    display: none;
-  }
-`;
-
-const BottomOverlay = styled.div`
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  align-content: flex-end;
-  padding: 8px;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  gap: 8px;
-  background: linear-gradient(
-    180deg,
-    rgba(10, 16, 31, 0) 0%,
-    rgba(10, 16, 31, 0.9) 100%
-  );
-  width: 100%;
-  height: calc(72.4vw * 58 / 240);
-  color: inherit;
   font-size: 12px;
   font-family: ${({ theme }) => theme.fonts.medium};
   line-height: 18px;
-
+  gap: 8px;
   @media (min-width: 900px) {
     display: none;
   }
@@ -217,27 +187,31 @@ export default function AppCardLarge({ app, className }: Props): JSX.Element {
             </DescriptionContainer>
           </Left>
 
-          <BottomLine>
-            {hasStarted && !hasEnded && remainingEndTime && (
-              <BottomItem>
-                <Clock size="18" style={{ flexShrink: 0 }} />
-                {getHumanReadableRemainingTimeTag({
-                  endDuration: remainingEndTime,
-                })}
-              </BottomItem>
+          {(maxNumberOfEntries ||
+            (hasStarted && !hasEnded && remainingEndTime) ||
+            (!hasStarted && !hasEnded && remainingStartTime)) && (
+              <BottomLine>
+                {maxNumberOfEntries && (
+                  <BottomItem>{maxNumberOfEntries} available</BottomItem>
+                )}
+                {hasStarted && !hasEnded && remainingEndTime && (
+                  <BottomItem>
+                    <Clock size="18" style={{ flexShrink: 0 }} />
+                    {getHumanReadableRemainingTimeTag({
+                      endDuration: remainingEndTime,
+                    })}
+                  </BottomItem>
+                )}
+                {!hasStarted && !hasEnded && remainingStartTime && (
+                  <BottomItem>
+                    <Clock size="18" style={{ flexShrink: 0 }} />
+                    {getHumanReadableRemainingTimeTag({
+                      startDuration: remainingStartTime,
+                    })}
+                  </BottomItem>
+                )}
+              </BottomLine>
             )}
-            {!hasStarted && !hasEnded && remainingStartTime && (
-              <BottomItem>
-                <Clock size="18" style={{ flexShrink: 0 }} />
-                {getHumanReadableRemainingTimeTag({
-                  startDuration: remainingStartTime,
-                })}
-              </BottomItem>
-            )}
-            {maxNumberOfEntries && (
-              <BottomItem>{maxNumberOfEntries} available</BottomItem>
-            )}
-          </BottomLine>
         </Content>
       </Container>
     );

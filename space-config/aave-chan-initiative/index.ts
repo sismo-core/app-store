@@ -15,7 +15,7 @@ export const aaveChanInitiativeConfig: SpaceConfig = {
       link: "https://twitter.com/AaveChan",
     },
   ],
-  envs: ["Demo"],
+  envs: ["Demo", "Prod"],
   hidden: false,
   apps: [
     {
@@ -24,7 +24,7 @@ export const aaveChanInitiativeConfig: SpaceConfig = {
       saveClaims: true,
       name: "ACI Chads Swag Claiming",
       description:
-        "Enter your delivery address to claim your Aave-Chan Initiative Chads Swag - without doxxing your wallet 👀",
+        "Enter your delivery address to claim your Aave-Chan Initiative Chads Swag - without doxxing your wallet 👀. Important: before generating the ZK Proof, don't forget to select your 'Aavechan Delegators' highest value to get more swags! Value 1 for delegators with >= 50 tokens delegated, value 2 with >= 250 and value 3 with >= 1,000.",
       tags: ["Swag"],
       image: "aave_chan_initiative_apps_swag_1014x720.png",
       CTAText: "Claim your Swag",
@@ -69,7 +69,7 @@ export const aaveChanInitiativeConfig: SpaceConfig = {
         },
         {
           type: "short-text",
-          label: "(Optional) T-shirt size - only if delegated more than 100",
+          label: "(Optional) T-shirt size - only if shared value >= 2",
           placeholder: "XS/S/M/L/XL (EU Sizes)",
           helperText: "If you're US, take one Size above your usual one",
           isRequired: false,
@@ -82,8 +82,8 @@ export const aaveChanInitiativeConfig: SpaceConfig = {
       },
       slug: "swag",
       output: "google_sheet",
-      appId: "",
-      spreadsheetId: "",
+      appId: "0x02bcb449a6bd1062017cf0315375afdf",
+      spreadsheetId: "1wMfP6bjQIshkB8V_pOUVG9fJsx_1PGGXYuf7aOMHVSI",
       authRequests: [{ authType: AuthType.VAULT }],
       claimRequests: [
         {
@@ -96,7 +96,7 @@ export const aaveChanInitiativeConfig: SpaceConfig = {
         appId: "0x02bcb449a6bd1062017cf0315375afdf",
         impersonateAddresses: ["0x5af25164a0f1207db70727a2c447d6a7b44b89d0"]
       },
-      envs: ["Demo"],
+      envs: ["Demo", "Prod"],
     }
   ],
 };

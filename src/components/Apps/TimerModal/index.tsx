@@ -160,7 +160,7 @@ export default function TimerModal({
           <FullDate>{formattedDate}</FullDate>
         </TimerWrapper>
         <Bottom>
-          <Button3D onClick={onClose} secondary>
+          <Button3D onClick={onClose} >
             Back to the Space
           </Button3D>
         </Bottom>

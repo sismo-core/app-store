@@ -6,7 +6,7 @@ export const aaveChanInitiativeConfig: SpaceConfig = {
   slug: "aave-chan-initiative",
   name: "Aave-Chan Initiative",
   description:
-    "This Space is a tribute to core delegators of Aave-Chan Initiative delegate address “Aavechan.eth” - an Aave protocol Delegate. Prove you are a core Aave-Chan delegator to get ACI Chads Swag based on your level (1, 2 or 3). Eligibility group has been generated once, on June 26. Level 1 represents delegators with >= 50 tokens delegated, level 2 with >= 250 and level 3 with >= 1,000.",
+    "This Space is a tribute to core delegators of Aave-Chan Initiative delegate address “Aavechan.eth” - an Aave protocol Delegate. Prove you are a core Aave-Chan delegator to get ACI Chads Swag based on your level (1, 2 or 3). Eligibility group has been generated once on June 26, 2023. Level 1 represents delegators with >= 50 tokens delegated, level 2 with >= 250 and level 3 with >= 1,000.",
   profileImage: "space_aave_chan_initiative_pfp_400x400.png",
   coverImage: "space_aave_chan_initiative_cover_1740x540.png",
   socialLinks: [

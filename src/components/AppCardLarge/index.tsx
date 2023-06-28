@@ -36,6 +36,7 @@ const Container = styled.div<{ $isDisabled: boolean }>`
     width: 72.4vw;
     padding: 16px;
     scroll-snap-align: center;
+    gap: 8px;
   }
 `;
 
@@ -73,6 +74,10 @@ const Top = styled.div`
   align-items: flex-start;
   gap: 24px;
   align-self: stretch;
+
+  @media (max-width: 900px) {
+    gap: 8px;
+  }
 `;
 
 const TagContainer = styled.div`
@@ -96,6 +101,10 @@ const AppTitle = styled.h3`
   line-height: 24px;
   margin-bottom: 4px;
   ${textShorten(2)}
+
+  @media (max-width: 900px) {
+    margin-bottom: 8px;
+  }
 `;
 
 
@@ -112,6 +121,7 @@ const Description = styled.p<{ $isDisabled: boolean }>`
 
   @media (max-width: 900px) {
     ${textShorten(2)}
+    margin-top: 8px;
   }
 `;
 

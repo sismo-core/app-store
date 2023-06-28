@@ -13,6 +13,7 @@ const Main = styled.div<{ $isDisabled: boolean, $isPrimary: boolean }>`
   border-radius: 30px;
   transition: all ${(props) => props.theme.animations.transition};
   cursor: pointer;
+  user-select: none;
 `;
 
 const Container = styled.div`

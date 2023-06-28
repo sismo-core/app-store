@@ -24,7 +24,7 @@ export const aaveChanInitiativeConfig: SpaceConfig = {
       saveClaims: true,
       name: "ACI Chads Swag Claiming",
       description:
-        "Enter your delivery address to claim your Aave-Chan Initiative Chads Swag - without doxxing your wallet 👀 Don't forget to share your 'Aavechan Delegators' highest value to get more swags!",
+        "Enter your delivery address to claim your Aave-Chan Initiative Chads Swag - without doxxing your wallet 👀 Don't forget to share your 'Aavechan Delegators' highest level to get more swags!",
       tags: ["Swag"],
       image: "aave_chan_initiative_apps_swag_1014x720.png",
       CTAText: "Claim your Swag",

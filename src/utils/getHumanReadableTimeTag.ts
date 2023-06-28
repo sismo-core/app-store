@@ -7,7 +7,6 @@ export function getHumanReadableRemainingTimeTag({
   startDuration?: Duration;
   endDuration?: Duration;
 }) {
-  console.log("endDuration", endDuration)
 
   if (startDuration && endDuration)
     throw new Error("startDuration and endDuration cannot be both defined");

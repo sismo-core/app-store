@@ -3,11 +3,9 @@ import Image from "next/image";
 import styled from "styled-components";
 import AppTag from "../AppTag";
 import { textShorten } from "@/src/utils/textShorten";
-import { DateTime } from "luxon";
 import useRemainingTime from "@/src/utils/useRemainingTime";
 import { Clock } from "phosphor-react";
 import { getHumanReadableRemainingTimeTag } from "@/src/utils/getHumanReadableTimeTag";
-import { App } from "@/space-config/types";
 import SpaceTag from "../SpaceTag";
 
 const Container = styled.div<{ $isDisabled: boolean }>`
@@ -49,15 +47,27 @@ const StyledImage = styled(Image)`
 `;
 
 const Content = styled.div`
+  position: relative;
   display: flex;
-  height: 100%;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-between;
+  flex-grow: 1;
+  justify-content: stretch;
   gap: 4px;
 `;
 
 const Left = styled.div`
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 4px;
+  flex-shrink: 1;
+
+  @media (max-width: 900px) {
+    flex-grow: 1;
+  }
+`;
+
+const TitleAndDescription = styled.div`
   display: flex;
   flex-grow: 1;
   max-width: 276px;
@@ -82,6 +92,8 @@ const TagContainer = styled.div`
 const DescriptionContainer = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  flex-grow: 1;
 `;
 
 const AppTitle = styled.h3`
@@ -122,6 +134,18 @@ const BottomLine = styled.div`
     display: none;
   }
 `;
+const BottomRight = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-size: 14px;
+  font-family: ${({ theme }) => theme.fonts.medium};
+  line-height: 20px;
+  gap: 4px;
+  @media (max-width: 900px) {
+    display: none;
+  }
+`;
 
 const BottomItem = styled.div`
   display: flex;
@@ -129,6 +153,37 @@ const BottomItem = styled.div`
   gap: 4px;
   color: inherit;
   white-space: nowrap;
+`;
+
+const Right = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-self: flex-end;
+  align-items: stretch;
+  justify-content: space-between;
+  flex-shrink: 1;
+  flex-grow: 1;
+
+  @media (max-width: 900px) {
+    display: none;
+  }
+`;
+
+const TagRightContainer = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  justify-content: flex-end;
+  width: 10vw;
+  gap: 4px;
+  flex-wrap: wrap;
+  flex-shrink: 1;
+  flex-grow: 1;
+
+  @media (max-width: 900px) {
+    display: none;
+  }
 `;
 
 type Props = {
@@ -162,34 +217,35 @@ export default function AppCardLarge({ app, className }: Props): JSX.Element {
         </ImageContainer>
         <Content>
           <Left>
-            {(hasEnded || app.tags?.length > 0) && (
-              <TagContainer>
-                {hasEnded && (
-                  <AppTag>
-                    {" "}
-                    <Clock size="14" style={{ flexShrink: 0 }} /> Expired
-                  </AppTag>
+            <TitleAndDescription>
+              {(hasEnded || app.tags?.length > 0) && (
+                <TagContainer>
+                  {hasEnded && (
+                    <AppTag>
+                      {" "}
+                      <Clock size="14" style={{ flexShrink: 0 }} /> Expired
+                    </AppTag>
+                  )}
+                  {app.tags?.length > 0 &&
+                    app.tags.map((tag) => <AppTag key={tag}>{tag}</AppTag>)}
+                </TagContainer>
+              )}
+              <DescriptionContainer>
+                {app.name && <AppTitle>{app.name}</AppTitle>}
+                {app.configImage && app.space && (
+                  <SpaceTag app={app} isDisabled={isDisabled} />
                 )}
-                {app.tags?.length > 0 &&
-                  app.tags.map((tag) => <AppTag key={tag}>{tag}</AppTag>)}
-              </TagContainer>
-            )}
-            <DescriptionContainer>
-              {app.name && <AppTitle>{app.name}</AppTitle>}
-              {app.configImage && app.space && (
-                <SpaceTag app={app} isDisabled={isDisabled} />
-              )}
-              {app.description && (
-                <Description $isDisabled={isDisabled}>
-                  {app.description}
-                </Description>
-              )}
-            </DescriptionContainer>
-          </Left>
+                {app.description && (
+                  <Description $isDisabled={isDisabled}>
+                    {app.description}
+                  </Description>
+                )}
+              </DescriptionContainer>
+            </TitleAndDescription>
 
-          {(maxNumberOfEntries ||
-            (hasStarted && !hasEnded && remainingEndTime) ||
-            (!hasStarted && !hasEnded && remainingStartTime)) && (
+            {(maxNumberOfEntries ||
+              (hasStarted && !hasEnded && remainingEndTime) ||
+              (!hasStarted && !hasEnded && remainingStartTime)) && (
               <BottomLine>
                 {maxNumberOfEntries && (
                   <BottomItem>{maxNumberOfEntries} available</BottomItem>
@@ -212,6 +268,46 @@ export default function AppCardLarge({ app, className }: Props): JSX.Element {
                 )}
               </BottomLine>
             )}
+          </Left>
+          <Right>
+            {(hasEnded || app.tags?.length > 0) && (
+              <TagRightContainer>
+                {hasEnded && (
+                  <AppTag>
+                    {" "}
+                    <Clock size="14" style={{ flexShrink: 0 }} /> Expired
+                  </AppTag>
+                )}
+                {app.tags?.length > 0 &&
+                  app.tags.map((tag) => <AppTag key={tag}>{tag}</AppTag>)}
+              </TagRightContainer>
+            )}
+            {(maxNumberOfEntries ||
+              (hasStarted && !hasEnded && remainingEndTime) ||
+              (!hasStarted && !hasEnded && remainingStartTime)) && (
+              <BottomRight>
+                {maxNumberOfEntries && (
+                  <BottomItem>{maxNumberOfEntries} available</BottomItem>
+                )}
+                {hasStarted && !hasEnded && remainingEndTime && (
+                  <BottomItem>
+                    <Clock size="18" style={{ flexShrink: 0 }} />
+                    {getHumanReadableRemainingTimeTag({
+                      endDuration: remainingEndTime,
+                    })}
+                  </BottomItem>
+                )}
+                {!hasStarted && !hasEnded && remainingStartTime && (
+                  <BottomItem>
+                    <Clock size="18" style={{ flexShrink: 0 }} />
+                    {getHumanReadableRemainingTimeTag({
+                      startDuration: remainingStartTime,
+                    })}
+                  </BottomItem>
+                )}
+              </BottomRight>
+            )}
+          </Right>
         </Content>
       </Container>
     );

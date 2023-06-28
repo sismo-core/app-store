@@ -124,7 +124,8 @@ const NewAppsGrid = styled.div`
 
   @media (max-width: 900px) {
     grid-template-columns: repeat(1, minmax(0, 1fr));
-    row-gap: 24px;
+    row-gap: 46px;
+    padding: 0 20px;
   }
 `;
 
@@ -142,7 +143,11 @@ const StyledAppCardSmall = styled(AppCardSmall)<{ $isSeparator: boolean }>`
 
   @media (max-width: 900px) {
     &::after {
-      bottom: -12px;
+      display: block;
+      bottom: -23px;
+    }
+    &:last-child::after {
+      display: none;
     }
   }
 `;

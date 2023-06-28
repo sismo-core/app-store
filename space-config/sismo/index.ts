@@ -5,7 +5,7 @@ import { SpaceConfig } from "../types";
 export const sismoConfig: SpaceConfig = {
   slug: "sismo",
   name: "Sismo",
-  description: "This Space is a tribute to members of the Sismo Community (level 1, 2 and 3). Prove you are a Sismo Community member and access Apps based on your level. Eligibility groups are updated daily. Learn more to upgrade: community.sismo.io",
+  description: "This Space is a tribute to members of the Sismo Community (level 1, 2 and 3). Prove you are a Sismo Community member and access Apps based on your level. Eligibility groups are updated daily. Learn more to upgrade your level: community.sismo.io",
   profileImage: "space_sismo_pfp_400x400.png",
   coverImage: "space_sismo_cover_1740x540.png",
   socialLinks: [
@@ -201,6 +201,41 @@ export const sismoConfig: SpaceConfig = {
       },
       envs: ["Demo"],
     },
+    {
+      type: "zksub",
+      name: "Future of France Invitation",
+      description:
+        "Register your email address to receive a ticket for the Future of France Party. The event will take place on July 17th during the EthCC week. Exclusively for members of Sismo Community Level 3.",
+      tags: ["Ticket"],
+      image: "sismo_appstore_fof_tickets.png",
+      CTAText: "Register to get your Ticket",
+      fields: [
+        {
+          type: "short-text",
+          label: "Email",
+          isRequired: true,
+        }
+      ],
+      congratulationsMessage: {
+        title: "Congratulations!",
+        description:
+          "You will receive the ticket in a few days! See you there 💜",
+      },
+      slug: "ticket-fof",
+      output: "google_sheet",
+      appId: "0x08ffa7336eb7bc0907a9f76ebc55aa4d",
+      spreadsheetId: "1sb_wAe84Im0VLaGsDv_IhNG-dSMjsJHb15Ur6hZ3mig",
+      demo: {
+        spreadsheetId: "16NuT1HIJvM2jikRmHzN-ZSwJmjg_Ef1-6e-XbPff3z4",
+        appId: "0x08ffa7336eb7bc0907a9f76ebc55aa4d",
+        impersonateAddresses: ["0x8ab1760889F26cBbf33A75FD2cF1696BFccDc9e6"]
+      },
+      claimRequests: [
+        { groupId: "0xd630aa769278cacde879c5c0fe5d203c", value: 3 }
+      ],
+      authRequests: [{ authType: AuthType.VAULT } ],
+      envs: ["Demo", "Prod"],
+    }
     /*{
       type: "zksub",
       name: "Sismo Events",
@@ -314,43 +349,7 @@ export const sismoConfig: SpaceConfig = {
       userSelection: { type: "Lottery", numberOfWinners: 10 },
       authRequests: [{ authType: AuthType.VAULT }, { authType: AuthType.TWITTER, isOptional: true, isSelectableByUser: true} ],
       envs: ["Demo"],
-    },*/
-    {
-      type: "zksub",
-      name: "Future of France Invitation",
-      description:
-        "Register your email address to receive a ticket for the Future of France Party. The event will take place on July 17th during the EthCC week. Exclusively for members of Sismo Community Level 3.",
-      tags: ["Ticket"],
-      image: "sismo_appstore_fof_tickets.png",
-      CTAText: "Register to get your Ticket",
-      fields: [
-        {
-          type: "short-text",
-          label: "Email",
-          isRequired: true,
-        }
-      ],
-      congratulationsMessage: {
-        title: "Congratulations!",
-        description:
-          "See you there 💜 You will receive the ticket in a few days!",
-      },
-      slug: "ticket",
-      output: "google_sheet",
-      appId: null,
-      spreadsheetId: null,
-      demo: {
-        spreadsheetId: "16NuT1HIJvM2jikRmHzN-ZSwJmjg_Ef1-6e-XbPff3z4",
-        appId: "0x08ffa7336eb7bc0907a9f76ebc55aa4d",
-        impersonateAddresses: ["0x8ab1760889F26cBbf33A75FD2cF1696BFccDc9e6"]
-      },
-      claimRequests: [
-        { groupId: "0xd630aa769278cacde879c5c0fe5d203c", value: 3 }
-      ],
-      authRequests: [{ authType: AuthType.VAULT } ],
-      envs: ["Demo"],
     },
-    /*{
       type: "zksub",
       saveAuths: true,
       saveClaims: true,
@@ -386,36 +385,5 @@ export const sismoConfig: SpaceConfig = {
       authRequests: [{ authType: AuthType.VAULT }, { authType: AuthType.TWITTER, isOptional: true, isSelectableByUser: true} ],
       envs: ["Prod"],
     },*/
-    {
-      type: "zksub",
-      name: "Future of France Invitation",
-      description:
-        "Register your email address to receive a ticket for the Future of France Party. The event will take place on July 17th during the EthCC week. Exclusively for members of Sismo Community Level 3.",
-      tags: ["Ticket"],
-      image: "sismo_appstore_fof_tickets.png",
-      CTAText: "Register to get your Ticket",
-      fields: [
-        {
-          type: "short-text",
-          label: "Email",
-          isRequired: true,
-        }
-      ],
-      congratulationsMessage: {
-        title: "Congratulations!",
-        description:
-          "See you there 💜 You will receive the ticket in a few days!",
-      },
-      endDate: new Date("2023-07-17T18:00"),
-      slug: "ticket",
-      output: "google_sheet",
-      appId: "0x73316ca511efe1e14a63fcebdc9d8b24",
-      spreadsheetId: "1sb_wAe84Im0VLaGsDv_IhNG-dSMjsJHb15Ur6hZ3mig",
-      claimRequests: [
-        { groupId: "0xd630aa769278cacde879c5c0fe5d203c", value: 3 }
-      ],
-      authRequests: [{ authType: AuthType.VAULT } ],
-      envs: ["Prod"],
-    },
   ],
 };

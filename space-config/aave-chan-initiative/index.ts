@@ -6,7 +6,7 @@ export const aaveChanInitiativeConfig: SpaceConfig = {
   slug: "aave-chan-initiative",
   name: "Aave-Chan Initiative",
   description:
-    "This Space is a tribute to core delegators of Aave-Chan Initiative delegate address “Aavechan.eth” - an Aave protocol Delegate participating in governance discussions on Aave, and creating snapshot votes & AIPs for the benefit of the Aave protocol. Prove you are a core Aave-Chan delegator and access Apps based on your level (1, 2 and 3). Eligibility group is generated once. Level 1 represents delegators with >= 50 tokens delegated, level 2 with >= 250 and level 3 with >= 1,000.",
+    "This Space is a tribute to core delegators of Aave-Chan Initiative delegate address “Aavechan.eth” - an Aave protocol Delegate. Prove you are a core Aave-Chan delegator to access ACI Chad Swag based on your level (1, 2 and 3). Eligibility group is generated once. Level 1 represents delegators with >= 50 tokens delegated, level 2 with >= 250 and level 3 with >= 1,000.",
   profileImage: "space_aave_chan_initiative_pfp_400x400.png",
   coverImage: "space_aave_chan_initiative_cover_1740x540.png",
   socialLinks: [
@@ -24,7 +24,7 @@ export const aaveChanInitiativeConfig: SpaceConfig = {
       saveClaims: true,
       name: "ACI Chads Swag Claiming",
       description:
-        "Enter your delivery address to claim your Aave-Chan Initiative Chads Swag - without doxxing your wallet 👀. Important: before generating the ZK Proof, don't forget to select your 'Aavechan Delegators' highest value to get more swags!",
+        "Enter your delivery address to claim your Aave-Chan Initiative Chads Swag - without doxxing your wallet 👀. Important: don't forget to share your 'Aavechan Delegators' highest value to get more swags!",
       tags: ["Swag"],
       image: "aave_chan_initiative_apps_swag_1014x720.png",
       CTAText: "Claim your Swag",

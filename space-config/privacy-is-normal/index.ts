@@ -68,11 +68,17 @@ export const privacyIsNormalConfig: SpaceConfig = {
           value: 15,
         }
       ],
+      userSelection: {
+        type: "Lottery",
+        maxNumberOfEntries: 1000,
+        numberOfWinners: 10,
+      },
       demo: {
         spreadsheetId: null,
         appId: null,
       },
-      envs: ["Prod"],
+      isFeatured: ["Prod", "Demo"],
+      envs: ["Prod", "Demo"],
     },
     /*{
       type: "zkdrop",

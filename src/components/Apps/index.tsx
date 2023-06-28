@@ -32,7 +32,7 @@ const Grid = styled.div`
   grid-gap: 16px;
   width: 100%;
 
-  @media (max-width: 768px) {
+  @media (max-width: 900px) {
     grid-template-columns: repeat(1, minmax(0, 1fr));
   }
 `;

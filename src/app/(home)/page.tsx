@@ -1,5 +1,4 @@
 import Hero from "@/src/components/Hero";
-import Spaces from "@/src/components/Spaces";
 import { getSpacesConfigs } from "../../libs/spaces/getSpaces";
 import getImgSrcFromConfig, {
   ImportedNextImage,
@@ -40,6 +39,7 @@ export async function generateMetadata() {
 
 export type AppFront = Omit<App, "image"> & {
   space: string;
+  spaceSlug: string;
   image: string | ImportedNextImage;
   configImage: string | ImportedNextImage;
 };
@@ -72,6 +72,7 @@ export default async function HomePage() {
         return {
           ...app,
           space: config.name,
+          spaceSlug: config.slug,
           image: await getImgSrcFromConfig({
             configSlug: config.slug,
             fileName: app.image,

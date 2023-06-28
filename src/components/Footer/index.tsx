@@ -16,7 +16,7 @@ const Container = styled.div`
   position: relative;
   margin-bottom: 30px;
 
-  @media (max-width: 768px) {
+  @media (max-width: 900px) {
     height: 303.99px;
     flex-direction: column;
     align-items: center;
@@ -38,7 +38,7 @@ const SocialWrapper = styled.div`
   align-items: center;
   gap: 14px;
 
-    @media (max-width: 768px) {
+    @media (max-width: 900px) {
         margin-bottom: 24px;
     }
 `;
@@ -67,7 +67,7 @@ const DesktopImage = styled(Image)`
   width: 182.18px;
   height: 121.85px;
 
-  @media (max-width: 768px) {
+  @media (max-width: 900px) {
     display: none;
   }
 `;
@@ -78,7 +78,7 @@ const MobileImage = styled(Image)`
   height: 134.99px;
   margin-bottom: 40px;
 
-  @media (max-width: 768px) {
+  @media (max-width: 900px) {
     display: block;
   }
 `;

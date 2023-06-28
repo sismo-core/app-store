@@ -14,9 +14,9 @@ export const Container = styled.div<{ $scrollBarWidth: number }>`
     padding: 0px ${(props) => 60 - props.$scrollBarWidth}px 0px 60px;
     min-width: calc(100vw - 120px);
   }
-  @media (max-width: 768px) {
-    padding: 0px ${(props) => 20 - props.$scrollBarWidth}px 0px 20px;
-    min-width: calc(100vw - 40px);
+  @media (max-width: 900px) {
+    padding: 0px ${(props) => 0 - props.$scrollBarWidth}px 0px 0px;
+    min-width: 100vw;
   }
 `;
 

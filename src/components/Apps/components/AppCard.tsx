@@ -17,7 +17,7 @@ import useRemainingTime from "@/src/utils/useRemainingTime";
 import AvailabilityProgressBar from "./AvailabilityProgressBar";
 import { useModals } from "@/src/state/ModalState";
 
-const Container = styled.div<{ isFolderHovered: boolean, disabled: boolean }>`
+const Container = styled.div<{ isFolderHovered: boolean; disabled: boolean }>`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -29,17 +29,19 @@ const Container = styled.div<{ isFolderHovered: boolean, disabled: boolean }>`
   padding: 16px 20px 20px;
   transition: all 0.1s;
 
-  ${props => !props.disabled && `
+  ${(props) =>
+    !props.disabled &&
+    `
     cursor: pointer;
     &:hover {
       background-color: ${
         props.isFolderHovered
           ? props.theme.colors.neutral11
-          : props.theme.colors.neutral10};
+          : props.theme.colors.neutral10
+      };
       border: 1px solid ${props.theme.colors.neutral4};
     }
   `}
-
 `;
 
 const FolderButton = styled.div`
@@ -83,9 +85,9 @@ const ExpiredTag = styled.div`
   border-radius: 20px;
 
   font-size: 12px;
-  color: ${props => props.theme.neutral1};
+  color: ${(props) => props.theme.neutral1};
   font-family: ${(props) => props.theme.fonts.semibold};
-`
+`;
 
 const Bottom = styled.div`
   display: flex;
@@ -112,6 +114,9 @@ const ImageWrapper = styled.div`
 `;
 
 const TagWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
   position: absolute;
   top: 8px;
   left: 8px;
@@ -140,7 +145,9 @@ const StyledImage = styled(Image)<{ disabled: boolean }>`
   width: 100%;
   height: 240px;
   object-fit: cover;
-  ${props => props.disabled && `
+  ${(props) =>
+    props.disabled &&
+    `
     opacity: 0.5;
   `}
 `;
@@ -198,11 +205,14 @@ export default function AppCard({
   const [isHovered, setIsHovered] = useState(false);
   const { requirementsIsOpen } = useModals();
 
-
   const luxonUTCStartDate = app?.endDate && DateTime.fromJSDate(app?.endDate);
-  const hasExpired = luxonUTCStartDate ? DateTime.now().toUTC() > luxonUTCStartDate : false;
+  const hasExpired = luxonUTCStartDate
+    ? DateTime.now().toUTC() > luxonUTCStartDate
+    : false;
 
-  let remainingTime = useRemainingTime(app?.startDate);
+  let { remainingStartTime: remainingTime } = useRemainingTime({
+    startDate: app?.startDate,
+  });
 
   //Close the timer modal when the app starts
   useEffect(() => {
@@ -240,7 +250,7 @@ export default function AppCard({
       <TimerModal
         isOpen={timerModalIsOpen}
         onClose={() => {
-          setTimerModalIsOpen(false)
+          setTimerModalIsOpen(false);
         }}
         app={app as ZkSubAppConfig}
       />
@@ -256,21 +266,23 @@ export default function AppCard({
           {app?.CTAText && <TopText>{app?.CTAText}</TopText>}
           <ImageWrapper>
             {cover && (
-              <StyledImage src={cover} alt={app?.name} placeholder="blur" disabled={hasExpired}/>
+              <StyledImage
+                src={cover}
+                alt={app?.name}
+                placeholder="blur"
+                disabled={hasExpired}
+              />
             )}
             <TagWrapper>
               {app?.tags?.map((tag, index) => (
                 <Tag key={app?.name + tag + index}>{tag}</Tag>
               ))}
-
-              {
-                hasExpired && 
+              {hasExpired && (
                 <ExpiredTag>
-                  <Clock size="18" style={{ marginRight: 4 }}/>
+                  <Clock size="18" style={{ marginRight: 4 }} />
                   Expired
                 </ExpiredTag>
-              }
-
+              )}
               {app?.startDate &&
                 !hasStarted &&
                 getHumanReadableRemainingTimeTag(remainingTime) && (
@@ -280,10 +292,13 @@ export default function AppCard({
                   </Tag>
                 )}
             </TagWrapper>
-               {
-            (app?.type === "zksub" || app?.type === "zkdrop") && app?.userSelection?.type === "Lottery" &&
-            <AvailabilityProgressBar register={0} availableMax={app?.userSelection?.maxNumberOfEntries}/>
-          }
+            {(app?.type === "zksub" || app?.type === "zkdrop") &&
+              app?.userSelection?.type === "Lottery" && (
+                <AvailabilityProgressBar
+                  register={0}
+                  availableMax={app?.userSelection?.maxNumberOfEntries}
+                />
+              )}
           </ImageWrapper>
           {app?.name && <Title>{app.name}</Title>}
           {app?.description && <Description>{app.description}</Description>}

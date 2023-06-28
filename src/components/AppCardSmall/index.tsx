@@ -3,54 +3,46 @@ import Image from "next/image";
 import styled from "styled-components";
 import AppTag from "../AppTag";
 import { textShorten } from "@/src/utils/textShorten";
+import { DateTime } from "luxon";
 import useRemainingTime from "@/src/utils/useRemainingTime";
 import { Clock } from "phosphor-react";
 import { getHumanReadableRemainingTimeTag } from "@/src/utils/getHumanReadableTimeTag";
+import { App } from "@/space-config/types";
 import SpaceTag from "../SpaceTag";
 
 const Container = styled.div<{ $isDisabled: boolean }>`
+  position: relative;
   display: flex;
-  padding: 20px;
-  align-items: flex-start;
+  align-items: center;
   gap: 16px;
   flex-shrink: 0;
   border-radius: 16px;
   background-color: transparent;
+  width: 100%;
   color: ${({ theme, $isDisabled }) =>
     $isDisabled ? theme.colors.neutral5 : theme.colors.neutral1};
-  border: 1px solid ${({ theme }) => theme.colors.neutral7};
-  transition: background-color ${({ theme }) => theme.animations.transition},
-    border ${({ theme }) => theme.animations.transition};
+  transition: background-color ${({ theme }) => theme.animations.transition};
   cursor: ${({ $isDisabled }) => ($isDisabled ? "default" : "pointer")};
-
-  &:hover {
-    border: 1px solid
-      ${({ theme, $isDisabled }) =>
-        $isDisabled ? theme.colors.neutral7 : theme.colors.neutral5};
-    background-color: ${({ theme, $isDisabled }) =>
-      $isDisabled ? "transparent" : theme.colors.neutral10};
-  }
 
   @media (max-width: 900px) {
     flex-direction: column;
-    width: 72.4vw;
+    // width: 72.4vw;
     padding: 16px;
-    scroll-snap-align: center;
   }
 `;
 
 const ImageContainer = styled.div<{ $isDisabled: boolean }>`
   position: relative;
   overflow: hidden;
-  width: 240px;
-  height: 240px;
+  width: 88px;
+  height: 88px;
   flex-shrink: 0;
   border-radius: 8px;
   opacity: ${({ $isDisabled }) => ($isDisabled ? 0.5 : 1)};
 
   @media (max-width: 900px) {
-    width: calc(72.5vw - (2px + 32px));
-    height: calc(72.5vw - (2px + 32px));
+    width: 80px;
+    height: 80px;
   }
 `;
 
@@ -66,12 +58,13 @@ const Content = styled.div`
   justify-content: space-between;
 `;
 
-const Top = styled.div`
+const Left = styled.div`
   display: flex;
   flex-grow: 1;
+  max-width: 276px;
   flex-direction: column;
   align-items: flex-start;
-  gap: 24px;
+  gap: 8px;
   align-self: stretch;
 `;
 
@@ -81,6 +74,10 @@ const TagContainer = styled.div`
   gap: 4px;
   flex-wrap: wrap;
   flex-shrink: 0;
+
+  @media (min-width: 900px) {
+    display: none;
+  }
 `;
 
 const DescriptionContainer = styled.div`
@@ -98,9 +95,6 @@ const AppTitle = styled.h3`
   ${textShorten(2)}
 `;
 
-
-
-
 const Description = styled.p<{ $isDisabled: boolean }>`
   color: ${({ theme, $isDisabled }) =>
     $isDisabled ? theme.colors.neutral5 : theme.colors.neutral4};
@@ -108,10 +102,11 @@ const Description = styled.p<{ $isDisabled: boolean }>`
   font-family: ${({ theme }) => theme.fonts.regular};
   line-height: 20px;
   ${textShorten(3)}
-  margin-top: 16px;
+  margin-top: 8px;
 
   @media (max-width: 900px) {
     ${textShorten(2)}
+    display: none;
   }
 `;
 
@@ -124,7 +119,7 @@ const BottomLine = styled.div`
   font-size: 14px;
   font-family: ${({ theme }) => theme.fonts.medium};
   line-height: 20px;
-  column-gap:8px;
+  gap: 8px;
   @media (max-width: 900px) {
     display: none;
   }
@@ -132,7 +127,6 @@ const BottomLine = styled.div`
 
 const BottomOverlay = styled.div`
   display: flex;
-  align-self: stretch;
   align-items: flex-end;
   justify-content: space-between;
   flex-wrap: wrap;
@@ -141,7 +135,7 @@ const BottomOverlay = styled.div`
   position: absolute;
   bottom: 0;
   left: 0;
-  column-gap:8px;
+  gap: 8px;
   background: linear-gradient(
     180deg,
     rgba(10, 16, 31, 0) 0%,
@@ -169,9 +163,10 @@ const BottomItem = styled.div`
 
 type Props = {
   app: AppFront;
+  className?: string;
 };
 
-export default function AppCardLarge({ app }: Props): JSX.Element {
+export default function AppCardLarge({ app, className }: Props): JSX.Element {
   const { remainingStartTime, remainingEndTime, hasStarted, hasEnded } =
     useRemainingTime({ startDate: app?.startDate, endDate: app?.endDate });
 
@@ -184,7 +179,7 @@ export default function AppCardLarge({ app }: Props): JSX.Element {
 
   if (app)
     return (
-      <Container $isDisabled={isDisabled}>
+      <Container $isDisabled={isDisabled} className={className}>
         <ImageContainer $isDisabled={isDisabled}>
           {app.image && app.name && (
             <StyledImage
@@ -194,32 +189,9 @@ export default function AppCardLarge({ app }: Props): JSX.Element {
               placeholder="blur"
             />
           )}
-          {(remainingEndTime || remainingStartTime || maxNumberOfEntries) && (
-            <BottomOverlay>
-              {!hasStarted && !hasEnded && remainingStartTime && (
-                <BottomItem>
-                  <Clock size="16" style={{ flexShrink: 0 }} />
-                  {getHumanReadableRemainingTimeTag({
-                    startDuration: remainingStartTime,
-                  })}
-                </BottomItem>
-              )}
-              {hasStarted && !hasEnded && remainingEndTime && (
-                <BottomItem>
-                  <Clock size="16" style={{ flexShrink: 0 }} />
-                  {getHumanReadableRemainingTimeTag({
-                    endDuration: remainingEndTime,
-                  })}
-                </BottomItem>
-              )}
-              {maxNumberOfEntries && (
-                <BottomItem>{maxNumberOfEntries} available</BottomItem>
-              )}
-            </BottomOverlay>
-          )}
         </ImageContainer>
         <Content>
-          <Top>
+          <Left>
             {(hasEnded || app.tags?.length > 0) && (
               <TagContainer>
                 {hasEnded && (
@@ -235,10 +207,7 @@ export default function AppCardLarge({ app }: Props): JSX.Element {
             <DescriptionContainer>
               {app.name && <AppTitle>{app.name}</AppTitle>}
               {app.configImage && app.space && (
-                <SpaceTag 
-                  app={app}
-                  isDisabled={isDisabled}
-                />
+                <SpaceTag app={app} isDisabled={isDisabled} />
               )}
               {app.description && (
                 <Description $isDisabled={isDisabled}>
@@ -246,7 +215,7 @@ export default function AppCardLarge({ app }: Props): JSX.Element {
                 </Description>
               )}
             </DescriptionContainer>
-          </Top>
+          </Left>
 
           <BottomLine>
             {hasStarted && !hasEnded && remainingEndTime && (
@@ -266,10 +235,8 @@ export default function AppCardLarge({ app }: Props): JSX.Element {
               </BottomItem>
             )}
             {maxNumberOfEntries && (
-                <BottomItem>
-                  {maxNumberOfEntries} available
-                </BottomItem>
-              )}
+              <BottomItem>{maxNumberOfEntries} available</BottomItem>
+            )}
           </BottomLine>
         </Content>
       </Container>

@@ -12,8 +12,13 @@ const Container = styled.header`
   height: 409px;
   color: white;
   position: relative;
+
+  @media (max-width: 900px) {
+    padding: 0 20px;
+  }
+
   @media (max-width: 700px) {
-    height: 668px;
+    height: 664px;
   }
 `;
 
@@ -22,6 +27,7 @@ const Separator = styled.div`
   height: 1px;
   width: 100%;
   position: absolute;
+  left: 0px;
   bottom: 0px;
 `;
 
@@ -34,7 +40,6 @@ const Title = styled.div`
   margin-top: 24px;
   @media (max-width: 700px) {
     max-width: 335px;
-    margin-top: calc(118px + 33px);
   }
 `;
 
@@ -54,6 +59,11 @@ const TextContainer = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
+  padding-top: 60px;
+
+  @media (max-width: 700px) {
+    padding-top: 100px;
+  }
 `;
 
 const Letter = styled.span<{ bold?: boolean }>`
@@ -85,7 +95,7 @@ const LetterBrown = styled(Letter)`
 
 const ImageTopLeft = styled(Image)`
   top: -5px;
-  left: 53px;
+  left: 30px;
   position: absolute;
   @media (max-width: 900px) {
     left: -80px;
@@ -113,7 +123,7 @@ const ImageTopRight = styled(Image)`
     right: 0px;
   }
   @media (max-width: 700px) {
-    right: -90px;
+    right: -63px;
   }
 `;
 const ImageBottomLeft = styled(Image)`
@@ -130,7 +140,7 @@ const ImageBottomLeft = styled(Image)`
 `;
 const ImageBottomRight = styled(Image)`
   bottom: 45px;
-  right: 3px;
+  right: -20px;
   position: absolute;
   @media (max-width: 1000px) {
     right: -60px;
@@ -139,7 +149,7 @@ const ImageBottomRight = styled(Image)`
     right: -110px;
   }
   @media (max-width: 400px) {
-    right: -150px;
+    right: -90px;
   }
 `;
 
@@ -197,7 +207,7 @@ export default function Hero(): JSX.Element {
   const [selected, setSelected] = useState<string>(pathname);
   function onToggleChange(value: string) {
     setSelected(options.find((option) => option.value === value).value);
-    router.push(value);
+   // router.push(value);
   }
 
   return (
@@ -253,12 +263,11 @@ export default function Hero(): JSX.Element {
       />
       <TextContainer>
         <Toggle
-          style={{ marginTop: 60 }}
           selected={selected}
           options={options}
           onChange={onToggleChange}
         />
-        <Title style={{ marginBottom: 24 }}>Explore Sismo Connect apps</Title>
+        <Title style={{ marginBottom: 29 }}>Explore Sismo Connect apps</Title>
         <Subtitle>
           Get inspired by apps powered by
           <br />

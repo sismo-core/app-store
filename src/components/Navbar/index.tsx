@@ -13,6 +13,10 @@ const Container = styled.div`
   height: 92px !important;
   justify-content: space-between;
   align-items: center;
+
+  @media (max-width: 900px) {
+    padding: 0 20px;
+  }
 `;
 
 const NavLinkWrapper = styled.div`

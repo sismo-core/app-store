@@ -8,6 +8,9 @@ import env from "@/src/environments";
 import Link from "next/link";
 import styled from "styled-components";
 import AppCardLarge from "../AppCardLarge";
+import SpaceCard from "../SpaceCard";
+import AppCardSmall from "../AppCardSmall";
+import App from "next/app";
 
 const Container = styled.main`
   display: flex;
@@ -32,6 +35,10 @@ const TitleLine = styled.div`
   justify-content: space-between;
   align-items: center;
   align-self: stretch;
+
+  @media (max-width: 900px) {
+    padding: 0 20px;
+  }
 `;
 
 const Title = styled.h2`
@@ -55,20 +62,24 @@ const ExploreAll = styled(Link)`
 `;
 
 const Grid = styled.div`
+  width: 100%;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 32px;
+`;
 
+const SlideGrid = styled(Grid)`
   @media (max-width: 900px) {
     display: flex;
     gap: 24px;
     width: 100%;
     overflow-x: scroll;
     /* Create a scrollable area */
-    scroll-snap-type: x inherit;
-    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
     scroll-snap-stop: always;
+    scroll-behavior: smooth;
     white-space: nowrap;
+    padding: 0 20px;
   }
 
   scrollbar-width: none; /* Firefox */
@@ -78,13 +89,71 @@ const Grid = styled.div`
   }
 `;
 
+const SpaceFlex = styled.div`
+  display: flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 24px;
+
+  @media (max-width: 900px) {
+    display: flex;
+    gap: 24px;
+    width: 100%;
+    overflow-x: scroll;
+    /* Create a scrollable area */
+    scroll-snap-type: x mandatory;
+    scroll-snap-stop: always;
+    scroll-behavior: smooth;
+    white-space: nowrap;
+    padding: 0 20px;
+  }
+
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  &::-webkit-scrollbar {
+    display: none; /* Hide the scrollbar for WebKit browsers */
+  }
+`;
+
+const NewAppsGrid = styled.div`
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 32px;
+  row-gap: 64px;
+
+  @media (max-width: 900px) {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    row-gap: 24px;
+  }
+`;
+
+const StyledAppCardSmall = styled(AppCardSmall)<{ $isSeparator: boolean }>`
+  &::after {
+    content: "";
+    display: ${({ $isSeparator }) => ($isSeparator ? "block" : "none")};
+    position: absolute;
+    bottom: -32px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: ${({ theme }) => theme.colors.neutral7};
+  }
+
+  @media (max-width: 900px) {
+    &::after {
+      bottom: -12px;
+    }
+  }
+`;
+
 type Props = {
   configs: SpaceConfigFront[];
   apps: AppFront[];
 };
 
 export default function HomeMain({ configs, apps }: Props): JSX.Element {
-  const filteredApps = apps.filter((app) => {
+  const featuredApps = apps.filter((app) => {
     if (env.isDemo) {
       return app.isFeatured?.includes("Demo");
     }
@@ -92,6 +161,9 @@ export default function HomeMain({ configs, apps }: Props): JSX.Element {
       return app.isFeatured?.includes("Prod");
     }
   });
+  const newApps = apps.slice(0, 6);
+
+  const firstFiver = configs.slice(0, 5);
 
   return (
     <Container>
@@ -100,12 +172,12 @@ export default function HomeMain({ configs, apps }: Props): JSX.Element {
           <Title>Featured apps</Title>
           <ExploreAll href="/popular">Explore all</ExploreAll>
         </TitleLine>
-        <Grid>
-          {filteredApps.length > 0 &&
-            filteredApps.map((app) => (
+        <SlideGrid>
+          {featuredApps.length > 0 &&
+            featuredApps.map((app) => (
               <AppCardLarge key={app.slug} app={app} />
             ))}
-        </Grid>
+        </SlideGrid>
       </Section>
       <Section>
         <TitleLine>
@@ -113,20 +185,32 @@ export default function HomeMain({ configs, apps }: Props): JSX.Element {
           <ExploreAll href="/popular">Explore all</ExploreAll>
         </TitleLine>
 
-        <Grid>
-          <div>App 1</div>
-          <div>App 2</div>
-        </Grid>
+        <NewAppsGrid>
+          {newApps.length > 0 &&
+            newApps.map((app, index) => (
+              <StyledAppCardSmall
+                key={app.slug}
+                app={app}
+                $isSeparator={
+                  newApps.length % 2 === 0
+                    ? index !== newApps.length - 1 &&
+                      index !== newApps.length - 2
+                    : index !== newApps.length - 1
+                }
+              />
+            ))}
+        </NewAppsGrid>
       </Section>
       <Section>
         <TitleLine>
           <Title>Spaces</Title>
           <ExploreAll href="/popular">Explore all</ExploreAll>
         </TitleLine>
-        <Grid>
-          <div>App 1</div>
-          <div>App 2</div>
-        </Grid>
+        <SpaceFlex>
+          {firstFiver.map((config) => (
+            <SpaceCard key={config.slug} config={config} />
+          ))}
+        </SpaceFlex>
       </Section>
     </Container>
   );

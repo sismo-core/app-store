@@ -1,7 +1,11 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-color: ${({ theme }) => theme.colors.neutral1};
+color: inherit;
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 4px;
 text-align: center;
 font-size: 12px;
 font-family: ${({ theme }) => theme.fonts.medium};
@@ -12,14 +16,14 @@ padding: 3px 7px;
 `;
 
 type Props = {
-  label: string;
+  children: React.ReactNode;
 }
 
-export default function AppTag({label} : Props): JSX.Element {
+export default function AppTag({children} : Props): JSX.Element {
 
   return (
     <Container>
-      {label}
+      {children}
     </Container>
   );
 

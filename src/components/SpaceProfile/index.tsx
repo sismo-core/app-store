@@ -20,7 +20,7 @@ const BannerImage = styled(Image)`
   border-radius: 8px;
   object-fit: cover;
 
-  @media (max-width: 768px) {
+  @media (max-width: 900px) {
     height: 200px;
   }
 `;
@@ -35,7 +35,7 @@ const ProfileImage = styled(Image)`
   margin-top: -108px;
   overflow: hidden;
 
-  @media (max-width: 768px) {
+  @media (max-width: 900px) {
     width: 140px;
     height: 140px;
     margin-left: 16px;

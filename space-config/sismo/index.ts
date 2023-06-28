@@ -91,6 +91,7 @@ export const sismoConfig: SpaceConfig = {
           isRequired: true,
         },
       ],
+      isFeatured: ["Prod", "Demo"],
       congratulationsMessage: {
         title: "Congratulations",
         description:
@@ -115,6 +116,7 @@ export const sismoConfig: SpaceConfig = {
       tags: ["Feedback"],
       image: "sismoapps_feedback_1014x720.png",
       CTAText: "Give Feedback",
+      isFeatured: ["Prod", "Demo"],
       fields: [
         {
           type: "short-text",

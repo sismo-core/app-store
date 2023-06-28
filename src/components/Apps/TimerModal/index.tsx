@@ -104,7 +104,9 @@ export default function TimerModal({
   onClose,
   app,
 }: Props): JSX.Element {
-  const remainingTime = useRemainingTime(app?.startDate);
+  const { remainingStartTime: remainingTime } = useRemainingTime({
+    startDate: app?.startDate,
+  });
 
   function twoDigits(number: number) {
     return number < 10 ? `0${number}` : number;
@@ -160,9 +162,7 @@ export default function TimerModal({
           <FullDate>{formattedDate}</FullDate>
         </TimerWrapper>
         <Bottom>
-          <Button3D onClick={onClose} >
-            Back to the Space
-          </Button3D>
+          <Button3D onClick={onClose}>Back to the Space</Button3D>
         </Bottom>
       </Content>
     </Modal>

@@ -31,6 +31,14 @@ const Container = styled.div<{ $isDisabled: boolean }>`
       $isDisabled ? "transparent" : theme.colors.neutral10};
   }
 
+  @media (max-width: 1150px) {
+    flex-direction: column;
+    width: 100%;
+    padding: 16px;
+    scroll-snap-align: center;
+    gap: 8px;
+  }
+
   @media (max-width: 900px) {
     flex-direction: column;
     width: 72.4vw;
@@ -48,6 +56,11 @@ const ImageContainer = styled.div<{ $isDisabled: boolean }>`
   flex-shrink: 0;
   border-radius: 8px;
   opacity: ${({ $isDisabled }) => ($isDisabled ? 0.5 : 1)};
+
+  @media (max-width: 1150px) {
+    width: calc(100%);
+    height: 39.5vw;
+  }
 
   @media (max-width: 900px) {
     width: calc(72.5vw - (2px + 32px));
@@ -75,7 +88,7 @@ const Top = styled.div`
   gap: 24px;
   align-self: stretch;
 
-  @media (max-width: 900px) {
+  @media (max-width: 1150px) {
     gap: 8px;
   }
 `;
@@ -102,7 +115,7 @@ const AppTitle = styled.h3`
   margin-bottom: 4px;
   ${textShorten(2)}
 
-  @media (max-width: 900px) {
+  @media (max-width: 1150px) {
     margin-bottom: 8px;
   }
 `;
@@ -116,7 +129,7 @@ const Description = styled.p<{ $isDisabled: boolean }>`
   ${textShorten(3)}
   margin-top: 16px;
 
-  @media (max-width: 900px) {
+  @media (max-width: 1150px) {
     ${textShorten(2)}
     margin-top: 8px;
   }
@@ -132,7 +145,7 @@ const BottomLine = styled.div`
   font-family: ${({ theme }) => theme.fonts.medium};
   line-height: 20px;
   column-gap: 8px;
-  @media (max-width: 900px) {
+  @media (max-width: 1150px) {
     display: none;
   }
 `;
@@ -161,7 +174,7 @@ const BottomOverlay = styled.div`
   font-family: ${({ theme }) => theme.fonts.medium};
   line-height: 18px;
 
-  @media (min-width: 900px) {
+  @media (min-width: 1150px) {
     display: none;
   }
 `;
@@ -201,7 +214,9 @@ export default function AppCardLarge({ app }: Props): JSX.Element {
               placeholder="blur"
             />
           )}
-          {(remainingEndTime || remainingStartTime || maxNumberOfEntries) && (
+          {((hasStarted && !hasEnded && remainingEndTime) ||
+            (hasStarted && !hasEnded && remainingEndTime) ||
+            (maxNumberOfEntries && !hasEnded)) && (
             <BottomOverlay>
               {!hasStarted && !hasEnded && remainingStartTime && (
                 <BottomItem>
@@ -219,7 +234,7 @@ export default function AppCardLarge({ app }: Props): JSX.Element {
                   })}
                 </BottomItem>
               )}
-              {maxNumberOfEntries && (
+              {maxNumberOfEntries && !hasEnded && (
                 <BottomItem>{maxNumberOfEntries} available</BottomItem>
               )}
             </BottomOverlay>
@@ -269,7 +284,7 @@ export default function AppCardLarge({ app }: Props): JSX.Element {
                 })}
               </BottomItem>
             )}
-            {maxNumberOfEntries && (
+            {maxNumberOfEntries && !hasEnded && (
               <BottomItem>{maxNumberOfEntries} available</BottomItem>
             )}
           </BottomLine>

@@ -77,7 +77,6 @@ export const privacyIsNormalConfig: SpaceConfig = {
         spreadsheetId: null,
         appId: null,
       },
-      isFeatured: ["Prod", "Demo"],
       envs: ["Prod", "Demo"],
     },
     /*{

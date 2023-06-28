@@ -82,7 +82,7 @@ export const aaveChanInitiativeConfig: SpaceConfig = {
       },
       slug: "swag",
       output: "google_sheet",
-      appId: "0x02bcb449a6bd1062017cf0315375afdf",
+      appId: "0x80cfbfc0aa91c981385a353e036ff453",
       spreadsheetId: "1wMfP6bjQIshkB8V_pOUVG9fJsx_1PGGXYuf7aOMHVSI",
       authRequests: [{ authType: AuthType.VAULT }],
       claimRequests: [
@@ -93,7 +93,7 @@ export const aaveChanInitiativeConfig: SpaceConfig = {
       ],
       demo: {
         spreadsheetId: "1XeoiYJjibDi51Ogch5eZTUFRp-SqZ0w2q1Cozs4nqPA",
-        appId: "0x02bcb449a6bd1062017cf0315375afdf",
+        appId: "0x80cfbfc0aa91c981385a353e036ff453",
         impersonateAddresses: ["0x5af25164a0f1207db70727a2c447d6a7b44b89d0"]
       },
       envs: ["Demo", "Prod"],

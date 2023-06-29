@@ -6,7 +6,7 @@ export const aaveChanInitiativeConfig: SpaceConfig = {
   slug: "aave-chan-initiative",
   name: "Aave-Chan Initiative",
   description:
-    "This Space is dedicated to the Aave-Chan Initiative (ACI - Aavechan.eth), a delegate platform. Aave users that delegated their governance power to ACI will get access to gifts and premium features. Eligibility group has been generated once on June 26, 2023.",
+    "This Space is dedicated to the Aave-Chan Initiative (ACI - Aavechan.eth), a delegate platform. Aave users that delegated their governance power to ACI will get access to gifts and premium features. Delegators are classified in 3 categories (level 1, 2, 3). Eligibility group has been generated once on June 26, 2023. Level 1 represents delegators with >= 50 tokens delegated, level 2 with >= 250 and level 3 with >= 1,000.",
   profileImage: "space_aave_chan_initiative_pfp_400x400.png",
   coverImage: "space_aave_chan_initiative_cover_1740x540.png",
   socialLinks: [
@@ -24,7 +24,7 @@ export const aaveChanInitiativeConfig: SpaceConfig = {
       saveClaims: true,
       name: "ACI Chads Swag Claim",
       description:
-        "Enter your delivery address to claim your Aave-Chan Initiative Chads Swag - without doxxing your wallet 👀 Don't forget to share your highest levels to get more swags!",
+        "Enter your delivery address to claim your Aave-Chan Initiative Chads Swag - without doxxing your wallet 👀 Don't forget to share all your levels to get more swags!",
       tags: ["Swag"],
       image: "aave_chan_initiative_apps_swag_1014x720.png",
       CTAText: "Claim your Swag",

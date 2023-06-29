@@ -11,6 +11,7 @@ import AppCardLarge from "../AppCardLarge";
 import SpaceCard from "../SpaceCard";
 import AppCardSmall from "../AppCardSmall";
 import App from "next/app";
+import AppListGrid from "../Layouts/AppListGrid";
 
 const Container = styled.main`
   display: flex;
@@ -115,20 +116,6 @@ const SpaceFlex = styled.div`
   }
 `;
 
-const NewAppsGrid = styled.div`
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 32px;
-  row-gap: 64px;
-
-  @media (max-width: 900px) {
-    grid-template-columns: repeat(1, minmax(0, 1fr));
-    row-gap: 46px;
-    padding: 0 20px;
-  }
-`;
-
 const StyledAppCardSmall = styled(AppCardSmall)<{ $isSeparator: boolean }>`
   &::after {
     content: "";
@@ -149,6 +136,12 @@ const StyledAppCardSmall = styled(AppCardSmall)<{ $isSeparator: boolean }>`
     &:last-child::after {
       display: none;
     }
+  }
+`;
+
+const StyledAppListGrid = styled(AppListGrid)`
+  @media (max-width: 900px) {
+    padding: 0 20px !important;
   }
 `;
 
@@ -175,7 +168,7 @@ export default function HomeMain({ configs, apps }: Props): JSX.Element {
       <Section>
         <TitleLine>
           <Title>Featured apps</Title>
-          <ExploreAll href="/popular">Explore all</ExploreAll>
+          <ExploreAll href="/explore">Explore all</ExploreAll>
         </TitleLine>
         <SlideGrid>
           {featuredApps.length > 0 &&
@@ -187,10 +180,10 @@ export default function HomeMain({ configs, apps }: Props): JSX.Element {
       <Section>
         <TitleLine>
           <Title>New apps</Title>
-          <ExploreAll href="/popular">Explore all</ExploreAll>
+          <ExploreAll href="/explore/apps">Explore all</ExploreAll>
         </TitleLine>
 
-        <NewAppsGrid>
+        <StyledAppListGrid>
           {newApps.length > 0 &&
             newApps.map((app, index) => (
               <StyledAppCardSmall
@@ -204,12 +197,12 @@ export default function HomeMain({ configs, apps }: Props): JSX.Element {
                 }
               />
             ))}
-        </NewAppsGrid>
+        </StyledAppListGrid>
       </Section>
       <Section>
         <TitleLine>
           <Title>Spaces</Title>
-          <ExploreAll href="/popular">Explore all</ExploreAll>
+          <ExploreAll href="/explore/spaces">Explore all</ExploreAll>
         </TitleLine>
         <SpaceFlex>
           {firstFiver.map((config) => (

@@ -45,7 +45,9 @@ type AppCommonConfig = {
 
   envs: Env[];
   disabled?: boolean; // default false
+
   userSelection?: UserSelection; // default none
+  appId?: string; // default none
 };
 
 export type UserSelection = FirstComeFirstServed | Lottery;

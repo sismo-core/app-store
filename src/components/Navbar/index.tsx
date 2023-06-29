@@ -33,6 +33,11 @@ const NavLink = styled(Link)`
   font-family: ${(props) => props.theme.fonts.medium};
   color: ${(props) => props.theme.colors.neutral1};
   line-height: 20px;
+
+  &:hover {
+    color: ${(props) => props.theme.colors.neutral1};
+
+  }
 `;
 
 export default function Navbar(): JSX.Element {

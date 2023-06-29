@@ -7,6 +7,8 @@ import useRemainingTime from "@/src/utils/useRemainingTime";
 import { Clock } from "phosphor-react";
 import { getHumanReadableRemainingTimeTag } from "@/src/utils/getHumanReadableTimeTag";
 import SpaceTag from "../SpaceTag";
+import { useState } from "react";
+import colors from "@/src/themes/colors";
 
 const Container = styled.div<{ $isDisabled: boolean }>`
   position: relative;
@@ -19,7 +21,8 @@ const Container = styled.div<{ $isDisabled: boolean }>`
   width: 100%;
   color: ${({ theme, $isDisabled }) =>
     $isDisabled ? theme.colors.neutral5 : theme.colors.neutral1};
-  transition: background-color ${({ theme }) => theme.animations.transition};
+  transition: background-color ${({ theme }) => theme.animations.transition},
+    transform 0.2s ease-in-out;
   cursor: ${({ $isDisabled }) => ($isDisabled ? "default" : "pointer")};
 
   @media (max-width: 900px) {
@@ -98,20 +101,25 @@ const DescriptionContainer = styled.div`
 
 const AppTitle = styled.h3`
   color: inherit;
-  font-size: 20px;
+  font-size: 18px;
   font-family: ${({ theme }) => theme.fonts.semibold};
   font-weight: 600;
-  line-height: 24px;
+  line-height: 22px;
   margin-bottom: 4px;
   ${textShorten(2)}
+
+  @media (max-width: 900px) {
+    font-size: 16px;
+    line-height: 20px;
+  }
 `;
 
 const Description = styled.p<{ $isDisabled: boolean }>`
   color: ${({ theme, $isDisabled }) =>
     $isDisabled ? theme.colors.neutral5 : theme.colors.neutral4};
-  font-size: 14px;
+  font-size: 12px;
   font-family: ${({ theme }) => theme.fonts.regular};
-  line-height: 20px;
+  line-height: 18px;
   ${textShorten(2)}
   margin-top: 8px;
 
@@ -161,15 +169,16 @@ const Right = styled.div`
   align-self: flex-end;
   align-items: stretch;
   justify-content: space-between;
-  flex-shrink: 1;
+  flex-shrink: 0;
   flex-grow: 1;
+  min-width: 77px;
 
   @media (max-width: 900px) {
     display: none;
   }
 `;
 
-const TagRightContainer = styled.div`
+const TagRightContainer = styled.div<{ $isHovered: boolean }>`
   position: absolute;
   top: 0;
   right: 0;
@@ -180,10 +189,21 @@ const TagRightContainer = styled.div`
   flex-wrap: wrap;
   flex-shrink: 1;
   flex-grow: 1;
+  transition: transform 0.2s ease-in-out;
+  transform: ${({ $isHovered }) =>
+    $isHovered ? "translate(0px, -3px)" : "translate(0, 0)"};
 
   @media (max-width: 900px) {
     display: none;
   }
+`;
+
+const StyledAppTag = styled(AppTag)<{ $isHovered: boolean }>`
+  transform: background-color 0.1s ease-in-out;
+  background-color: ${({ theme, $isHovered }) =>
+    $isHovered ? theme.colors.neutral10 : "transparent"};
+  border-color: ${({ theme, $isHovered }) =>
+    $isHovered ? theme.colors.neutral5 : theme.colors.neutral6};
 `;
 
 type Props = {
@@ -192,6 +212,8 @@ type Props = {
 };
 
 export default function AppCardLarge({ app, className }: Props): JSX.Element {
+  const [isHovered, setIsHovered] = useState(false);
+
   const { remainingStartTime, remainingEndTime, hasStarted, hasEnded } =
     useRemainingTime({ startDate: app?.startDate, endDate: app?.endDate });
 
@@ -204,7 +226,12 @@ export default function AppCardLarge({ app, className }: Props): JSX.Element {
 
   if (app)
     return (
-      <Container $isDisabled={isDisabled} className={className}>
+      <Container
+        $isDisabled={isDisabled}
+        className={className}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
         <ImageContainer $isDisabled={isDisabled}>
           {app.image && app.name && (
             <StyledImage
@@ -227,7 +254,11 @@ export default function AppCardLarge({ app, className }: Props): JSX.Element {
                     </AppTag>
                   )}
                   {app.tags?.length > 0 &&
-                    app.tags.map((tag) => <AppTag key={tag}>{tag}</AppTag>)}
+                    app.tags.map((tag) => (
+                      <AppTag key={tag}>
+                        {tag}
+                      </AppTag>
+                    ))}
                 </TagContainer>
               )}
               <DescriptionContainer>
@@ -243,11 +274,11 @@ export default function AppCardLarge({ app, className }: Props): JSX.Element {
               </DescriptionContainer>
             </TitleAndDescription>
 
-            {(maxNumberOfEntries ||
+            {((maxNumberOfEntries && !hasEnded) ||
               (hasStarted && !hasEnded && remainingEndTime) ||
               (!hasStarted && !hasEnded && remainingStartTime)) && (
               <BottomLine>
-                {maxNumberOfEntries && (
+                {maxNumberOfEntries && !hasEnded && (
                   <BottomItem>{maxNumberOfEntries} available</BottomItem>
                 )}
                 {hasStarted && !hasEnded && remainingEndTime && (
@@ -271,22 +302,24 @@ export default function AppCardLarge({ app, className }: Props): JSX.Element {
           </Left>
           <Right>
             {(hasEnded || app.tags?.length > 0) && (
-              <TagRightContainer>
+              <TagRightContainer $isHovered={isHovered && !hasEnded}>
                 {hasEnded && (
-                  <AppTag>
+                  <StyledAppTag $isHovered={isHovered && !hasEnded}>
                     {" "}
                     <Clock size="14" style={{ flexShrink: 0 }} /> Expired
-                  </AppTag>
+                  </StyledAppTag>
                 )}
                 {app.tags?.length > 0 &&
-                  app.tags.map((tag) => <AppTag key={tag}>{tag}</AppTag>)}
+                  app.tags.map((tag) =>  <StyledAppTag key={tag} $isHovered={isHovered && !hasEnded}>
+                  {tag}
+                </StyledAppTag>)}
               </TagRightContainer>
             )}
-            {(maxNumberOfEntries ||
+            {((maxNumberOfEntries && !hasEnded) ||
               (hasStarted && !hasEnded && remainingEndTime) ||
               (!hasStarted && !hasEnded && remainingStartTime)) && (
               <BottomRight>
-                {maxNumberOfEntries && (
+                {maxNumberOfEntries && !hasEnded && (
                   <BottomItem>{maxNumberOfEntries} available</BottomItem>
                 )}
                 {hasStarted && !hasEnded && remainingEndTime && (

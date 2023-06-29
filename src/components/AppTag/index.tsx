@@ -17,12 +17,13 @@ padding: 3px 7px;
 
 type Props = {
   children: React.ReactNode;
+  className?: string;
 }
 
-export default function AppTag({children} : Props): JSX.Element {
+export default function AppTag({children, className} : Props): JSX.Element {
 
   return (
-    <Container>
+    <Container className={className}>
       {children}
     </Container>
   );

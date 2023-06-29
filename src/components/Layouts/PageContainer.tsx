@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { styled } from "styled-components";
 
 export const Container = styled.div<{ $scrollBarWidth: number }>`
+margin: 0 auto;
   max-width: 1280px;
   @media (min-width: 1281px) {
     min-width: 1280px;

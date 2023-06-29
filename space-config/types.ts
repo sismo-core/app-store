@@ -8,7 +8,7 @@ export type SpaceConfig = {
   profileImage?: string; // 160x160px can be an url or local file
   coverImage?: string; // 1440x340px can be an url or local file
 
-  tags: string[]; // 5 tags max
+  tags?: string[]; // 5 tags max
   socialLinks?: {
     type: SocialType;
     link: string;

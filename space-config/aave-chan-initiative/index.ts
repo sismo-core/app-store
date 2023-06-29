@@ -24,7 +24,7 @@ export const aaveChanInitiativeConfig: SpaceConfig = {
       saveClaims: true,
       name: "ACI Chads Swag Claim",
       description:
-        "Enter your delivery address to claim your Aave-Chan Initiative Chads Swag - without doxxing your wallet 👀 Don't forget to share your 'Aavechan Delegators' highest level to get more swags!",
+        "Enter your delivery address to claim your Aave-Chan Initiative Chads Swag - without doxxing your wallet 👀 Don't forget to share your highest levels to get more swags!",
       tags: ["Swag"],
       image: "aave_chan_initiative_apps_swag_1014x720.png",
       CTAText: "Claim your Swag",
@@ -69,7 +69,7 @@ export const aaveChanInitiativeConfig: SpaceConfig = {
         },
         {
           type: "short-text",
-          label: "(Optional) T-shirt size - only if shared value >= 2",
+          label: "(Optional) T-shirt size - only if >= 250 tokens delegated",
           placeholder: "XS/S/M/L/XL (EU Sizes)",
           helperText: "If you're US, take one Size above your usual one",
           isRequired: false,
@@ -88,7 +88,17 @@ export const aaveChanInitiativeConfig: SpaceConfig = {
       claimRequests: [
         {
           groupId: "0xf0285dcfe412b24a6ac9a1c365b7b35d",
-          isSelectableByUser: true
+          value: 50,
+        },
+        {
+          groupId: "0xf0285dcfe412b24a6ac9a1c365b7b35d",
+          isOptional: true,
+          value: 250,
+        },
+        {
+          groupId: "0xf0285dcfe412b24a6ac9a1c365b7b35d",
+          isOptional: true,
+          value: 1000,
         }
       ],
       demo: {

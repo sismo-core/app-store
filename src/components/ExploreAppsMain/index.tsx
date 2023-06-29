@@ -1,7 +1,5 @@
 "use client";
-import {
-  AppFront,
-} from "@/src/app/(home)/page";
+import { AppFront } from "@/src/app/(home)/page";
 import styled from "styled-components";
 import AppCardSmall from "../AppCardSmall";
 import AppListGrid from "../Layouts/AppListGrid";
@@ -31,7 +29,9 @@ const FilterWrapper = styled.div`
   }
 `;
 
-const StyledAppCardSmall = styled(AppCardSmall)<{ $isSeparator: boolean }>`
+const CardContainer = styled.div<{ $isSeparator: boolean }>`
+position: relative;
+width: 100%;
   &::after {
     content: "";
     display: ${({ $isSeparator }) => ($isSeparator ? "block" : "none")};
@@ -83,18 +83,20 @@ const NotFound = styled.div`
   line-height: 20px;
 `;
 
-const StyledCaretDown = styled(CaretDown)<{$isHovered: boolean}>`
-  animation:  ${({ $isHovered }) => $isHovered ? "translate .8s infinite" : "none"};
+const StyledCaretDown = styled(CaretDown)<{ $isHovered: boolean }>`
+  animation: ${({ $isHovered }) =>
+    $isHovered ? "translate .8s infinite" : "none"};
 
-  @keyframes translate{
-    0%{
+  @keyframes translate {
+    0% {
       transform: translateY(0px);
     }
-    50%{  
+    50% {
       transform: translateY(5px);
     }
-    100%{
-      transform: translateY(0px);}
+    100% {
+      transform: translateY(0px);
+    }
   }
 `;
 
@@ -112,11 +114,13 @@ export default function ExploreAppsMain({ apps }: Props): JSX.Element {
     useState<AppFront[]>(apps);
   const [filteredApps, setFilteredApps] = useState<AppFront[]>(apps);
   const [selectedTag, setSelectedTag] = useState<string>("");
-  const [displayedApps, setDisplayedApps] = useState<AppFront[]>(apps.slice(0, BATCH));
+  const [displayedApps, setDisplayedApps] = useState<AppFront[]>(
+    apps.slice(0, BATCH)
+  );
   const [loadMore, setLoadMore] = useState<number>(0);
 
   for (const app of apps) {
-    if(!app?.tags) continue;
+    if (!app?.tags) continue;
     for (const tag of app.tags) {
       if (
         !tagOptions.find(
@@ -144,8 +148,12 @@ export default function ExploreAppsMain({ apps }: Props): JSX.Element {
 
   function onUserInput(input: string) {
     setSearchInput(input);
-    const _filteredApps = searchInApps({ searchString: input, apps: selectedFromTagsApps });
+    const _filteredApps = searchInApps({
+      searchString: input,
+      apps: selectedFromTagsApps,
+    });
     setFilteredApps(_filteredApps);
+    setDisplayedApps(filteredApps?.slice(0, BATCH + loadMore * BATCH) || []);
   }
 
   useEffect(() => {
@@ -157,7 +165,7 @@ export default function ExploreAppsMain({ apps }: Props): JSX.Element {
     setDisplayedApps(filteredApps?.slice(0, BATCH + loadMore * BATCH) || []);
   }, [filteredApps, loadMore]);
 
-  const isLoadMore = filteredApps?.length > displayedApps?.length;
+  const isLoadMore = filteredApps?.length > displayedApps?.length && displayedApps.length > 0 ;
 
   return (
     <Container>
@@ -177,32 +185,34 @@ export default function ExploreAppsMain({ apps }: Props): JSX.Element {
       {displayedApps.length > 0 && (
         <AppListGrid>
           {displayedApps.map((app, index) => (
-            <StyledAppCardSmall
+            <CardContainer
               key={app.slug + index}
-              app={app}
               $isSeparator={
                 displayedApps.length % 2 === 0
                   ? index !== displayedApps.length - 1 &&
                     index !== displayedApps.length - 2
                   : index !== displayedApps.length - 1
               }
-            />
+            >
+              <AppCardSmall app={app} />
+            </CardContainer>
           ))}
         </AppListGrid>
       )}
       {displayedApps.length === 0 && (
         <NotFound>
           <MagnifyingGlass size={32} />
-          {`We can't find a result for '${searchInput}'`}
+          {`We can't find a result for "${searchInput}"`}
         </NotFound>
       )}
-      {isLoadMore && (
-        <LoadMore onClick={() => setLoadMore((curr) => curr + 1)} 
-        onMouseEnter={() => setLoadMoreHovered(true)}
-        onMouseLeave={() => setLoadMoreHovered(false)}
+      {isLoadMore &&  (
+        <LoadMore
+          onClick={() => setLoadMore((curr) => curr + 1)}
+          onMouseEnter={() => setLoadMoreHovered(true)}
+          onMouseLeave={() => setLoadMoreHovered(false)}
         >
           Load more
-          <StyledCaretDown size={20} $isHovered={loadMoreHovered}/>
+          <StyledCaretDown size={20} $isHovered={loadMoreHovered} />
         </LoadMore>
       )}
     </Container>

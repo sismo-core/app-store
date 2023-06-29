@@ -8,9 +8,9 @@ import { Clock } from "phosphor-react";
 import { getHumanReadableRemainingTimeTag } from "@/src/utils/getHumanReadableTimeTag";
 import SpaceTag from "../SpaceTag";
 import { useState } from "react";
-import colors from "@/src/themes/colors";
 
-const Container = styled.div<{ $isDisabled: boolean }>`
+
+const Container = styled.div<{ $isDisabled: boolean, $isHovered: boolean }>`
   position: relative;
   display: flex;
   align-items: center;
@@ -22,15 +22,20 @@ const Container = styled.div<{ $isDisabled: boolean }>`
   color: ${({ theme, $isDisabled }) =>
     $isDisabled ? theme.colors.neutral5 : theme.colors.neutral1};
   transition: background-color ${({ theme }) => theme.animations.transition},
-    transform 0.2s ease-in-out;
+    transform ${({ theme }) => theme.animations.transition};
   cursor: ${({ $isDisabled }) => ($isDisabled ? "default" : "pointer")};
+
+  transition: transform ${({ theme }) => theme.animations.transition};
+  transform: ${({ $isHovered }) =>
+    $isHovered ? "scale(1.01)" : "scale(1)"};
 
   @media (max-width: 900px) {
     gap: 12px;
+    transform: none;
   }
 `;
 
-const ImageContainer = styled.div<{ $isDisabled: boolean }>`
+const ImageContainer = styled.div<{ $isDisabled: boolean}>`
   position: relative;
   overflow: hidden;
   width: 88px;
@@ -45,8 +50,14 @@ const ImageContainer = styled.div<{ $isDisabled: boolean }>`
   }
 `;
 
-const StyledImage = styled(Image)`
+const StyledImage = styled(Image)<{ $isHovered: boolean }>`
   object-fit: cover;
+  transition: filter ${({ theme }) => theme.animations.transition};
+  filter: ${({ $isHovered }) => ($isHovered ? "brightness(1.04) contrast(1.05)" : "brightness(1) contrast(1)")};
+
+  @media (max-width: 900px) {
+    filter: none;
+  }
 `;
 
 const Content = styled.div`
@@ -99,7 +110,7 @@ const DescriptionContainer = styled.div`
   flex-grow: 1;
 `;
 
-const AppTitle = styled.h3`
+const AppTitle = styled.h3<{$isHovered : boolean}>`
   color: inherit;
   font-size: 18px;
   font-family: ${({ theme }) => theme.fonts.semibold};
@@ -178,7 +189,7 @@ const Right = styled.div`
   }
 `;
 
-const TagRightContainer = styled.div<{ $isHovered: boolean }>`
+const TagRightContainer = styled.div`
   position: absolute;
   top: 0;
   right: 0;
@@ -189,9 +200,6 @@ const TagRightContainer = styled.div<{ $isHovered: boolean }>`
   flex-wrap: wrap;
   flex-shrink: 1;
   flex-grow: 1;
-  transition: transform 0.2s ease-in-out;
-  transform: ${({ $isHovered }) =>
-    $isHovered ? "translate(0px, -3px)" : "translate(0, 0)"};
 
   @media (max-width: 900px) {
     display: none;
@@ -204,6 +212,11 @@ const StyledAppTag = styled(AppTag)<{ $isHovered: boolean }>`
     $isHovered ? theme.colors.neutral10 : "transparent"};
   border-color: ${({ theme, $isHovered }) =>
     $isHovered ? theme.colors.neutral5 : theme.colors.neutral6};
+
+  @media (max-width: 900px) {
+    background-color: transparent;
+    border-color: ${({ theme }) => theme.colors.neutral6};
+  }
 `;
 
 type Props = {
@@ -231,10 +244,12 @@ export default function AppCardLarge({ app, className }: Props): JSX.Element {
         className={className}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
+        $isHovered={isHovered && !isDisabled}
       >
         <ImageContainer $isDisabled={isDisabled}>
           {app.image && app.name && (
             <StyledImage
+            $isHovered={isHovered}
               src={app.image}
               alt={app.name}
               fill={true}
@@ -262,7 +277,7 @@ export default function AppCardLarge({ app, className }: Props): JSX.Element {
                 </TagContainer>
               )}
               <DescriptionContainer>
-                {app.name && <AppTitle>{app.name}</AppTitle>}
+                {app.name && <AppTitle $isHovered={isHovered}>{app.name}</AppTitle>}
                 {app.configImage && app.space && (
                   <SpaceTag app={app} isDisabled={isDisabled} />
                 )}
@@ -302,7 +317,7 @@ export default function AppCardLarge({ app, className }: Props): JSX.Element {
           </Left>
           <Right>
             {(hasEnded || app.tags?.length > 0) && (
-              <TagRightContainer $isHovered={isHovered && !hasEnded}>
+              <TagRightContainer>
                 {hasEnded && (
                   <StyledAppTag $isHovered={isHovered && !hasEnded}>
                     {" "}

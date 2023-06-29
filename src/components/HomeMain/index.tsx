@@ -116,7 +116,9 @@ const SpaceFlex = styled.div`
   }
 `;
 
-const StyledAppCardSmall = styled(AppCardSmall)<{ $isSeparator: boolean }>`
+const CardContainer = styled.div<{ $isSeparator: boolean }>`
+  position: relative;
+  width: 100%;
   &::after {
     content: "";
     display: ${({ $isSeparator }) => ($isSeparator ? "block" : "none")};
@@ -186,16 +188,17 @@ export default function HomeMain({ configs, apps }: Props): JSX.Element {
         <StyledAppListGrid>
           {newApps.length > 0 &&
             newApps.map((app, index) => (
-              <StyledAppCardSmall
+              <CardContainer
                 key={app.slug}
-                app={app}
                 $isSeparator={
                   newApps.length % 2 === 0
                     ? index !== newApps.length - 1 &&
                       index !== newApps.length - 2
                     : index !== newApps.length - 1
                 }
-              />
+              >
+                <AppCardSmall app={app} />
+              </CardContainer>
             ))}
         </StyledAppListGrid>
       </Section>

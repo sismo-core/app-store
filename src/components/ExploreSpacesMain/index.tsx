@@ -1,16 +1,15 @@
 "use client";
-import {
-  AppFront,
-} from "@/src/app/(home)/page";
+import { SpaceConfigFront } from "@/src/app/(home)/page";
 import styled from "styled-components";
 import AppCardSmall from "../AppCardSmall";
 import AppListGrid from "../Layouts/AppListGrid";
 import SearchInput from "@/src/ui/SearchInput";
-import { useEffect, useState } from "react";
-import { searchInApps } from "@/src/utils/searchInApps";
+import { use, useEffect, useState } from "react";
 import { CaretDown, MagnifyingGlass } from "phosphor-react";
 import Select, { SelectOption } from "@/src/ui/Select";
 import capitalizeFirstLetter from "@/src/utils/capitalizeFirstLetter";
+import { searchInSpaceConfigs } from "@/src/utils/searchInSpaceConfigs";
+import SpaceCard from "../SpaceCard";
 
 const Container = styled.div`
   flex-grow: 1;
@@ -54,6 +53,12 @@ const StyledAppCardSmall = styled(AppCardSmall)<{ $isSeparator: boolean }>`
   }
 `;
 
+const Flex = styled.div`
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+`;
+
 const LoadMore = styled.div`
   align-self: center;
   display: flex;
@@ -83,41 +88,52 @@ const NotFound = styled.div`
   line-height: 20px;
 `;
 
-const StyledCaretDown = styled(CaretDown)<{$isHovered: boolean}>`
-  animation:  ${({ $isHovered }) => $isHovered ? "translate .8s infinite" : "none"};
+const StyledSpaceCard = styled(SpaceCard)`
+  @media (max-width: 900px) {
+    width: 100%;
+  }
+`;
 
-  @keyframes translate{
-    0%{
+const StyledCaretDown = styled(CaretDown)<{ $isHovered: boolean }>`
+  animation: ${({ $isHovered }) =>
+    $isHovered ? "translate .8s infinite" : "none"};
+
+  @keyframes translate {
+    0% {
       transform: translateY(0px);
     }
-    50%{  
+    50% {
       transform: translateY(5px);
     }
-    100%{
-      transform: translateY(0px);}
+    100% {
+      transform: translateY(0px);
+    }
   }
 `;
 
 type Props = {
-  apps: AppFront[];
+  configs: SpaceConfigFront[];
 };
 
-export default function ExploreAppsMain({ apps }: Props): JSX.Element {
-  const BATCH = 14;
+export default function ExploreSpacesMain({ configs }: Props): JSX.Element {
+  const BATCH = 20;
 
   const [loadMoreHovered, setLoadMoreHovered] = useState<boolean>(false);
   const tagOptions: SelectOption[] = [{ label: "All", value: "" }];
   const [searchInput, setSearchInput] = useState("");
-  const [selectedFromTagsApps, setSelectedFromTagsApps] =
-    useState<AppFront[]>(apps);
-  const [filteredApps, setFilteredApps] = useState<AppFront[]>(apps);
+  const [selectedFromTagsSpaces, setSelectedFromTagsSpaces] =
+    useState<SpaceConfigFront[]>(configs);
+  const [filteredSpaces, setFilteredSpaces] =
+    useState<SpaceConfigFront[]>(configs);
   const [selectedTag, setSelectedTag] = useState<string>("");
-  const [displayedApps, setDisplayedApps] = useState<AppFront[]>(apps.slice(0, BATCH));
+  const [displayedSpaces, setDisplayedSpaces] = useState<SpaceConfigFront[]>(
+    configs.slice(0, BATCH)
+  );
   const [loadMore, setLoadMore] = useState<number>(0);
 
-  for (const app of apps) {
-    if(!app?.tags) continue;
-    for (const tag of app.tags) {
+  for (const config of configs) {
+    if (!config?.tags) continue;
+    for (const tag of config?.tags) {
       if (
         !tagOptions.find(
           (option) => option.value?.toLowerCase() === tag.toLowerCase()
@@ -133,37 +149,42 @@ export default function ExploreAppsMain({ apps }: Props): JSX.Element {
 
   function onSelectTag(tag: string) {
     setSelectedTag(tag);
-    const _filteredApps = apps.filter((app) => {
+    const _filteredSpaces = configs.filter((app) => {
       if (tag === "") {
         return true;
       }
       return app.tags.map((tag) => tag.toLowerCase()).includes(tag);
     });
-    setSelectedFromTagsApps(_filteredApps);
+    setSelectedFromTagsSpaces(_filteredSpaces);
   }
 
   function onUserInput(input: string) {
     setSearchInput(input);
-    const _filteredApps = searchInApps({ searchString: input, apps: selectedFromTagsApps });
-    setFilteredApps(_filteredApps);
+    const _filteredSpaces = searchInSpaceConfigs({
+      searchString: input,
+      spaceConfigs: selectedFromTagsSpaces,
+    });
+    setFilteredSpaces(_filteredSpaces);
   }
 
   useEffect(() => {
     setSearchInput("");
-    setFilteredApps(selectedFromTagsApps);
-  }, [selectedFromTagsApps]);
+    setFilteredSpaces(selectedFromTagsSpaces);
+  }, [selectedFromTagsSpaces]);
 
   useEffect(() => {
-    setDisplayedApps(filteredApps?.slice(0, BATCH + loadMore * BATCH) || []);
-  }, [filteredApps, loadMore]);
+    setDisplayedSpaces(
+      filteredSpaces?.slice(0, BATCH + loadMore * BATCH) || []
+    );
+  }, [filteredSpaces, loadMore]);
 
-  const isLoadMore = filteredApps?.length > displayedApps?.length;
+  const isLoadMore = filteredSpaces?.length > displayedSpaces?.length;
 
   return (
     <Container>
       <FilterWrapper>
         <SearchInput
-          placeholder="Search for apps"
+          placeholder="Search for Spaces"
           value={searchInput}
           onChange={onUserInput}
         />
@@ -174,35 +195,27 @@ export default function ExploreAppsMain({ apps }: Props): JSX.Element {
         />
       </FilterWrapper>
 
-      {displayedApps.length > 0 && (
-        <AppListGrid>
-          {displayedApps.map((app, index) => (
-            <StyledAppCardSmall
-              key={app.slug + index}
-              app={app}
-              $isSeparator={
-                displayedApps.length % 2 === 0
-                  ? index !== displayedApps.length - 1 &&
-                    index !== displayedApps.length - 2
-                  : index !== displayedApps.length - 1
-              }
-            />
+      {displayedSpaces.length > 0 && (
+        <Flex>
+          {displayedSpaces.map((config, index) => (
+            <StyledSpaceCard key={index} config={config} />
           ))}
-        </AppListGrid>
+        </Flex>
       )}
-      {displayedApps.length === 0 && (
+      {displayedSpaces.length === 0 && (
         <NotFound>
           <MagnifyingGlass size={32} />
           {`We can't find a result for '${searchInput}'`}
         </NotFound>
       )}
       {isLoadMore && (
-        <LoadMore onClick={() => setLoadMore((curr) => curr + 1)} 
-        onMouseEnter={() => setLoadMoreHovered(true)}
-        onMouseLeave={() => setLoadMoreHovered(false)}
+        <LoadMore
+          onClick={() => setLoadMore((curr) => curr + 1)}
+          onMouseEnter={() => setLoadMoreHovered(true)}
+          onMouseLeave={() => setLoadMoreHovered(false)}
         >
           Load more
-          <StyledCaretDown size={20} $isHovered={loadMoreHovered}/>
+          <StyledCaretDown size={20} $isHovered={loadMoreHovered} />
         </LoadMore>
       )}
     </Container>

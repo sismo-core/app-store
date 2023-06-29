@@ -60,11 +60,12 @@ const NumberOfApps = styled.div`
 
 type Props = {
   config: SpaceConfigFront;
+  className?: string;
 };
 
-export default function SpaceCard({ config }: Props): JSX.Element {
+export default function SpaceCard({ config, className }: Props): JSX.Element {
   return (
-    <Container href={`/${config.slug}`}>
+    <Container href={`/${config.slug}`} className={className}>
       <ProfileImageContainer>
         <Image
           src={config.profileImage}

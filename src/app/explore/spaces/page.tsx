@@ -3,7 +3,7 @@ import getImgSrcFromConfig, {
   ImportedNextImage,
 } from "@/src/utils/getImgSrcFromConfig";
 import { App, SpaceConfig } from "@/space-config/types";
-import ExploreMain from "@/src/components/ExploreAppsMain";
+import ExploreSpacesMain from "@/src/components/ExploreSpacesMain";
 
 export type SpaceImportedImage = {
   config: SpaceConfig;
@@ -55,8 +55,6 @@ export type SpaceConfigFront = Omit<
 export default async function ExplorePage() {
   const configs = getSpacesConfigs();
 
-  const apps: AppFront[] = [];
-
   const spaceConfigsFront: SpaceConfigFront[] = await Promise.all(
     configs.map(async (config) => {
       const profileImage = await getImgSrcFromConfig({
@@ -90,15 +88,7 @@ export default async function ExplorePage() {
     })
   );
 
-  for (const config of spaceConfigsFront) {
-    for (const app of config.apps) {
-      apps.push(app)
-    }
-  }
-
   return (
-    <>
-      <ExploreMain configs={spaceConfigsFront} apps={apps} />
-    </>
+      <ExploreSpacesMain configs={spaceConfigsFront} />
   );
 }

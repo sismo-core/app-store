@@ -34,9 +34,11 @@ const NavLink = styled(Link)`
   color: ${(props) => props.theme.colors.neutral1};
   line-height: 20px;
 
-  &:hover {
-    color: ${(props) => props.theme.colors.neutral1};
-
+  transition: color ${(props) => props.theme.animations.transition};
+  
+  &:hover,
+  &:active {
+    color: ${({ theme }) => theme.colors.neutral3};
   }
 `;
 

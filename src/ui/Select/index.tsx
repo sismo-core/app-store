@@ -3,7 +3,7 @@ import { CaretDown } from "phosphor-react";
 import { useRef, useState } from "react";
 import styled from "styled-components";
 
-const Container = styled.div`
+const Container = styled.div<{$isDisabled: boolean}>`
   position: relative;
   display: flex;
   justify-content: space-between;
@@ -18,7 +18,7 @@ const Container = styled.div`
   font-size: 14px;
   font-family: ${({ theme }) => theme.fonts.medium};
   line-height: 20px;
-  cursor: pointer;
+  cursor: ${({ $isDisabled }) => $isDisabled ? 'default' : 'pointer'};
 
   @media (max-width: 900px) {
   width: 100%;
@@ -81,10 +81,12 @@ export default function Select({
   useOnClickOutside(ref, () => setIsOpen(false));
   const optionsWithoutSelected = options.filter(option => option.value !== value);
 
+  const isDisabled = Boolean(optionsWithoutSelected?.length === 0);
+
   return (
-    <Container ref={ref} onClick={() => setIsOpen(!isOpen)}>
+    <Container ref={ref} onClick={ () => !isDisabled && setIsOpen(!isOpen)} $isDisabled={isDisabled} >
       {label}
-      <StyledCaret $isOpen={isOpen} size={20} />
+      {!isDisabled && <StyledCaret $isOpen={isOpen} size={20} />}
       {isOpen && 
       <Dropdown>
         {optionsWithoutSelected.map((option) => (

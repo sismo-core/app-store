@@ -4,7 +4,6 @@ import { MagnifyingGlass, X } from "phosphor-react";
 const Container = styled.div`
   position: relative;
   width: 100%;
-
 `;
 
 const Input = styled.input`
@@ -12,17 +11,13 @@ const Input = styled.input`
   padding: 8px 12px;
   border-radius: 4px;
   border: 1px solid ${({ theme }) => theme.colors.neutral7};
-
-  border: 1px solid ${({ theme }) => theme.colors.neutral7};
-padding: 7px 12px 7px 44px;
-
+  padding: 7px 12px 7px 44px;
   color: inherit;
   font-size: 14px;
   font-family: ${({ theme }) => theme.fonts.medium};
   line-height: 20px;
-
-
-    background: transparent;
+  background: transparent;
+  transition: border ${({ theme }) => theme.animations.transition};
 
   &:focus {
     outline: none;
@@ -39,21 +34,21 @@ padding: 7px 12px 7px 44px;
 `;
 
 const StyledSearch = styled(MagnifyingGlass)`
-position: absolute;
-left: 12px;
-top: calc(50% - 10px);
+  position: absolute;
+  left: 12px;
+  top: calc(50% - 10px);
 `;
 
 const StyledX = styled(X)`
-position: absolute;
-right: 12px;
-top: calc(50% - 10px);
-cursor: pointer;
-transition: transform ${({ theme }) => theme.animations.transition};
+  position: absolute;
+  right: 12px;
+  top: calc(50% - 10px);
+  cursor: pointer;
+  transition: transform ${({ theme }) => theme.animations.transition};
 
-&:active {
-  transform: scale(0.9);
-}
+  &:active {
+    transform: scale(0.9);
+  }
 `;
 
 type Props = {
@@ -76,7 +71,13 @@ export default function SearchInput({
   return (
     <Container className={className}>
       <StyledSearch size={20} weight="bold" />
-      {value && <StyledX size={20} weight="bold" onClick={(e) => onChange && onChange("")}/>}
+      {value && (
+        <StyledX
+          size={20}
+          weight="bold"
+          onClick={(e) => onChange && onChange("")}
+        />
+      )}
       <Input
         onChange={(e) => onChange && onChange(e.target.value)}
         onBlur={onBlur}

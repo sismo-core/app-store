@@ -97,6 +97,6 @@ export default async function ExplorePage() {
   }
 
   return (
-      <ExploreAppsMain configs={spaceConfigsFront} apps={apps} />
+      <ExploreAppsMain apps={apps} />
   );
 }

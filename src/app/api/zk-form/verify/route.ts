@@ -14,7 +14,6 @@ import { ZkFormAppType, getSpace } from "@/src/libs/spaces";
 const spreadSheetsInitiated = new Map<string, boolean>();
 
 export async function POST(req: Request) {
-  console.log("///////POST/////////");
   const { fields, response, spaceSlug, appSlug } = await req.json();
   const space = getSpace({ slug: spaceSlug });
   const app = space.apps.find((_app) => _app.type === "zk-form" && _app.slug === appSlug);
@@ -25,9 +24,7 @@ export async function POST(req: Request) {
       statusText: "Verify not available for other apps than zkForm",
     });
 
-  console.log("////////HERE/////////");
   const store = await getStore(app);
-  console.log("////////AFTER STORE/////////");
 
   let fieldsToAdd = fields;
   if (!env.isDemo) {

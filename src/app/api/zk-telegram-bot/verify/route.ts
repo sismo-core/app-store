@@ -13,7 +13,7 @@ import { UserStore } from "@/src/libs/user-store/store";
 
 export async function POST(req: Request) {
   const { response, spaceSlug, appSlug } = await req.json();
-  console.log({ response, spaceSlug, appSlug });
+
   const space = getSpace({ slug: spaceSlug });
   const app = space?.apps?.find(
     (_app) => _app.type === "zkTelegramBot" && _app.slug === appSlug

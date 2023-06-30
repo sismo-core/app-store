@@ -27,7 +27,6 @@ describe("POST /api/zk-telegram-bot/verify", () => {
   let memoryUserStore: UserStore;
 
   beforeEach(() => {
-    console.log("hello");
     jest.resetModules();
     memoryUserStore = new MemoryUserStore();
     (getSpace as jest.Mock).mockReturnValue(mockSpaceType());

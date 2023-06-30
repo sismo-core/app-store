@@ -30,7 +30,6 @@ describe("[Demo] POST /api/zk-telegram-bot/verify", () => {
       }) as any
     );
     const data = await response.json();
-    console.log("data", data);
     expect(data.status).toEqual("approved");
   });
 });

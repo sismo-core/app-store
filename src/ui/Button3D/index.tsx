@@ -81,8 +81,8 @@ export default function Button({
   return (
     <Container
       $isSecondary={secondary}
-      onClick={() => !disabled && onClick()}
-      disabled={disabled}
+      onClick={() => !disabled && !loading && onClick()}
+      disabled={Boolean(disabled) || Boolean(loading)}
       style={style}
       className={className}
     >

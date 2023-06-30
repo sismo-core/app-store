@@ -1,3 +1,5 @@
+"use client";
+
 import { ReactNode, useState } from "react";
 import styled from "styled-components";
 import { useRef, useEffect } from "react";
@@ -22,7 +24,7 @@ const TipContent = styled.div<{ width?: number }>`
 
   background-color: ${colors.blue9};
   font-size: 14px;
-line-height: 20px;
+  line-height: 20px;
   font-family: ${(props) => props.theme.fonts.medium};
   color: ${(props) => props.theme.colors.neutral1};
   z-index: 30;
@@ -106,6 +108,7 @@ export default function HoverTooltip({
   forcedDirection,
 }: InfoProps): JSX.Element {
   const [isHover, setIsHover] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
   const ref = useRef(null);
   const infoRef = useRef(null);
 
@@ -238,6 +241,12 @@ export default function HoverTooltip({
       document.removeEventListener("scroll", () => setIsHover(false));
     };
   }, []);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) return null;
 
   return (
     <Container

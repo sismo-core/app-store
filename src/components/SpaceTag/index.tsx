@@ -39,7 +39,7 @@ const StyledSpaceImage = styled(Image)`
 
 type Props = {
   app: AppFront;
-  isDisabled: boolean;
+  isDisabled?: boolean;
 };
 
 export default function SpaceTag({

@@ -1,4 +1,5 @@
 
+import { SpaceConfig } from "@/space-config/types";
 import { deepSearch } from "./deepSearch";
 import { SpaceConfigFront } from "./getSpaceConfigsFront";
 
@@ -6,7 +7,7 @@ export const searchInSpaceConfigs = ({
   spaceConfigs,
   searchString,
 }: {
-  spaceConfigs: SpaceConfigFront[];
+  spaceConfigs: any[];
   searchString: string;
 }): SpaceConfigFront[] => {
   if (!searchString) {

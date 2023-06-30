@@ -7,6 +7,8 @@ import { Clock } from "phosphor-react";
 import { getHumanReadableRemainingTimeTag } from "@/src/utils/getHumanReadableTimeTag";
 import SpaceTag from "../SpaceTag";
 import { AppFront } from "@/src/utils/getSpaceConfigsFront";
+import { useRouter } from "next/navigation";
+import Default from "@/src/assets/default.svg";
 
 const Container = styled.div<{ $isDisabled: boolean }>`
   display: flex;
@@ -194,6 +196,7 @@ type Props = {
 export default function AppCardLarge({ app }: Props): JSX.Element {
   const { remainingStartTime, remainingEndTime, hasStarted, hasEnded } =
     useRemainingTime({ startDate: app?.startDate, endDate: app?.endDate });
+  const router = useRouter();
 
   const isDisabled = hasEnded;
 
@@ -204,11 +207,16 @@ export default function AppCardLarge({ app }: Props): JSX.Element {
 
   if (app)
     return (
-      <Container $isDisabled={isDisabled}>
+      <Container
+        onClick={() => {
+          !isDisabled && router.push(`/${app.slug}`);
+        }}
+        $isDisabled={isDisabled}
+      >
         <ImageContainer $isDisabled={isDisabled}>
           {app.image && app.name && (
             <StyledImage
-              src={app.image}
+              src={app.image || Default}
               alt={app.name}
               fill={true}
               placeholder="blur"

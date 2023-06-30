@@ -52,6 +52,8 @@ export default function UserTag({ authType, fullWidth }: Props) {
           ? "Github account"
           : authType === AuthType.TELEGRAM
           ? "Telegram account"
+          : authType === AuthType.EVM_ACCOUNT ? 
+          "Ethereum account"
           : "Vault id"}
       </Text>
     </Container>

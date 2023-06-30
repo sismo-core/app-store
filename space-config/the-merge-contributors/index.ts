@@ -22,7 +22,6 @@ export const theMergeContributorsConfig: SpaceConfig = {
       link: "https://demo.zkdrop.io/mergooor-pass",
       claimRequests: [{ groupId: "0x42c768bb8ae79e4c5c05d3b51a4ec74a" }],
       slug: "zkbadge-mergooor",
-      isFeatured: ["Prod"],
       authRequests: [
         {
           authType: 0,
@@ -41,7 +40,6 @@ export const theMergeContributorsConfig: SpaceConfig = {
       link: "https://claim.zkdrop.io/mergooor-pass",
       claimRequests: [{ groupId: "0x42c768bb8ae79e4c5c05d3b51a4ec74a" }],
       slug: "zkbadge-mergooor",
-      isFeatured: ["Prod"],
       authRequests: [
         {
           authType: 0,
@@ -78,65 +76,6 @@ export const theMergeContributorsConfig: SpaceConfig = {
         title: "Congratulations",
         description:
           "You have successfully registered to receive exclusive tickets for web3 events.",
-      },
-      startDate: new Date("2023-06-29T00:00:00.000Z"), // TO BE REMOVED
-      endDate: new Date("2023-9-01T00:00:00.000Z"), // TO BE REMOVED
-      isFeatured: ["Prod", "Demo"],
-      slug: "ethcc-tickets",
-      output: "google_sheet",
-      appId: "0x0f38b4eb4d51fbd7906c9c7574df075e",
-      spreadsheetId: "1y94lpA5kWbGi_u50C-GlYKpeJp8aYxhI37D2GDVg--w",
-      claimRequests: [{ groupId: "0x42c768bb8ae79e4c5c05d3b51a4ec74a" }], // Mergooor contributor groupID "0x42c768bb8ae79e4c5c05d3b51a4ec74a"
-      authRequests: [{ authType: 0 }],
-      userSelection: {
-        type: "Lottery",
-        maxNumberOfEntries: 1000,
-        numberOfWinners: 10,
-      },
-      demo: {
-        spreadsheetId: "1Wrh8gFPWuUfdip1wuOxBx_0bZQ_OJb2JsI5A-loRa-Y",
-        appId: "0x0f38b4eb4d51fbd7906c9c7574df075e",
-      },
-      envs: ["Demo", "Prod"],
-    },
-    // TO BE REMOVED
-    {
-      type: "zksub",
-      name: "EthCC ticket exclusive access",
-      description:
-        "Register your email address to receive exclusive tickets for web3 events - open to contributors to The Merge.",
-      tags: ["Event"],
-      image: "EthCCtickets_1014x720px.png",
-      CTAText: "Register to get tickets",
-      fields: [
-        {
-          type: "short-text",
-          label: "First name",
-          isRequired: true,
-        },
-        {
-          type: "short-text",
-          label: "Last name",
-          isRequired: true,
-        },
-        {
-          type: "short-text",
-          label: "Email",
-          isRequired: true,
-        },
-      ],
-      congratulationsMessage: {
-        title: "Congratulations",
-        description:
-          "You have successfully registered to receive exclusive tickets for web3 events.",
-      },
-      startDate: new Date("2023-07-12T00:00:00.000Z"), // TO BE REMOVED
-      endDate: new Date("2023-06-01T00:00:00.000Z"), // TO BE REMOVED
-      isFeatured: ["Prod", "Demo"],
-      userSelection: {
-        type: "Lottery",
-        maxNumberOfEntries: 1000,
-        numberOfWinners: 10,
       },
       slug: "ethcc-tickets",
       output: "google_sheet",

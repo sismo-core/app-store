@@ -6,9 +6,6 @@ import {
   getSpacesConfigs,
 } from "../../../libs/spaces/getSpaces";
 import { App, SpaceConfig } from "@/space-config/types";
-import { GroupMetadata, GroupProvider } from "@/src/libs/group-provider";
-import env from "@/src/environments";
-import { ClaimRequest } from "@sismo-core/sismo-connect-server";
 import { notFound } from "next/navigation";
 import getSpaceConfigsFront, {
   SpaceConfigFront,
@@ -38,8 +35,6 @@ export async function generateMetadata({
     fileName: config?.coverImage,
   });
   let coverImageUrl: string;
-
-  console.log("spaceconfig", config);
 
   if (typeof coverImageElement === "string") {
     coverImageUrl = coverImageElement;
@@ -82,38 +77,10 @@ export default async function SpacePage({
 }) {
   const { slug } = params;
   const config = getSpaceConfig({ slug: slug[0] });
-  // Dynamically import the cover image
 
   const spaceConfigFront: SpaceConfigFront[] = await getSpaceConfigsFront([
     config,
   ]);
-  const groupProvider = new GroupProvider({
-    hubApiUrl: env.hubApiUrl,
-  });
-
-  const groupMetadataList: GroupMetadata[] = [];
-  if (config?.apps)
-    await Promise.all(
-      config?.apps.map(async (app: App) => {
-        if (!app?.claimRequests?.length) return;
-        await Promise.all(
-          app?.claimRequests?.map(async (claimRequest: ClaimRequest) => {
-            if (
-              !groupMetadataList.find((el) => el.id === claimRequest?.groupId)
-            ) {
-              const metadata = await groupProvider.getGroupMetadata({
-                groupId: claimRequest?.groupId,
-                timestamp: "latest",
-                revalidate: 60 * 10,
-              });
-              groupMetadataList.push(metadata);
-            }
-          })
-        );
-      })
-    );
-
-  const loaded = true;
 
   return (
     <>

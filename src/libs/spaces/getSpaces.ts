@@ -1,5 +1,5 @@
 import { configs } from "@/space-config";
-import { SpaceConfig } from "@/space-config/types";
+import { SpaceConfig, App } from "@/space-config/types";
 import env from "@/src/environments";
 
 export function getSpacesConfigs(): SpaceConfig[] {
@@ -34,4 +34,15 @@ export function getSpaceConfig({ slug }: { slug?: string } = {}): SpaceConfig {
     return space.slug === slug;
   });
   return selectedSpace;
+}
+
+export function getApp({ slug }: { slug?: string } = {}): App {
+  const spaces = getSpacesConfigs();
+  const selectedApp = spaces
+    .map((space) => space.apps)
+    .flat()
+    .find((app) => {
+      return app.slug === slug;
+    });
+  return selectedApp;
 }

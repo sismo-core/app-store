@@ -1,4 +1,3 @@
-
 import Image from "next/image";
 import styled from "styled-components";
 import AppTag from "../AppTag";
@@ -9,11 +8,12 @@ import { getHumanReadableRemainingTimeTag } from "@/src/utils/getHumanReadableTi
 import SpaceTag from "../SpaceTag";
 import { useState } from "react";
 import { AppFront } from "@/src/utils/getSpaceConfigsFront";
-
+import { useRouter } from "next/navigation";
+import Default from "@/src/assets/default.svg";
 
 const CardContainer = styled.div<{ $isSeparator: boolean }>`
-position: relative;
-width: 100%;
+  position: relative;
+  width: 100%;
   &::after {
     content: "";
     display: ${({ $isSeparator }) => ($isSeparator ? "block" : "none")};
@@ -142,7 +142,6 @@ const AppTitle = styled.h3<{ $isHovered: boolean }>`
   color: inherit;
   font-size: 18px;
   font-family: ${({ theme }) => theme.fonts.semibold};
-  font-weight: 600;
   line-height: 22px;
   margin-bottom: 4px;
   ${textShorten(2)}
@@ -253,8 +252,13 @@ type Props = {
   isSeparator?: boolean;
 };
 
-export default function AppCardLarge({ app, className, isSeparator }: Props): JSX.Element {
+export default function AppCardLarge({
+  app,
+  className,
+  isSeparator,
+}: Props): JSX.Element {
   const [isHovered, setIsHovered] = useState(false);
+  const router = useRouter();
 
   const { remainingStartTime, remainingEndTime, hasStarted, hasEnded } =
     useRemainingTime({ startDate: app?.startDate, endDate: app?.endDate });
@@ -268,126 +272,130 @@ export default function AppCardLarge({ app, className, isSeparator }: Props): JS
 
   if (app)
     return (
-      <CardContainer $isSeparator={isSeparator} >
-      <Container
-        $isDisabled={isDisabled}
-        className={className}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-        $isHovered={isHovered && !isDisabled}
-      >
-        <ImageContainer $isDisabled={isDisabled}>
-          {app.image && app.name && (
-            <StyledImage
-              $isHovered={isHovered}
-              src={app.image}
-              alt={app.name}
-              fill={true}
-              placeholder="blur"
-            />
-          )}
-        </ImageContainer>
-        <Content>
-          <Left>
-            <TitleAndDescription>
+      <CardContainer $isSeparator={isSeparator}>
+        <Container
+          onClick={() => {!isDisabled && router.push(`/${app.slug}`)}}
+          $isDisabled={isDisabled}
+          className={className}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+          $isHovered={isHovered && !isDisabled}
+        >
+          <ImageContainer $isDisabled={isDisabled}>
+            {app.image && app.name && (
+              <StyledImage
+                $isHovered={isHovered}
+                src={app?.image || Default}
+                alt={app.name}
+                fill={true}
+                placeholder="blur"
+              />
+            )}
+          </ImageContainer>
+          <Content>
+            <Left>
+              <TitleAndDescription>
+                {(hasEnded || app.tags?.length > 0) && (
+                  <TagContainer>
+                    {hasEnded && (
+                      <AppTag>
+                        {" "}
+                        <Clock size="14" style={{ flexShrink: 0 }} /> Expired
+                      </AppTag>
+                    )}
+                    {app.tags?.length > 0 &&
+                      app.tags.map((tag) => <AppTag key={tag}>{tag}</AppTag>)}
+                  </TagContainer>
+                )}
+                <DescriptionContainer>
+                  {app.name && (
+                    <AppTitle $isHovered={isHovered}>{app.name}</AppTitle>
+                  )}
+                  {app.configImage && app.space && (
+                    <SpaceTag app={app} isDisabled={isDisabled} />
+                  )}
+                  {app.description && (
+                    <Description $isDisabled={isDisabled}>
+                      {app.description}
+                    </Description>
+                  )}
+                </DescriptionContainer>
+              </TitleAndDescription>
+
+              {((maxNumberOfEntries && !hasEnded) ||
+                (hasStarted && !hasEnded && remainingEndTime) ||
+                (!hasStarted && !hasEnded && remainingStartTime)) && (
+                <BottomLine>
+                  {maxNumberOfEntries && !hasEnded && (
+                    <BottomItem>{maxNumberOfEntries} available</BottomItem>
+                  )}
+                  {hasStarted && !hasEnded && remainingEndTime && (
+                    <BottomItem>
+                      <Clock size="18" style={{ flexShrink: 0 }} />
+                      {getHumanReadableRemainingTimeTag({
+                        endDuration: remainingEndTime,
+                      })}
+                    </BottomItem>
+                  )}
+                  {!hasStarted && !hasEnded && remainingStartTime && (
+                    <BottomItem>
+                      <Clock size="18" style={{ flexShrink: 0 }} />
+                      {getHumanReadableRemainingTimeTag({
+                        startDuration: remainingStartTime,
+                      })}
+                    </BottomItem>
+                  )}
+                </BottomLine>
+              )}
+            </Left>
+            <Right>
               {(hasEnded || app.tags?.length > 0) && (
-                <TagContainer>
+                <TagRightContainer>
                   {hasEnded && (
-                    <AppTag>
+                    <StyledAppTag $isHovered={isHovered && !hasEnded}>
                       {" "}
                       <Clock size="14" style={{ flexShrink: 0 }} /> Expired
-                    </AppTag>
+                    </StyledAppTag>
                   )}
                   {app.tags?.length > 0 &&
-                    app.tags.map((tag) => <AppTag key={tag}>{tag}</AppTag>)}
-                </TagContainer>
+                    app.tags.map((tag) => (
+                      <StyledAppTag
+                        key={tag}
+                        $isHovered={isHovered && !hasEnded}
+                      >
+                        {tag}
+                      </StyledAppTag>
+                    ))}
+                </TagRightContainer>
               )}
-              <DescriptionContainer>
-                {app.name && (
-                  <AppTitle $isHovered={isHovered}>{app.name}</AppTitle>
-                )}
-                {app.configImage && app.space && (
-                  <SpaceTag app={app} isDisabled={isDisabled} />
-                )}
-                {app.description && (
-                  <Description $isDisabled={isDisabled}>
-                    {app.description}
-                  </Description>
-                )}
-              </DescriptionContainer>
-            </TitleAndDescription>
-
-            {((maxNumberOfEntries && !hasEnded) ||
-              (hasStarted && !hasEnded && remainingEndTime) ||
-              (!hasStarted && !hasEnded && remainingStartTime)) && (
-              <BottomLine>
-                {maxNumberOfEntries && !hasEnded && (
-                  <BottomItem>{maxNumberOfEntries} available</BottomItem>
-                )}
-                {hasStarted && !hasEnded && remainingEndTime && (
-                  <BottomItem>
-                    <Clock size="18" style={{ flexShrink: 0 }} />
-                    {getHumanReadableRemainingTimeTag({
-                      endDuration: remainingEndTime,
-                    })}
-                  </BottomItem>
-                )}
-                {!hasStarted && !hasEnded && remainingStartTime && (
-                  <BottomItem>
-                    <Clock size="18" style={{ flexShrink: 0 }} />
-                    {getHumanReadableRemainingTimeTag({
-                      startDuration: remainingStartTime,
-                    })}
-                  </BottomItem>
-                )}
-              </BottomLine>
-            )}
-          </Left>
-          <Right>
-            {(hasEnded || app.tags?.length > 0) && (
-              <TagRightContainer>
-                {hasEnded && (
-                  <StyledAppTag $isHovered={isHovered && !hasEnded}>
-                    {" "}
-                    <Clock size="14" style={{ flexShrink: 0 }} /> Expired
-                  </StyledAppTag>
-                )}
-                {app.tags?.length > 0 &&
-                  app.tags.map((tag) => (
-                    <StyledAppTag key={tag} $isHovered={isHovered && !hasEnded}>
-                      {tag}
-                    </StyledAppTag>
-                  ))}
-              </TagRightContainer>
-            )}
-            {((maxNumberOfEntries && !hasEnded) ||
-              (hasStarted && !hasEnded && remainingEndTime) ||
-              (!hasStarted && !hasEnded && remainingStartTime)) && (
-              <BottomRight>
-                {maxNumberOfEntries && !hasEnded && (
-                  <BottomItem>{maxNumberOfEntries} available</BottomItem>
-                )}
-                {hasStarted && !hasEnded && remainingEndTime && (
-                  <BottomItem>
-                    <Clock size="18" style={{ flexShrink: 0 }} />
-                    {getHumanReadableRemainingTimeTag({
-                      endDuration: remainingEndTime,
-                    })}
-                  </BottomItem>
-                )}
-                {!hasStarted && !hasEnded && remainingStartTime && (
-                  <BottomItem>
-                    <Clock size="18" style={{ flexShrink: 0 }} />
-                    {getHumanReadableRemainingTimeTag({
-                      startDuration: remainingStartTime,
-                    })}
-                  </BottomItem>
-                )}
-              </BottomRight>
-            )}
-          </Right>
-        </Content>
-      </Container>
+              {((maxNumberOfEntries && !hasEnded) ||
+                (hasStarted && !hasEnded && remainingEndTime) ||
+                (!hasStarted && !hasEnded && remainingStartTime)) && (
+                <BottomRight>
+                  {maxNumberOfEntries && !hasEnded && (
+                    <BottomItem>{maxNumberOfEntries} available</BottomItem>
+                  )}
+                  {hasStarted && !hasEnded && remainingEndTime && (
+                    <BottomItem>
+                      <Clock size="18" style={{ flexShrink: 0 }} />
+                      {getHumanReadableRemainingTimeTag({
+                        endDuration: remainingEndTime,
+                      })}
+                    </BottomItem>
+                  )}
+                  {!hasStarted && !hasEnded && remainingStartTime && (
+                    <BottomItem>
+                      <Clock size="18" style={{ flexShrink: 0 }} />
+                      {getHumanReadableRemainingTimeTag({
+                        startDuration: remainingStartTime,
+                      })}
+                    </BottomItem>
+                  )}
+                </BottomRight>
+              )}
+            </Right>
+          </Content>
+        </Container>
       </CardContainer>
     );
 

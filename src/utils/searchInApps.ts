@@ -1,8 +1,9 @@
+import App from "next/app";
 import { deepSearch } from "./deepSearch";
 import { AppFront } from "./getSpaceConfigsFront";
 
 export const searchInApps = ({apps, searchString}:
- { apps: AppFront[],
+ { apps: any,
   searchString: string}
 ): AppFront[] => {
   if (!searchString) {

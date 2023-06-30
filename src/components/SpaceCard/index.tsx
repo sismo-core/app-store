@@ -1,7 +1,5 @@
 "use client";
 
-
-
 import { SpaceConfigFront } from "@/src/utils/getSpaceConfigsFront";
 import { textShorten } from "@/src/utils/textShorten";
 import Image from "next/image";
@@ -66,7 +64,7 @@ type Props = {
 
 export default function SpaceCard({ config, className }: Props): JSX.Element {
   return (
-    <Container href={`/${config.slug}`} className={className}>
+    <Container href={`/space/${config.slug}`} className={className}>
       <ProfileImageContainer>
         <Image
           src={config.profileImage}

@@ -8,7 +8,6 @@ export type SpaceConfig = {
   profileImage?: string; // 160x160px can be an url or local file
   coverImage?: string; // 1440x340px can be an url or local file
 
-  tags?: string[]; // 5 tags max
   socialLinks?: {
     type: SocialType;
     link: string;
@@ -17,6 +16,7 @@ export type SpaceConfig = {
   envs: Env[];
   hidden?: boolean; // default false
   apps?: App[];
+  tags?: string[];
 };
 
 export type Env = "Demo" | "Prod";
@@ -36,19 +36,17 @@ type AppCommonConfig = {
   // Eligibility
   claimRequests?: ClaimRequest[];
   authRequests?: AuthRequest[];
-  
+
   // App parameters
   startDate?: Date;
   endDate?: Date;
   slug: string;
-  isFeatured?: Env[]; // default false
-  createdAt?: Date;
 
   envs: Env[];
   disabled?: boolean; // default false
-
+  isFeatured?: Env[]; // default false
+  createdAt?: Date;
   userSelection?: UserSelection; // default none
-  appId?: string; // default none
 };
 
 export type UserSelection = FirstComeFirstServed | Lottery;

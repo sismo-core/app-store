@@ -1,0 +1,15 @@
+export { Discord } from "./Discord";
+export { GithubRounded } from "./GithubRounded";
+export { ZkProof } from "./ZkProof";
+export { Twitter } from "./Twitter";
+export { Group } from "./Group";
+export { AppWindow } from "./AppWindow";
+export { BadgeDouble } from "./BadgeDouble";
+export { Gem } from "./Gem";
+export { GemProof } from "./GemProof";
+export { LogoV2 } from "./LogoV2";
+export { EthRounded } from "./EthRounded";
+export { TwitterRounded } from "./TwitterRounded";
+export { TelegramRounded } from "./TelegramRounded";
+export { TelegramFilled } from "./TelegramFilled";
+export { SismoRounded } from "./SismoRounded";

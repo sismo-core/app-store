@@ -1,12 +1,12 @@
 "use client";
 
-import { ZkSubAppConfig } from "@/space-config/types";
 import Modal from "@/src/ui/Modal";
 import React from "react";
 import { styled } from "styled-components";
 import Button3D from "@/src/ui/Button3D";
 import { DateTime, Duration } from "luxon";
 import useRemainingTime from "@/src/utils/useRemainingTime";
+import { ZkFormAppType } from "@/src/libs/spaces";
 
 const Content = styled.div`
   max-width: 580px;
@@ -96,7 +96,7 @@ const FullDate = styled.div`
 type Props = {
   isOpen: boolean;
   onClose: () => void;
-  app: ZkSubAppConfig;
+  app: ZkFormAppType;
 };
 
 export default function TimerModal({

@@ -11,6 +11,7 @@ import Section from "../components/Section";
 import { GroupMetadata } from "@/src/libs/group-provider";
 import { useModals } from "@/src/state/ModalState";
 import env from "@/src/environments";
+import { SpaceType, ZkTelegramBotAppType } from "@/src/libs/spaces";
 
 const Content = styled.div`
     max-width: 580px;
@@ -54,11 +55,11 @@ type Props = {
     isOpen: boolean;
     onClose: () => void;
     groupMetadataList: GroupMetadata[];
-    app: ZkTelegramBotAppConfig;
-    space: SpaceConfig;
+    app: ZkTelegramBotAppType;
+    space: SpaceType;
 }
 
-export default function ZkBotApp({ isOpen, onClose, app, space, groupMetadataList }: Props): JSX.Element {
+export default function ZkTelegramBotApp({ isOpen, onClose, app, space, groupMetadataList }: Props): JSX.Element {
     const [error, setError] = useState(null);
     const [approved, setApproved] = useState(false);
     const [verifying, setVerifying] = useState<boolean>(false);
@@ -101,7 +102,7 @@ export default function ZkBotApp({ isOpen, onClose, app, space, groupMetadataLis
     }
 
     const openInviteLink = () => {
-        const inviteLink = env.isDemo ? app?.demo?.telegramInviteLink : app?.telegramInviteLink;
+        const inviteLink = app?.telegramInviteLink;
         window.open(inviteLink, "_blank");
     }
 
@@ -129,7 +130,7 @@ export default function ZkBotApp({ isOpen, onClose, app, space, groupMetadataLis
                             </Bottom>
                         )}   
                     </Section>
-                    <Section number={2} isOpen={approved} title={app?.CTAText} success={false}>
+                    <Section number={2} isOpen={approved} title={app?.ctaText} success={false}>
                         <ButtonContainer>
                             <Button3D style={{marginTop: 25, marginBottom: 15}} onClick={openInviteLink} secondary>
                                 Join our Telegram

@@ -1,11 +1,12 @@
 import getImgSrcFromConfig, { ImportedNextImage } from "@/src/utils/getImgSrcFromConfig";
 import {
-  getSpaceConfig,
-  getSpacesConfigs,
-} from "../../../libs/spaces/getSpaces";
+  SpaceType,
+  ZkAppType,
+  getSpace,
+  getSpaces,
+} from "@/src/libs/spaces";
 import SpaceProfile from "@/src/components/SpaceProfile";
 import Apps from "@/src/components/Apps";
-import { App, SpaceConfig } from "@/space-config/types";
 import { GroupMetadata, GroupProvider } from "@/src/libs/group-provider";
 import env from "@/src/environments";
 import { ClaimRequest } from "@sismo-core/sismo-connect-server";
@@ -13,8 +14,8 @@ import { notFound } from "next/navigation";
 
 // This function runs at build time on the server it generates the static paths for each page
 export async function generateStaticParams() {
-  const configs = await getSpacesConfigs();
-  return configs?.map((config: SpaceConfig) => {
+  const configs = await getSpaces();
+  return configs?.map((config: SpaceType) => {
     return {
       slug: [config.slug],
     };
@@ -28,7 +29,7 @@ export async function generateMetadata({
   params: { slug: string[] };
 }) {
   const { slug } = params;
-  const config = await getSpaceConfig({ slug: slug[0] });
+  const config = await getSpace({ slug: slug[0] });
   const coverImageElement = await getImgSrcFromConfig(
     config?.slug,
     config?.coverImage
@@ -65,7 +66,7 @@ export async function generateMetadata({
 
 export type ImportedImage = {
   link: string | ImportedNextImage;
-  app: App;
+  app: ZkAppType;
 };
 
 // This function runs at build time on the server it generates the HTML for each page
@@ -75,7 +76,7 @@ export default async function SpacePage({
   params: { slug: string[] };
 }) {
   const { slug } = params;
-  const config = await getSpaceConfig({ slug: slug[0] });
+  const config = await getSpace({ slug: slug[0] });
   // Dynamically import the cover image
   let coverImage = await getImgSrcFromConfig(config?.slug, config?.coverImage);
   let profileImage = await getImgSrcFromConfig(
@@ -90,7 +91,7 @@ export default async function SpacePage({
   const importedImages: ImportedImage[] = [];
   if (config?.apps)
     await Promise.all(
-      config?.apps.map(async (app: App) => {
+      config?.apps.map(async (app: ZkAppType) => {
         const image = await getImgSrcFromConfig(config?.slug, app?.image);
         importedImages.push({
           app,
@@ -102,7 +103,7 @@ export default async function SpacePage({
   const groupMetadataList: GroupMetadata[] = [];
   if (config?.apps)
     await Promise.all(
-      config?.apps.map(async (app: App) => {
+      config?.apps.map(async (app: ZkAppType) => {
         if (!app?.claimRequests?.length) return;
         await Promise.all(
           app?.claimRequests?.map(async (claimRequest: ClaimRequest) => {

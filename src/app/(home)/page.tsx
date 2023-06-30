@@ -1,11 +1,11 @@
 import Hero from "@/src/components/Hero";
 import Spaces from "@/src/components/Spaces";
-import { getSpacesConfigs } from "../../libs/spaces/getSpaces";
+import { getSpaces } from "../../libs/spaces/getSpaces";
 import getImgSrcFromConfig from "@/src/utils/getImgSrcFromConfig";
-import { SpaceConfig } from "@/space-config/types";
+import { SpaceType } from "../../libs/spaces";
 
 export type SpaceImportedImage = {
-  config: SpaceConfig,
+  config: SpaceType,
   link: any
 }
 
@@ -34,7 +34,7 @@ export async function generateMetadata() {
 }
 
 export default async function HomePage() {
-  const configs = await getSpacesConfigs();
+  const configs = await getSpaces();
 
   let spaceImportedImages: SpaceImportedImage[] = [];
   await Promise.all(configs.map(async config => spaceImportedImages.push({

@@ -1,6 +1,6 @@
 'use client'
 
-import { ZkDropAppConfig } from "@/space-config/types";
+import { ZkDropAppType } from "@/src/libs/spaces";
 import Modal from "@/src/ui/Modal";
 import React from "react";
 import { styled } from "styled-components";
@@ -13,7 +13,7 @@ const Content = styled.div`
 type Props = {
     isOpen: boolean;
     onClose: () => void;
-    app: ZkDropAppConfig;
+    app: ZkDropAppType;
 }
 
 export default function ZkDropApp({ isOpen, onClose, app }: Props): JSX.Element {

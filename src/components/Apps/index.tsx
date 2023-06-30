@@ -3,19 +3,14 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import AppCard from "./components/AppCard";
-import ZkBotApp from "./ZkBotApp";
+import ZkTelegramBotApp from "./ZkTelegramBotApp";
 import ZkDropApp from "./ZkDropApp";
 import ZkSubApp from "./ZkSubApp";
-import {
-  SpaceConfig,
-  ZkTelegramBotAppConfig,
-  ZkDropAppConfig,
-  ZkSubAppConfig,
-} from "@/space-config/types";
 import { GroupMetadata } from "@/src/libs/group-provider";
 import { ImportedImage } from "@/src/app/(space)/[...slug]/page";
 import { DateTime } from "luxon";
 import { useModals } from "@/src/state/ModalState";
+import { SpaceType, ZkDropAppType, ZkFormAppType, ZkTelegramBotAppType } from "@/src/libs/spaces";
 
 const Container = styled.div`
   margin: 48px 0px 80px 0px;
@@ -38,7 +33,7 @@ const Grid = styled.div`
 `;
 
 type Props = {
-  config: SpaceConfig;
+  config: SpaceType;
   appSlug: string;
   groupMetadataList: GroupMetadata[];
   importedImages: ImportedImage[];
@@ -50,25 +45,25 @@ export default function Apps({
   groupMetadataList,
   importedImages,
 }: Props): JSX.Element {
-  const [zkSubApp, setZkSubApp] = useState<ZkSubAppConfig>(null);
+  const [zkSubApp, setZkSubApp] = useState<ZkFormAppType>(null);
   // Don't use Boolean(zkSubApp) to open the app in order to avoid seeing the app disappear during the close animation
   const { zkSubAppIsOpen, setZkSubAppIsOpen } = useModals();
   const [zkSubAppOpening, setZkAppOpening] = useState(false);
 
-  const [zkBotApp, setZkBotApp] = useState<ZkTelegramBotAppConfig>(null);
+  const [zkBotApp, setZkBotApp] = useState<ZkTelegramBotAppType>(null);
   const { zkBotAppIsOpen, setZkBotAppIsOpen } = useModals();
   const [zkBotAppOpening, setZkBotOpening] = useState(false);
 
-  const [zkDropApp, setZkDropApp] = useState<ZkDropAppConfig>(null);
+  const [zkDropApp, setZkDropApp] = useState<ZkDropAppType>(null);
   const [isZkDropAppOpen, setIsZkDropAppOpen] = useState(false);
 
   useEffect(() => {
     if (!config) return;
     if (!appSlug) return;
     const app = config.apps.find(
-      (app) => (app.type === "zksub"  || app.type == "zkTelegramBot") && app.slug === appSlug
+      (app) => (app.type === "zk-form"  || app.type == "zkTelegramBot") && app.slug === appSlug
     );
-    if (app && app.type === "zksub") {
+    if (app && app.type === "zk-form") {
       const luxonUTCEndDate = app?.endDate && DateTime.fromJSDate(app?.endDate);
       const hasExpired = luxonUTCEndDate ? DateTime.now().toUTC() > luxonUTCEndDate : false;
       if (hasExpired) return;
@@ -94,7 +89,7 @@ export default function Apps({
 
   return (
     <Container>
-      <ZkBotApp
+      <ZkTelegramBotApp
         isOpen={zkBotAppIsOpen}
         app={zkBotApp}
         space={config}
@@ -152,7 +147,7 @@ export default function Apps({
                       setZkDropApp(app);
                       setIsZkDropAppOpen(true);
                     }
-                    if (app.type === "zksub") {
+                    if (app.type === "zk-form") {
                       let url =
                         window.location.origin + `/${config.slug}/${app.slug}`;
                       window.history.replaceState(null, "", url);

@@ -2,18 +2,18 @@
  * @jest-environment node
  */
 import { POST } from "./route";
-import { getSpaceConfig } from "@/src/libs/spaces";
-import { MockedRequest, mockSpaceConfig } from "../mocks";
+import { MockedRequest, mockSpaceType } from "../mocks";
+import { getSpace } from "@/src/libs/spaces";
 
 jest.mock("../../../../environments", () => ({
   isDemo: true,
-  isDev: false // Set to true for console logs
+  isDev: false, // Set to true for console logs
 }));
 
-jest.mock("../../../../libs/spaces", () => {  
+jest.mock("../../../../libs/spaces", () => {
   return {
-    getSpaceConfig: jest.fn()
-  }
+    getSpace: jest.fn(),
+  };
 });
 
 describe("[Demo] POST /api/zk-telegram-bot/verify", () => {
@@ -22,7 +22,7 @@ describe("[Demo] POST /api/zk-telegram-bot/verify", () => {
   });
 
   it("Should return approved without checking the proof", async () => {
-    (getSpaceConfig as jest.Mock).mockReturnValue(mockSpaceConfig("appSlug", "spaceSlug"));
+    (getSpace as jest.Mock).mockReturnValue(mockSpaceType("appSlug", "spaceSlug"));
     const response = await POST(
       new MockedRequest({
         spaceSlug: "spaceSlug",
@@ -30,6 +30,7 @@ describe("[Demo] POST /api/zk-telegram-bot/verify", () => {
       }) as any
     );
     const data = await response.json();
+    console.log("data", data);
     expect(data.status).toEqual("approved");
   });
 });

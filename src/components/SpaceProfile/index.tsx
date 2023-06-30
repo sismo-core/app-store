@@ -1,6 +1,6 @@
 "use client";
 
-import { SpaceConfig } from "@/space-config/types";
+import { SpaceType } from "../../libs/spaces";
 import { ImportedNextImage } from "@/src/utils/getImgSrcFromConfig";
 import Image from "next/image";
 import React from "react";

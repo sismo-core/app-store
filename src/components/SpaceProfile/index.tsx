@@ -57,7 +57,7 @@ const SubTitle = styled.div`
 `;
 
 type Props = {
-  config: SpaceConfig;
+  config: SpaceType;
   coverImage: string | ImportedNextImage;
   profileImage: string | ImportedNextImage;
 };

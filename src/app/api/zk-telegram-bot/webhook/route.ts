@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
-import { getSpaces } from "@/src/libs/spaces";
-import { ZkTelegramBotAppConfig } from "@/space-config/types";
+import { ZkTelegramBotAppType, getSpaces } from "@/src/libs/spaces";
 import { getUserStore } from "@/src/libs/user-store";
 import env from "@/src/environments";
 import axios from "axios";
@@ -41,13 +40,13 @@ export async function POST(req: Request) {
   }
 }
 
-const findApp = (groupId: string): ZkTelegramBotAppConfig | undefined => {
+const findApp = (groupId: string): ZkTelegramBotAppType | undefined => {
   const spaces = getSpaces();
   for (let space of spaces) {
     for (let app of space.apps) {
       if (app.type === "zkTelegramBot") {
-        const zkBotApp = app as ZkTelegramBotAppConfig;
-        if (zkBotApp.telegramGroupId === groupId || zkBotApp.demo?.telegramGroupId === groupId) {
+        const zkBotApp = app as ZkTelegramBotAppType;
+        if (zkBotApp.telegramGroupId === groupId || zkBotApp.telegramGroupId === groupId) {
           return app;
         }
       }
@@ -66,7 +65,7 @@ const parseJoinRequest = async (req: Request): Promise<JoinRequest> => {
 };
 
 const isWhitelistApproved = async (
-  app: ZkTelegramBotAppConfig,
+  app: ZkTelegramBotAppType,
   telegramId: string
 ): Promise<boolean> => {
   const store = getUserStore();
@@ -83,7 +82,9 @@ const approve = async (request: JoinRequest): Promise<void> => {
   );
   approveURL.searchParams.append("chat_id", request.groupId);
   approveURL.searchParams.append("user_id", request.userId);
-  if (env.isDev) { console.info(approveURL.toString()); }
+  if (env.isDev) {
+    console.info(approveURL.toString());
+  }
   await axios.get(approveURL.toString());
 };
 
@@ -93,7 +94,9 @@ const decline = async (request: JoinRequest): Promise<void> => {
   );
   declineURL.searchParams.append("chat_id", request.groupId);
   declineURL.searchParams.append("user_id", request.userId);
-  if (env.isDev) { console.info(declineURL.toString()); }
+  if (env.isDev) {
+    console.info(declineURL.toString());
+  }
   await axios.get(declineURL.toString());
 };
 

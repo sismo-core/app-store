@@ -7,7 +7,6 @@ import { textShorten } from "@/src/utils/textShorten";
 import { CaretDown } from "phosphor-react";
 import colors from "@/src/themes/colors";
 import ReqList from "./ReqList";
-import { AppConfig, ZkFormAppConfig } from "@/space-config/types";
 import { GroupMetadata } from "@/src/libs/group-provider";
 import { ImportedNextImage } from "@/src/utils/getImgSrcFromConfig";
 import { Clock } from "phosphor-react";

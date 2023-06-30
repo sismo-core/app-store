@@ -1,8 +1,7 @@
 'use client'
 
-import { SpaceConfig, ZkTelegramBotAppConfig } from "@/space-config/types";
 import Modal from "@/src/ui/Modal";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import Button3D from "@/src/ui/Button3D";
 import ProveEligibility from "../components/ProveEligibility";
@@ -10,7 +9,6 @@ import { SismoConnectResponse } from "@sismo-core/sismo-connect-server";
 import Section from "../components/Section";
 import { GroupMetadata } from "@/src/libs/group-provider";
 import { useModals } from "@/src/state/ModalState";
-import env from "@/src/environments";
 import { SpaceType, ZkTelegramBotAppType } from "@/src/libs/spaces";
 
 const Content = styled.div`

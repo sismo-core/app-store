@@ -8,7 +8,6 @@ import UserTag from "../../UserTag";
 import { AuthType, ClaimRequest } from "@sismo-core/sismo-connect-react";
 import ShardTag from "../../ShardTag";
 import HoverTooltip from "@/src/ui/HoverTooltip";
-import { AppConfig } from "@/space-config/types";
 import { GroupMetadata } from "@/src/libs/group-provider";
 import EligibilityModal from "../../EligibilityModal";
 import { useModals } from "@/src/state/ModalState";

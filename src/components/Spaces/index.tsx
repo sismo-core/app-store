@@ -33,7 +33,7 @@ const Grid = styled.div`
 `
 
 type Props = {
-    configs: SpaceConfig[];
+    configs: SpaceType[];
     spaceImportedImages: SpaceImportedImage[];
 }
 

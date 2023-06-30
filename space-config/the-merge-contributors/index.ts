@@ -25,9 +25,10 @@ export const theMergeContributorsConfig: SpaceConfig = {
       authRequests: [
         {
           authType: 0,
-        }
+        },
       ],
       envs: ["Demo"],
+      disabled: true,
     },
     {
       type: "external",
@@ -43,7 +44,7 @@ export const theMergeContributorsConfig: SpaceConfig = {
       authRequests: [
         {
           authType: 0,
-        }
+        },
       ],
       envs: ["Prod"],
     },

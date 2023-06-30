@@ -236,18 +236,13 @@ export const sismoConfig: SpaceConfig = {
           isRequired: true,
         },
         {
-          type: "social",
-          socialType: "telegram",
+          type: "short-text",
           label: "Telegram Username",
           isRequired: true,
         },
         {
-          type: "select",
+          type: "short-text",
           label: "Will you be in Paris on July 17, 7pm? Tickets are limited.",
-          values: [
-            { id: "yes", label: "Yes!" },
-            { id: "no", label: "No." },
-          ],
           isRequired: true,
         },
       ],

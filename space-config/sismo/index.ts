@@ -242,7 +242,7 @@ export const sismoConfig: SpaceConfig = {
         },
         {
           type: "short-text",
-          label: "Company",
+          label: "Company (optional)",
           isRequired: false,
         },
         {
@@ -254,6 +254,7 @@ export const sismoConfig: SpaceConfig = {
           type: "short-text",
           label: "Will you be in Paris on July 17, 7pm? Tickets are limited.",
           isRequired: true,
+          placeholder: "Yes/No",
         },
       ],
       endDate: new Date("2023-07-10T18:00"),

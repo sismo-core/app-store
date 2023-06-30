@@ -6,7 +6,7 @@ export const sismoConfig: SpaceConfig = {
   slug: "sismo",
   name: "Sismo",
   description:
-    'This Space showcases a variety of Sismo Apps and benefits for our valued members across all levels (1, 2, and 3) in the Sismo Community. Prove your membership and unlock access to Apps personalized to your level. To learn more and elevate your level, head to <a href="https://community.sismo.io">community.sismo.io</a>.',
+    "This Space showcases a variety of Sismo Apps and benefits for our valued members across all levels (1, 2, and 3) in the Sismo Community. Prove your membership and unlock access to Apps personalized to your level. To learn more and elevate your level, head to https://community.sismo.io.",
   profileImage: "space_sismo_pfp_400x400.png",
   coverImage: "space_sismo_cover_1740x540.png",
   socialLinks: [

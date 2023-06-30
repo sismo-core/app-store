@@ -67,7 +67,7 @@ export const sismoConfig: SpaceConfig = {
       telegramInviteLink: "https://t.me/+3uFRdr5FhjkwM2Zk",
       demo: {
         appId: "0xd21d9ab6eaf8bcc16eff8d9a76764eab",
-        telegramGroupId: "-738751449",
+        telegramGroupId: "-1001658867707",
         telegramInviteLink: "https://t.me/+MJxmxpCwKg82M2I0",
         impersonateAddresses: [
           "telegram:dhadrien:1234",

@@ -225,7 +225,7 @@ export const sismoConfig: SpaceConfig = {
       type: "zksub",
       name: "Future of France Invitation",
       description:
-        "Register your email address to receive a ticket for the Future of France Party. The event will take place on July 17th during the EthCC week. Exclusively for members of Sismo Community Level 3.",
+        "Register your email address to to get a chance to receive a ticket for the Future of France Party. The event will take place on July 17th during the EthCC week. Exclusively for members of Sismo Community Level 3.",
       tags: ["Ticket"],
       image: "sismo_appstore_fof_tickets.png",
       CTAText: "Register to get your Ticket",

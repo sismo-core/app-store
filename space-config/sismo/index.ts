@@ -243,7 +243,7 @@ export const sismoConfig: SpaceConfig = {
         },
         {
           type: "select",
-          label: "Will you be in Paris on July 17, 7pm. Place are limited",
+          label: "Will you be in Paris on July 17, 7pm? Tickets are limited.",
           values: [
             { id: "yes", label: "Yes!" },
             { id: "no", label: "No." },

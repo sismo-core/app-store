@@ -235,8 +235,22 @@ export const sismoConfig: SpaceConfig = {
           label: "Email",
           isRequired: true,
         },
+        {
+          type: "social",
+          socialType: "telegram",
+          label: "Telegram Username",
+          isRequired: true,
+        },
+        {
+          type: "select",
+          label: "Will you be in Paris on July 17, 7pm. Place are limited",
+          values: [
+            { id: "yes", label: "Yes!" },
+            { id: "no", label: "No." },
+          ],
+          isRequired: true,
+        },
       ],
-      startDate: new Date("2023-06-29T18:00"),
       endDate: new Date("2023-07-10T18:00"),
       congratulationsMessage: {
         title: "Congratulations!",

@@ -23,6 +23,7 @@ export function getSpaces(): SpaceType[] {
         claimRequests: appConfig.sismoConnectRequest.claimRequests,
         authRequests: appConfig.sismoConnectRequest.authRequests,
         impersonateAddresses: appConfig.sismoConnectRequest.impersonateAddresses,
+        appId: appConfig.sismoConnectRequest.appId,
         startDate: appConfig.options?.startDate,
         endDate: appConfig.options?.endDate,
         disabled: appConfig.options?.disabled,
@@ -31,16 +32,27 @@ export function getSpaces(): SpaceType[] {
         apps.push({
           type: appConfig.type,
           ...appCommon,
+          link: appConfig.templateConfig.link,
         } as ExternalAppType);
       } else if (appConfig.type === "zk-form") {
         apps.push({
           type: appConfig.type,
           ...appCommon,
+          fields: appConfig.templateConfig.fields,
+          saveClaims: appConfig.templateConfig.output.saveClaims,
+          saveAuths: appConfig.templateConfig.output.saveAuths,
+          congratulationsMessage: appConfig.templateConfig.congratulationsMessage,
+          failedMessage: appConfig.templateConfig.failedMessage,
+          userSelection: appConfig.templateConfig.userSelection,
+          output: appConfig.templateConfig.output.destination.type,
+          spreadsheetId: appConfig.templateConfig.output.destination.spreadsheetId,
         } as ZkFormAppType);
       } else if (appConfig.type === "zkTelegramBot") {
         apps.push({
           type: appConfig.type,
           ...appCommon,
+          telegramGroupId: appConfig.templateConfig.telegramGroupId,
+          telegramInviteLink: appConfig.templateConfig.telegramInviteLink,
         } as ZkTelegramBotAppType);
       }
     }

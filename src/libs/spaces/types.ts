@@ -37,6 +37,7 @@ export type AppCommonType = {
   ctaText: string;
 
   // Eligibility
+  appId: string;
   claimRequests?: ClaimRequest[];
   authRequests?: AuthRequest[];
   impersonateAddresses?: string[];
@@ -93,14 +94,12 @@ export type ZkFormAppType = AppCommonType & {
     description: string;
   };
   userSelection?: UserSelection; // default none
-  appId: string;
   output: "google_sheet";
   spreadsheetId?: string;
 };
 
 export type ZkTelegramBotAppType = AppCommonType & {
   type: "zkTelegramBot";
-  appId: string;
   telegramGroupId: string;
   telegramInviteLink: string;
 };

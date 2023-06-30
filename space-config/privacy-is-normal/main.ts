@@ -148,7 +148,7 @@ export const privacyIsNormalConfigMain: SpaceConfig = {
         output: {
           destination: {
             type: "google_sheet",
-            spreadsheetId: "17uLGyCtSduW7PBTS2S2WKyourj9Z2nPKmAvzUD6kRM4",
+            spreadsheetId: "15KaDhCGxs8E6mmYw5kZkUYTXQoTsH9UAt27TLsbT6TE",
           },
         },
       },

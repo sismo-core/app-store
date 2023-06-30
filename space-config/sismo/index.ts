@@ -5,7 +5,8 @@ import { SpaceConfig } from "../types";
 export const sismoConfig: SpaceConfig = {
   slug: "sismo",
   name: "Sismo",
-  description: "This Space is a tribute to members of the Sismo Community (level 1, 2 and 3). Prove you are a Sismo Community member and access Apps based on your level. Eligibility groups are updated daily. Learn more to upgrade your level: community.sismo.io",
+  description:
+    "This Space is a tribute to members of the Sismo Community (level 1, 2 and 3). Prove you are a Sismo Community member and access Apps based on your level. Eligibility groups are updated daily. Learn more to upgrade your level: community.sismo.io",
   profileImage: "space_sismo_pfp_400x400.png",
   coverImage: "space_sismo_cover_1740x540.png",
   socialLinks: [
@@ -39,7 +40,7 @@ export const sismoConfig: SpaceConfig = {
     //   chainId: 137,
     //   collectionId: "5151110",
     //   claimRequests: [
-    //     { 
+    //     {
     //       groupId: "0xe9ed316946d3d98dfcd829a53ec9822e",
     //       value: 1,
     //       isSelectableByUser: true
@@ -69,14 +70,17 @@ export const sismoConfig: SpaceConfig = {
       ],
       congratulationsMessage: {
         title: "Congratulations",
-        description:
-          "You will now receive our Sismo Newsletter 💜",
+        description: "You will now receive our Sismo Newsletter 💜",
       },
       slug: "newsletter",
       output: "google_sheet",
       appId: null,
       spreadsheetId: null,
-      authRequests: [{ authType: AuthType.VAULT }, { authType: AuthType.TWITTER, isSelectableByUser: true }, { authType: AuthType.GITHUB, isOptional: true }],
+      authRequests: [
+        { authType: AuthType.VAULT },
+        { authType: AuthType.TWITTER, isSelectableByUser: true },
+        { authType: AuthType.GITHUB, isOptional: true },
+      ],
       demo: {
         spreadsheetId: "1Z61ZMWOFhXhp8rt2T6ewpFRMR_CtF0XL6sBIUz4KeQQ",
         appId: "0xe083ec4268d2c75e41ec6e08b4373882",
@@ -109,26 +113,31 @@ export const sismoConfig: SpaceConfig = {
         },
         {
           type: "short-text",
-          label: "What improvements would make your experience with Spaces even better?",
+          label:
+            "What improvements would make your experience with Spaces even better?",
           isRequired: true,
         },
       ],
       startDate: new Date("2023-05-12T18:00"),
       congratulationsMessage: {
         title: "Thank you",
-        description:
-          "Your feedback will help Sismo a lot 💜",
+        description: "Your feedback will help Sismo a lot 💜",
       },
       slug: "space-feedback",
       output: "google_sheet",
       appId: null,
       spreadsheetId: null,
-      claimRequests: [{ groupId: "0x1cde61966decb8600dfd0749bd371f12", isOptional: true }],
-      authRequests: [{ authType: AuthType.VAULT }, { authType: AuthType.TWITTER, isSelectableByUser: true}],
+      claimRequests: [
+        { groupId: "0x1cde61966decb8600dfd0749bd371f12", isOptional: true },
+      ],
+      authRequests: [
+        { authType: AuthType.VAULT },
+        { authType: AuthType.TWITTER, isSelectableByUser: true },
+      ],
       demo: {
         spreadsheetId: "1VBYLvo6x1R34kPhr9DVxYmNx6uzm_FtHczsbaDL-7dU",
         appId: "0xc429ae9dc0e1fea6591244cdc70ee626",
-        impersonateAddresses: ["0x85ff01cff157199527528788ec4ea6336615c989"]
+        impersonateAddresses: ["0x85ff01cff157199527528788ec4ea6336615c989"],
       },
       envs: ["Demo"],
     },
@@ -145,27 +154,32 @@ export const sismoConfig: SpaceConfig = {
           type: "short-text",
           label: "Email",
           isRequired: false,
-        }
+        },
       ],
       congratulationsMessage: {
         title: "Thank you",
-        description:
-          "We hope to see you at our future testing session 💜",
+        description: "We hope to see you at our future testing session 💜",
       },
       slug: "alpha-tester",
       output: "google_sheet",
       appId: null,
       spreadsheetId: null,
-      claimRequests: [{ groupId: "0x4ad1cfd0eb55f578e7690ecd06aa250b" }, { groupId: "0x8b64c959a715c6b10aa8372100071ca7" }],
-      authRequests: [{ authType: AuthType.VAULT }, { authType: AuthType.TWITTER, isSelectableByUser: true }],
+      claimRequests: [
+        { groupId: "0x4ad1cfd0eb55f578e7690ecd06aa250b" },
+        { groupId: "0x8b64c959a715c6b10aa8372100071ca7" },
+      ],
+      authRequests: [
+        { authType: AuthType.VAULT },
+        { authType: AuthType.TWITTER, isSelectableByUser: true },
+      ],
       demo: {
         spreadsheetId: "1WF3taIR9qy1mAFOKhwZRQKeIBMfoxib7uMlXa_zV3-s",
         appId: "0x7cef438f591d7b391a3eae11b2bd7868",
         impersonateAddresses: [
           "twitter:VitalikButerin:423423",
-          "0x74ce5c3cab7bea5fe742a6636101f42f66909475", 
-          "0xff9a11ceca9f3f96e661cc549962984d770b615c"
-        ]
+          "0x74ce5c3cab7bea5fe742a6636101f42f66909475",
+          "0xff9a11ceca9f3f96e661cc549962984d770b615c",
+        ],
       },
       envs: ["Demo"],
     },
@@ -182,7 +196,7 @@ export const sismoConfig: SpaceConfig = {
           type: "short-text",
           label: "What would you like to tell us?",
           isRequired: true,
-        }
+        },
       ],
       congratulationsMessage: {
         title: "Thank you for your message",
@@ -193,11 +207,17 @@ export const sismoConfig: SpaceConfig = {
       output: "google_sheet",
       appId: null,
       spreadsheetId: null,
-      claimRequests: [{ groupId: "0xd630aa769278cacde879c5c0fe5d203c", value: 1, isSelectableByUser: true }],
+      claimRequests: [
+        {
+          groupId: "0xd630aa769278cacde879c5c0fe5d203c",
+          value: 1,
+          isSelectableByUser: true,
+        },
+      ],
       demo: {
         spreadsheetId: "1-sb-qxoicB6OKF_ERE8HCYlEA8CQHBYU3M9dQNksML4",
         appId: "0x90db0519f15b523cd41bc3557f6d6b91",
-        impersonateAddresses: ["0x8ab1760889F26cBbf33A75FD2cF1696BFccDc9e6"]
+        impersonateAddresses: ["0x8ab1760889F26cBbf33A75FD2cF1696BFccDc9e6"],
       },
       envs: ["Demo"],
     },
@@ -214,8 +234,10 @@ export const sismoConfig: SpaceConfig = {
           type: "short-text",
           label: "Email",
           isRequired: true,
-        }
+        },
       ],
+      startDate: new Date("2023-06-29T18:00"),
+      endDate: new Date("2023-07-10T18:00"),
       congratulationsMessage: {
         title: "Congratulations!",
         description:
@@ -228,14 +250,14 @@ export const sismoConfig: SpaceConfig = {
       demo: {
         spreadsheetId: "16NuT1HIJvM2jikRmHzN-ZSwJmjg_Ef1-6e-XbPff3z4",
         appId: "0x08ffa7336eb7bc0907a9f76ebc55aa4d",
-        impersonateAddresses: ["0x8ab1760889F26cBbf33A75FD2cF1696BFccDc9e6"]
+        impersonateAddresses: ["0x8ab1760889F26cBbf33A75FD2cF1696BFccDc9e6"],
       },
       claimRequests: [
-        { groupId: "0xd630aa769278cacde879c5c0fe5d203c", value: 3 }
+        { groupId: "0xd630aa769278cacde879c5c0fe5d203c", value: 3 },
       ],
-      authRequests: [{ authType: AuthType.VAULT } ],
+      authRequests: [{ authType: AuthType.VAULT }],
       envs: ["Demo", "Prod"],
-    }
+    },
     /*{
       type: "zksub",
       name: "Sismo Events",

@@ -245,6 +245,10 @@ export const sismoConfig: SpaceConfig = {
       },
       slug: "ticket-fof",
       output: "google_sheet",
+      userSelection: {
+        type: "FCFS",
+        maxNumberOfUsers: 40,
+      },
       appId: "0x08ffa7336eb7bc0907a9f76ebc55aa4d",
       spreadsheetId: "1sb_wAe84Im0VLaGsDv_IhNG-dSMjsJHb15Ur6hZ3mig",
       demo: {

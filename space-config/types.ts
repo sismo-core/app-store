@@ -46,7 +46,21 @@ type AppCommonConfig = {
   disabled?: boolean; // default false
   isFeatured?: Env[]; // default false
   createdAt?: Date;
+
+// TEMPORARY
   userSelection?: UserSelection; // default none
+
+  appId?: string;
+  demo?: {
+    spreadsheetId?: string,
+    appId?: string,
+    telegramGroupId?: string,
+    telegramInviteLink?: string,
+    impersonateAddresses?: string[]
+  }
+  telegramGroupId?: string;
+  telegramInviteLink?: string;
+  link?: string;
 };
 
 export type UserSelection = FirstComeFirstServed | Lottery;

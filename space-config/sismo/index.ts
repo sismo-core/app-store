@@ -75,6 +75,7 @@ export const sismoConfig: SpaceConfig = {
         ]
       },
       envs: ["Demo"],
+      isFeatured: ["Demo"],
     },
     {
       type: "zksub",

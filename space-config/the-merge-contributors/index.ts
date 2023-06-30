@@ -28,6 +28,7 @@ export const theMergeContributorsConfig: SpaceConfig = {
         }
       ],
       envs: ["Demo"],
+      isFeatured: ["Demo"]
     },
     {
       type: "external",

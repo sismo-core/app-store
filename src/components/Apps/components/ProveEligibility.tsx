@@ -3,12 +3,14 @@
 import { ZkTelegramBotAppConfig, ZkSubAppConfig } from "@/space-config/types";
 import env from "@/src/environments";
 import { SismoConnectButton } from "@sismo-core/sismo-connect-react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useMemo } from "react";
 import { styled } from "styled-components";
 import ReqList from "./ReqList";
 import { GroupMetadata } from "@/src/libs/group-provider";
 import { LockSimpleOpen } from "phosphor-react";
+import App from "next/app";
+import { AppFront } from "@/src/utils/getSpaceConfigsFront";
 
 const Container = styled.div``;
 
@@ -37,7 +39,7 @@ const ButtonContainer = styled.div`
 `;
 
 type Props = {
-  app: ZkSubAppConfig | ZkTelegramBotAppConfig;
+  app: AppFront;
   groupMetadataList: GroupMetadata[];
   onEligible: (response) => void;
   verifying?: boolean;
@@ -49,7 +51,8 @@ export default function ProveEligibility({
   onEligible,
   verifying
 }: Props): JSX.Element {
-<<<<<<<< HEAD:src/components/Apps/components/ProveEligibility.tsx
+  const [isMounted, setIsMounted] = useState(false);
+
 
   const config = useMemo(() => {
     const appId = env.isDemo
@@ -78,32 +81,12 @@ export default function ProveEligibility({
 
     return config;
   }, [app]);
-========
-  const appId = env.isDemo
-    ? app?.demo.appId
-    : env.isDev
-    ? "0x4c40e70b081752680ce258ad321f9e58"
-    : app?.appId;
 
-  const config = {
-    appId: appId,
-    vault: env.isDemo
-      ? {
-          impersonate: [
-            "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",
-            "github:vbuterin",
-            "twitter:VitalikButerin:423423",
-            "0x644177f8d79117c2b9c7596527642b3c2d05888e",
-            "0xca55123aba844d347d0a18d91a958eda531447ff",
-          ],
-        }
-      : null,
-  };
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
-  if (env.isDemo && app.demo.impersonateAddresses) {
-    config.vault.impersonate = app.demo.impersonateAddresses;
-  }
->>>>>>>> 9eed728 (WIP integration):src/components/Apps/ZkFormApp/components/ProveEligibility.tsx
+  if(!isMounted) return null;
 
   return (
     <Container>

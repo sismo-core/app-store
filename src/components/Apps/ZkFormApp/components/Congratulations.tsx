@@ -9,20 +9,24 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+
+
 `
 
 const Title = styled.div`
     font-family: ${props => props.theme.fonts.semibold};
     color: ${props => props.theme.colors.neutral1};
     font-size: 32px;
-    margin-top: 63px;
+    line-height: 38px;
+    margin-bottom: 16px;
 `
 
 const Subtitle = styled.div`
     font-family: ${props => props.theme.fonts.regular};
-    color: ${props => props.theme.colors.neutral3};
+    color: ${props => props.theme.colors.neutral4};
     font-size: 16px;
-    margin-bottom: 63px;
+    line-height: 22px;
+    margin-bottom: 24px;
     text-align: center;
 `
 
@@ -41,7 +45,7 @@ export default function Congratulations({ onBackToSpace, app }: Props): JSX.Elem
             {app?.congratulationsMessage?.description}
         </Subtitle>
         <Button3D onClick={onBackToSpace} secondary>
-            Back to the Space
+            Back to the Apps
         </Button3D>
     </Container>;
 }

@@ -7,6 +7,7 @@ import { GroupMetadata } from "@/src/libs/group-provider";
 import Image from "next/image";
 import SpaceTag from "../SpaceTag";
 import Default from "@/src/assets/default.svg";
+import ZkBotApp from "../Apps/ZkBotApp";
 
 const Container = styled.div`
   flex-grow: 1;
@@ -159,6 +160,9 @@ export default function AppMain({ app, groupMetadataList }: Props) {
       <AppContainer>
         {app?.type == "zksub" && (
           <ZkFormApp app={app} groupMetadataList={groupMetadataList} />
+        )}
+        {app?.type == "zkTelegramBot" && (
+          <ZkBotApp app={app} groupMetadataList={groupMetadataList} />
         )}
       </AppContainer>
     </Container>

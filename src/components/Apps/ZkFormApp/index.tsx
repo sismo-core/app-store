@@ -4,16 +4,15 @@ import { ZkSubAppConfig } from "@/space-config/types";
 import React, {  useState } from "react";
 import { styled } from "styled-components";
 import Button3D from "@/src/ui/Button3D";
-import ProveEligibility from "./components/ProveEligibility";
 import { SismoConnectResponse } from "@sismo-core/sismo-connect-server";
 import Register, { FieldValue } from "./components/Register";
-import Section from "./components/Section";
 import Congratulations from "./components/Congratulations";
 import { GroupMetadata } from "@/src/libs/group-provider";
-import { useModals } from "@/src/state/ModalState";
 import { AppFront } from "@/src/utils/getSpaceConfigsFront";
 import useRemainingTime from "@/src/utils/useRemainingTime";
 import Timer from "../Timer";
+import Section from "../components/Section";
+import ProveEligibility from "../components/ProveEligibility";
 
 const Content = styled.div`
   width: 580px;
@@ -88,7 +87,7 @@ export default function ZkFormApp({
     };
     setError(null);
     setVerifying(true);
-    const res = await fetch("/api/verify", {
+    const res = await fetch("/api/zk-sub/verify", {
       method: "POST",
       body: JSON.stringify(body),
     });
@@ -135,7 +134,7 @@ export default function ZkFormApp({
             success={Boolean(response)}
           >
             <ProveEligibility
-              app={app as unknown as ZkSubAppConfig}
+              app={app}
               onEligible={(_response) => setResponse(_response)}
               groupMetadataList={groupMetadataList}
             />

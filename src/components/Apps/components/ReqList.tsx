@@ -12,6 +12,7 @@ import { App } from "@/space-config/types";
 import { GroupMetadata } from "@/src/libs/group-provider";
 import EligibilityModal from "../../EligibilityModal";
 import { useModals } from "@/src/state/ModalState";
+import { AppFront } from "@/src/utils/getSpaceConfigsFront";
 
 const Container = styled.div`
   display: flex;
@@ -66,7 +67,7 @@ const Bold = styled.span`
 `;
 
 type Props = {
-  app: App;
+  app: AppFront;
   groupMetadataList: GroupMetadata[];
   style?: React.CSSProperties;
   fullWidth?: boolean;

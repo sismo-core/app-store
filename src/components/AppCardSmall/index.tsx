@@ -3,13 +3,14 @@ import styled from "styled-components";
 import AppTag from "../AppTag";
 import { textShorten } from "@/src/utils/textShorten";
 import useRemainingTime from "@/src/utils/useRemainingTime";
-import { Clock } from "phosphor-react";
+import { ArrowSquareOut, Clock } from "phosphor-react";
 import { getHumanReadableRemainingTimeTag } from "@/src/utils/getHumanReadableTimeTag";
 import SpaceTag from "../SpaceTag";
 import { useState } from "react";
 import { AppFront } from "@/src/utils/getSpaceConfigsFront";
 import { useRouter } from "next/navigation";
 import Default from "@/src/assets/default.svg";
+import colors from "@/src/themes/colors";
 
 const CardContainer = styled.div<{ $isSeparator: boolean }>`
   position: relative;
@@ -270,11 +271,15 @@ export default function AppCardLarge({
     app?.userSelection?.type == "Lottery" &&
     app?.userSelection?.maxNumberOfEntries;
 
+  const link = app?.type === "external" ? app?.link : `/${app.slug}`;
+
   if (app)
     return (
       <CardContainer $isSeparator={isSeparator}>
         <Container
-          onClick={() => {!isDisabled && router.push(`/${app.slug}`)}}
+          onClick={() => {
+            !isDisabled && router.push(link);
+          }}
           $isDisabled={isDisabled}
           className={className}
           onMouseEnter={() => setIsHovered(true)}
@@ -309,7 +314,15 @@ export default function AppCardLarge({
                 )}
                 <DescriptionContainer>
                   {app.name && (
-                    <AppTitle $isHovered={isHovered}>{app.name}</AppTitle>
+                    <AppTitle $isHovered={isHovered}>
+                      {app.name}{" "}
+                      {app?.type === "external" && (
+                        <>
+                          {" "}
+                          <ArrowSquareOut size={14} color={colors.neutral4} />
+                        </>
+                      )}
+                    </AppTitle>
                   )}
                   {app.configImage && app.space && (
                     <SpaceTag app={app} isDisabled={isDisabled} />

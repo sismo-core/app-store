@@ -3,12 +3,13 @@ import styled from "styled-components";
 import AppTag from "../AppTag";
 import { textShorten } from "@/src/utils/textShorten";
 import useRemainingTime from "@/src/utils/useRemainingTime";
-import { Clock } from "phosphor-react";
+import { ArrowSquareOut, Clock } from "phosphor-react";
 import { getHumanReadableRemainingTimeTag } from "@/src/utils/getHumanReadableTimeTag";
 import SpaceTag from "../SpaceTag";
 import { AppFront } from "@/src/utils/getSpaceConfigsFront";
 import { useRouter } from "next/navigation";
 import Default from "@/src/assets/default.svg";
+import colors from "@/src/themes/colors";
 
 const Container = styled.div<{ $isDisabled: boolean }>`
   display: flex;
@@ -205,11 +206,13 @@ export default function AppCardLarge({ app }: Props): JSX.Element {
     app?.userSelection?.type == "Lottery" &&
     app?.userSelection?.maxNumberOfEntries;
 
+  const link = app?.type === "external" ? app?.link : `/${app.slug}`;
+
   if (app)
     return (
       <Container
         onClick={() => {
-          !isDisabled && router.push(`/${app.slug}`);
+          !isDisabled && router.push(link);
         }}
         $isDisabled={isDisabled}
       >
@@ -263,7 +266,17 @@ export default function AppCardLarge({ app }: Props): JSX.Element {
               </TagContainer>
             )}
             <DescriptionContainer>
-              {app.name && <AppTitle>{app.name}</AppTitle>}
+              {app.name && (
+                <AppTitle>
+                  {app.name}
+                  {app?.type === "external" && (
+                    <>
+                      {" "}
+                      <ArrowSquareOut size={16} color={colors.neutral4} />
+                    </>
+                  )}
+                </AppTitle>
+              )}
               {app.configImage && app.space && (
                 <SpaceTag app={app} isDisabled={isDisabled} />
               )}

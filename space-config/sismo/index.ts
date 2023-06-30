@@ -232,12 +232,22 @@ export const sismoConfig: SpaceConfig = {
       fields: [
         {
           type: "short-text",
-          label: "Email",
+          label: "First Name",
           isRequired: true,
         },
         {
           type: "short-text",
-          label: "Telegram Username",
+          label: "Last Name",
+          isRequired: true,
+        },
+        {
+          type: "short-text",
+          label: "Company",
+          isRequired: false,
+        },
+        {
+          type: "short-text",
+          label: "Email",
           isRequired: true,
         },
         {

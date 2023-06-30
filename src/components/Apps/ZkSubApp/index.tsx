@@ -5,10 +5,10 @@ import Modal from "@/src/ui/Modal";
 import React, { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import Button3D from "@/src/ui/Button3D";
-import ProveEligibility from "./components/ProveEligibility";
+import ProveEligibility from "../components/ProveEligibility";
 import { SismoConnectResponse } from "@sismo-core/sismo-connect-server";
 import Register, { FieldValue } from "./components/Register";
-import Section from "./components/Section";
+import Section from "../components/Section";
 import Congratulations from "./components/Congratulations";
 import { GroupMetadata } from "@/src/libs/group-provider";
 import { useModals } from "@/src/state/ModalState";
@@ -95,7 +95,7 @@ export default function ZkSubApp({ isOpen, onClose, app, space, groupMetadataLis
         }
         setError(null);
         setVerifying(true);
-        const res = await fetch("/api/verify", {
+        const res = await fetch("/api/zk-sub/verify", {
             method: "POST",
             body: JSON.stringify(body)
         })

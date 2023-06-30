@@ -19,7 +19,7 @@ export type SpaceConfig = {
 };
 
 export type Env = "Demo" | "Prod";
-export type App = ZkSubAppConfig | ZkDropAppConfig | ExternalAppConfig | ZkBadgeAppConfig;
+export type App = ZkSubAppConfig | ZkDropAppConfig | ExternalAppConfig | ZkBadgeAppConfig | ZkTelegramBotAppConfig;
 
 type SocialType = "twitter" | "discord" | "link" | "github" | "telegram";
 
@@ -97,6 +97,19 @@ export type ZkSubAppConfig = AppCommonConfig & {
   demo?: {
     spreadsheetId?: string,
     appId?: string,
+    impersonateAddresses?: string[]
+  }
+};
+
+export type ZkTelegramBotAppConfig = AppCommonConfig & {
+  type: "zkTelegramBot";
+  appId: string;
+  telegramGroupId: string;
+  telegramInviteLink: string;
+  demo?: {
+    appId?: string,
+    telegramGroupId?: string,
+    telegramInviteLink?: string,
     impersonateAddresses?: string[]
   }
 };

@@ -53,6 +53,30 @@ export const sismoConfig: SpaceConfig = {
     //   slug: "contributor-zkbadge",
     // },
     {
+      type: "zkTelegramBot",
+      name: "Sismo Builders Group Invitation",
+      description: "Join our private Telegram Group ‘Sismo Builders’ - available to all members of the Sismo Community.",
+      tags: ["Telegram"],
+      image: "sismoapps_tg_zk_bot_1014x720.png",
+      CTAText: "Join our Telegram Group",
+      slug: "telegram",
+      authRequests: [{ authType: AuthType.TELEGRAM }],
+      claimRequests: [{ groupId: "0x1cde61966decb8600dfd0749bd371f12", value: 15 }],
+      appId: "0xd21d9ab6eaf8bcc16eff8d9a76764eab",
+      telegramGroupId: "-1001907200919",
+      telegramInviteLink: "https://t.me/+3uFRdr5FhjkwM2Zk",
+      demo: {
+        appId: "0xd21d9ab6eaf8bcc16eff8d9a76764eab",
+        telegramGroupId: "-738751449",
+        telegramInviteLink: "https://t.me/+MJxmxpCwKg82M2I0",
+        impersonateAddresses: [
+          "telegram:dhadrien:1234",
+          "dhadrien.eth"
+        ]
+      },
+      envs: ["Demo"],
+    },
+    {
       type: "zksub",
       name: "Sismo Newsletter",
       description:

@@ -1,0 +1,36 @@
+{
+  "update_id": 1,
+  "chat_join_request": {
+    "chat": {
+      "id": -1,
+      "title": "title",
+      "type": "supergroup"
+    },
+    "from": {
+      "id": 1,
+      "is_bot": false,
+      "first_name": "first_name",
+      "last_name": "last_name",
+      "username": "username",
+      "language_code": "en"
+    },
+    "user_chat_id": 1,
+    "date": 1,
+    "invite_link": {
+      "invite_link": "invite_link",
+      "name": "name",
+      "creator": {
+        "id": 1,
+        "is_bot": false,
+        "first_name": "first_name",
+        "last_name": "last_name",
+        "username": "username",
+        "language_code": "en"
+      },
+      "pending_join_request_count": 1,
+      "creates_join_request": true,
+      "is_primary": false,
+      "is_revoked": false
+    }
+  }
+}

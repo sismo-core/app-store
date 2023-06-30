@@ -53,7 +53,7 @@ export default function SpaceTag({
     <SpaceLine
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      onClick={() => {
+      onClick={(event) => {
         event.stopPropagation();
         router.push(`/space/${app.spaceSlug}`)}}
     >

@@ -6,7 +6,7 @@ export const sismoConfig: SpaceConfig = {
   slug: "sismo",
   name: "Sismo",
   description:
-    "This Space is a tribute to members of the Sismo Community (level 1, 2 and 3). Prove you are a Sismo Community member and access Apps based on your level. Eligibility groups are updated daily. Learn more to upgrade your level: community.sismo.io",
+    'This Space showcases a variety of Sismo Apps and benefits for our valued members across all levels (1, 2, and 3) in the Sismo Community. Prove your membership and unlock access to Apps personalized to your level. To learn more and elevate your level, head to <a href="https://community.sismo.io">community.sismo.io</a>.',
   profileImage: "space_sismo_pfp_400x400.png",
   coverImage: "space_sismo_cover_1740x540.png",
   socialLinks: [
@@ -225,7 +225,7 @@ export const sismoConfig: SpaceConfig = {
       type: "zksub",
       name: "Future of France Invitation",
       description:
-        "Register your email address to to get a chance to receive a ticket for the Future of France Party. The event will take place on July 17th during the EthCC week. Exclusively for members of Sismo Community Level 3.",
+        "Register to get a chance to receive a ticket for the Future of France Party. The event will take place on July 17th during the EthCC week. Exclusively for members of Sismo Community Level 3.",
       tags: ["Ticket"],
       image: "sismo_appstore_fof_tickets.png",
       CTAText: "Register to get your Ticket",

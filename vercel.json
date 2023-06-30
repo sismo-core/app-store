@@ -1,8 +1,8 @@
 {
-    "functions": {
-      "app/api/zk-sub/verify/route.ts": {
-        "memory": 3008,
-        "maxDuration": 60
-      }
+  "functions": {
+    "app/api/zk-form/verify/route.ts": {
+      "memory": 3008,
+      "maxDuration": 60
     }
   }
+}

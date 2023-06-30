@@ -1,6 +1,5 @@
 'use client'
 
-import { SpaceConfig, ZkSubAppConfig } from "@/space-config/types";
 import Modal from "@/src/ui/Modal";
 import React, { useEffect, useState } from "react";
 import { styled } from "styled-components";
@@ -12,6 +11,7 @@ import Section from "../components/Section";
 import Congratulations from "./components/Congratulations";
 import { GroupMetadata } from "@/src/libs/group-provider";
 import { useModals } from "@/src/state/ModalState";
+import { SpaceType, ZkFormAppType } from "@/src/libs/spaces";
 
 const Content = styled.div`
     max-width: 580px;
@@ -72,8 +72,8 @@ type Props = {
     isOpen: boolean;
     onClose: () => void;
     groupMetadataList: GroupMetadata[];
-    app: ZkSubAppConfig;
-    space: SpaceConfig;
+    app: ZkFormAppType;
+    space: SpaceType;
 }
 
 
@@ -95,7 +95,7 @@ export default function ZkSubApp({ isOpen, onClose, app, space, groupMetadataLis
         }
         setError(null);
         setVerifying(true);
-        const res = await fetch("/api/zk-sub/verify", {
+        const res = await fetch("/api/zk-form/verify", {
             method: "POST",
             body: JSON.stringify(body)
         })
@@ -141,7 +141,7 @@ export default function ZkSubApp({ isOpen, onClose, app, space, groupMetadataLis
                     <Section number={1} isOpen={!response} title="Prove Eligibility" style={{marginBottom: 16}} success={Boolean(response)}>
                         <ProveEligibility app={app} onEligible={(_response) => setResponse(_response)} groupMetadataList={groupMetadataList}/>
                     </Section>
-                    <Section number={2} isOpen={Boolean(response)} title={app?.CTAText} success={alreadySubscribed || (fields && fields.length === 0)}>
+                    <Section number={2} isOpen={Boolean(response)} title={app?.ctaText} success={alreadySubscribed || (fields && fields.length === 0)}>
                         {
                             alreadySubscribed ?
                             <AlreadyRegistered style={{marginTop: 24}}>

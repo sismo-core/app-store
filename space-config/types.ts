@@ -1,48 +1,62 @@
 import { AuthRequest, ClaimRequest } from "@sismo-core/sismo-connect-react";
 
 export type SpaceConfig = {
-  name: string; // 80 characters max
-  slug: string; // spaces.sismo.io/[slug]
-  description: string; // 300 characters max
-
-  profileImage?: string; // 160x160px can be an url or local file
-  coverImage?: string; // 1440x340px can be an url or local file
-
-  socialLinks?: {
-    type: SocialType;
-    link: string;
-  }[];
-  
-  envs: Env[];
-  hidden?: boolean; // default false
-  apps?: App[];
+  metadata: {
+    name: string; // 80 characters max
+    slug: string; // spaces.sismo.io/[slug]
+    description: string; // 300 characters max
+    profileImage?: string; // 160x160px can be an url or local file
+    coverImage?: string; // 1440x340px can be an url or local file
+    socialLinks?: {
+      type: SocialType;
+      link: string;
+    }[];
+  };
+  apps?: AppConfig[];
+  options?: {
+    hidden?: boolean; // default false
+  };
 };
 
 export type Env = "Demo" | "Prod";
-export type App = ZkSubAppConfig | ZkDropAppConfig | ExternalAppConfig | ZkBadgeAppConfig | ZkTelegramBotAppConfig;
+export type AppConfig =
+  | ZkFormAppConfig
+  | ZkDropAppConfig
+  | ExternalAppConfig
+  | ZkBadgeAppConfig
+  | ZkTelegramBotAppConfig;
 
 type SocialType = "twitter" | "discord" | "link" | "github" | "telegram";
 
 // Every App will inherit this type
 type AppCommonConfig = {
-  // App Card
-  name: string; // 40 characters max
-  description: string; // 200 characters max
-  image: string; // 550x390px can be an url or local file
-  tags: string[];
-  CTAText: string;
+  metadata: {
+    name: string; // 40 characters max
+    slug: string;
+    description: string; // 200 characters max
+    image: string; // 550x390px can be an url or local file
+    tags: string[];
+    ctaText?: string;
+  };
+  sismoConnectRequest: {
+    appId?: string;
+    claimRequests?: ClaimRequest[];
+    authRequests?: AuthRequest[];
+    impersonateAddresses?: string[];
+  };
+  options?: {
+    startDate?: Date;
+    endDate?: Date;
+    disabled?: boolean; // default false
+  };
+};
 
-  // Eligibility
-  claimRequests?: ClaimRequest[];
-  authRequests?: AuthRequest[];
-
-  // App parameters
-  startDate?: Date;
-  endDate?: Date;
-  slug: string;
-
-  envs: Env[];
-  disabled?: boolean; // default false
+export type ExternalAppTemplateConfig = {
+  link: string;
+};
+export type ExternalAppConfig = AppCommonConfig & {
+  type: "external";
+  templateConfig: ExternalAppTemplateConfig;
 };
 
 export type UserSelection = FirstComeFirstServed | Lottery;
@@ -51,92 +65,85 @@ export type Lottery = {
   type: "Lottery";
   maxNumberOfEntries: number;
   numberOfWinners: number;
-}
+};
 
 export type FirstComeFirstServed = {
-  type: "FCFS"
+  type: "FCFS";
   maxNumberOfUsers: number;
-}
-
-export type ExternalAppConfig = AppCommonConfig & {
-  type: "external";
-  link: string;
 };
 
 export type ZkDropAppConfig = AppCommonConfig & {
   type: "zkdrop";
-  chainId: number;
-  userSelection?: UserSelection; // default none
-  contractAddress: string;
+  templateConfig: {
+    chainId: number;
+    userSelection?: UserSelection; // default none
+    contractAddress: string;
+  };
 };
-
 
 export type ZkBadgeAppConfig = AppCommonConfig & {
   type: "zkbadge";
-  chainId: number;
-  collectionId: string;
+  templateConfig: {
+    chainId: number;
+    collectionId: string;
+  };
 };
 
-export type ZkSubAppConfig = AppCommonConfig & {
-  type: "zksub";
-  fields?: Field[]; 
-  saveClaims?: boolean;
-  saveAuths?: boolean;
-  congratulationsMessage?: {
-    title: string;
-    description: string;
-  };  
-  failedMessage?: {
-    title: string;
-    description: string;
+export type ZkFormAppConfig = AppCommonConfig & {
+  type: "zkForm";
+  templateConfig: {
+    fields?: Field[];
+    congratulationsMessage?: {
+      title: string;
+      description: string;
+    };
+    failedMessage?: {
+      title: string;
+      description: string;
+    };
+    userSelection?: UserSelection; // default none
+    output: {
+      destination: {
+        type: "google_sheet";
+        spreadsheetId: string;
+      };
+      saveAuths?: boolean;
+      saveClaims?: boolean;
+    };
   };
-  userSelection?: UserSelection; // default none
-  appId: string;
-  output: "google_sheet";
-  spreadsheetId?: string;
-  demo?: {
-    spreadsheetId?: string,
-    appId?: string,
-    impersonateAddresses?: string[]
-  }
 };
 
 export type ZkTelegramBotAppConfig = AppCommonConfig & {
   type: "zkTelegramBot";
-  appId: string;
-  telegramGroupId: string;
-  telegramInviteLink: string;
-  demo?: {
-    appId?: string,
-    telegramGroupId?: string,
-    telegramInviteLink?: string,
-    impersonateAddresses?: string[]
-  }
+  templateConfig: {
+    telegramGroupId: string;
+    telegramInviteLink: string;
+  };
 };
 
 export type Field = ShortText | LongText | Select | Number | Social;
 
 export type ShortText = InputCommon & {
-  type: "short-text"
-}
+  type: "short-text";
+};
 
 export type LongText = InputCommon & {
-  type: "long-text"
-}
+  type: "long-text";
+};
 
 export type Select = InputCommon & {
-  type: "select"
-  values: { id: string, label: string }[];
-}
+  type: "select";
+  values: { id: string; label: string }[];
+};
 
 export type Number = InputCommon & {
-  type: "number"
-}
+  type: "number";
+};
 
 export type Social = InputCommon & {
-  type: "social",
+  type: "social";
   socialType: SocialType;
-}
+};
 
 type InputCommon = {
   label: string;

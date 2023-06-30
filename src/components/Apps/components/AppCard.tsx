@@ -7,7 +7,6 @@ import { textShorten } from "@/src/utils/textShorten";
 import { CaretDown } from "phosphor-react";
 import colors from "@/src/themes/colors";
 import ReqList from "./ReqList";
-import { App, ZkSubAppConfig } from "@/space-config/types";
 import { GroupMetadata } from "@/src/libs/group-provider";
 import { ImportedNextImage } from "@/src/utils/getImgSrcFromConfig";
 import { Clock } from "phosphor-react";
@@ -16,6 +15,7 @@ import TimerModal from "../TimerModal";
 import useRemainingTime from "@/src/utils/useRemainingTime";
 import AvailabilityProgressBar from "./AvailabilityProgressBar";
 import { useModals } from "@/src/state/ModalState";
+import { ZkAppType, ZkFormAppType } from "@/src/libs/spaces";
 
 const Container = styled.div<{ isFolderHovered: boolean, disabled: boolean }>`
   display: flex;
@@ -179,7 +179,7 @@ const CaretWrapper = styled.div<{ isFolded: boolean }>`
 `;
 
 type Props = {
-  app: App;
+  app: ZkAppType;
   cover: string | ImportedNextImage;
   groupMetadataList: GroupMetadata[];
   hasStarted: boolean;
@@ -242,7 +242,7 @@ export default function AppCard({
         onClose={() => {
           setTimerModalIsOpen(false)
         }}
-        app={app as ZkSubAppConfig}
+        app={app as ZkFormAppType}
       />
       <Container
         isFolderHovered={isHovered}
@@ -253,7 +253,7 @@ export default function AppCard({
         disabled={hasExpired}
       >
         <Top>
-          {app?.CTAText && <TopText>{app?.CTAText}</TopText>}
+          {app?.ctaText && <TopText>{app?.ctaText}</TopText>}
           <ImageWrapper>
             {cover && (
               <StyledImage src={cover} alt={app?.name} placeholder="blur" disabled={hasExpired}/>
@@ -281,7 +281,7 @@ export default function AppCard({
                 )}
             </TagWrapper>
                {
-            (app?.type === "zksub" || app?.type === "zkdrop") && app?.userSelection?.type === "Lottery" &&
+            (app?.type === "zkForm" || app?.type === "zkdrop") && app?.userSelection?.type === "Lottery" &&
             <AvailabilityProgressBar register={0} availableMax={app?.userSelection?.maxNumberOfEntries}/>
           }
           </ImageWrapper>

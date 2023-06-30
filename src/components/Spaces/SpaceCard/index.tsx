@@ -1,6 +1,6 @@
 'use client'
 
-import { SpaceConfig } from "@/space-config/types";
+import { SpaceType } from "@/src/libs/spaces";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -51,7 +51,7 @@ const NumberOfApps = styled.div`
 `
 
 type Props = {
-    config: SpaceConfig;
+    config: SpaceType;
     image: string;
 }
 

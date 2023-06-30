@@ -1,6 +1,5 @@
 "use client";
 
-import { ZkTelegramBotAppConfig, ZkSubAppConfig } from "@/space-config/types";
 import env from "@/src/environments";
 import { SismoConnectButton } from "@sismo-core/sismo-connect-react";
 import React from "react";
@@ -8,6 +7,7 @@ import { useMemo } from "react";
 import { styled } from "styled-components";
 import ReqList from "./ReqList";
 import { GroupMetadata } from "@/src/libs/group-provider";
+import { ZkFormAppType, ZkTelegramBotAppType } from "@/src/libs/spaces";
 
 const Container = styled.div``;
 
@@ -24,7 +24,7 @@ const ButtonContainer = styled.div`
 `;
 
 type Props = {
-  app: ZkSubAppConfig | ZkTelegramBotAppConfig;
+  app: ZkFormAppType | ZkTelegramBotAppType;
   groupMetadataList: GroupMetadata[];
   onEligible: (response) => void;
   verifying?: boolean;
@@ -38,11 +38,7 @@ export default function ProveEligibility({
 }: Props): JSX.Element {
 
   const config = useMemo(() => {
-    const appId = env.isDemo
-    ? (app.demo?.appId || app.appId)
-    : env.isDev
-    ? "0x4c40e70b081752680ce258ad321f9e58"
-    : app?.appId;
+    const appId = app.appId;
 
     const config = {
       appId: appId,
@@ -58,8 +54,8 @@ export default function ProveEligibility({
       } : null
     };
 
-    if (env.isDemo && app.demo.impersonateAddresses) {
-      config.vault.impersonate = app.demo.impersonateAddresses
+    if (app.impersonateAddresses) {
+      config.vault.impersonate = app.impersonateAddresses
     }
 
     return config;

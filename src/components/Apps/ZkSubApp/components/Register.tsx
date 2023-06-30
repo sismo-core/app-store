@@ -1,9 +1,9 @@
 'use client'
 
-import { ZkSubAppConfig } from "@/space-config/types";
 import React, { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import ShortTextField from "./ShortTextField";
+import { ZkFormAppType } from "@/src/libs/spaces";
 
 const Container = styled.div`
 
@@ -19,7 +19,7 @@ export type FieldValue = {
 }
 
 type Props = {
-    app: ZkSubAppConfig;
+    app: ZkFormAppType;
     onFieldsComplete: (fields) => void
 }
 

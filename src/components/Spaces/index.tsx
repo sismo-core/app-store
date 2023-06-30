@@ -1,6 +1,6 @@
 'use client'
 
-import { SpaceConfig } from "@/space-config/types";
+import { SpaceType } from "../../libs/spaces";
 import React from "react";
 import styled from "styled-components";
 import SpaceCard from "./SpaceCard";
@@ -33,7 +33,7 @@ const Grid = styled.div`
 `
 
 type Props = {
-    configs: SpaceConfig[];
+    configs: SpaceType[];
     spaceImportedImages: SpaceImportedImage[];
 }
 

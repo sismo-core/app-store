@@ -1,6 +1,6 @@
 "use client";
 
-import { SpaceConfig } from "@/space-config/types";
+import { SpaceType } from "../../libs/spaces";
 import { ImportedNextImage } from "@/src/utils/getImgSrcFromConfig";
 import Image from "next/image";
 import React from "react";
@@ -57,7 +57,7 @@ const SubTitle = styled.div`
 `;
 
 type Props = {
-  config: SpaceConfig;
+  config: SpaceType;
   coverImage: string | ImportedNextImage;
   profileImage: string | ImportedNextImage;
 };

@@ -63,6 +63,9 @@ export default function Apps({
       (app) => app.type === "zksub" && app.slug === appSlug
     );
     if (app && app.type === "zksub") {
+      const luxonUTCEndDate = app?.endDate && DateTime.fromJSDate(app?.endDate);
+      const hasExpired = luxonUTCEndDate ? DateTime.now().toUTC() > luxonUTCEndDate : false;
+      if (hasExpired) return;
       setZkAppOpening(true);
       // Can open the modal only 300ms after the init due to animation
       setTimeout(() => {
@@ -109,7 +112,7 @@ export default function Apps({
                     importedImages.find((image) => image.app.slug === app.slug)
                       ?.link
                   }
-                    hasStarted={hasStarted}
+                  hasStarted={hasStarted}
                   onCTAClick={() => {
                     if (!hasStarted) return;
 

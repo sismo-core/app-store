@@ -335,7 +335,6 @@ export const sismoConfig: SpaceConfig = {
           "We hope to have you as a lucky winner 💜 ",
       },
       startDate: new Date("2023-05-12T18:00"),
-      endDate: new Date("2023-05-26T18:00"),
       slug: "swag",
       output: "google_sheet",
       appId: null,

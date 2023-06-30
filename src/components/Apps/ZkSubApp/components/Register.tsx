@@ -27,15 +27,19 @@ export default function Register({ app, onFieldsComplete }: Props): JSX.Element 
     const [fields, setFields] = useState<FieldValue[]>([]);
 
     useEffect(() => {
-        for (let appField of app.fields) {
-            if (!appField.isRequired) continue;
-            const fieldAdded = fields.find(_field => _field.value && _field.name === appField.label)
-            if (!fieldAdded) {
-                onFieldsComplete(null);
-                return;
+        if (app.fields) {
+            for (let appField of app.fields) {
+                if (!appField.isRequired) continue;
+                const fieldAdded = fields.find(_field => _field.value && _field.name === appField.label)
+                if (!fieldAdded) {
+                    onFieldsComplete(null);
+                    return;
+                }
             }
+            onFieldsComplete(fields);
+        } else {
+            onFieldsComplete([]);
         }
-        onFieldsComplete(fields);
     }, [fields])
     
     const updateField = (name: string, value: string) => {

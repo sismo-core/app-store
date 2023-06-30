@@ -74,6 +74,7 @@ const approve = async (request: JoinRequest): Promise<void> => {
   const approveURL = new URL(`https://api.telegram.org/bot${env.telegramBotToken}/approveChatJoinRequest`);
   approveURL.searchParams.append("chat_id", request.groupId);
   approveURL.searchParams.append("user_id", request.userId);
+  if (env.isDev) { console.info(approveURL.toString()); }
   await axios.get(approveURL.toString());
 }
 
@@ -81,6 +82,7 @@ const decline = async (request: JoinRequest): Promise<void> => {
   const declineURL = new URL(`https://api.telegram.org/bot${env.telegramBotToken}/declineChatJoinRequest`);
   declineURL.searchParams.append("chat_id", request.groupId);
   declineURL.searchParams.append("user_id", request.userId);
+  if (env.isDev) { console.info(declineURL.toString()); }
   await axios.get(declineURL.toString());
 }
 

@@ -1,10 +1,8 @@
 import Hero from "@/src/components/Hero";
 import { getSpacesConfigs } from "../../libs/spaces/getSpaces";
-import getImgSrcFromConfig, {
-  ImportedNextImage,
-} from "@/src/utils/getImgSrcFromConfig";
 import { App, SpaceConfig } from "@/space-config/types";
 import HomeMain from "@/src/components/HomeMain";
+import getSpaceConfigsFront, { AppFront, SpaceConfigFront } from "@/src/utils/getSpaceConfigsFront";
 
 export type SpaceImportedImage = {
   config: SpaceConfig;
@@ -37,60 +35,12 @@ export async function generateMetadata() {
   };
 }
 
-export type AppFront = Omit<App, "image"> & {
-  space: string;
-  spaceSlug: string;
-  image: string | ImportedNextImage;
-  configImage: string | ImportedNextImage;
-};
-
-export type SpaceConfigFront = Omit<
-  SpaceConfig,
-  "apps" | "profileImage" | "coverImage"
-> & {
-  profileImage: string | ImportedNextImage;
-  coverImage: string | ImportedNextImage;
-  apps: AppFront[];
-};
 
 export default async function HomePage() {
   const configs = getSpacesConfigs();
-
+  const spaceConfigsFront: SpaceConfigFront[] = await getSpaceConfigsFront(configs);
+  
   const apps: AppFront[] = [];
-
-  const spaceConfigsFront: SpaceConfigFront[] = await Promise.all(
-    configs.map(async (config) => {
-      const profileImage = await getImgSrcFromConfig({
-        configSlug: config.slug,
-        fileName: config.profileImage,
-      });
-      const coverImage = await getImgSrcFromConfig({
-        configSlug: config.slug,
-        fileName: config.coverImage,
-      });
-      const apps: AppFront[] = await Promise.all(config.apps.map(async (app) => {
-        return {
-          ...app,
-          space: config.name,
-          spaceSlug: config.slug,
-          image: await getImgSrcFromConfig({
-            configSlug: config.slug,
-            fileName: app.image,
-          }),
-          configImage: profileImage,
-        };
-      }));
-      const configFront: SpaceConfigFront = {
-        ...config,
-        profileImage,
-        coverImage: coverImage,
-        apps,
-      };
-
-      return configFront;
-    })
-  );
-
   for (const config of spaceConfigsFront) {
     for (const app of config.apps) {
       apps.push(app)
@@ -99,8 +49,7 @@ export default async function HomePage() {
 
   return (
     <>
-      <Hero />
-      <HomeMain configs={spaceConfigsFront} apps={apps} />
+     {spaceConfigsFront && <HomeMain configs={spaceConfigsFront} apps={apps} />}
     </>
   );
 }

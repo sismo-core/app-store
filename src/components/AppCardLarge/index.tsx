@@ -1,4 +1,3 @@
-import { AppFront } from "@/src/app/(home)/page";
 import Image from "next/image";
 import styled from "styled-components";
 import AppTag from "../AppTag";
@@ -7,6 +6,7 @@ import useRemainingTime from "@/src/utils/useRemainingTime";
 import { Clock } from "phosphor-react";
 import { getHumanReadableRemainingTimeTag } from "@/src/utils/getHumanReadableTimeTag";
 import SpaceTag from "../SpaceTag";
+import { AppFront } from "@/src/utils/getSpaceConfigsFront";
 
 const Container = styled.div<{ $isDisabled: boolean }>`
   display: flex;

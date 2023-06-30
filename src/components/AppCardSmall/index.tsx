@@ -1,4 +1,4 @@
-import { AppFront } from "@/src/app/(home)/page";
+
 import Image from "next/image";
 import styled from "styled-components";
 import AppTag from "../AppTag";
@@ -8,9 +8,35 @@ import { Clock } from "phosphor-react";
 import { getHumanReadableRemainingTimeTag } from "@/src/utils/getHumanReadableTimeTag";
 import SpaceTag from "../SpaceTag";
 import { useState } from "react";
+import { AppFront } from "@/src/utils/getSpaceConfigsFront";
 
 
-const Container = styled.div<{ $isDisabled: boolean, $isHovered: boolean }>`
+const CardContainer = styled.div<{ $isSeparator: boolean }>`
+position: relative;
+width: 100%;
+  &::after {
+    content: "";
+    display: ${({ $isSeparator }) => ($isSeparator ? "block" : "none")};
+    position: absolute;
+    bottom: -32px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: ${({ theme }) => theme.colors.neutral7};
+  }
+
+  @media (max-width: 900px) {
+    &::after {
+      display: block;
+      bottom: -23px;
+    }
+    &:last-child::after {
+      display: none;
+    }
+  }
+`;
+
+const Container = styled.div<{ $isDisabled: boolean; $isHovered: boolean }>`
   position: relative;
   display: flex;
   align-items: center;
@@ -26,8 +52,7 @@ const Container = styled.div<{ $isDisabled: boolean, $isHovered: boolean }>`
   cursor: ${({ $isDisabled }) => ($isDisabled ? "default" : "pointer")};
 
   transition: transform ${({ theme }) => theme.animations.transition};
-  transform: ${({ $isHovered }) =>
-    $isHovered ? "scale(1.01)" : "scale(1)"};
+  transform: ${({ $isHovered }) => ($isHovered ? "scale(1.01)" : "scale(1)")};
 
   @media (max-width: 900px) {
     gap: 12px;
@@ -35,7 +60,7 @@ const Container = styled.div<{ $isDisabled: boolean, $isHovered: boolean }>`
   }
 `;
 
-const ImageContainer = styled.div<{ $isDisabled: boolean}>`
+const ImageContainer = styled.div<{ $isDisabled: boolean }>`
   position: relative;
   overflow: hidden;
   width: 88px;
@@ -53,7 +78,10 @@ const ImageContainer = styled.div<{ $isDisabled: boolean}>`
 const StyledImage = styled(Image)<{ $isHovered: boolean }>`
   object-fit: cover;
   transition: filter ${({ theme }) => theme.animations.transition};
-  filter: ${({ $isHovered }) => ($isHovered ? "brightness(1.04) contrast(1.05)" : "brightness(1) contrast(1)")};
+  filter: ${({ $isHovered }) =>
+    $isHovered
+      ? "brightness(1.04) contrast(1.05)"
+      : "brightness(1) contrast(1)"};
 
   @media (max-width: 900px) {
     filter: none;
@@ -110,7 +138,7 @@ const DescriptionContainer = styled.div`
   flex-grow: 1;
 `;
 
-const AppTitle = styled.h3<{$isHovered : boolean}>`
+const AppTitle = styled.h3<{ $isHovered: boolean }>`
   color: inherit;
   font-size: 18px;
   font-family: ${({ theme }) => theme.fonts.semibold};
@@ -222,9 +250,10 @@ const StyledAppTag = styled(AppTag)<{ $isHovered: boolean }>`
 type Props = {
   app: AppFront;
   className?: string;
+  isSeparator?: boolean;
 };
 
-export default function AppCardLarge({ app, className }: Props): JSX.Element {
+export default function AppCardLarge({ app, className, isSeparator }: Props): JSX.Element {
   const [isHovered, setIsHovered] = useState(false);
 
   const { remainingStartTime, remainingEndTime, hasStarted, hasEnded } =
@@ -239,6 +268,7 @@ export default function AppCardLarge({ app, className }: Props): JSX.Element {
 
   if (app)
     return (
+      <CardContainer $isSeparator={isSeparator} >
       <Container
         $isDisabled={isDisabled}
         className={className}
@@ -249,7 +279,7 @@ export default function AppCardLarge({ app, className }: Props): JSX.Element {
         <ImageContainer $isDisabled={isDisabled}>
           {app.image && app.name && (
             <StyledImage
-            $isHovered={isHovered}
+              $isHovered={isHovered}
               src={app.image}
               alt={app.name}
               fill={true}
@@ -269,15 +299,13 @@ export default function AppCardLarge({ app, className }: Props): JSX.Element {
                     </AppTag>
                   )}
                   {app.tags?.length > 0 &&
-                    app.tags.map((tag) => (
-                      <AppTag key={tag}>
-                        {tag}
-                      </AppTag>
-                    ))}
+                    app.tags.map((tag) => <AppTag key={tag}>{tag}</AppTag>)}
                 </TagContainer>
               )}
               <DescriptionContainer>
-                {app.name && <AppTitle $isHovered={isHovered}>{app.name}</AppTitle>}
+                {app.name && (
+                  <AppTitle $isHovered={isHovered}>{app.name}</AppTitle>
+                )}
                 {app.configImage && app.space && (
                   <SpaceTag app={app} isDisabled={isDisabled} />
                 )}
@@ -325,9 +353,11 @@ export default function AppCardLarge({ app, className }: Props): JSX.Element {
                   </StyledAppTag>
                 )}
                 {app.tags?.length > 0 &&
-                  app.tags.map((tag) =>  <StyledAppTag key={tag} $isHovered={isHovered && !hasEnded}>
-                  {tag}
-                </StyledAppTag>)}
+                  app.tags.map((tag) => (
+                    <StyledAppTag key={tag} $isHovered={isHovered && !hasEnded}>
+                      {tag}
+                    </StyledAppTag>
+                  ))}
               </TagRightContainer>
             )}
             {((maxNumberOfEntries && !hasEnded) ||
@@ -358,6 +388,7 @@ export default function AppCardLarge({ app, className }: Props): JSX.Element {
           </Right>
         </Content>
       </Container>
+      </CardContainer>
     );
 
   return null;

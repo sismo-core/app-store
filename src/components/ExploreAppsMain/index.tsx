@@ -1,5 +1,4 @@
 "use client";
-import { AppFront } from "@/src/app/(home)/page";
 import styled from "styled-components";
 import AppCardSmall from "../AppCardSmall";
 import AppListGrid from "../Layouts/AppListGrid";
@@ -9,6 +8,7 @@ import { searchInApps } from "@/src/utils/searchInApps";
 import { CaretDown, MagnifyingGlass } from "phosphor-react";
 import Select, { SelectOption } from "@/src/ui/Select";
 import capitalizeFirstLetter from "@/src/utils/capitalizeFirstLetter";
+import { AppFront } from "@/src/utils/getSpaceConfigsFront";
 
 const Container = styled.div`
   flex-grow: 1;
@@ -26,31 +26,6 @@ const FilterWrapper = styled.div`
   @media (max-width: 900px) {
     gap: 16px;
     flex-direction: column;
-  }
-`;
-
-const CardContainer = styled.div<{ $isSeparator: boolean }>`
-position: relative;
-width: 100%;
-  &::after {
-    content: "";
-    display: ${({ $isSeparator }) => ($isSeparator ? "block" : "none")};
-    position: absolute;
-    bottom: -32px;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background: ${({ theme }) => theme.colors.neutral7};
-  }
-
-  @media (max-width: 900px) {
-    &::after {
-      display: block;
-      bottom: -23px;
-    }
-    &:last-child::after {
-      display: none;
-    }
   }
 `;
 
@@ -165,7 +140,8 @@ export default function ExploreAppsMain({ apps }: Props): JSX.Element {
     setDisplayedApps(filteredApps?.slice(0, BATCH + loadMore * BATCH) || []);
   }, [filteredApps, loadMore]);
 
-  const isLoadMore = filteredApps?.length > displayedApps?.length && displayedApps.length > 0 ;
+  const isLoadMore =
+    filteredApps?.length > displayedApps?.length && displayedApps.length > 0;
 
   return (
     <Container>
@@ -185,17 +161,16 @@ export default function ExploreAppsMain({ apps }: Props): JSX.Element {
       {displayedApps.length > 0 && (
         <AppListGrid>
           {displayedApps.map((app, index) => (
-            <CardContainer
+            <AppCardSmall
+              app={app}
               key={app.slug + index}
-              $isSeparator={
+              isSeparator={
                 displayedApps.length % 2 === 0
                   ? index !== displayedApps.length - 1 &&
                     index !== displayedApps.length - 2
                   : index !== displayedApps.length - 1
               }
-            >
-              <AppCardSmall app={app} />
-            </CardContainer>
+            />
           ))}
         </AppListGrid>
       )}
@@ -205,7 +180,7 @@ export default function ExploreAppsMain({ apps }: Props): JSX.Element {
           {`We can't find a result for "${searchInput}"`}
         </NotFound>
       )}
-      {isLoadMore &&  (
+      {isLoadMore && (
         <LoadMore
           onClick={() => setLoadMore((curr) => curr + 1)}
           onMouseEnter={() => setLoadMoreHovered(true)}

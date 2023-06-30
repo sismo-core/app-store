@@ -1,7 +1,8 @@
 "use client";
 
-import { SpaceConfig } from "@/space-config/types";
-import { SpaceConfigFront } from "@/src/app/(home)/page";
+
+
+import { SpaceConfigFront } from "@/src/utils/getSpaceConfigsFront";
 import { textShorten } from "@/src/utils/textShorten";
 import Image from "next/image";
 import Link from "next/link";

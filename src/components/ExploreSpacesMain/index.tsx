@@ -1,5 +1,4 @@
 "use client";
-import { SpaceConfigFront } from "@/src/app/(home)/page";
 import styled from "styled-components";
 import AppCardSmall from "../AppCardSmall";
 import AppListGrid from "../Layouts/AppListGrid";
@@ -10,6 +9,7 @@ import Select, { SelectOption } from "@/src/ui/Select";
 import capitalizeFirstLetter from "@/src/utils/capitalizeFirstLetter";
 import { searchInSpaceConfigs } from "@/src/utils/searchInSpaceConfigs";
 import SpaceCard from "../SpaceCard";
+import { SpaceConfigFront } from "@/src/utils/getSpaceConfigsFront";
 
 const Container = styled.div`
   flex-grow: 1;
@@ -184,7 +184,7 @@ export default function ExploreSpacesMain({ configs }: Props): JSX.Element {
     <Container>
       <FilterWrapper>
         <SearchInput
-          placeholder="Search for Spaces"
+          placeholder="Search for spaces"
           value={searchInput}
           onChange={onUserInput}
         />

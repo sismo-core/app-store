@@ -1,9 +1,5 @@
 "use client";
-import {
-  AppFront,
-  SpaceConfigFront,
-  SpaceImportedImage,
-} from "@/src/app/(home)/page";
+import { SpaceImportedImage } from "@/src/app/(home)/page";
 import env from "@/src/environments";
 import Link from "next/link";
 import styled from "styled-components";
@@ -12,6 +8,7 @@ import SpaceCard from "../SpaceCard";
 import AppCardSmall from "../AppCardSmall";
 import App from "next/app";
 import AppListGrid from "../Layouts/AppListGrid";
+import { AppFront, SpaceConfigFront } from "@/src/utils/getSpaceConfigsFront";
 
 const Container = styled.main`
   display: flex;
@@ -116,31 +113,6 @@ const SpaceFlex = styled.div`
   }
 `;
 
-const CardContainer = styled.div<{ $isSeparator: boolean }>`
-  position: relative;
-  width: 100%;
-  &::after {
-    content: "";
-    display: ${({ $isSeparator }) => ($isSeparator ? "block" : "none")};
-    position: absolute;
-    bottom: -32px;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background: ${({ theme }) => theme.colors.neutral7};
-  }
-
-  @media (max-width: 900px) {
-    &::after {
-      display: block;
-      bottom: -23px;
-    }
-    &:last-child::after {
-      display: none;
-    }
-  }
-`;
-
 const StyledAppListGrid = styled(AppListGrid)`
   @media (max-width: 900px) {
     padding: 0 20px !important;
@@ -188,17 +160,16 @@ export default function HomeMain({ configs, apps }: Props): JSX.Element {
         <StyledAppListGrid>
           {newApps.length > 0 &&
             newApps.map((app, index) => (
-              <CardContainer
+              <AppCardSmall
+                app={app}
                 key={app.slug}
-                $isSeparator={
+                isSeparator={
                   newApps.length % 2 === 0
                     ? index !== newApps.length - 1 &&
                       index !== newApps.length - 2
                     : index !== newApps.length - 1
                 }
-              >
-                <AppCardSmall app={app} />
-              </CardContainer>
+              />
             ))}
         </StyledAppListGrid>
       </Section>

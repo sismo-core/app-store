@@ -1,5 +1,6 @@
-import { SpaceConfigFront } from "../app/(home)/page";
+
 import { deepSearch } from "./deepSearch";
+import { SpaceConfigFront } from "./getSpaceConfigsFront";
 
 export const searchInSpaceConfigs = ({
   spaceConfigs,

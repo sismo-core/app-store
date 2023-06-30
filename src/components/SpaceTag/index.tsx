@@ -3,7 +3,7 @@ import Image from "next/image";
 import { textShorten } from "@/src/utils/textShorten";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { AppFront } from "@/src/app/(home)/page";
+import { AppFront } from "@/src/utils/getSpaceConfigsFront";
 
 const SpaceLine = styled.div`
   display: inline-flex;
@@ -55,7 +55,7 @@ export default function SpaceTag({
       onMouseLeave={() => setIsHovered(false)}
       onClick={() => {
         event.stopPropagation();
-        router.push(`/spaces/${app.spaceSlug}`)}}
+        router.push(`/space/${app.spaceSlug}`)}}
     >
       <SpaceImageContainer $isDisabled={isDisabled}>
         <StyledSpaceImage

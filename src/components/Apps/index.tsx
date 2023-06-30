@@ -13,7 +13,7 @@ import {
   ZkSubAppConfig,
 } from "@/space-config/types";
 import { GroupMetadata } from "@/src/libs/group-provider";
-import { ImportedImage } from "@/src/app/(space)/[...slug]/page";
+import { ImportedImage } from "@/src/app/space/[...slug]/page";
 import { DateTime } from "luxon";
 import { useModals } from "@/src/state/ModalState";
 

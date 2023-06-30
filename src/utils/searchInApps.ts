@@ -1,5 +1,5 @@
-import { AppFront } from "../app/(home)/page"
 import { deepSearch } from "./deepSearch";
+import { AppFront } from "./getSpaceConfigsFront";
 
 export const searchInApps = ({apps, searchString}:
  { apps: AppFront[],

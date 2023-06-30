@@ -5,13 +5,15 @@ import {
   getSpaceConfig,
   getSpacesConfigs,
 } from "../../../libs/spaces/getSpaces";
-import SpaceProfile from "@/src/components/SpaceProfile";
-import Apps from "@/src/components/Apps";
 import { App, SpaceConfig } from "@/space-config/types";
 import { GroupMetadata, GroupProvider } from "@/src/libs/group-provider";
 import env from "@/src/environments";
 import { ClaimRequest } from "@sismo-core/sismo-connect-server";
 import { notFound } from "next/navigation";
+import getSpaceConfigsFront, {
+  SpaceConfigFront,
+} from "@/src/utils/getSpaceConfigsFront";
+import SpacesMain from "@/src/components/SpacesMain";
 
 // This function runs at build time on the server it generates the static paths for each page
 export async function generateStaticParams() {
@@ -79,32 +81,15 @@ export default async function SpacePage({
   params: { slug: string[] };
 }) {
   const { slug } = params;
-  const config = await getSpaceConfig({ slug: slug[0] });
+  const config = getSpaceConfig({ slug: slug[0] });
   // Dynamically import the cover image
-  let coverImage = await getImgSrcFromConfig({
-    configSlug: config?.slug,
-    fileName: config?.coverImage,
-  });
-  let profileImage = await getImgSrcFromConfig({
-    configSlug: config?.slug,
-    fileName: config?.profileImage,
-  });
 
+  const spaceConfigFront: SpaceConfigFront[] = await getSpaceConfigsFront([
+    config,
+  ]);
   const groupProvider = new GroupProvider({
     hubApiUrl: env.hubApiUrl,
   });
-
-  const importedImages: ImportedImage[] = [];
-  if (config?.apps)
-    await Promise.all(
-      config?.apps.map(async (app: App) => {
-        const image = await getImgSrcFromConfig({configSlug: config?.slug, fileName: app?.image});
-        importedImages.push({
-          app,
-          link: image,
-        });
-      })
-    );
 
   const groupMetadataList: GroupMetadata[] = [];
   if (config?.apps)
@@ -132,21 +117,7 @@ export default async function SpacePage({
 
   return (
     <>
-      {config && coverImage && profileImage && (
-        <SpaceProfile
-          config={config}
-          coverImage={coverImage}
-          profileImage={profileImage}
-        />
-      )}
-      {config?.apps && loaded && (
-        <Apps
-          config={config}
-          appSlug={slug[1]}
-          importedImages={importedImages}
-          groupMetadataList={groupMetadataList}
-        />
-      )}
+      <SpacesMain config={spaceConfigFront[0]} />
     </>
   );
 }

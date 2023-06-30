@@ -102,7 +102,7 @@ const getAuthColumnName = (authType: AuthType) => {
 }
 
 const getStore = async (app: ZkSubAppConfig): Promise<Store> => {
-    const appColumns = app.fields.map(el => el.label);
+    const appColumns = app?.fields ? app?.fields.map(el => el.label) : [];
 
     let authColumns = needVaultAuth(app) ? ["VaultId"] : [];
     if (app.saveAuths) 

@@ -6,7 +6,7 @@ export const privacyIsNormalConfig: SpaceConfig = {
   slug: "privacy-is-normal",
   name: "Privacy Is Normal 🌼",
   description:
-    "This Space celebrates privacy as a fundamental human right. Get your Gitcoin Passport and enter the Sybil-resistant lottery by proving you’re a Tornado Cash user in a privacy-preserving manner. Eligibility groups are updated daily. Ten winners will receive a printed 'Privacy Is Normal' artwork.",
+    "This Space celebrates privacy as a fundamental human right. By proving you are a Tornado Cash user in a privacy-preserving manner and with a Gitcoin Passport, you were able to participate in our Sybil-resistant lottery. 10 winners have been selected to receive a printed ‘Privacy Is Normal’ artwork.",
   profileImage: "space_privacy_is_normal_pfp_400x400.png",
   coverImage: "space_privacy_is_normal_cover_1740x540.png",
   socialLinks: [
@@ -99,11 +99,16 @@ export const privacyIsNormalConfig: SpaceConfig = {
       type: "zksub",
       name: "Artwork Claiming",
       description:
-        "Check if you won in the lottery and enter your shipping address to receive the ‘Privacy Is Normal’ artwork.",
+        "Check if you won in the lottery and enter your shipping address to receive the ‘Privacy Is Normal’ artwork - without doxxing your wallet 👀",       
       tags: ["Artwork"],
       image: "privacy_is_normal_apps_print_1014x720.png",
       CTAText: "Claim Your Artwork",
       fields: [
+        {
+          type: "short-text",
+          label: "Email",
+          isRequired: true,
+        },
         {
           type: "short-text",
           label: "Full name",
@@ -147,40 +152,29 @@ export const privacyIsNormalConfig: SpaceConfig = {
         description:
           "You will receive the ‘Privacy Is Normal’ artwork soon 💜",
       },
-      startDate: new Date("2023-06-20T18:00Z"),
-      endDate: new Date("2023-07-18T18:00Z"),
+      endDate: new Date("2023-07-03T14:00Z"),
       slug: "artwork-claim",
       output: "google_sheet",
       appId: "0x1941996d7a0245ccc2b203847d682298",
       spreadsheetId: "15KaDhCGxs8E6mmYw5kZkUYTXQoTsH9UAt27TLsbT6TE",
       authRequests: [{ authType: AuthType.VAULT }],
-      claimRequests: [], //add winners lottery group
+      claimRequests: [ { groupId: "0xa199ee8b75688035fb40f8660adbcdac" } ],
       envs: ["Prod"],
     },
-
     {
       type: "zksub",
       name: "Lottery Registration",
       description:
-        "Register to have a chance to be among 10 lucky winners to get a ‘Privacy Is Normal’ artwork - open at our ETHDam Sismo booth.",
+        "Register to have a chance to be among 10 lucky winners to get a ‘Privacy Is Normal’ artwork'.",
       tags: ["Artwork"],
       image: "privacy_is_normal_apps_lotery_1014x720.png",
       CTAText: "Participate in the Lottery",
-      fields: [
-        {
-          type: "short-text",
-          label: "Twitter",
-          placeholder: "@handle",
-          isRequired: true,
-        },
-      ],
       congratulationsMessage: {
         title: "Fingers crossed!",
         description:
           "We hope to have you among our lucky winners 💜 We will contact you if you win!",
       },
       startDate: new Date("2023-05-17T16:00Z"),
-      endDate: new Date("2023-05-20T18:00Z"),
       slug: "artwork-lottery",
       output: "google_sheet",
       appId: null,
@@ -200,6 +194,81 @@ export const privacyIsNormalConfig: SpaceConfig = {
         impersonateAddresses: [
           "0x85ff01cff157199527528788ec4ea6336615c989",
           "0x48724944608b7baacd2f7d10bdbc98d429967f7c"
+        ]
+      },
+      envs: ["Demo"],
+    },
+    {
+      type: "zksub",
+      name: "Artwork Claiming",
+      description:
+        "[DEMO] Artwork Claiming App: you will impersonate ‘demo.eth’ that is the unique winner in the demo environment of the ‘Privacy Is Normal’ lottery.",       
+      tags: ["Artwork"],
+      image: "privacy_is_normal_apps_print_1014x720.png",
+      CTAText: "Claim Your Artwork",
+      fields: [
+        {
+          type: "short-text",
+          label: "Email",
+          isRequired: true,
+        },
+        {
+          type: "short-text",
+          label: "Full name",
+          isRequired: true,
+        },
+        {
+          type: "short-text",
+          label: "Street address",
+          isRequired: true,
+        },
+        {
+          type: "short-text",
+          label: "Apartment, unit, suite, etc",
+          placeholder: "Optional",
+          isRequired: false,
+        },
+        {
+          type: "short-text",
+          label: "City",
+          isRequired: true,
+        },
+        {
+          type: "short-text",
+          label: "State/Province",
+          placeholder: "Optional",
+          isRequired: false,
+        },
+        {
+          type: "short-text",
+          label: "ZIP code",
+          isRequired: true,
+        },
+        {
+          type: "short-text",
+          label: "Country",
+          isRequired: true,
+        }
+      ],
+      congratulationsMessage: {
+        title: "Congratulations!",
+        description:
+          "You will receive the ‘Privacy Is Normal’ artwork soon 💜",
+      },
+      endDate: new Date("2023-07-03T14:00Z"),
+      slug: "artwork-claim",
+      output: "google_sheet",
+      appId: null,
+      spreadsheetId: null,
+      authRequests: [{ authType: AuthType.VAULT }],
+      claimRequests: [ { groupId: "0x406925cbd710f4fd10c5b304777cd073" } ],
+      demo: {
+        spreadsheetId: "1hlAxg69kX1Z7RRh-prmkkYTiMFXcmFluGv_dcfTP7bg",
+        appId: "0x325b16d643351175e190a43ce8066da9",
+        impersonateAddresses: [
+          "0xfc43f5f9dd45258b3aff31bdbe6561d97e8b71de",
+          "github:demo",
+          "twitter:demo:159203775",
         ]
       },
       envs: ["Demo"],

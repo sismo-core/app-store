@@ -7,7 +7,7 @@ export const aaveChanInitiativeConfigDemo: SpaceConfig = {
     slug: "aave-chan-initiative",
     name: "Aave-Chan Initiative",
     description:
-      "This Space is a tribute to delegators of Aave-Chan Initiative delegate address “Aavechan.eth” - an Aave protocol Delegate participating in governance discussions on Aave, and creating snapshot votes & AIPs for the benefit of the Aave protocol.",
+      "This Space is dedicated to the Aave-Chan Initiative (ACI - Aavechan.eth), a delegate platform. Aave users that delegated their governance power to ACI will get access to gifts and premium features.",
     profileImage: "space_aave_chan_initiative_pfp_400x400.png",
     coverImage: "space_aave_chan_initiative_cover_1740x540.png",
     socialLinks: [
@@ -22,9 +22,9 @@ export const aaveChanInitiativeConfigDemo: SpaceConfig = {
       type: "zkForm",
       metadata: {
         slug: "swag",
-        name: "ACI Chads Swag Claiming",
+        name: "ACI Chads Swag Claim",
         description:
-          "Enter your delivery address to claim your Aave-Chan Initiative Chads Swag - without doxxing your wallet 👀",
+          "Enter your delivery address to claim your Aave-Chan Initiative Chads Swag - without doxxing your wallet 👀 Don't forget to share all your levels to get more swags!",
         tags: ["Swag"],
         image: "aave_chan_initiative_apps_swag_1014x720.png",
         ctaText: "Claim your Swag",
@@ -36,7 +36,17 @@ export const aaveChanInitiativeConfigDemo: SpaceConfig = {
         claimRequests: [
           {
             groupId: "0xf0285dcfe412b24a6ac9a1c365b7b35d",
-            isSelectableByUser: true,
+            value: 50,
+          },
+          {
+            groupId: "0xf0285dcfe412b24a6ac9a1c365b7b35d",
+            isOptional: true,
+            value: 250,
+          },
+          {
+            groupId: "0xf0285dcfe412b24a6ac9a1c365b7b35d",
+            isOptional: true,
+            value: 1000,
           },
         ],
         impersonateAddresses: ["0x5af25164a0f1207db70727a2c447d6a7b44b89d0"],
@@ -83,7 +93,7 @@ export const aaveChanInitiativeConfigDemo: SpaceConfig = {
           },
           {
             type: "short-text",
-            label: "(Optional) T-shirt size - only if delegated more than 100",
+            label: "(Optional) T-shirt size - only if >= 250 tokens delegated",
             placeholder: "XS/S/M/L/XL (EU Sizes)",
             helperText: "If you're US, take one Size above your usual one",
             isRequired: false,

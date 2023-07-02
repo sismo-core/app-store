@@ -8,7 +8,7 @@ export const sismoConfigDemo: SpaceConfig = {
     slug: "sismo",
     name: "Sismo",
     description:
-      "Sismo enables users to selectively disclose personal data to apps with Sismo Connect (SSO) and ZK Badges (SBTs). Get the most of your data.",
+      "This Space showcases a variety of Sismo Apps and benefits for our valued members across all levels (1, 2, and 3) in the Sismo Community. Prove your membership and unlock access to Apps personalized to your level. To learn more and elevate your level, head to https://community.sismo.io.",
     profileImage: "space_sismo_pfp_400x400.png",
     coverImage: "space_sismo_cover_1740x540.png",
     socialLinks: [
@@ -56,7 +56,7 @@ export const sismoConfigDemo: SpaceConfig = {
     {
       type: "zkForm",
       metadata: {
-        name: "Sismo Newsletter",
+        name: "Newsletter Subscription",
         slug: "newsletter",
         description: "Register your email address to receive the Sismo newsletter - open to all.",
         image: "sismoapps_newletter_1014x720.png",
@@ -67,7 +67,7 @@ export const sismoConfigDemo: SpaceConfig = {
       sismoConnectRequest: {
         authRequests: [
           { authType: AuthType.VAULT },
-          { authType: AuthType.TWITTER, isSelectableByUser: true },
+          { authType: AuthType.TWITTER, isOptional: true },
           { authType: AuthType.GITHUB, isOptional: true },
         ],
         appId: "0xe083ec4268d2c75e41ec6e08b4373882",
@@ -98,7 +98,7 @@ export const sismoConfigDemo: SpaceConfig = {
         name: "Sismo Space Feedback",
         slug: "space-feedback",
         description:
-          "Provide feedback to help us improve your Sismo Space experience and become a Sismo Contributor Level 1 - open to Gitcoin Passport holders.",
+          "Provide feedback to help us improve your Sismo Space experience and become a Sismo Contributor Level 1.",
         image: "sismoapps_feedback_1014x720.png",
         tags: ["Feedback"],
         ctaText: "Give Feedback",
@@ -108,7 +108,7 @@ export const sismoConfigDemo: SpaceConfig = {
         appId: "0xc429ae9dc0e1fea6591244cdc70ee626",
         authRequests: [
           { authType: AuthType.VAULT },
-          { authType: AuthType.TWITTER, isSelectableByUser: true },
+          { authType: AuthType.TWITTER, isOptional: true },
         ],
         claimRequests: [{ groupId: "0x1cde61966decb8600dfd0749bd371f12", isOptional: true }],
         impersonateAddresses: [
@@ -163,7 +163,7 @@ export const sismoConfigDemo: SpaceConfig = {
     {
       type: "zkForm",
       metadata: {
-        name: "Sismo Alpha Tester",
+        name: "Alpha Tester Registration",
         slug: "alpha-tester",
         description:
           "Register to become a Sismo Alpha Tester - open to Ethereum Power Users & ENS Domains Holders.",
@@ -176,7 +176,7 @@ export const sismoConfigDemo: SpaceConfig = {
         appId: "0x7cef438f591d7b391a3eae11b2bd7868",
         authRequests: [
           { authType: AuthType.VAULT },
-          { authType: AuthType.TWITTER, isSelectableByUser: true },
+          { authType: AuthType.TWITTER, isOptional: true },
         ],
         claimRequests: [
           { groupId: "0x4ad1cfd0eb55f578e7690ecd06aa250b" },
@@ -211,10 +211,10 @@ export const sismoConfigDemo: SpaceConfig = {
     {
       type: "zkForm",
       metadata: {
-        name: "Sismo Contributors' Anon Wall",
+        name: "Contributors' Anon Wall Publication",
         slug: "anon-wall",
         description:
-          "Write a public message on the Sismo Contributors' Anon Wall - open to Sismo Contributors.",
+          "Write a public message on the Sismo Contributors' Anon Wall - available to all members of the Sismo Community.",
         tags: ["Feedback"],
         image: "sismoapps_anon_wall_1014x720.png",
         ctaText: "Publish on Contributors' Anon Wall",
@@ -223,12 +223,9 @@ export const sismoConfigDemo: SpaceConfig = {
       sismoConnectRequest: {
         appId: "0x90db0519f15b523cd41bc3557f6d6b91",
         claimRequests: [
-          { groupId: "0xe9ed316946d3d98dfcd829a53ec9822e", value: 1, isSelectableByUser: true },
+          { groupId: "0xd630aa769278cacde879c5c0fe5d203c", value: 1, isSelectableByUser: true },
         ],
-        impersonateAddresses: [
-          "twitter:VitalikButerin:423423",
-          "0x0b5c7dc2181fa147ec439fd5a158e3012f9449ea",
-        ],
+        impersonateAddresses: ["0x8ab1760889F26cBbf33A75FD2cF1696BFccDc9e6"],
       },
       templateConfig: {
         fields: [
@@ -334,6 +331,74 @@ export const sismoConfigDemo: SpaceConfig = {
       },
       options: {
         startDate: new Date("2023-05-12T18:00"),
+      },
+    },
+    {
+      type: "zkForm",
+      metadata: {
+        name: "Future of France Invitation",
+        slug: "ticket-fof",
+        description:
+          "Register to get a chance to receive a ticket for the Future of France Party. The event will take place on July 17th during the EthCC week. Exclusively for members of Sismo Community Level 3.",
+        tags: ["Event", "Ticket"],
+        image: "sismo_appstore_fof_tickets.png",
+        ctaText: "Register to get your Ticket",
+      },
+      sismoConnectRequest: {
+        appId: "0x08ffa7336eb7bc0907a9f76ebc55aa4d",
+        authRequests: [{ authType: AuthType.VAULT }],
+        claimRequests: [{ groupId: "0xd630aa769278cacde879c5c0fe5d203c", value: 3 }],
+        impersonateAddresses: ["0x8ab1760889F26cBbf33A75FD2cF1696BFccDc9e6"],
+      },
+      templateConfig: {
+        fields: [
+          {
+            type: "short-text",
+            label: "First Name",
+            isRequired: true,
+          },
+          {
+            type: "short-text",
+            label: "Last Name",
+            isRequired: true,
+          },
+          {
+            type: "short-text",
+            label: "Company (optional)",
+            isRequired: false,
+          },
+          {
+            type: "short-text",
+            label: "Email",
+            isRequired: true,
+          },
+          {
+            type: "short-text",
+            label: "Will you be in Paris on July 17, 7pm? Tickets are limited.",
+            isRequired: true,
+            placeholder: "Yes/No",
+          },
+        ],
+        congratulationsMessage: {
+          title: "Congratulations!",
+          description: "You will receive the ticket in a few days! See you there 💜",
+        },
+        failedMessage: {
+          title: "Sorry, too late this time 😕",
+          description: "Stay in touch for the next one 💜",
+        },
+        output: {
+          destination: {
+            type: "google_sheet",
+            spreadsheetId: "16NuT1HIJvM2jikRmHzN-ZSwJmjg_Ef1-6e-XbPff3z4",
+          },
+          saveAuths: true,
+          saveClaims: true,
+        },
+        userSelection: { type: "FCFS", maxNumberOfUsers: 40 },
+      },
+      options: {
+        endDate: new Date("2023-07-10T18:00"),
       },
     },
   ],

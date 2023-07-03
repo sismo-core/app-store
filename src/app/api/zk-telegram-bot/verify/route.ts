@@ -38,7 +38,7 @@ export async function POST(req: Request) {
     const userStore = getUserStore();
 
     const telegramId = result.getUserId(AuthType.TELEGRAM);
-    if (await isAlreadyApproved(userStore, telegramId)) {
+    if (await isAlreadyApproved(userStore, app.slug, telegramId)) {
       if (env.isDev) {
         console.info(`User ${telegramId} is already approved`);
       }
@@ -74,8 +74,16 @@ const verifyResponse = async (
   return await sismoConnect.verify(response, verifyParams);
 };
 
-const isAlreadyApproved = async (store: UserStore, telegramId: string): Promise<boolean> => {
-  const users = await store.getUsers({ userId: telegramId });
+const isAlreadyApproved = async (
+  store: UserStore, 
+  appSlug: string,
+  telegramId: string
+): Promise<boolean> => {
+  const userQuery = { 
+    appSlug: appSlug,
+    userId: telegramId 
+  };
+  const users = await store.getUsers(userQuery);
   return users.length > 0;
 };
 

@@ -77,7 +77,6 @@ export const privacyIsNormalConfigMain: SpaceConfig = {
       },
       options: {
         startDate: new Date("2023-05-17T14:00Z"),
-        endDate: new Date("2023-06-18T14:00Z"),
       },
     },
     {

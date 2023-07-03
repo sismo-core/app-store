@@ -7,7 +7,7 @@ import { EthRounded } from "../SismoReactIcon/components/EthRounded";
 import { textShorten } from "@/src/utils/textShorten";
 import { TelegramRounded } from "../SismoReactIcon/components/TelegramRounded";
 
-const Container = styled.div<{fullWidth: boolean}>`
+const Container = styled.div<{ fullWidth: boolean }>`
   font-family: ${(props) => props.theme.fonts.medium};
   font-size: 14px;
   line-height: 20px;
@@ -52,8 +52,8 @@ export default function UserTag({ authType, fullWidth }: Props) {
           ? "Github account"
           : authType === AuthType.TELEGRAM
           ? "Telegram account"
-          : authType === AuthType.EVM_ACCOUNT ? 
-          "Ethereum account"
+          : authType === AuthType.EVM_ACCOUNT
+          ? "Ethereum account"
           : "User id"}
       </Text>
     </Container>

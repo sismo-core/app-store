@@ -37,10 +37,10 @@ export const sismoConfigMain: SpaceConfig = {
         name: "Future of France Invitation",
         slug: "ticket-fof",
         description:
-          "Register to get a chance to receive a ticket for the Future of France Party. The event will take place on July 17th during the EthCC week. Exclusively for members of Sismo Community Level 3.",
+          "Future of France is an invitation-only event during EthCC week in Paris, organized by French-based crypto startups. The number of tickets is limited. Exclusive for members of Sismo Community Level 3.",
         tags: ["Event", "Ticket"],
         image: "sismo_appstore_fof_tickets.png",
-        ctaText: "Register to get your Ticket",
+        ctaText: "Register to get the Invite",
       },
       sismoConnectRequest: {
         appId: "0x08ffa7336eb7bc0907a9f76ebc55aa4d",

@@ -1,4 +1,3 @@
-import { spacesConfig } from "@/space-config";
 import {
   ZkAppType,
   AppCommonType,
@@ -8,10 +7,11 @@ import {
   ZkTelegramBotAppType,
 } from "./types";
 import { AuthType } from "@sismo-core/sismo-connect-server";
+import ServiceFactory from "@/src/libs/service-factory/service-factory";
 
 export function getSpaces(): SpaceType[] {
   let spaces: SpaceType[] = [];
-  for (let spaceConfig of spacesConfig) {
+  for (let spaceConfig of ServiceFactory.getSpaceConfigs()) {
     let apps: ZkAppType[] = [];
     for (let appConfig of spaceConfig.apps) {
       const appCommon: AppCommonType = {

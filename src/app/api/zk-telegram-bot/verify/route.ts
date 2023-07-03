@@ -8,8 +8,8 @@ import {
   SismoConnectVerifiedResult,
 } from "@sismo-core/sismo-connect-server";
 import env from "@/src/environments";
-import { getUserStore } from "@/src/libs/user-store";
 import { UserStore } from "@/src/libs/user-store/store";
+import ServiceFactory from "@/src/libs/service-factory/service-factory";
 
 export async function POST(req: Request) {
   const { response, spaceSlug, appSlug } = await req.json();
@@ -23,10 +23,6 @@ export async function POST(req: Request) {
     return errorResponse(`Failed to find app ${appSlug} in space ${spaceSlug}`);
   }
 
-  if (env.isDemo) {
-    return approvedResponse();
-  }
-
   let result: SismoConnectVerifiedResult;
   try {
     result = await verifyResponse(app, response);
@@ -35,7 +31,7 @@ export async function POST(req: Request) {
   }
 
   try {
-    const userStore = getUserStore();
+    const userStore = ServiceFactory.getZkTelegramBotUserStore();
 
     const telegramId = result.getUserId(AuthType.TELEGRAM);
     if (await isAlreadyApproved(userStore, app.slug, telegramId)) {
@@ -75,15 +71,11 @@ const verifyResponse = async (
 };
 
 const isAlreadyApproved = async (
-  store: UserStore, 
-  appSlug: string,
+  store: UserStore,
+  appSlug,
   telegramId: string
 ): Promise<boolean> => {
-  const userQuery = { 
-    appSlug: appSlug,
-    userId: telegramId 
-  };
-  const users = await store.getUsers(userQuery);
+  const users = await store.getUsers({ userId: telegramId, appSlug });
   return users.length > 0;
 };
 

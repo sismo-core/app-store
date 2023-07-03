@@ -64,7 +64,7 @@ const handleJoinRequest = async (request: JoinRequest): Promise<Response> => {
     return errorResponse("Failed to find a matching app for the group");
   }
 
-  const canJoinGroup = env.isDemo ? true : await isWhitelistApproved(app, request.userId);
+  const canJoinGroup = await isWhitelistApproved(app, request.userId);
   try {
     if (canJoinGroup) {
       await approve(request);

@@ -1,5 +1,4 @@
-import { SpaceType } from "@/src/libs/spaces";
-import { AuthType } from "@sismo-core/sismo-connect-server";
+import { SpaceConfig } from "@/space-config/types";
 
 export class MockedRequest {
   private data: any;
@@ -13,58 +12,41 @@ export class MockedRequest {
   }
 }
 
-export const mockSpaceType = (
+export const mockTelegramTestSpaceType = (
   appSlug: string = "appSlug",
-  spaceSlug: string = "spaceSlug"
-): SpaceType => {
+  spaceSlug: string = "spaceSlug",
+  telegramGroupId: string = "-2"
+): SpaceConfig => {
   return {
-    slug: spaceSlug,
-    description: "description",
-    name: "name",
+    metadata: {
+      slug: spaceSlug,
+      description: "description",
+      name: "name",
+    },
     apps: [
       {
         type: "zkTelegramBot",
-        name: "name",
-        description: "description",
-        tags: [],
-        image: "image",
-        ctaText: "ctaText",
-        slug: appSlug,
-        authRequests: [{ authType: AuthType.TELEGRAM }],
-        appId: "0xd21d9ab6eaf8bcc16eff8d9a76764eab",
-        telegramGroupId: "groupId",
-        telegramInviteLink: "inviteLink",
+        metadata: {
+          name: "name",
+          slug: appSlug,
+          description: "description",
+          image: "image",
+          tags: [],
+          ctaText: "ctaText",
+          createdAt: new Date(),
+          lastUpdateAt: new Date(),
+        },
+        sismoConnectRequest: {
+          appId: "0xd21d9ab6eaf8bcc16eff8d9a76764eab",
+        },
+        templateConfig: {
+          telegramGroupId: telegramGroupId,
+          telegramInviteLink: "inviteLink",
+        },
       },
     ],
   };
 };
-
-export const mockSpacesType = (
-  appSlug: string = "appSlug",
-  spaceSlug: string = "spaceSlug",
-  telegramGroupId: string = "-2"
-): SpaceType[] => [
-  {
-    slug: spaceSlug,
-    description: "description",
-    name: "name",
-    apps: [
-      {
-        type: "zkTelegramBot",
-        name: "name",
-        description: "description",
-        tags: [],
-        image: "image",
-        ctaText: "ctaText",
-        slug: appSlug,
-        authRequests: [{ authType: AuthType.TELEGRAM }],
-        appId: "0xd21d9ab6eaf8bcc16eff8d9a76764eab",
-        telegramGroupId: telegramGroupId,
-        telegramInviteLink: "inviteLink",
-      },
-    ],
-  },
-];
 
 export const mockJoinRequest = (chatId: number, userId: number) => {
   return {

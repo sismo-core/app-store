@@ -1,8 +1,8 @@
-import Hero from "@/src/components/Hero";
-import Spaces from "@/src/components/Spaces";
 import { getSpaces } from "../../libs/spaces/getSpaces";
-import getImgSrcFromConfig from "@/src/utils/getImgSrcFromConfig";
 import { SpaceType } from "../../libs/spaces";
+import getSpaceFront, { AppFront, SpaceConfigFront } from "@/src/utils/getSpaceConfigsFront";
+import HomeMain from "@/src/components/HomeMain";
+import { notFound } from "next/navigation";
 
 export type SpaceImportedImage = {
   config: SpaceType,
@@ -10,8 +10,10 @@ export type SpaceImportedImage = {
 }
 
 export async function generateMetadata() {
-  const title = "Sismo Spaces - Powerful Spaces for community builders who truly care";
-  const description = "Bring joy to your community, get a Space, respect their privacy.";
+  const title =
+    "Sismo Spaces - Powerful Spaces for community builders who truly care";
+  const description =
+    "Bring joy to your community, get a Space, respect their privacy.";
   const image = `./home-thumbnail.svg`;
   return {
     title,
@@ -33,21 +35,34 @@ export async function generateMetadata() {
   };
 }
 
+
 export default async function HomePage() {
-  const configs = await getSpaces();
 
-  let spaceImportedImages: SpaceImportedImage[] = [];
-  await Promise.all(configs.map(async config => spaceImportedImages.push({
-    config: config,
-      link: await getImgSrcFromConfig(
-        config?.slug,
-        config?.profileImage
-      )
-  })));
+  const apps: AppFront[] = [];
+  let spacesFront: SpaceConfigFront[] = [];
 
-  return (<>
-      <Hero />
-      <Spaces configs={configs} spaceImportedImages={spaceImportedImages}/>
-      </>
+  try{
+    const spaces = getSpaces();
+    spacesFront = await getSpaceFront(spaces);
+    
+    for (const config of spacesFront) {
+      for (const app of config.apps) {
+        apps.push(app)
+      }
+    }
+
+    apps.sort((a, b) => {
+       return b.createdAt.getTime() - a.createdAt.getTime() ;
+    });
+
+  } catch(e) {
+    console.log(e);
+    notFound();
+  }
+ 
+  return (
+    <>
+     {spacesFront && <HomeMain configs={spacesFront} apps={apps} />}
+    </>
   );
 }

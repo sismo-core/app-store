@@ -5,8 +5,8 @@ import React, { useContext, useState } from "react";
 type Modals = {
     setRequirementsIsOpen: (isOpen: boolean) => void;
     requirementsIsOpen: boolean;
-    setZkSubAppIsOpen: (isOpen: boolean) => void;
-    zkSubAppIsOpen: boolean;
+    setZkFormAppIsOpen: (isOpen: boolean) => void;
+    zkFormAppIsOpen: boolean;
     setZkBotAppIsOpen: (isOpen: boolean) => void;
     zkBotAppIsOpen: boolean;
 };
@@ -23,7 +23,7 @@ export default function ModalsProvider({
   children: React.ReactNode;
 }): JSX.Element {
   const [requirementsIsOpen, setRequirementsIsOpen] = useState<boolean>(false);
-  const [zkSubAppIsOpen, setZkSubAppIsOpen] = useState<string>(null);
+  const [zkFormAppIsOpen, setZkFormAppIsOpen] = useState<string>(null);
   const [zkBotAppIsOpen, setZkBotAppIsOpen] = useState<string>(null);
 
   return (
@@ -31,8 +31,8 @@ export default function ModalsProvider({
       value={{
         setRequirementsIsOpen,
         requirementsIsOpen,
-        setZkSubAppIsOpen,
-        zkSubAppIsOpen,
+        setZkFormAppIsOpen,
+        zkFormAppIsOpen,
         setZkBotAppIsOpen,
         zkBotAppIsOpen
       }}

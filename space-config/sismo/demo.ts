@@ -41,6 +41,7 @@ export const sismoConfigDemo: SpaceConfig = {
         image: "sismoapps_tg_zk_bot_1014x720.png",
         tags: ["Telegram"],
         ctaText: "Join our Telegram Group",
+        createdAt: new Date("2022-07-03T00:00:00.000Z"),
       },
       sismoConnectRequest: {
         appId: "0xd21d9ab6eaf8bcc16eff8d9a76764eab",
@@ -61,6 +62,7 @@ export const sismoConfigDemo: SpaceConfig = {
         image: "sismoapps_newletter_1014x720.png",
         ctaText: "Subscribe to the Newsletter",
         tags: ["Newsletter"],
+        createdAt: new Date("2022-07-01T00:00:00.000Z"),
       },
       sismoConnectRequest: {
         authRequests: [
@@ -100,6 +102,7 @@ export const sismoConfigDemo: SpaceConfig = {
         image: "sismoapps_feedback_1014x720.png",
         tags: ["Feedback"],
         ctaText: "Give Feedback",
+        createdAt: new Date("2022-07-01T00:00:00.000Z"),
       },
       sismoConnectRequest: {
         appId: "0xc429ae9dc0e1fea6591244cdc70ee626",
@@ -167,6 +170,7 @@ export const sismoConfigDemo: SpaceConfig = {
         image: "sismoapps_alpha_tester_1014x720.png",
         tags: ["Alpha"],
         ctaText: "Become an Alpha Tester",
+        createdAt: new Date("2022-07-01T00:00:00.000Z"),
       },
       sismoConnectRequest: {
         appId: "0x7cef438f591d7b391a3eae11b2bd7868",
@@ -214,6 +218,7 @@ export const sismoConfigDemo: SpaceConfig = {
         tags: ["Feedback"],
         image: "sismoapps_anon_wall_1014x720.png",
         ctaText: "Publish on Contributors' Anon Wall",
+        createdAt: new Date("2022-07-01T00:00:00.000Z"),
       },
       sismoConnectRequest: {
         appId: "0x90db0519f15b523cd41bc3557f6d6b91",
@@ -254,6 +259,7 @@ export const sismoConfigDemo: SpaceConfig = {
         tags: ["Event"],
         image: "sismoapps_sismo_events_1014x720.png",
         ctaText: "Pre-register to Sismo events",
+        createdAt: new Date("2022-07-01T00:00:00.000Z"),
       },
       sismoConnectRequest: {
         appId: "0xb3a074e124ff04ee0d703b528bfd5f4d",
@@ -298,6 +304,7 @@ export const sismoConfigDemo: SpaceConfig = {
         tags: ["Swag"],
         image: "sismoapps_swag_lotery_1014x720.png",
         ctaText: "Participate in the Swag Lottery",
+        createdAt: new Date("2022-07-01T00:00:00.000Z"),
       },
       sismoConnectRequest: {
         appId: "0x4f7fef07fcdce0a81e8f2ea14e8ea6c0",

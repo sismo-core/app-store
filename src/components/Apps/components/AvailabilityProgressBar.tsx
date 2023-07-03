@@ -51,7 +51,7 @@ export default function AvailabilityProgressBar({ register, availableMax }: Prop
     let _progress = register * 100 / availableMax;
     if (_progress > 100) _progress = 100;
     setProgress(_progress);
-  }, [register])
+  }, [register, availableMax])
 
   return (
     <Container>

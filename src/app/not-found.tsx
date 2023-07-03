@@ -9,7 +9,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   gap: 10px;
-  height: 60vh;
+  height: 70vh;
   font-family: ${props => props.theme.fonts.medium};
 `
 
@@ -17,7 +17,7 @@ export default function NotFound() {
   return (
     <PageContainer>
     <Container>
-      <h2>Not Found</h2>
+      <h1>Not Found</h1>
       <p>Could not find requested resource</p>
     </Container>
     </PageContainer>

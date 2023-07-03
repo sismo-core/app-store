@@ -26,9 +26,7 @@ export class GroupProvider {
     timestamp?: "latest" | number;
     revalidate?: number;
   }): Promise<GroupMetadata> {
-    const fetchOptions: RequestInit = {
-      cache: "force-cache",
-    };
+    const fetchOptions: RequestInit = {};
 
     if (revalidate) {
       fetchOptions.next = {

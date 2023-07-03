@@ -7,15 +7,24 @@ const Input = styled.input<{ small }>`
   outline: none;
   height: 36px;
   border-radius: 5px;
-  padding: 0px 10px;
-  background-color: ${props => props.theme.colors.neutral8};
+  padding: 8px 10px;
+
+  background-color: transparent;
+  border: 1px solid ${props => props.theme.colors.neutral7};
+
 
   font-family: ${props => props.theme.fonts.medium};
   font-size: 14px;
+  line-height: 20px;
   color: ${props => props.theme.colors.neutral1};
 
   &::placeholder {
     color: ${props => props.theme.colors.neutral5};
+  }
+
+  &:focus {
+    outline: none;
+    border: 1px solid ${props => props.theme.colors.neutral4};
   }
 `;
 

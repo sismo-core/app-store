@@ -40,6 +40,7 @@ export const privacyIsNormalConfigDemo: SpaceConfig = {
         tags: ["Artwork"],
         image: "privacy_is_normal_apps_lotery_1014x720.png",
         ctaText: "Participate in the Lottery",
+        createdAt: new Date("2022-07-01T00:00:00.000Z"),
       },
       sismoConnectRequest: {
         appId: "0x5749773b034573e615026216c628be4d",
@@ -84,6 +85,7 @@ export const privacyIsNormalConfigDemo: SpaceConfig = {
         tags: ["Artwork"],
         image: "privacy_is_normal_apps_print_1014x720.png",
         ctaText: "Claim Your Artwork",
+        createdAt: new Date("2022-07-01T00:00:00.000Z"),
       },
       sismoConnectRequest: {
         appId: "0x325b16d643351175e190a43ce8066da9",

@@ -7,6 +7,7 @@ export type SpaceType = {
 
   profileImage?: string; // 160x160px can be an url or local file
   coverImage?: string; // 1440x340px can be an url or local file
+  tags?: string[];
 
   socialLinks?: {
     type: SocialType;
@@ -35,6 +36,9 @@ export type AppCommonType = {
   image: string; // 550x390px can be an url or local file
   tags: string[];
   ctaText: string;
+  createdAt?: Date;
+  lastUpdateAt?: Date;
+  isFeatured?: boolean; // default false
 
   // Eligibility
   appId: string;

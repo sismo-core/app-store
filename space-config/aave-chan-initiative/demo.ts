@@ -28,6 +28,7 @@ export const aaveChanInitiativeConfigDemo: SpaceConfig = {
         tags: ["Swag"],
         image: "aave_chan_initiative_apps_swag_1014x720.png",
         ctaText: "Claim your Swag",
+        createdAt: new Date("2022-07-01T00:00:00.000Z"),
       },
       sismoConnectRequest: {
         appId: "0x02bcb449a6bd1062017cf0315375afdf",

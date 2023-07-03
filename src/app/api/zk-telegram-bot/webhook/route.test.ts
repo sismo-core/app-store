@@ -7,7 +7,7 @@ import axios from "axios";
 import { getUserStore } from "@/src/libs/user-store";
 import { UserStore } from "@/src/libs/user-store/store";
 import { MemoryUserStore } from "@/src/libs/user-store/memory-user-store";
-import { MockedRequest, mockGroupIdCommand, mockJoinRequest, mockSpacesType } from "../mocks";
+import { MockedRequest, mockGroupIdCommand, mockJoinRequest, mockMessageWithoutText, mockSpacesType } from "../mocks";
 
 jest.mock("axios");
 const mockedAxios = axios as jest.Mocked<typeof axios>;
@@ -88,7 +88,7 @@ describe("POST /api/zk-telegram-bot/webhook", () => {
     expect(data.status).toEqual("declined");
   });
 
-  it("Should reply to chat_id command", async () => {
+  it("Should reply to groupid command", async () => {
     (getSpaces as jest.Mock).mockReturnValue(mockSpacesType("appSlug", "spaceSlug", "-2"));
 
     let performedSendMessage = false;
@@ -104,6 +104,23 @@ describe("POST /api/zk-telegram-bot/webhook", () => {
     );
     const data = await response.json();
     expect(performedSendMessage).toEqual(true);
-    expect(data.status).toEqual("ok");
+    expect(data.status).toEqual("handled");
+  });
+
+  it("Should ignore message events without text", async () => {
+    (getSpaces as jest.Mock).mockReturnValue(mockSpacesType());
+
+    let performedSendMessage = false;
+    mockedAxios.get.mockImplementation((_) => {
+      performedSendMessage = true;
+      return Promise.resolve();
+     });
+
+    const response = await POST(
+      new MockedRequest(mockMessageWithoutText()) as any
+    );
+    const data = await response.json();
+    expect(performedSendMessage).toEqual(false);
+    expect(data.status).toEqual("ignored");
   });
 });

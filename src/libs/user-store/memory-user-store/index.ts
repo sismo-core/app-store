@@ -6,7 +6,10 @@ export class MemoryUserStore extends UserStore {
 
   public async getUsers(queryUser?: Partial<User>): Promise<User[]> {
     return this._users.filter((user) => {
-      return queryUser?.userId === user.userId;
+      if (queryUser?.appSlug && queryUser.appSlug !== user.appSlug)
+        return false;
+      if (queryUser?.userId && queryUser.userId !== user.userId) return false;
+      return true;
     });
   }
 

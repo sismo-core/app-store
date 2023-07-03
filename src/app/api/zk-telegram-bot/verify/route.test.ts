@@ -1,36 +1,15 @@
-/**
- * @jest-environment node
- */
 import { POST } from "./route";
 import { MemoryUserStore } from "@/src/libs/user-store/memory-user-store";
-import { getUserStore } from "@/src/libs/user-store";
 import { UserStore } from "@/src/libs/user-store/store";
-import { MockedRequest, mockSpaceType } from "../mocks";
-import { getSpace } from "@/src/libs/spaces";
-
-jest.mock("../../../../libs/user-store", () => ({
-  getUserStore: jest.fn(),
-}));
-
-jest.mock("../../../../environments", () => ({
-  isDemo: false,
-  isDev: true,
-}));
-
-jest.mock("../../../../libs/spaces", () => {
-  return {
-    getSpace: jest.fn(),
-  };
-});
+import { MockedRequest } from "../mocks";
+import ServiceFactory from "@/src/libs/service-factory/service-factory";
 
 describe("POST /api/zk-telegram-bot/verify", () => {
   let memoryUserStore: UserStore;
 
   beforeEach(() => {
-    jest.resetModules();
     memoryUserStore = new MemoryUserStore();
-    (getSpace as jest.Mock).mockReturnValue(mockSpaceType());
-    (getUserStore as jest.Mock).mockReturnValue(memoryUserStore);
+    ServiceFactory.getZkTelegramBotUserStore(memoryUserStore);
   });
 
   afterAll(() => {

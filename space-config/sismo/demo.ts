@@ -336,5 +336,26 @@ export const sismoConfigDemo: SpaceConfig = {
         startDate: new Date("2023-05-12T18:00"),
       },
     },
+    {
+      type: "zkTelegramBot",
+      metadata: {
+        name: "Sismo Citadel Telegram Group Invite",
+        slug: "telegram",
+        description:
+          "Join our private Telegram Group 'Sismo Citadel' - open to Sismo Contributors Level 3. To learn more about our Sismo Contributors Levels, please visit https://community.sismo.io.",
+        image: "sismoapps_tg_zk_bot_1014x720.png",
+        tags: ["Telegram"],
+        ctaText: "Join our Telegram Group",
+      },
+      sismoConnectRequest: {
+        appId: "0xa83b7b0d5e268fb4aa3d3582e11700fa",
+        claimRequests: [{ groupId: "0xd630aa769278cacde879c5c0fe5d203c", value: 3 }],
+        impersonateAddresses: ["telegram:dhadrien:1234", "dhadrien.eth"],
+      },
+      templateConfig: {
+        telegramGroupId: "-1001930531830",
+        telegramInviteLink: "https://t.me/+3hZN4bNCmsw5Mzgy",
+      },
+    },
   ],
 };

@@ -14,16 +14,17 @@ const Container = styled.div`
   max-width: 800px;
   min-width: 795px;
   /* padding: 60px; */
-  color: ${colors.blue0};
+  color: ${colors.neutral1};
   background-color: ${colors.neutral11};
   border-radius: 10px;
+  padding: 20px;
 
   @media (max-width: 900px) {
     height: auto;
     top: default;
     max-width: calc(100vw - 80px);
     min-width: calc(100vw - 80px);
-    padding: 25px;
+    padding: 12px;
     width: calc(100vw - 80px);
     gap: 15px;
   }
@@ -38,13 +39,13 @@ const Id = styled.div`
   font-family: ${(props) => props.theme.fonts.medium};
   font-size: 12px;
   line-height: 18px;
-  color: ${(props) => props.theme.colors.blue3};
+  color: ${(props) => props.theme.colors.neutral4};
   margin-bottom: 2px;
 `;
 
 const Title = styled.div`
   font-family: ${(props) => props.theme.fonts.bold};
-  color: ${(props) => props.theme.colors.blue0};
+  color: ${(props) => props.theme.colors.neutral1};
   font-size: 24px;
   line-height: 24px;
   margin-bottom: 10px;
@@ -58,7 +59,7 @@ const Description = styled.div`
   font-family: ${(props) => props.theme.fonts.regular};
   font-size: 16px;
   line-height: 22px;
-  color: ${(props) => props.theme.colors.blue0};
+  color: ${(props) => props.theme.colors.neutral1};
 `;
 
 const Eligibility = styled.div`
@@ -77,7 +78,7 @@ const SubTitle = styled.div`
   font-size: 20px;
   line-height: 22px;
   font-family: ${(props) => props.theme.fonts.bold};
-  color: ${(props) => props.theme.colors.blue0};
+  color: ${(props) => props.theme.colors.neutral1};
 
   @media (max-width: 900px) {
     font-size: 16px;
@@ -88,7 +89,7 @@ const SpecificationTitle = styled.div`
   font-family: ${(props) => props.theme.fonts.semibold};
   font-size: 14px;
   line-height: 20px;
-  color: ${colors.blue1};
+  color: ${colors.neutral3};
   margin-bottom: 10px;
 
   @media (max-width: 900px) {
@@ -102,7 +103,7 @@ const Specifications = styled.div`
   font-family: ${(props) => props.theme.fonts.regular};
   font-size: 14px;
   line-height: 20px;
-  color: ${colors.blue1};
+  color: ${colors.neutral3};
   white-space: pre-wrap;
 
   @media (max-width: 900px) {
@@ -114,8 +115,8 @@ const Specifications = styled.div`
 const Separator = styled.div`
   width: 100%;
   height: 1px;
-  background-color: ${colors.blue8};
-  border: 0px solid ${colors.blue8};
+  background-color: ${colors.neutral7};
+  border: 0px solid ${colors.neutral7};
   border-radius: 1px;
   box-sizing: border-box;
 `;
@@ -140,7 +141,7 @@ const Link = styled.a`
   align-items: center;
   gap: 5px;
   cursor: pointer;
-  color: ${colors.blue0};
+  color: ${colors.neutral1};
   text-decoration: none;
 `;
 
@@ -202,7 +203,7 @@ export default function EligibilityModal({
       isOpen={isOpen}
       onClose={onClose}
       animated
-      outsideClosable={false}
+      outsideClosable={true}
       zIndex={3008}
     >
       <Container>

@@ -272,7 +272,7 @@ export default function AppCardLarge({
     (app as unknown as ZkDropAppType)?.userSelection?.type == "Lottery" &&
     ((app as unknown as ZkDropAppType)?.userSelection as Lottery)?.maxNumberOfEntries;
 
-  const link = app?.type === "external" ? (app as unknown as ExternalAppType)?.link : `/${app.slug}`;
+  const link = app?.type === "external" ? (app as unknown as ExternalAppType)?.link : `/${app.spaceSlug}/${app.slug}`;
 
   if (app)
     return (
@@ -295,6 +295,7 @@ export default function AppCardLarge({
                 alt={app.name}
                 fill={true}
                 placeholder="blur"
+                sizes="40vw"
               />
             )}
           </ImageContainer>

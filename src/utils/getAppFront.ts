@@ -1,39 +1,38 @@
 import getImgSrcFromConfig from "./getImgSrcFromConfig";
 import { AppFront } from "./getSpaceConfigsFront";
-import { SpaceType } from "@/src/libs/spaces";
+import { SpaceType, getApp, getSpace } from "@/src/libs/spaces";
 
 export default async function getAppFront({
-  spaces,
-  slug,
+  spaceSlug,
+  appSlug,
 }: {
-  spaces: SpaceType[];
-  slug: string;
+  spaceSlug: string;
+  appSlug: string;
 }): Promise<AppFront> {
-  if (!spaces) return;
 
-  let selectedApp: AppFront;
-  for (const config of spaces) {
-    const app = config.apps.find((app) => app.slug === slug);
-    if (app) {
-      const _app: AppFront = {
+
+  const space = getSpace({ slug: spaceSlug });
+
+  const app = space.apps.find((app) => {
+    return app.slug === appSlug;
+  });
+
+  if (!app) return;
+
+  const _app: AppFront = {
         ...app,
-        space: config.name,
-        spaceSlug: config.slug,
+        space: space.name,
+        spaceSlug: space.slug,
         image: await getImgSrcFromConfig({
-          configSlug: config.slug,
+          configSlug: space.slug,
           fileName: app.image as string,
         }),
         configImage: await getImgSrcFromConfig({
-          configSlug: config.slug,
-          fileName: config.profileImage as string,
+          configSlug: space.slug,
+          fileName: space.profileImage as string,
         }),
       };
 
-      selectedApp = _app;
-      break;
-    }
-  }
 
-  if (!selectedApp) return;
-  return selectedApp;
+  return _app;
 }

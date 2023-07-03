@@ -9,7 +9,7 @@ import Congratulations from "./components/Congratulations";
 import { GroupMetadata } from "@/src/libs/group-provider";
 import { AppFront } from "@/src/utils/getSpaceConfigsFront";
 import useRemainingTime from "@/src/utils/useRemainingTime";
-import Timer from "../Timer";
+import Timer from "../components/Timer";
 import Section from "../components/Section";
 import ProveEligibility from "../components/ProveEligibility";
 import { ZkFormAppType } from "@/src/libs/spaces";

@@ -14,7 +14,7 @@ export class GoogleSpreadsheetStore extends Store {
   private readonly _columns: Column[];
   private _table: Table;
 
-  constructor({ columns, spreadsheetId }: { columns?: Column[], spreadsheetId: string } ) {
+  constructor({ columns, spreadsheetId }: { columns?: Column[]; spreadsheetId: string }) {
     super();
     this._service = google.sheets("v4");
     this._columns = columns;
@@ -32,7 +32,7 @@ export class GoogleSpreadsheetStore extends Store {
   public async get(entry: Entry): Promise<string[]> {
     const table = await this.load();
     if (!table) return null;
-    const indexOfEntry = this._columns.findIndex(column => column === entry.name);
+    const indexOfEntry = this._columns.findIndex((column) => column === entry.name);
     if (indexOfEntry === -1) return null;
 
     for (let line of table) {
@@ -46,7 +46,7 @@ export class GoogleSpreadsheetStore extends Store {
   public async add(entries: Entry[]): Promise<string[]> {
     const columns = [];
     for (let column of this._columns) {
-      const value = entries.find(_value => _value.name === column)?.value;
+      const value = entries.find((_value) => _value.name === column)?.value;
       columns.push(value);
     }
     return await this.write(columns);
@@ -61,7 +61,7 @@ export class GoogleSpreadsheetStore extends Store {
       range: `A1:${TABLE_SIZE}`,
     });
 
-    this._table = result?.data?.values as Table
+    this._table = result?.data?.values as Table;
     return this._table;
   }
 
@@ -84,8 +84,8 @@ export class GoogleSpreadsheetStore extends Store {
   }
 
   private _authenticate(): void {
-    const auth : GoogleAuth = new google.auth.GoogleAuth({
-      credentials: JSON.parse(process.env.SPREADSHEET_KEY),
+    const auth: GoogleAuth = new google.auth.GoogleAuth({
+      credentials: JSON.parse(process.env.ZK_FORM_SPREADSHEET_KEY),
       scopes: SCOPES,
     });
 

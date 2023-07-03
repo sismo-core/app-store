@@ -1,4 +1,4 @@
-import { LoggerService } from "./logger-service";
+import { LoggerService } from "@/src/libs/logger-service/logger-service";
 
 export class StdoutLogger implements LoggerService {
   debug(...msg: any): void {

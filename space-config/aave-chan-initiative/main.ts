@@ -105,7 +105,7 @@ export const aaveChanInitiativeConfigMain: SpaceConfig = {
         output: {
           destination: {
             type: "google_sheet",
-            spreadsheetId: "1399CtNMOz2kn1JrlVzTFAvUmnjaySr4byHo9oKxL8yY",
+            spreadsheetId: "1wMfP6bjQIshkB8V_pOUVG9fJsx_1PGGXYuf7aOMHVSI",
           },
           saveAuths: true,
           saveClaims: true,

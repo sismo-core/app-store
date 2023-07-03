@@ -9,6 +9,7 @@ import { GroupMetadata } from "@/src/libs/group-provider";
 const OuterContainer = styled.div<{ fullWidth: boolean }>`
   display: flex;
   align-items: center;
+  width: 100%;
   gap: 4px;
   ${(props) =>
     props.fullWidth &&
@@ -28,7 +29,7 @@ const Container = styled.div`
   border-radius: 4px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 4px;
   flex-grow: 1;
   cursor: "pointer";

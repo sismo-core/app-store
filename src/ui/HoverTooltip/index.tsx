@@ -1,3 +1,5 @@
+"use client";
+
 import { ReactNode, useState } from "react";
 import styled from "styled-components";
 import { useRef, useEffect } from "react";
@@ -12,17 +14,17 @@ const Container = styled.span`
   justify-content: center;
 `;
 
-const TipContent = styled.div<{ width?: number }>`
+const TipContent = styled.div<{ $width?: number }>`
   position: relative;
   padding: 10px;
   border-radius: 5px;
 
-  width: ${(props) => (props.width ? props.width + "px" : "fit-content")};
-  white-space: ${(props) => (props.width ? "normal" : "nowrap")};
+  width: ${(props) => (props.$width ? props.$width + "px" : "fit-content")};
+  white-space: ${(props) => (props.$width ? "normal" : "nowrap")};
 
   background-color: ${colors.blue9};
   font-size: 14px;
-line-height: 20px;
+  line-height: 20px;
   font-family: ${(props) => props.theme.fonts.medium};
   color: ${(props) => props.theme.colors.neutral1};
   z-index: 30;
@@ -30,7 +32,7 @@ line-height: 20px;
   box-sizing: border-box;
 `;
 
-const Arrow = styled.div<{ direction: string }>`
+const Arrow = styled.div<{ $direction: string }>`
   width: 16.15px;
   height: 16.15px;
   background-color: ${(props) => props.theme.colors.blue9};
@@ -38,19 +40,19 @@ const Arrow = styled.div<{ direction: string }>`
   rotate: 45deg;
 
   ${(props) =>
-    props.direction === "top"
+    props.$direction === "top"
       ? `margin-top: -10px;
       order: 1;
       `
-      : props.direction === "bottom"
+      : props.$direction === "bottom"
       ? `margin-bottom: -9.5px;
       order: -1;
       `
-      : props.direction === "right"
+      : props.$direction === "right"
       ? `margin-right: -9.5px;
       order: -1;
       `
-      : props.direction === "left"
+      : props.$direction === "left"
       ? `margin-left: -9.5px;
       order: 1;
       `
@@ -60,26 +62,26 @@ const Arrow = styled.div<{ direction: string }>`
 `;
 
 const Tip = styled.span<{
-  isHover: boolean;
-  tooltipPosition;
+  $isHover: boolean;
+  $tooltipPosition;
 }>`
   position: fixed;
   display: flex;
 
-  top: ${(props) => props.tooltipPosition.top}px;
-  left: ${(props) => props.tooltipPosition.left}px;
+  top: ${(props) => props.$tooltipPosition.top}px;
+  left: ${(props) => props.$tooltipPosition.left}px;
 
   flex-direction: ${(props) =>
-    props.tooltipPosition.tipDirection === "top" ||
-    props.tooltipPosition.tipDirection === "bottom"
+    props.$tooltipPosition.tipDirection === "top" ||
+    props.$tooltipPosition.tipDirection === "bottom"
       ? "column"
       : "row"};
 
   justify-content: center;
   align-items: center;
 
-  opacity: ${(props) => (props.isHover ? 1 : 0)};
-  visibility: ${(props) => (props.isHover ? "visible" : "hidden")};
+  opacity: ${(props) => (props.$isHover ? 1 : 0)};
+  visibility: ${(props) => (props.$isHover ? "visible" : "hidden")};
 
   z-index: 30;
 
@@ -106,6 +108,7 @@ export default function HoverTooltip({
   forcedDirection,
 }: InfoProps): JSX.Element {
   const [isHover, setIsHover] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
   const ref = useRef(null);
   const infoRef = useRef(null);
 
@@ -239,6 +242,12 @@ export default function HoverTooltip({
     };
   }, []);
 
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) return null;
+
   return (
     <Container
       ref={infoRef}
@@ -252,10 +261,10 @@ export default function HoverTooltip({
     >
       {children}
       {ReactDOM.createPortal(
-        <Tip ref={ref} isHover={isHover} tooltipPosition={tooltipPosition}>
-          <TipContent width={width}>{text}</TipContent>
+        <Tip ref={ref} $isHover={isHover} $tooltipPosition={tooltipPosition}>
+          <TipContent $width={width}>{text}</TipContent>
 
-          <Arrow direction={tooltipPosition.tipDirection} />
+          <Arrow $direction={tooltipPosition.tipDirection} />
         </Tip>,
         document.getElementById("tooltip-root") as HTMLElement
       )}

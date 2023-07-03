@@ -40,6 +40,7 @@ export const privacyIsNormalConfigMain: SpaceConfig = {
         tags: ["Artwork"],
         image: "privacy_is_normal_apps_lotery_1014x720.png",
         ctaText: "Enter the Sybil-Resistant Lottery",
+        createdAt: new Date("2022-07-01T00:00:00.000Z"),
       },
       sismoConnectRequest: {
         appId: "0x9dd13bc62ae6809fe9de95475111fc2a",
@@ -90,6 +91,7 @@ export const privacyIsNormalConfigMain: SpaceConfig = {
         image: "privacy_is_normal_apps_print_1014x720.png",
         ctaText: "Claim Your Artwork",
         slug: "artwork-claim",
+        createdAt: new Date("2022-07-01T00:00:00.000Z"),
       },
       sismoConnectRequest: {
         appId: "0x1941996d7a0245ccc2b203847d682298",

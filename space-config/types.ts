@@ -11,6 +11,7 @@ export type SpaceConfig = {
       type: SocialType;
       link: string;
     }[];
+    tags?: string[];
   };
   apps?: AppConfig[];
   options?: {
@@ -37,6 +38,8 @@ type AppCommonConfig = {
     image: string; // 550x390px can be an url or local file
     tags: string[];
     ctaText?: string;
+    createdAt: Date;
+    lastUpdateAt?: Date;
   };
   sismoConnectRequest: {
     appId?: string;
@@ -48,8 +51,10 @@ type AppCommonConfig = {
     startDate?: Date;
     endDate?: Date;
     disabled?: boolean; // default false
+    isFeatured?: boolean; // default false
   };
 };
+
 
 export type ExternalAppTemplateConfig = {
   link: string;

@@ -7,10 +7,20 @@ const nextConfig = {
     appDir: true,
     serverComponentsExternalPackages: ["@sismo-core/sismo-connect-server"],
   },
+
   sassOptions: {
     additionalData: `@use "styles/color" as color; @use "styles/mixin" as mixin;`,
     includePaths: [path.join(__dirname, 'src')],
- }
+ },
+ redirects: async () => {
+  return [
+    {
+      source: "/the-merge-contributors",
+      destination: "/space/the-merge-contributors",
+      permanent: true
+    },
+  ]
+}
 }
 
 module.exports = nextConfig

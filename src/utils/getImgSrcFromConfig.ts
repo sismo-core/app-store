@@ -1,27 +1,33 @@
-import { ImageConfig } from "next/dist/shared/lib/image-config";
-import Image from "next/image";
+import Default from "@/src/assets/default.svg";
 
 export type ImportedNextImage = {
   src: string;
   height: number;
   width: number;
   blurDataURL: string;
-}
+};
 
-export default async function getImgSrcFromConfig(
-  slug: string,
-  fileName: string
-): Promise<string | ImportedNextImage> {
-
-  if (!slug || !fileName) return "";
-
-  console.log("FILE NAME", fileName)
-  if (fileName?.startsWith("http")) {
-    return fileName;
-  } else {
-    const importedImg = await import(
-      `@/space-config/${slug}/images/${fileName}`
-    );
-    return importedImg.default;
+export default async function getImgSrcFromConfig({
+  configSlug,
+  fileName,
+}: {
+  configSlug: string;
+  fileName: string;
+}): Promise<string | ImportedNextImage> {
+  if (!configSlug || !fileName) return "";
+  if (typeof fileName !== "string") return fileName; 
+  try{
+    if (fileName?.startsWith("http")) {
+      return fileName;
+    } else {
+      const importedImg = await import(
+        `@/space-config/${configSlug}/images/${fileName}`
+      );
+      return importedImg.default;
+    }
+  } catch (e) {
+    return Default.default;
   }
+
+ 
 }

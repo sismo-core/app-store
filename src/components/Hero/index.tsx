@@ -6,7 +6,6 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Toggle, { ToggleOption } from "../../ui/Toggle";
 import { useRouter, usePathname } from "next/navigation";
-import path from "path";
 import env from "@/src/environments";
 
 const Container = styled.header`
@@ -196,18 +195,22 @@ const ImageBadgeBottom = styled(Image)`
   }
 `;
 
-const options = [
+const options : ToggleOption[] = [
   { label: "Live", value: "live" },
   { label: "Demo", value: "demo" },
 ];
 
 export default function Hero(): JSX.Element {
   const router = useRouter();
-  const pathname = usePathname();
   const [selected, setSelected] = useState<string>(env.isDemo ? "demo" : "live");
   function onToggleChange(value: string) {
     setSelected(options.find((option) => option.value === value).value);
-    // TO DO change 
+    if(value === "demo"){
+      router.push("https://demo.apps.sismo.io");
+    }
+    if(value === "live"){
+      router.push("https://apps.sismo.io");
+    }
   }
 
 

@@ -126,12 +126,7 @@ type Props = {
 
 export default function HomeMain({ configs, apps }: Props): JSX.Element {
   const featuredApps = apps.filter((app) => {
-    if (env.isDemo) {
-      return app.isFeatured?.includes("Demo");
-    }
-    if (!env.isDemo) {
-      return app.isFeatured?.includes("Prod");
-    }
+      return app.isFeatured;
   });
   const newApps = apps.slice(0, 6);
 

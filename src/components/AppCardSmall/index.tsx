@@ -11,6 +11,7 @@ import { AppFront } from "@/src/utils/getSpaceConfigsFront";
 import { useRouter } from "next/navigation";
 import Default from "@/src/assets/default.svg";
 import colors from "@/src/themes/colors";
+import { ExternalAppType, ZkDropAppType, Lottery } from "@/src/libs/spaces";
 
 const CardContainer = styled.div<{ $isSeparator: boolean }>`
   position: relative;
@@ -267,11 +268,11 @@ export default function AppCardLarge({
   const isDisabled = hasEnded;
 
   const maxNumberOfEntries =
-    (app?.type == "zksub" || app?.type == "zkdrop") &&
-    app?.userSelection?.type == "Lottery" &&
-    app?.userSelection?.maxNumberOfEntries;
+    (app?.type == "zkForm" || app?.type == "zkdrop") &&
+    (app as unknown as ZkDropAppType)?.userSelection?.type == "Lottery" &&
+    ((app as unknown as ZkDropAppType)?.userSelection as Lottery)?.maxNumberOfEntries;
 
-  const link = app?.type === "external" ? app?.link : `/${app.slug}`;
+  const link = app?.type === "external" ? (app as unknown as ExternalAppType)?.link : `/${app.slug}`;
 
   if (app)
     return (

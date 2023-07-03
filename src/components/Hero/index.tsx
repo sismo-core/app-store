@@ -7,6 +7,7 @@ import styled from "styled-components";
 import Toggle, { ToggleOption } from "../../ui/Toggle";
 import { useRouter, usePathname } from "next/navigation";
 import path from "path";
+import env from "@/src/environments";
 
 const Container = styled.header`
   height: 409px;
@@ -196,19 +197,19 @@ const ImageBadgeBottom = styled(Image)`
 `;
 
 const options = [
-  { label: "Live", value: "/" },
-  { label: "Demo", value: "/demo" },
+  { label: "Live", value: "live" },
+  { label: "Demo", value: "demo" },
 ];
 
 export default function Hero(): JSX.Element {
   const router = useRouter();
   const pathname = usePathname();
-  console.log(router)
-  const [selected, setSelected] = useState<string>(pathname);
+  const [selected, setSelected] = useState<string>(env.isDemo ? "demo" : "live");
   function onToggleChange(value: string) {
     setSelected(options.find((option) => option.value === value).value);
-   // router.push(value);
+    // TO DO change 
   }
+
 
   return (
     <Container>
@@ -267,11 +268,9 @@ export default function Hero(): JSX.Element {
           options={options}
           onChange={onToggleChange}
         />
-        <Title style={{ marginBottom: 29 }}>Explore Sismo Connect apps</Title>
+        <Title style={{ marginBottom: 29 }}>Sismo App Store</Title>
         <Subtitle>
-          Get inspired by apps powered by
-          <br />
-          Sismo Connect
+        Explore Sismo Connect Apps built by<br/>the community
         </Subtitle>
         <Button3D
           onClick={() =>

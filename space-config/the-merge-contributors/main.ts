@@ -21,6 +21,7 @@ export const theMergeContributorsConfigMain: SpaceConfig = {
         tags: ["NFT"],
         image: "Mergooor_NFT_1014x720px.png",
         ctaText: "Get NFT",
+        createdAt: new Date("2022-07-01T00:00:00.000Z"),
       },
       sismoConnectRequest: {
         authRequests: [
@@ -44,6 +45,7 @@ export const theMergeContributorsConfigMain: SpaceConfig = {
         tags: ["Event"],
         image: "EthCCtickets_1014x720px.png",
         ctaText: "Register to get tickets",
+        createdAt: new Date("2022-07-01T00:00:00.000Z"),
       },
       sismoConnectRequest: {
         appId: "0x0f38b4eb4d51fbd7906c9c7574df075e",

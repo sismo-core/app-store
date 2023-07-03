@@ -1,6 +1,5 @@
 "use client";
 
-import { ZkSubAppConfig } from "@/space-config/types";
 import React, {  useState } from "react";
 import { styled } from "styled-components";
 import Button3D from "@/src/ui/Button3D";
@@ -13,6 +12,8 @@ import useRemainingTime from "@/src/utils/useRemainingTime";
 import Timer from "../Timer";
 import Section from "../components/Section";
 import ProveEligibility from "../components/ProveEligibility";
+import { ZkFormAppType } from "@/src/libs/spaces";
+import { useRouter } from "next/navigation";
 
 const Content = styled.div`
   width: 580px;
@@ -74,8 +75,8 @@ export default function ZkFormApp({
   const [verifying, setVerifying] = useState<boolean>(false);
   const [fields, setFields] = useState<FieldValue[]>(null);
   const [response, setResponse] = useState<SismoConnectResponse>(null);
-
   const { hasStarted } = useRemainingTime({startDate: app?.startDate});
+  const router = useRouter();
 
 
   const submit = async () => {
@@ -87,7 +88,7 @@ export default function ZkFormApp({
     };
     setError(null);
     setVerifying(true);
-    const res = await fetch("/api/zk-sub/verify", {
+    const res = await fetch("/api/zk-form/verify", {
       method: "POST",
       body: JSON.stringify(body),
     });
@@ -106,15 +107,6 @@ export default function ZkFormApp({
     }
   };
 
-  const reset = () => {
-    setTimeout(() => {
-      setError(null);
-      setAlreadySubscribed(false);
-      setSubscribed(false);
-      setFields(null);
-      setResponse(null);
-    }, 300);
-  };
 
   if(!hasStarted) return <Content>
     <Timer app={app} />
@@ -123,7 +115,7 @@ export default function ZkFormApp({
   return (
     <Content>
       {subscribed ? (
-        <Congratulations onBackToSpace={()=>{}} app={app as unknown as ZkSubAppConfig} />
+        <Congratulations onBackToApps={()=>{router.push('/')}} app={app as unknown as ZkFormAppType} />
       ) : (
         <>
           <Section
@@ -142,7 +134,7 @@ export default function ZkFormApp({
           <Section
             number={2}
             isOpen={Boolean(response)}
-            title={app?.CTAText}
+            title={app?.ctaText}
             success={alreadySubscribed || (fields && fields.length === 0)}
           >
             {alreadySubscribed ? (
@@ -151,7 +143,7 @@ export default function ZkFormApp({
               </AlreadyRegistered>
             ) : (
               <Register
-                app={app as unknown as ZkSubAppConfig}
+                app={app as unknown as ZkFormAppType}
                 onFieldsComplete={(_fields) => setFields(_fields)}
               />
             )}

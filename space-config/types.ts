@@ -38,7 +38,7 @@ type AppCommonConfig = {
     image: string; // 550x390px can be an url or local file
     tags: string[];
     ctaText?: string;
-    createdAt?: Date;
+    createdAt: Date;
     lastUpdateAt?: Date;
   };
   sismoConnectRequest: {
@@ -51,7 +51,7 @@ type AppCommonConfig = {
     startDate?: Date;
     endDate?: Date;
     disabled?: boolean; // default false
-    isFeatured?: Env[]; // default false
+    isFeatured?: boolean; // default false
   };
 };
 

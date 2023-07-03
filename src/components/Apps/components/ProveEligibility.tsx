@@ -1,7 +1,5 @@
-"use client";
-
 import env from "@/src/environments";
-import { SismoConnectButton } from "@sismo-core/sismo-connect-react";
+import { SismoConnectButton, SismoConnectResponse } from "@sismo-core/sismo-connect-react";
 import React, { useEffect, useState } from "react";
 import { useMemo } from "react";
 import { styled } from "styled-components";
@@ -39,15 +37,15 @@ const ButtonContainer = styled.div`
 type Props = {
   app: AppFront;
   groupMetadataList: GroupMetadata[];
-  onEligible: (response) => void;
+  onEligible: (response: SismoConnectResponse) => void;
   verifying?: boolean;
 };
 
 export default function ProveEligibility({
   app,
   groupMetadataList,
+  verifying,
   onEligible,
-  verifying
 }: Props): JSX.Element {
   const [isMounted, setIsMounted] = useState(false);
 

@@ -25,7 +25,7 @@ export async function generateMetadata({
   params: { slug: string[] };
 }) {
   const { slug } = params;
-  const config = await getSpace({ slug: slug[0] });
+  const config =  getSpace({ slug: slug[0] });
   const coverImageElement = await getImgSrcFromConfig({
     configSlug: config?.slug,
     fileName: config?.coverImage,
@@ -71,16 +71,21 @@ export default async function SpacePage({
 }: {
   params: { slug: string[] };
 }) {
+  let spaceFront: SpaceConfigFront;
+  try{
   const { slug } = params;
   const space = getSpace({ slug: slug[0] });
-
   const spaceConfigFront: SpaceConfigFront[] = await getSpaceFront([
     space,
   ]);
+  spaceFront = spaceConfigFront[0];
+  } catch(e) {
+    notFound();
+  }
 
   return (
     <>
-      <SpacesMain config={spaceConfigFront[0]} />
+      <SpacesMain config={spaceFront} />
     </>
   );
 }

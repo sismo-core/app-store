@@ -2,6 +2,7 @@ import { SpaceConfig } from "@/space-config/types";
 import ExploreSpacesMain from "@/src/components/ExploreSpacesMain";
 import { getSpaces } from "@/src/libs/spaces";
 import getSpaceFront, { SpaceConfigFront } from "@/src/utils/getSpaceConfigsFront";
+import { notFound } from "next/navigation";
 
 export type SpaceImportedImage = {
   config: SpaceConfig;
@@ -35,10 +36,15 @@ export async function generateMetadata() {
 }
 
 export default async function ExplorePage() {
-  const spaces = getSpaces();
-  const spaceConfigsFront: SpaceConfigFront[] = await getSpaceFront(spaces)
+  let spacesFront: SpaceConfigFront[] = [];
+  try{
+    const spaces = getSpaces();
+     spacesFront = await getSpaceFront(spaces)
 
+  } catch (e) {
+    notFound();
+  }
   return (
-      <ExploreSpacesMain configs={spaceConfigsFront} />
+      <ExploreSpacesMain configs={spacesFront} />
   );
 }

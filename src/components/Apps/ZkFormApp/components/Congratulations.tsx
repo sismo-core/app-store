@@ -31,11 +31,11 @@ const Subtitle = styled.div`
 `
 
 type Props = {
-    onBackToSpace: () => void,
+    onBackToApps: () => void,
     app: ZkFormAppType
 }
 
-export default function Congratulations({ onBackToSpace, app }: Props): JSX.Element {
+export default function Congratulations({ onBackToApps, app }: Props): JSX.Element {
 
     return <Container>
         <Title style={{marginBottom: 16}}>
@@ -44,7 +44,7 @@ export default function Congratulations({ onBackToSpace, app }: Props): JSX.Elem
         <Subtitle>
             {app?.congratulationsMessage?.description}
         </Subtitle>
-        <Button3D onClick={onBackToSpace} secondary>
+        <Button3D onClick={onBackToApps} secondary>
             Back to the Apps
         </Button3D>
     </Container>;

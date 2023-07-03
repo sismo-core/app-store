@@ -9,7 +9,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   gap: 10px;
-  height: 60vh;
+  height: 70vh;
   font-family: ${props => props.theme.fonts.medium};
 `
 

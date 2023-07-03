@@ -28,6 +28,9 @@ export function getSpaces(): SpaceType[] {
         startDate: appConfig.options?.startDate,
         endDate: appConfig.options?.endDate,
         disabled: appConfig.options?.disabled,
+        createdAt: appConfig.metadata.createdAt,
+        lastUpdateAt: appConfig.metadata?.lastUpdateAt,
+        isFeatured: appConfig.options?.isFeatured,
       };
       if (appConfig.type === "external") {
         apps.push({
@@ -72,6 +75,8 @@ export function getSpaces(): SpaceType[] {
     };
     spaces.push(space);
   }
+
+
   return spaces;
 }
 

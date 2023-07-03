@@ -2,6 +2,7 @@ import { getSpaces } from "../../libs/spaces/getSpaces";
 import { SpaceType } from "../../libs/spaces";
 import getSpaceFront, { AppFront, SpaceConfigFront } from "@/src/utils/getSpaceConfigsFront";
 import HomeMain from "@/src/components/HomeMain";
+import { notFound } from "next/navigation";
 
 export type SpaceImportedImage = {
   config: SpaceType,
@@ -36,16 +37,29 @@ export async function generateMetadata() {
 
 
 export default async function HomePage() {
-  const spaces = getSpaces();
-  const spacesFront: SpaceConfigFront[] = await getSpaceFront(spaces);
-  
-  const apps: AppFront[] = [];
-  for (const config of spacesFront) {
-    for (const app of config.apps) {
-      apps.push(app)
-    }
-  }
 
+  const apps: AppFront[] = [];
+  let spacesFront: SpaceConfigFront[] = [];
+
+  try{
+    const spaces = getSpaces();
+    spacesFront = await getSpaceFront(spaces);
+    
+    for (const config of spacesFront) {
+      for (const app of config.apps) {
+        apps.push(app)
+      }
+    }
+
+    apps.sort((a, b) => {
+       return b.createdAt.getTime() - a.createdAt.getTime() ;
+    });
+
+  } catch(e) {
+    console.log(e);
+    notFound();
+  }
+ 
   return (
     <>
      {spacesFront && <HomeMain configs={spacesFront} apps={apps} />}

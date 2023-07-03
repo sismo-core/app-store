@@ -81,7 +81,7 @@ type Props = {
   app: AppFront;
 };
 
-export default function ZkBotApp({
+export default function ZkTelegramBotApp({
   app,
   groupMetadataList,
 }: Props): JSX.Element {

@@ -8,7 +8,7 @@ import { SismoConnectResponse } from "@sismo-core/sismo-connect-server";
 import Section from "../components/Section";
 import { GroupMetadata } from "@/src/libs/group-provider";
 import useRemainingTime from "@/src/utils/useRemainingTime";
-import Timer from "../Timer";
+import Timer from "../components/Timer";
 import { AppFront } from "@/src/utils/getSpaceConfigsFront";
 import { ZkTelegramBotAppType } from "@/src/libs/spaces";
 

@@ -20,6 +20,7 @@ const Container = styled(Link)`
   align-items: center;
   padding: 32px 20px;
   flex-shrink: 0;
+  scroll-snap-stop: always;
 
   transition: background-color ${(props) => props.theme.animations.transition}, border ${(props) => props.theme.animations.transition};
 
@@ -64,13 +65,14 @@ type Props = {
 
 export default function SpaceCard({ config, className }: Props): JSX.Element {
   return (
-    <Container href={`/space/${config.slug}`} className={className}>
+    <Container href={`/${config.slug}`} className={className}>
       <ProfileImageContainer>
         <Image
           src={config.profileImage}
           alt={"Space profile image"}
           placeholder="blur"
           fill={true}
+          sizes="40vw"
         />
       </ProfileImageContainer>
       <Name>{config.name}</Name>

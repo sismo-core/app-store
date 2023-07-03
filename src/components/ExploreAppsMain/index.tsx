@@ -163,7 +163,7 @@ export default function ExploreAppsMain({ apps }: Props): JSX.Element {
           {displayedApps.map((app, index) => (
             <AppCardSmall
               app={app}
-              key={app.slug + index}
+              key={app.spaceSlug + app.slug + index }
               isSeparator={
                 displayedApps.length % 2 === 0
                   ? index !== displayedApps.length - 1 &&

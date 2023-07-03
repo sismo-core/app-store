@@ -111,6 +111,9 @@ export const aaveChanInitiativeConfigMain: SpaceConfig = {
           saveClaims: true,
         },
       },
+      options: {
+        isFeatured: true,
+      }
     },
   ],
 };

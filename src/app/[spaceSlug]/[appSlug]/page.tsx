@@ -5,6 +5,7 @@ import { SpaceType, ZkAppType, getSpaces } from "@/src/libs/spaces";
 import getAppFront from "@/src/utils/getAppFront";
 import { GroupMetadata, GroupProvider } from "@/src/libs/group-provider";
 import AppMain from "@/src/components/AppMain";
+import { AppFront } from "@/src/utils/getSpaceConfigsFront";
 
 // This function runs at build time on the server it generates the static paths for each page
 export async function generateStaticParams() {
@@ -13,7 +14,7 @@ export async function generateStaticParams() {
     config.apps.map((app: ZkAppType) => {
       return {
         params: {
-          slug: [config.slug, app.slug],
+          appSlug: app.slug,
         },
       };
     });
@@ -24,14 +25,17 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string[] };
+  params: { appSlug: string; spaceSlug: string };
 }) {
-  const { slug } = params;
-  console.log("slug", slug);
+  let app: AppFront;
 
-  const spaces = getSpaces();
-  const app = await getAppFront({ slug: slug[0], spaces });
-  if (!app) return notFound();
+  try {
+    const { appSlug, spaceSlug } = params;
+    app = await getAppFront({ appSlug: appSlug, spaceSlug: spaceSlug });
+    if (!app) return notFound();
+  } catch (e) {
+    notFound();
+  }
 
   return {
     title: app.name,
@@ -57,30 +61,32 @@ export async function generateMetadata({
 export default async function SpacePage({
   params,
 }: {
-  params: { slug: string[] };
+  params: { appSlug: string; spaceSlug: string };
 }) {
-  const { slug } = params;
-  const spaces = getSpaces();
-  const app = await getAppFront({ slug: slug[0], spaces });
-
+  const { appSlug, spaceSlug } = params;
+  const app = await getAppFront({ appSlug: appSlug, spaceSlug: spaceSlug });
   const groupProvider = new GroupProvider({
     hubApiUrl: env.hubApiUrl,
   });
 
   const groupMetadataList: GroupMetadata[] = [];
-  if (app) if (!app?.claimRequests?.length) return;
-  await Promise.all(
-    app?.claimRequests?.map(async (claimRequest: ClaimRequest) => {
-      if (!groupMetadataList.find((el) => el.id === claimRequest?.groupId)) {
-        const metadata = await groupProvider.getGroupMetadata({
-          groupId: claimRequest?.groupId,
-          timestamp: "latest",
-          revalidate: 60 * 10,
-        });
-        groupMetadataList.push(metadata);
-      }
-    })
-  );
+  if (app && app?.claimRequests?.length > 0) {
+    await Promise.all(
+      app?.claimRequests?.map(async (claimRequest: ClaimRequest) => {
+        if (!groupMetadataList.find((el) => el.id === claimRequest?.groupId)) {
+          const metadata = await groupProvider.getGroupMetadata({
+            groupId: claimRequest?.groupId,
+            timestamp: "latest",
+            revalidate: 60 * 10,
+          });
+          groupMetadataList.push(metadata);
+        }
+      })
+    );
+
+  };
+  
+
 
   return <AppMain app={app} groupMetadataList={groupMetadataList} />;
 }

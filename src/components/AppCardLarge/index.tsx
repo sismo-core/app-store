@@ -207,7 +207,7 @@ export default function AppCardLarge({ app }: Props): JSX.Element {
     (app as unknown as ZkDropAppType)?.userSelection?.type == "Lottery" &&
     ((app as unknown as ZkDropAppType)?.userSelection as Lottery)?.maxNumberOfEntries;
 
-  const link = app?.type === "external" ? (app as unknown as ExternalAppType)?.link : `/${app.slug}`;
+  const link = app?.type === "external" ? (app as unknown as ExternalAppType)?.link : `/${app.spaceSlug}/${app.slug}`;
   if (app)
     return (
       <Container
@@ -223,6 +223,7 @@ export default function AppCardLarge({ app }: Props): JSX.Element {
               alt={app.name}
               fill={true}
               placeholder="blur"
+              sizes="70vw"
             />
           )}
           {((hasStarted && !hasEnded && remainingEndTime) ||

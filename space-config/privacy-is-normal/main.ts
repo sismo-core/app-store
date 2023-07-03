@@ -77,6 +77,7 @@ export const privacyIsNormalConfigMain: SpaceConfig = {
       },
       options: {
         startDate: new Date("2023-05-17T14:00Z"),
+        endDate: new Date("2023-06-18T14:00Z"),
       },
     },
     {
@@ -150,9 +151,6 @@ export const privacyIsNormalConfigMain: SpaceConfig = {
             spreadsheetId: "15KaDhCGxs8E6mmYw5kZkUYTXQoTsH9UAt27TLsbT6TE",
           },
         },
-      },
-      options: {
-        endDate: new Date("2023-07-03T14:00Z"),
       },
     },
   ],

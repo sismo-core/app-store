@@ -102,10 +102,10 @@ export const sismoConfigMain: SpaceConfig = {
     {
       type: "zkTelegramBot",
       metadata: {
-        name: "Citadel Invite",
+        name: "Demo Sismo Builders Invite",
         slug: "telegram",
         description:
-          "Sismo Citadel telegram chat was created specifically for our most active builders and closest friends. It is gated to Sismo Community level 3. Learn more about community levels: https://community.sismo.io.",
+          "Prod test",
         image: "sismoapps_tg_zk_bot_1014x720.png",
         tags: ["Telegram"],
         ctaText: "Join Gated Telegram Chat",
@@ -116,8 +116,8 @@ export const sismoConfigMain: SpaceConfig = {
         claimRequests: [{ groupId: "0xd630aa769278cacde879c5c0fe5d203c", value: 3 }],
       },
       templateConfig: {
-        telegramGroupId: "-1001930531830",
-        telegramInviteLink: "https://t.me/+5oMohki7dhgwNDJi",
+        telegramGroupId: "-1001658867707",
+        telegramInviteLink: "https://t.me/+MJxmxpCwKg82M2I0",
       },
     },
   ],

@@ -92,3 +92,14 @@ export const mockGroupIdCommand = (chatId: number, messageId: number) => {
     }
   };
 };
+
+export const mockMessageWithoutText = () => {
+  return {
+    message: {
+      message_id: 1,
+      chat: {
+        id: 1,
+      }
+    }
+  };
+};

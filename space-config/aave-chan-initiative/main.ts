@@ -2,7 +2,7 @@
 import { AuthType, ClaimType } from "@sismo-core/sismo-connect-server";
 import { SpaceConfig } from "../types";
 
-export const aaveChanInitiativeConfigDemo: SpaceConfig = {
+export const aaveChanInitiativeConfigMain: SpaceConfig = {
   metadata: {
     slug: "aave-chan-initiative",
     name: "Aave-Chan Initiative",
@@ -28,7 +28,7 @@ export const aaveChanInitiativeConfigDemo: SpaceConfig = {
         tags: ["Swag"],
         image: "aave_chan_initiative_apps_swag_1014x720.png",
         ctaText: "Claim your Swag",
-        createdAt: new Date("2022-07-01T00:00:00.000Z"),
+        createdAt: new Date("2023-07-02T18:00"),
       },
       sismoConnectRequest: {
         appId: "0x02bcb449a6bd1062017cf0315375afdf",
@@ -49,7 +49,6 @@ export const aaveChanInitiativeConfigDemo: SpaceConfig = {
             value: 1000,
           },
         ],
-        impersonateAddresses: ["0x5af25164a0f1207db70727a2c447d6a7b44b89d0"],
       },
       templateConfig: {
         fields: [
@@ -106,7 +105,7 @@ export const aaveChanInitiativeConfigDemo: SpaceConfig = {
         output: {
           destination: {
             type: "google_sheet",
-            spreadsheetId: "1Q0qdkfTTM4vNafnFqW-QqHboh5C3O2mrLP06SVzlqU4",
+            spreadsheetId: "1399CtNMOz2kn1JrlVzTFAvUmnjaySr4byHo9oKxL8yY",
           },
           saveAuths: true,
           saveClaims: true,

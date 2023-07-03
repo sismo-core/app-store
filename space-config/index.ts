@@ -2,6 +2,7 @@ import env from "@/src/environments";
 import { SpaceConfig } from "./types";
 import { theMergeContributorsConfigMain } from "@/space-config/the-merge-contributors/main";
 import { privacyIsNormalConfigMain } from "@/space-config/privacy-is-normal/main";
+import { sismoConfigMain } from "@/space-config/sismo/main";
 import { theMergeContributorsConfigDemo } from "@/space-config/the-merge-contributors/demo";
 import { sismoConfigDemo } from "@/space-config/sismo/demo";
 import { privacyIsNormalConfigDemo } from "@/space-config/privacy-is-normal/demo";
@@ -10,6 +11,7 @@ import { aaveChanInitiativeConfigDemo } from "@/space-config/aave-chan-initiativ
 export const configsMain: SpaceConfig[] = [
   theMergeContributorsConfigMain,
   privacyIsNormalConfigMain,
+  sismoConfigMain,
 ];
 
 export const configsDemo: SpaceConfig[] = [

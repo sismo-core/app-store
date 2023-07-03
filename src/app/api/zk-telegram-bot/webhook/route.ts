@@ -11,8 +11,47 @@ type JoinRequest = {
   username: string;
 };
 
-export async function POST(req: Request) {
-  const request = await parseJoinRequest(req);
+type Message = {
+  messageId: string;
+  groupId: string;
+  text: string;
+};
+
+const groupIdCommand = "/groupid";
+
+export async function POST(request: Request) {
+  const update = await request.json();
+  if (env.isDev) { console.log(`Got update: ${JSON.stringify(update)}`); }
+  return await dispatchUpdate(update);
+}
+
+const dispatchUpdate = async (update: any): Promise<Response> => {
+  if (update["message"]) {
+    return handleMessageUpdate(await parseMessage(update));
+  }
+  if (update["chat_join_request"]) {
+    return handleJoinRequest(await parseJoinRequest(update));
+  }
+};
+
+const handleMessageUpdate = async (message: Message): Promise<Response> => {
+  if (message.text.startsWith(groupIdCommand)) {
+    await handleGroupIdCommand(message);
+  }
+  return NextResponse.json({ status: "ok" });
+};
+
+const handleGroupIdCommand = async (message: Message): Promise<void> => {
+  const messageReply = {
+    messageId: message.messageId,
+    groupId: message.groupId,
+    text: message.groupId
+  };
+  if (env.isDev) { console.log(`Replying with message: ${JSON.stringify(messageReply)}`); }
+  await sendMessageReply(messageReply);
+};
+
+const handleJoinRequest = async (request: JoinRequest): Promise<Response> => {
   if (env.isDev) {
     console.info(
       `${request.username} (${request.userId}) requests to join ${request.groupTitle} (${request.groupId})`
@@ -54,13 +93,20 @@ const findApp = (groupId: string): ZkTelegramBotAppType | undefined => {
   }
 };
 
-const parseJoinRequest = async (req: Request): Promise<JoinRequest> => {
-  const requestData = await req.json();
+const parseMessage = async (update: any): Promise<Message> => {
   return {
-    groupId: String(requestData["chat_join_request"]["chat"]["id"]),
-    groupTitle: String(requestData["chat_join_request"]["chat"]["title"]),
-    userId: String(requestData["chat_join_request"]["from"]["id"]),
-    username: requestData["chat_join_request"]["from"]["username"],
+    messageId: String(update["message"]["message_id"]),
+    groupId: String(update["message"]["chat"]["id"]),
+    text:  update["message"]["text"]
+  };
+}
+
+const parseJoinRequest = async (update: any): Promise<JoinRequest> => {
+  return {
+    groupId: String(update["chat_join_request"]["chat"]["id"]),
+    groupTitle: String(update["chat_join_request"]["chat"]["title"]),
+    userId: String(update["chat_join_request"]["from"]["id"]),
+    username: update["chat_join_request"]["from"]["username"]
   };
 };
 
@@ -71,10 +117,19 @@ const isWhitelistApproved = async (
   const store = getUserStore();
   const result = await store.getUsers({
     appSlug: app.slug,
-    userId: telegramId,
+    userId: telegramId
   });
   return result.length > 0;
 };
+
+const sendMessageReply = async (message: Message): Promise<void> => {
+  const sendMessageURL = new URL(`https://api.telegram.org/bot${env.telegramBotToken}/sendMessage`);
+  sendMessageURL.searchParams.append("chat_id", message.groupId);
+  sendMessageURL.searchParams.append("reply_to_message_id", message.messageId);
+  sendMessageURL.searchParams.append("text", message.text);
+  if (env.isDev) { console.info(sendMessageURL.toString()); }
+  await axios.get(sendMessageURL.toString());
+}
 
 const approve = async (request: JoinRequest): Promise<void> => {
   const approveURL = new URL(

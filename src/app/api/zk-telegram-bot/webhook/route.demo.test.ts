@@ -27,7 +27,7 @@ describe("[Demo] POST /api/zk-telegram-bot/webhook", () => {
   });
 
   it("Should bypass whitelist and approve", async () => {
-    (getSpaces as jest.Mock).mockReturnValue(mockSpacesType("appSlug", "spaceSlug"));
+    (getSpaces as jest.Mock).mockReturnValue(mockSpacesType("appSlug", "spaceSlug", "-2"));
 
     let performedApproveRequest = false;
     mockedAxios.get.mockImplementation((url) => {

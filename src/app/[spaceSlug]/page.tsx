@@ -13,7 +13,7 @@ export async function generateStaticParams() {
   const spaces = getSpaces();
   return spaces?.map((space: SpaceType) => {
     return {
-      slug: [space.slug],
+      spaceSlug: space.slug,
     };
   });
 }
@@ -22,10 +22,10 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string[] };
+  params: { spaceSlug: string };
 }) {
-  const { slug } = params;
-  const config =  getSpace({ slug: slug[0] });
+  const { spaceSlug } = params;
+  const config =  getSpace({ slug: spaceSlug });
   const coverImageElement = await getImgSrcFromConfig({
     configSlug: config?.slug,
     fileName: config?.coverImage,
@@ -69,14 +69,14 @@ export type ImportedImage = {
 export default async function SpacePage({
   params,
 }: {
-  params: { slug: string[] };
+  params: { spaceSlug: string };
 }) {
   let spaceFront: SpaceConfigFront;
   try{
-  const { slug } = params;
-  const space = getSpace({ slug: slug[0] });
+  const {spaceSlug} = params;
+  const _space = getSpace({ slug: spaceSlug });
   const spaceConfigFront: SpaceConfigFront[] = await getSpaceFront([
-    space,
+    _space,
   ]);
   spaceFront = spaceConfigFront[0];
   } catch(e) {

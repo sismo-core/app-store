@@ -88,13 +88,13 @@ export function getSpace({ slug }: { slug?: string } = {}): SpaceType {
   return selectedSpace;
 }
 
-export function getApp({ slug }: { slug?: string } = {}): ZkAppType {
+export function getApp({ appSlug, spaceSlug }: { appSlug?: string, spaceSlug?:string } = {}): ZkAppType {
   const spaces = getSpaces();
-  const selectedApp = spaces
-    .map((space) => space.apps)
-    .flat()
-    .find((app) => {
-      return app.slug === slug;
-    });
+  const selectedSpace = spaces.find((space) => {
+    return space.slug === spaceSlug;
+  });
+  const selectedApp = selectedSpace?.apps.find((app) => {
+    return app.slug === appSlug;
+  });
   return selectedApp;
 }

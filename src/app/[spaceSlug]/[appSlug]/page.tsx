@@ -13,7 +13,7 @@ export async function generateStaticParams() {
     config.apps.map((app: ZkAppType) => {
       return {
         params: {
-          slug: [config.slug, app.slug],
+          appSlug: app.slug,
         },
       };
     });
@@ -24,13 +24,11 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string[] };
+  params: { appSlug: string, spaceSlug: string };
 }) {
-  const { slug } = params;
-  console.log("slug", slug);
+  const { appSlug, spaceSlug } = params;
 
-  const spaces = getSpaces();
-  const app = await getAppFront({ slug: slug[0], spaces });
+  const app = await getAppFront({ appSlug: appSlug, spaceSlug: spaceSlug});
   if (!app) return notFound();
 
   return {
@@ -57,12 +55,10 @@ export async function generateMetadata({
 export default async function SpacePage({
   params,
 }: {
-  params: { slug: string[] };
+  params: { appSlug: string, spaceSlug: string };
 }) {
-  const { slug } = params;
-  const spaces = getSpaces();
-  const app = await getAppFront({ slug: slug[0], spaces });
-
+  const { appSlug, spaceSlug } = params;
+  const app = await getAppFront({ appSlug: appSlug, spaceSlug: spaceSlug});
   const groupProvider = new GroupProvider({
     hubApiUrl: env.hubApiUrl,
   });

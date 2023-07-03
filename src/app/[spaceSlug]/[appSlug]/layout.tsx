@@ -5,8 +5,8 @@ export default function SpaceLayout({
   children: React.ReactNode;
 }) {
   return (
-    <section>
+    <>
       {children}
-    </section>
+    </>
   );
 }

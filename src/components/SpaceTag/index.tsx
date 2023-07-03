@@ -55,7 +55,7 @@ export default function SpaceTag({
       onMouseLeave={() => setIsHovered(false)}
       onClick={(event) => {
         event.stopPropagation();
-        router.push(`/space/${app.spaceSlug}`)}}
+        router.push(`/${app.spaceSlug}`)}}
     >
       <SpaceImageContainer $isDisabled={isDisabled}>
         <StyledSpaceImage

@@ -41,6 +41,7 @@ export const sismoConfigMain: SpaceConfig = {
         image: "sismoapps_tg_zk_bot_1014x720.png",
         tags: ["Telegram"],
         ctaText: "Join Gated Telegram Chat",
+        createdAt: new Date("2023-07-01T18:00"),
       },
       sismoConnectRequest: {
         appId: "0xa83b7b0d5e268fb4aa3d3582e11700fa",

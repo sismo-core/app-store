@@ -32,6 +32,74 @@ export const sismoConfigMain: SpaceConfig = {
   },
   apps: [
     {
+      type: "zkForm",
+      metadata: {
+        name: "Future of France Invitation",
+        slug: "ticket-fof",
+        description:
+          "Future of France is an invitation-only event during EthCC week in Paris, organized by French-based crypto startups. The number of tickets is limited. Exclusive for members of Sismo Community Level 3.",
+        tags: ["Event", "Ticket"],
+        image: "sismo_appstore_fof_tickets.png",
+        ctaText: "Register to get the Invite",
+        createdAt: new Date("2023-07-03T18:00"),
+      },
+      sismoConnectRequest: {
+        appId: "0x08ffa7336eb7bc0907a9f76ebc55aa4d",
+        authRequests: [{ authType: AuthType.VAULT }],
+        claimRequests: [{ groupId: "0xd630aa769278cacde879c5c0fe5d203c", value: 3 }],
+      },
+      templateConfig: {
+        fields: [
+          {
+            type: "short-text",
+            label: "First Name",
+            isRequired: true,
+          },
+          {
+            type: "short-text",
+            label: "Last Name",
+            isRequired: true,
+          },
+          {
+            type: "short-text",
+            label: "Company (optional)",
+            isRequired: false,
+          },
+          {
+            type: "short-text",
+            label: "Email",
+            isRequired: true,
+          },
+          {
+            type: "short-text",
+            label: "Will you be in Paris on July 17, 7pm? Tickets are limited.",
+            isRequired: true,
+            placeholder: "Yes/No",
+          },
+        ],
+        congratulationsMessage: {
+          title: "Congratulations!",
+          description: "You will receive the ticket in a few days! See you there 💜",
+        },
+        failedMessage: {
+          title: "Sorry, too late this time 😕",
+          description: "Stay in touch for the next one 💜",
+        },
+        output: {
+          destination: {
+            type: "google_sheet",
+            spreadsheetId: "1qEPO2SPWowQno-qUs9OZx68us9PUq4-hNH_HIJNLcPM",
+          },
+          saveAuths: true,
+          saveClaims: true,
+        },
+        userSelection: { type: "FCFS", maxNumberOfUsers: 40 },
+      },
+      options: {
+        endDate: new Date("2023-07-10T18:00"),
+      },
+    },
+    {
       type: "zkTelegramBot",
       metadata: {
         name: "Citadel Invite",

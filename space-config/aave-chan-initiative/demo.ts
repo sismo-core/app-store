@@ -112,6 +112,9 @@ export const aaveChanInitiativeConfigDemo: SpaceConfig = {
           saveClaims: true,
         },
       },
+      options: {
+        isFeatured: true,
+      },
     },
   ],
 };

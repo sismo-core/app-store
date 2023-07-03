@@ -180,6 +180,7 @@ export default function SpacesMain({ config }: Props) {
             fill={true}
             placeholder="blur"
             alt={config?.name}
+            sizes="40vw"
           />
         </ImageContainer>
         <SpaceTitle>{config?.name}</SpaceTitle>

@@ -1,12 +1,9 @@
 "use client";
-import { SpaceImportedImage } from "@/src/app/(home)/page";
-import env from "@/src/environments";
 import Link from "next/link";
 import styled from "styled-components";
 import AppCardLarge from "../AppCardLarge";
 import SpaceCard from "../SpaceCard";
 import AppCardSmall from "../AppCardSmall";
-import App from "next/app";
 import AppListGrid from "../Layouts/AppListGrid";
 import { AppFront, SpaceConfigFront } from "@/src/utils/getSpaceConfigsFront";
 
@@ -129,7 +126,6 @@ export default function HomeMain({ configs, apps }: Props): JSX.Element {
       return app.isFeatured;
   });
   const newApps = apps.slice(0, 6);
-
   const firstFiver = configs.slice(0, 5);
 
   return (
@@ -142,7 +138,7 @@ export default function HomeMain({ configs, apps }: Props): JSX.Element {
         <SlideGrid>
           {featuredApps.length > 0 &&
             featuredApps.map((app) => (
-              <AppCardLarge key={app.slug} app={app} />
+              <AppCardLarge key={"featured/" + app.spaceSlug + "/" + app.slug} app={app} />
             ))}
         </SlideGrid>
       </Section>
@@ -157,7 +153,7 @@ export default function HomeMain({ configs, apps }: Props): JSX.Element {
             newApps.map((app, index) => (
               <AppCardSmall
                 app={app}
-                key={app.slug}
+                key={app.spaceSlug+ "/" + app.slug + "/" + index}
                 isSeparator={
                   newApps.length % 2 === 0
                     ? index !== newApps.length - 1 &&
@@ -175,7 +171,7 @@ export default function HomeMain({ configs, apps }: Props): JSX.Element {
         </TitleLine>
         <SpaceFlex>
           {firstFiver.map((config) => (
-            <SpaceCard key={config.slug} config={config} />
+            <SpaceCard key={"space/" + config.slug} config={config} />
           ))}
         </SpaceFlex>
       </Section>

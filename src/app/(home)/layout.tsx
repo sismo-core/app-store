@@ -7,7 +7,7 @@ type Props = {
   children: React.ReactNode;
 };
 
-export default function ExploreLayout({ children }: Props) {
+export default function HomeLayout({ children }: Props) {
 
   return (
     <>

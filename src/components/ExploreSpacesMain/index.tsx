@@ -30,29 +30,6 @@ const FilterWrapper = styled.div`
   }
 `;
 
-const StyledAppCardSmall = styled(AppCardSmall)<{ $isSeparator: boolean }>`
-  &::after {
-    content: "";
-    display: ${({ $isSeparator }) => ($isSeparator ? "block" : "none")};
-    position: absolute;
-    bottom: -32px;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background: ${({ theme }) => theme.colors.neutral7};
-  }
-
-  @media (max-width: 900px) {
-    &::after {
-      display: block;
-      bottom: -23px;
-    }
-    &:last-child::after {
-      display: none;
-    }
-  }
-`;
-
 const Flex = styled.div`
   display: flex;
   gap: 24px;
@@ -198,7 +175,7 @@ export default function ExploreSpacesMain({ configs }: Props): JSX.Element {
       {displayedSpaces.length > 0 && (
         <Flex>
           {displayedSpaces.map((config, index) => (
-            <StyledSpaceCard key={index} config={config} />
+            <StyledSpaceCard key={config.slug + index} config={config} />
           ))}
         </Flex>
       )}

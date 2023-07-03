@@ -70,19 +70,23 @@ export default async function SpacePage({
   });
 
   const groupMetadataList: GroupMetadata[] = [];
-  if (app) if (!app?.claimRequests?.length) return;
-  await Promise.all(
-    app?.claimRequests?.map(async (claimRequest: ClaimRequest) => {
-      if (!groupMetadataList.find((el) => el.id === claimRequest?.groupId)) {
-        const metadata = await groupProvider.getGroupMetadata({
-          groupId: claimRequest?.groupId,
-          timestamp: "latest",
-          revalidate: 60 * 10,
-        });
-        groupMetadataList.push(metadata);
-      }
-    })
-  );
+  if (app && app?.claimRequests?.length > 0) {
+    await Promise.all(
+      app?.claimRequests?.map(async (claimRequest: ClaimRequest) => {
+        if (!groupMetadataList.find((el) => el.id === claimRequest?.groupId)) {
+          const metadata = await groupProvider.getGroupMetadata({
+            groupId: claimRequest?.groupId,
+            timestamp: "latest",
+            revalidate: 60 * 10,
+          });
+          groupMetadataList.push(metadata);
+        }
+      })
+    );
+
+  };
+  
+
 
   return <AppMain app={app} groupMetadataList={groupMetadataList} />;
 }

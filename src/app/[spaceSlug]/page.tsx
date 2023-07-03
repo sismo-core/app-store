@@ -28,7 +28,7 @@ export async function generateMetadata({
   let coverImageUrl: string;
   try{
     const { spaceSlug } = params;
-    const space =  getSpace({ slug: spaceSlug });
+    space =  getSpace({ slug: spaceSlug });
     const coverImageElement = await getImgSrcFromConfig({
       configSlug: space?.slug,
       fileName: space?.coverImage,
@@ -50,7 +50,7 @@ export async function generateMetadata({
     description: space.description,
     twitter: {
       card: "summary_large_image",
-      title: space.name,
+      title: space?.name,
       description: space.description,
       creator: "@sismo_eth",
       images: [coverImageUrl],

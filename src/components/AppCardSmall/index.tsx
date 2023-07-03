@@ -295,6 +295,7 @@ export default function AppCardLarge({
                 alt={app.name}
                 fill={true}
                 placeholder="blur"
+                sizes="40vw"
               />
             )}
           </ImageContainer>

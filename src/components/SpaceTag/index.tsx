@@ -63,6 +63,7 @@ export default function SpaceTag({
           alt={app.space}
           fill={true}
           placeholder="blur"
+          sizes="10vw"
         />
       </SpaceImageContainer>
       <SpaceName $isHovered={isHovered}>{app.space}</SpaceName>

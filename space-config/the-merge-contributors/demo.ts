@@ -59,6 +59,9 @@ export const theMergeContributorsConfigDemo: SpaceConfig = {
           },
         },
       },
+      options: {
+        isFeatured: true,
+      }
     },
   ],
 };

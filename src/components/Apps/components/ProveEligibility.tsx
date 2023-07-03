@@ -8,6 +8,8 @@ import { GroupMetadata } from "@/src/libs/group-provider";
 import { LockSimpleOpen } from "phosphor-react";
 import { AppFront } from "@/src/utils/getSpaceConfigsFront";
 import { getImpersonateAddresses } from "@/src/utils/getImpersonateAddresses";
+import Modal from "@/src/ui/Modal";
+import RedirectingModal from "./RedirectingModal";
 
 const Container = styled.div``;
 
@@ -49,6 +51,7 @@ export default function ProveEligibility({
   onEligible,
 }: Props): JSX.Element {
   const [isMounted, setIsMounted] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
 
   const config = useMemo(() => {
@@ -68,6 +71,7 @@ export default function ProveEligibility({
   if(!isMounted) return null;
 
   return (
+    <>
     <Container>
       <RequirementTitle>
         <LockSimpleOpen size={16} />
@@ -92,5 +96,6 @@ export default function ProveEligibility({
         )}
       </ButtonContainer>
     </Container>
+    </>
   );
 }

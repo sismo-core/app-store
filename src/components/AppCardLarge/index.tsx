@@ -223,6 +223,7 @@ export default function AppCardLarge({ app }: Props): JSX.Element {
               alt={app.name}
               fill={true}
               placeholder="blur"
+              sizes="70vw"
             />
           )}
           {((hasStarted && !hasEnded && remainingEndTime) ||

@@ -41,6 +41,7 @@ export const sismoConfigMain: SpaceConfig = {
         tags: ["Event", "Ticket"],
         image: "sismo_appstore_fof_tickets.png",
         ctaText: "Register to get the Invite",
+        createdAt: new Date("2023-07-03T18:00"),
       },
       sismoConnectRequest: {
         appId: "0x08ffa7336eb7bc0907a9f76ebc55aa4d",

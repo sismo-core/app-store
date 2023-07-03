@@ -321,7 +321,7 @@ export const sismoConfigDemo: SpaceConfig = {
           title: "Fingers crossed!",
           description: "We hope to have you as a lucky winner 💜 ",
         },
-        userSelection: { type: "Lottery", maxNumberOfEntries: null, numberOfWinners: 10 },
+        userSelection: { type: "Lottery", maxNumberOfEntries: 10, numberOfWinners: 10 },
         output: {
           destination: {
             type: "google_sheet",
@@ -343,6 +343,7 @@ export const sismoConfigDemo: SpaceConfig = {
         tags: ["Event", "Ticket"],
         image: "sismo_appstore_fof_tickets.png",
         ctaText: "Register to get the Invite",
+        createdAt: new Date("2023-07-03T18:00"),
       },
       sismoConnectRequest: {
         appId: "0x08ffa7336eb7bc0907a9f76ebc55aa4d",

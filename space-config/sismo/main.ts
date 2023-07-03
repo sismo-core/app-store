@@ -46,7 +46,6 @@ export const sismoConfigMain: SpaceConfig = {
         appId: "0x08ffa7336eb7bc0907a9f76ebc55aa4d",
         authRequests: [{ authType: AuthType.VAULT }],
         claimRequests: [{ groupId: "0xd630aa769278cacde879c5c0fe5d203c", value: 3 }],
-        impersonateAddresses: ["0x8ab1760889F26cBbf33A75FD2cF1696BFccDc9e6"],
       },
       templateConfig: {
         fields: [

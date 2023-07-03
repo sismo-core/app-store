@@ -402,5 +402,27 @@ export const sismoConfigDemo: SpaceConfig = {
         endDate: new Date("2023-07-10T18:00"),
       },
     },
+    {
+      type: "zkTelegramBot",
+      metadata: {
+        name: "Citadel Invite",
+        slug: "telegram",
+        description:
+          "Sismo Citadel telegram chat was created specifically for our most active builders and closest friends. It is gated to Sismo Community level 3. Learn more about community levels: https://community.sismo.io.",
+        image: "sismoapps_tg_zk_bot_1014x720.png",
+        tags: ["Telegram"],
+        ctaText: "Join Gated Telegram Chat",
+        createdAt: new Date("2023-07-01T18:00"),
+      },
+      sismoConnectRequest: {
+        appId: "0xa83b7b0d5e268fb4aa3d3582e11700fa",
+        claimRequests: [{ groupId: "0xd630aa769278cacde879c5c0fe5d203c", value: 3 }],
+        impersonateAddresses: ["telegram:dhadrien:1234", "dhadrien.eth"],
+      },
+      templateConfig: {
+        telegramGroupId: "-1001930531830",
+        telegramInviteLink: "https://t.me/+3hZN4bNCmsw5Mzgy",
+      },
+    },
   ],
 };

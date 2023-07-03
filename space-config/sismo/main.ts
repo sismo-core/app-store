@@ -97,7 +97,7 @@ export const sismoConfigMain: SpaceConfig = {
       },
       options: {
         endDate: new Date("2023-07-10T18:00"),
-      }.
+      },
     },
     {
       type: "zkTelegramBot",

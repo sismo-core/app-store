@@ -1,21 +1,21 @@
-import {  SpaceConfig } from "@/space-config/types";
 import getImgSrcFromConfig from "./getImgSrcFromConfig";
 import { AppFront } from "./getSpaceConfigsFront";
+import { SpaceType } from "@/src/libs/spaces";
 
 export default async function getAppFront({
-  configs,
+  spaces,
   slug,
 }: {
-  configs: SpaceConfig[];
+  spaces: SpaceType[];
   slug: string;
 }): Promise<AppFront> {
-  if(!configs) return;
+  if (!spaces) return;
 
-  let selectedApp : AppFront;
-  for (const config of configs) {
+  let selectedApp: AppFront;
+  for (const config of spaces) {
     const app = config.apps.find((app) => app.slug === slug);
     if (app) {
-      const _app : AppFront = {
+      const _app: AppFront = {
         ...app,
         space: config.name,
         spaceSlug: config.slug,
@@ -27,13 +27,13 @@ export default async function getAppFront({
           configSlug: config.slug,
           fileName: config.profileImage as string,
         }),
-      }
+      };
 
       selectedApp = _app;
       break;
     }
   }
 
-  if(!selectedApp) return;
+  if (!selectedApp) return;
   return selectedApp;
 }

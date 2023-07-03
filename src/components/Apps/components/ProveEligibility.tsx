@@ -1,6 +1,5 @@
 "use client";
 
-import { ZkTelegramBotAppConfig, ZkSubAppConfig } from "@/space-config/types";
 import env from "@/src/environments";
 import { SismoConnectButton } from "@sismo-core/sismo-connect-react";
 import React, { useEffect, useState } from "react";
@@ -9,7 +8,6 @@ import { styled } from "styled-components";
 import ReqList from "./ReqList";
 import { GroupMetadata } from "@/src/libs/group-provider";
 import { LockSimpleOpen } from "phosphor-react";
-import App from "next/app";
 import { AppFront } from "@/src/utils/getSpaceConfigsFront";
 
 const Container = styled.div``;
@@ -55,11 +53,7 @@ export default function ProveEligibility({
 
 
   const config = useMemo(() => {
-    const appId = env.isDemo
-    ? (app.demo?.appId || app.appId)
-    : env.isDev
-    ? "0x4c40e70b081752680ce258ad321f9e58"
-    : app?.appId;
+    const appId = app.appId;
 
     const config = {
       appId: appId,
@@ -75,8 +69,8 @@ export default function ProveEligibility({
       } : null
     };
 
-    if (env.isDemo && app.demo.impersonateAddresses) {
-      config.vault.impersonate = app.demo.impersonateAddresses
+    if (app.impersonateAddresses) {
+      config.vault.impersonate = app.impersonateAddresses
     }
 
     return config;

@@ -1,23 +1,19 @@
 import getImgSrcFromConfig, {
   ImportedNextImage,
 } from "@/src/utils/getImgSrcFromConfig";
-import {
-  getSpaceConfig,
-  getSpacesConfigs,
-} from "../../../libs/spaces/getSpaces";
-import { App, SpaceConfig } from "@/space-config/types";
 import { notFound } from "next/navigation";
-import getSpaceConfigsFront, {
+import getSpaceFront, {
   SpaceConfigFront,
 } from "@/src/utils/getSpaceConfigsFront";
 import SpacesMain from "@/src/components/SpacesMain";
+import { SpaceType, ZkAppType, getSpace, getSpaces } from "@/src/libs/spaces";
 
 // This function runs at build time on the server it generates the static paths for each page
 export async function generateStaticParams() {
-  const configs = await getSpacesConfigs();
-  return configs?.map((config: SpaceConfig) => {
+  const spaces = getSpaces();
+  return spaces?.map((space: SpaceType) => {
     return {
-      slug: [config.slug],
+      slug: [space.slug],
     };
   });
 }
@@ -29,7 +25,7 @@ export async function generateMetadata({
   params: { slug: string[] };
 }) {
   const { slug } = params;
-  const config = await getSpaceConfig({ slug: slug[0] });
+  const config = await getSpace({ slug: slug[0] });
   const coverImageElement = await getImgSrcFromConfig({
     configSlug: config?.slug,
     fileName: config?.coverImage,
@@ -66,7 +62,7 @@ export async function generateMetadata({
 
 export type ImportedImage = {
   link: string | ImportedNextImage;
-  app: App;
+  app: ZkAppType;
 };
 
 // This function runs at build time on the server it generates the HTML for each page
@@ -76,10 +72,10 @@ export default async function SpacePage({
   params: { slug: string[] };
 }) {
   const { slug } = params;
-  const config = getSpaceConfig({ slug: slug[0] });
+  const space = getSpace({ slug: slug[0] });
 
-  const spaceConfigFront: SpaceConfigFront[] = await getSpaceConfigsFront([
-    config,
+  const spaceConfigFront: SpaceConfigFront[] = await getSpaceFront([
+    space,
   ]);
 
   return (

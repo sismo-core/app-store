@@ -1,21 +1,16 @@
-import { App, SpaceConfig } from "@/space-config/types";
 import env from "@/src/environments";
 import { ClaimRequest } from "@sismo-core/sismo-connect-server";
 import { notFound } from "next/navigation";
-import getSpaceConfigsFront, {
-  SpaceConfigFront,
-} from "@/src/utils/getSpaceConfigsFront";
-import SpacesMain from "@/src/components/SpacesMain";
-import { getSpaceConfig, getSpacesConfigs } from "@/src/libs/spaces";
+import { SpaceType, ZkAppType, getSpaces } from "@/src/libs/spaces";
 import getAppFront from "@/src/utils/getAppFront";
 import { GroupMetadata, GroupProvider } from "@/src/libs/group-provider";
 import AppMain from "@/src/components/AppMain";
 
 // This function runs at build time on the server it generates the static paths for each page
 export async function generateStaticParams() {
-  const configs = getSpacesConfigs();
-  return configs?.map((config: SpaceConfig) => {
-    config.apps.map((app: App) => {
+  const configs = getSpaces();
+  return configs?.map((config: SpaceType) => {
+    config.apps.map((app: ZkAppType) => {
       return {
         params: {
           slug: [config.slug, app.slug],
@@ -34,8 +29,8 @@ export async function generateMetadata({
   const { slug } = params;
   console.log("slug", slug);
 
-  const configs = getSpacesConfigs();
-  const app = await getAppFront({ slug: slug[0], configs });
+  const spaces = getSpaces();
+  const app = await getAppFront({ slug: slug[0], spaces });
   if (!app) return notFound();
 
   return {
@@ -65,8 +60,8 @@ export default async function SpacePage({
   params: { slug: string[] };
 }) {
   const { slug } = params;
-  const configs = getSpacesConfigs();
-  const app = await getAppFront({ slug: slug[0], configs });
+  const spaces = getSpaces();
+  const app = await getAppFront({ slug: slug[0], spaces });
 
   const groupProvider = new GroupProvider({
     hubApiUrl: env.hubApiUrl,

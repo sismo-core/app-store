@@ -1,4 +1,4 @@
-import { SpaceConfig } from "@/space-config/types";
+import { SpaceType } from "@/src/libs/spaces";
 import { AuthType } from "@sismo-core/sismo-connect-server";
 
 export class MockedRequest {
@@ -11,17 +11,16 @@ export class MockedRequest {
   json() {
     return this.data;
   }
-};
+}
 
-export const mockSpaceConfig = (
+export const mockSpaceType = (
   appSlug: string = "appSlug",
   spaceSlug: string = "spaceSlug"
-): SpaceConfig => {
+): SpaceType => {
   return {
     slug: spaceSlug,
     description: "description",
     name: "name",
-    envs: [ "Prod", "Demo" ],
     apps: [
       {
         type: "zkTelegramBot",
@@ -29,27 +28,25 @@ export const mockSpaceConfig = (
         description: "description",
         tags: [],
         image: "image",
-        CTAText: "CTAText",
+        ctaText: "ctaText",
         slug: appSlug,
         authRequests: [{ authType: AuthType.TELEGRAM }],
         appId: "0xd21d9ab6eaf8bcc16eff8d9a76764eab",
         telegramGroupId: "groupId",
         telegramInviteLink: "inviteLink",
-        envs: [ "Demo", "Prod" ]
-      }
-    ]
-  }
+      },
+    ],
+  };
 };
 
-export const mockSpacesConfigs = (
+export const mockSpacesType = (
   appSlug: string = "appSlug",
   spaceSlug: string = "spaceSlug"
-): SpaceConfig[] => [
+): SpaceType[] => [
   {
     slug: spaceSlug,
     description: "description",
     name: "name",
-    envs: [ "Prod", "Demo" ],
     apps: [
       {
         type: "zkTelegramBot",
@@ -57,29 +54,28 @@ export const mockSpacesConfigs = (
         description: "description",
         tags: [],
         image: "image",
-        CTAText: "CTAText",
+        ctaText: "ctaText",
         slug: appSlug,
         authRequests: [{ authType: AuthType.TELEGRAM }],
         appId: "0xd21d9ab6eaf8bcc16eff8d9a76764eab",
         telegramGroupId: "-2",
         telegramInviteLink: "inviteLink",
-        envs: [ "Demo", "Prod" ]
-      }
-    ]
-  }
+      },
+    ],
+  },
 ];
 
 export const mockJoinRequest = (chatId: number, userId: number) => {
   return {
-    "chat_join_request": {
-      "chat": {
-        "id": chatId,
-        "title": "title",
+    chat_join_request: {
+      chat: {
+        id: chatId,
+        title: "title",
       },
-      "from": {
-        "id": userId,
-        "username": "username",
-      }
-    }
-  }
+      from: {
+        id: userId,
+        username: "username",
+      },
+    },
+  };
 };

@@ -1,13 +1,12 @@
-import Hero from "@/src/components/Hero";
-import { getSpacesConfigs } from "../../libs/spaces/getSpaces";
-import { App, SpaceConfig } from "@/space-config/types";
+import { getSpaces } from "../../libs/spaces/getSpaces";
+import { SpaceType } from "../../libs/spaces";
+import getSpaceFront, { AppFront, SpaceConfigFront } from "@/src/utils/getSpaceConfigsFront";
 import HomeMain from "@/src/components/HomeMain";
-import getSpaceConfigsFront, { AppFront, SpaceConfigFront } from "@/src/utils/getSpaceConfigsFront";
 
 export type SpaceImportedImage = {
-  config: SpaceConfig;
-  link: any;
-};
+  config: SpaceType,
+  link: any
+}
 
 export async function generateMetadata() {
   const title =
@@ -37,11 +36,11 @@ export async function generateMetadata() {
 
 
 export default async function HomePage() {
-  const configs = getSpacesConfigs();
-  const spaceConfigsFront: SpaceConfigFront[] = await getSpaceConfigsFront(configs);
+  const spaces = getSpaces();
+  const spacesFront: SpaceConfigFront[] = await getSpaceFront(spaces);
   
   const apps: AppFront[] = [];
-  for (const config of spaceConfigsFront) {
+  for (const config of spacesFront) {
     for (const app of config.apps) {
       apps.push(app)
     }
@@ -49,7 +48,7 @@ export default async function HomePage() {
 
   return (
     <>
-     {spaceConfigsFront && <HomeMain configs={spaceConfigsFront} apps={apps} />}
+     {spacesFront && <HomeMain configs={spacesFront} apps={apps} />}
     </>
   );
 }

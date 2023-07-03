@@ -1,7 +1,7 @@
-import { getSpacesConfigs } from "../../../libs/spaces/getSpaces";
 import { SpaceConfig } from "@/space-config/types";
 import ExploreAppsMain from "@/src/components/ExploreAppsMain";
-import getSpaceConfigsFront, { AppFront, SpaceConfigFront } from "@/src/utils/getSpaceConfigsFront";
+import { getSpaces } from "@/src/libs/spaces";
+import getSpaceFront, { AppFront, SpaceConfigFront } from "@/src/utils/getSpaceConfigsFront";
 
 export type SpaceImportedImage = {
   config: SpaceConfig;
@@ -35,8 +35,8 @@ export async function generateMetadata() {
 }
 
 export default async function ExplorePage() {
-  const configs = getSpacesConfigs();
-  const spaceConfigsFront: SpaceConfigFront[] = await getSpaceConfigsFront(configs);
+  const spaces = getSpaces();
+  const spaceConfigsFront: SpaceConfigFront[] = await getSpaceFront(spaces);
   const apps: AppFront[] = [];
 
   for (const config of spaceConfigsFront) {

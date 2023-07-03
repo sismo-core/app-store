@@ -21,7 +21,7 @@ export const aaveChanInitiativeConfigMain: SpaceConfig = {
     {
       type: "zkForm",
       metadata: {
-        slug: "swag",
+        slug: "aci-swag",
         name: "ACI Chads Swag Claim",
         description:
           "Enter your delivery address to claim your Aave-Chan Initiative Chads Swag - without doxxing your wallet 👀 Don't forget to share all your levels to get more swags!",

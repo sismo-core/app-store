@@ -1,8 +1,6 @@
-import { App, SpaceConfig } from "@/space-config/types";
+import {  SpaceConfig } from "@/space-config/types";
 import getImgSrcFromConfig from "./getImgSrcFromConfig";
-import { searchInSpaceConfigs } from "./searchInSpaceConfigs";
-import { searchInApps } from "./searchInApps";
-import { AppFront, SpaceConfigFront } from "./getSpaceConfigsFront";
+import { AppFront } from "./getSpaceConfigsFront";
 
 export default async function getAppFront({
   configs,
@@ -11,27 +9,31 @@ export default async function getAppFront({
   configs: SpaceConfig[];
   slug: string;
 }): Promise<AppFront> {
-  const config = searchInSpaceConfigs({
-    spaceConfigs: configs,
-    searchString: slug,
-  })[0];
+  if(!configs) return;
 
-  const app = searchInApps({
-    apps: config.apps,
-    searchString: slug,
-  })[0] as AppFront;
+  let selectedApp : AppFront;
+  for (const config of configs) {
+    const app = config.apps.find((app) => app.slug === slug);
+    if (app) {
+      const _app : AppFront = {
+        ...app,
+        space: config.name,
+        spaceSlug: config.slug,
+        image: await getImgSrcFromConfig({
+          configSlug: config.slug,
+          fileName: app.image as string,
+        }),
+        configImage: await getImgSrcFromConfig({
+          configSlug: config.slug,
+          fileName: config.profileImage as string,
+        }),
+      }
 
-  const profileImage = await getImgSrcFromConfig({
-    configSlug: config.slug,
-    fileName: config.profileImage as string,
-  });
+      selectedApp = _app;
+      break;
+    }
+  }
 
-  app.image = await getImgSrcFromConfig({
-    configSlug: config.slug,
-    fileName: app.image as string,
-  });
-  app.space = config.name;
-  app.spaceSlug = config.slug;
-  app.configImage = profileImage;
-  return app;
+  if(!selectedApp) return;
+  return selectedApp;
 }

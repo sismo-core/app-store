@@ -28,10 +28,17 @@ export async function generateMetadata({
   params: { appSlug: string; spaceSlug: string };
 }) {
   let app: AppFront;
-
+  let appImage;
   try {
     const { appSlug, spaceSlug } = params;
     app = await getAppFront({ appSlug: appSlug, spaceSlug: spaceSlug });
+
+    appImage = app.image;
+    if (typeof appImage === "string") {
+      appImage = appImage;
+    } else {
+      appImage = appImage.src;
+    }
     if (!app) return notFound();
   } catch (e) {
     notFound();
@@ -45,12 +52,12 @@ export async function generateMetadata({
       title: app.name,
       description: app.description,
       creator: "@sismo_eth",
-      images: [app.image],
+      images: [appImage],
     },
     openGraph: {
       title: app.name,
       description: app.description,
-      images: [app.image],
+      images: [appImage],
       locale: "en-US",
       type: "website",
     },
@@ -83,10 +90,7 @@ export default async function SpacePage({
         }
       })
     );
-
-  };
-  
-
+  }
 
   return <AppMain app={app} groupMetadataList={groupMetadataList} />;
 }

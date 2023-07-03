@@ -33,12 +33,6 @@ const Bottom = styled.div`
   align-items: center;
 `;
 
-const Loading = styled.div`
-  font-family: ${(props) => props.theme.fonts.regular};
-  color: ${(props) => props.theme.colors.neutral1};
-  font-size: 16px;
-`;
-
 const ErrorMsg = styled.div`
   color: ${(props) => props.theme.colors.error};
   font-family: ${(props) => props.theme.fonts.regular};

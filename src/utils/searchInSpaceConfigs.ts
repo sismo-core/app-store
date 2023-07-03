@@ -1,5 +1,4 @@
 
-import { SpaceConfig } from "@/space-config/types";
 import { deepSearch } from "./deepSearch";
 import { SpaceConfigFront } from "./getSpaceConfigsFront";
 

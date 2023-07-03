@@ -33,7 +33,6 @@ const TimerClockWrapper = styled.div`
   display: flex;
   align-items: center;
   padding: 16px 0 12px 0;
-  // margin-bottom: 4px;
 `;
 
 const TimerClock = styled.div`

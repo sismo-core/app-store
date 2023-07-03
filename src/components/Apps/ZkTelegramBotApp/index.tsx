@@ -44,33 +44,6 @@ const ErrorMsg = styled.div`
   font-size: 12px;
 `;
 
-const AlreadyRegistered = styled.div`
-  color: ${(props) => props.theme.colors.neutral1};
-  font-family: ${(props) => props.theme.fonts.regular};
-  border: 1px solid ${(props) => props.theme.colors.blueRYB};
-  font-size: 16px;
-  background: rgba(18, 52, 245, 0.05);
-  height: 46px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 4px;
-`;
-
-const Title = styled.div`
-  margin-bottom: 16px;
-  font-family: ${(props) => props.theme.fonts.semibold};
-  color: ${(props) => props.theme.colors.neutral1};
-  font-size: 32px;
-`;
-
-const Description = styled.div`
-  margin-bottom: 32px;
-  font-family: ${(props) => props.theme.fonts.regular};
-  color: ${(props) => props.theme.colors.neutral3};
-  font-size: 16px;
-`;
-
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -81,15 +54,12 @@ type Props = {
   app: AppFront;
 };
 
-export default function ZkTelegramBotApp({
-  app,
-  groupMetadataList,
-}: Props): JSX.Element {
+export default function ZkTelegramBotApp({ app, groupMetadataList }: Props): JSX.Element {
   const [error, setError] = useState(null);
   const [approved, setApproved] = useState(false);
   const [verifying, setVerifying] = useState<boolean>(false);
 
-  const { hasStarted } = useRemainingTime({startDate: app?.startDate});
+  const { hasStarted } = useRemainingTime({ startDate: app?.startDate });
 
   const verify = async (response: SismoConnectResponse) => {
     const body = {
@@ -158,12 +128,7 @@ export default function ZkTelegramBotApp({
               </Bottom>
             )}
           </Section>
-          <Section
-            number={2}
-            isOpen={approved}
-            title={app?.ctaText}
-            success={false}
-          >
+          <Section number={2} isOpen={approved} title={app?.ctaText} success={false}>
             <ButtonContainer>
               <Button3D
                 style={{ marginTop: 25, marginBottom: 15 }}

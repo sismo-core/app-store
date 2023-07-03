@@ -7,7 +7,7 @@ import { getSpace } from "@/src/libs/spaces";
 
 jest.mock("../../../../environments", () => ({
   isDemo: true,
-  isDev: false, // Set to true for console logs
+  isDev: false
 }));
 
 jest.mock("../../../../libs/spaces", () => {

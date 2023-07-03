@@ -41,7 +41,8 @@ export const mockSpaceType = (
 
 export const mockSpacesType = (
   appSlug: string = "appSlug",
-  spaceSlug: string = "spaceSlug"
+  spaceSlug: string = "spaceSlug",
+  telegramGroupId: string = "-2"
 ): SpaceType[] => [
   {
     slug: spaceSlug,
@@ -58,7 +59,7 @@ export const mockSpacesType = (
         slug: appSlug,
         authRequests: [{ authType: AuthType.TELEGRAM }],
         appId: "0xd21d9ab6eaf8bcc16eff8d9a76764eab",
-        telegramGroupId: "-2",
+        telegramGroupId: telegramGroupId,
         telegramInviteLink: "inviteLink",
       },
     ],
@@ -77,5 +78,17 @@ export const mockJoinRequest = (chatId: number, userId: number) => {
         username: "username",
       },
     },
+  };
+};
+
+export const mockGroupIdCommand = (chatId: number, messageId: number) => {
+  return {
+    message: {
+      message_id: messageId,
+      chat: {
+        id: chatId,
+      },
+      text: "/groupid@SismoDevBot"
+    }
   };
 };

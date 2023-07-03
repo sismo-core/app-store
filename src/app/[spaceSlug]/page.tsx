@@ -24,35 +24,40 @@ export async function generateMetadata({
 }: {
   params: { spaceSlug: string };
 }) {
-  const { spaceSlug } = params;
-  const config =  getSpace({ slug: spaceSlug });
-  const coverImageElement = await getImgSrcFromConfig({
-    configSlug: config?.slug,
-    fileName: config?.coverImage,
-  });
+  let space : SpaceType;
   let coverImageUrl: string;
-
-  if (typeof coverImageElement === "string") {
-    coverImageUrl = coverImageElement;
-  } else {
-    coverImageUrl = coverImageElement.src;
+  try{
+    const { spaceSlug } = params;
+    const space =  getSpace({ slug: spaceSlug });
+    const coverImageElement = await getImgSrcFromConfig({
+      configSlug: space?.slug,
+      fileName: space?.coverImage,
+    });
+  
+    if (typeof coverImageElement === "string") {
+      coverImageUrl = coverImageElement;
+    } else {
+      coverImageUrl = coverImageElement.src;
+    }
+  
+    if (!space) return notFound();
+  } catch(e) {
+    notFound();
   }
 
-  if (!config) return notFound();
-
   return {
-    title: config.name,
-    description: config.description,
+    title: space.name,
+    description: space.description,
     twitter: {
       card: "summary_large_image",
-      title: config.name,
-      description: config.description,
+      title: space.name,
+      description: space.description,
       creator: "@sismo_eth",
       images: [coverImageUrl],
     },
     openGraph: {
-      title: config.name,
-      description: config.description,
+      title: space.name,
+      description: space.description,
       images: [coverImageUrl],
       locale: "en-US",
       type: "website",

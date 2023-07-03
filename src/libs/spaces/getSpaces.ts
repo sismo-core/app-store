@@ -76,7 +76,6 @@ export function getSpaces(): SpaceType[] {
     spaces.push(space);
   }
 
-
   return spaces;
 }
 
@@ -85,10 +84,14 @@ export function getSpace({ slug }: { slug?: string } = {}): SpaceType {
   const selectedSpace = spaces.find((space) => {
     return space.slug === slug;
   });
+
   return selectedSpace;
 }
 
-export function getApp({ appSlug, spaceSlug }: { appSlug?: string, spaceSlug?:string } = {}): ZkAppType {
+export function getApp({
+  appSlug,
+  spaceSlug,
+}: { appSlug?: string; spaceSlug?: string } = {}): ZkAppType {
   const spaces = getSpaces();
   const selectedSpace = spaces.find((space) => {
     return space.slug === spaceSlug;

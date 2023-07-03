@@ -5,6 +5,7 @@ import { SpaceType, ZkAppType, getSpaces } from "@/src/libs/spaces";
 import getAppFront from "@/src/utils/getAppFront";
 import { GroupMetadata, GroupProvider } from "@/src/libs/group-provider";
 import AppMain from "@/src/components/AppMain";
+import { AppFront } from "@/src/utils/getSpaceConfigsFront";
 
 // This function runs at build time on the server it generates the static paths for each page
 export async function generateStaticParams() {
@@ -24,12 +25,17 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: { appSlug: string, spaceSlug: string };
+  params: { appSlug: string; spaceSlug: string };
 }) {
-  const { appSlug, spaceSlug } = params;
+  let app: AppFront;
 
-  const app = await getAppFront({ appSlug: appSlug, spaceSlug: spaceSlug});
-  if (!app) return notFound();
+  try {
+    const { appSlug, spaceSlug } = params;
+    app = await getAppFront({ appSlug: appSlug, spaceSlug: spaceSlug });
+    if (!app) return notFound();
+  } catch (e) {
+    notFound();
+  }
 
   return {
     title: app.name,
@@ -55,10 +61,10 @@ export async function generateMetadata({
 export default async function SpacePage({
   params,
 }: {
-  params: { appSlug: string, spaceSlug: string };
+  params: { appSlug: string; spaceSlug: string };
 }) {
   const { appSlug, spaceSlug } = params;
-  const app = await getAppFront({ appSlug: appSlug, spaceSlug: spaceSlug});
+  const app = await getAppFront({ appSlug: appSlug, spaceSlug: spaceSlug });
   const groupProvider = new GroupProvider({
     hubApiUrl: env.hubApiUrl,
   });

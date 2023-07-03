@@ -64,7 +64,7 @@ type Props = {
 
 export default function SpaceCard({ config, className }: Props): JSX.Element {
   return (
-    <Container href={`/space/${config.slug}`} className={className}>
+    <Container href={`/${config.slug}`} className={className}>
       <ProfileImageContainer>
         <Image
           src={config.profileImage}

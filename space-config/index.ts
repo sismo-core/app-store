@@ -14,7 +14,6 @@ export const configsMain: SpaceConfig[] = [
   privacyIsNormalConfigMain,
   aaveChanInitiativeConfigMain,
   sismoConfigMain,
-
 ];
 
 export const configsDemo: SpaceConfig[] = [

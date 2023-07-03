@@ -1,9 +1,7 @@
 "use client";
 import styled from "styled-components";
-import AppCardSmall from "../AppCardSmall";
-import AppListGrid from "../Layouts/AppListGrid";
 import SearchInput from "@/src/ui/SearchInput";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { CaretDown, MagnifyingGlass } from "phosphor-react";
 import Select, { SelectOption } from "@/src/ui/Select";
 import capitalizeFirstLetter from "@/src/utils/capitalizeFirstLetter";

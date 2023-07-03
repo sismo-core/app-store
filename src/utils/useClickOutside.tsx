@@ -1,13 +1,5 @@
 import React, { useEffect } from "react";
 
-/*
-  const ref = React.useRef(null);
-  useOnClickOutside(ref, onClose);
-  <Component ref={ref}>
-    Hello
-  </Component>
-*/
-
 export default function useOnClickOutside(
   ref: React.MutableRefObject<HTMLElement>,
   outsideClickCallback: () => void

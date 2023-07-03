@@ -105,8 +105,7 @@ const ShowMore = styled.div`
 
 const StyledCaretDown = styled(CaretDown)<{ $isFolded: boolean }>`
   flex-shrink: 0;
-  transform: ${({ $isFolded }) =>
-    $isFolded ? "rotateX(0deg)" : "rotateX(180deg)"};
+  transform: ${({ $isFolded }) => ($isFolded ? "rotateX(0deg)" : "rotateX(180deg)")};
 `;
 
 const NumberOfApps = styled.div`
@@ -150,7 +149,6 @@ type Props = {
 
 export default function SpacesMain({ config }: Props) {
   const TWO_LINES = 62;
-
   const [twoLines, setTwoLines] = useState(TWO_LINES);
   const isShortened = Boolean(config?.description?.length > twoLines);
   const [isFolded, setIsFolded] = useState(isShortened);
@@ -204,63 +202,31 @@ export default function SpacesMain({ config }: Props) {
               switch (socialLink?.type) {
                 case "twitter":
                   return (
-                    <StyledLink
-                      href={socialLink?.link}
-                      key={"twitter" + index}
-                      target="_blank"
-                    >
+                    <StyledLink href={socialLink?.link} key={"twitter" + index} target="_blank">
                       <Twitter size={20} color={colors.blue0} />
                     </StyledLink>
                   );
                 case "discord":
                   return (
-                    <StyledLink
-                      href={socialLink?.link}
-                      key={"discord" + index}
-                      target="_blank"
-                    >
-                      <Discord
-                        size={20}
-                        key={"discord" + index}
-                        color={colors.blue0}
-                      />
+                    <StyledLink href={socialLink?.link} key={"discord" + index} target="_blank">
+                      <Discord size={20} key={"discord" + index} color={colors.blue0} />
                     </StyledLink>
                   );
                 case "github":
                   return (
-                    <StyledLink
-                      href={socialLink?.link}
-                      key={"github" + index}
-                      target="_blank"
-                    >
-                      <GithubRounded
-                        size={20}
-                        key={"github" + index}
-                        color={colors.blue0}
-                      />
+                    <StyledLink href={socialLink?.link} key={"github" + index} target="_blank">
+                      <GithubRounded size={20} key={"github" + index} color={colors.blue0} />
                     </StyledLink>
                   );
                 case "telegram":
                   return (
-                    <StyledLink
-                      href={socialLink?.link}
-                      key={"telegram" + index}
-                      target="_blank"
-                    >
-                      <TelegramFilled
-                        size={20}
-                        key={"telegram" + index}
-                        color={colors.blue0}
-                      />
+                    <StyledLink href={socialLink?.link} key={"telegram" + index} target="_blank">
+                      <TelegramFilled size={20} key={"telegram" + index} color={colors.blue0} />
                     </StyledLink>
                   );
                 case "link":
                   return (
-                    <StyledLink
-                      href={socialLink?.link}
-                      key={"globe" + index}
-                      target="_blank"
-                    >
+                    <StyledLink href={socialLink?.link} key={"globe" + index} target="_blank">
                       <Globe size={24} key={index} color={colors.blue0} />
                     </StyledLink>
                   );

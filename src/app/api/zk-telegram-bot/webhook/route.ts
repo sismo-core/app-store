@@ -26,19 +26,20 @@ export async function POST(request: Request) {
 }
 
 const dispatchUpdate = async (update: any): Promise<Response> => {
-  if (update["message"]) {
+  if (isTextMessage(update)) {
     return handleMessageUpdate(await parseMessage(update));
   }
-  if (update["chat_join_request"]) {
+  if (isJoinRequest(update)) {
     return handleJoinRequest(await parseJoinRequest(update));
   }
+  return NextResponse.json({ status: "ignored" });
 };
 
 const handleMessageUpdate = async (message: Message): Promise<Response> => {
   if (message.text.startsWith(groupIdCommand)) {
     await handleGroupIdCommand(message);
   }
-  return NextResponse.json({ status: "ok" });
+  return NextResponse.json({ status: "handled" });
 };
 
 const handleGroupIdCommand = async (message: Message): Promise<void> => {
@@ -108,6 +109,14 @@ const parseJoinRequest = async (update: any): Promise<JoinRequest> => {
     userId: String(update["chat_join_request"]["from"]["id"]),
     username: update["chat_join_request"]["from"]["username"]
   };
+};
+
+const isTextMessage = (update: any): boolean => {
+  return update["message"] && update["message"]["text"];
+};
+
+const isJoinRequest = (update: any): boolean => {
+  return update["chat_join_request"];
 };
 
 const isWhitelistApproved = async (

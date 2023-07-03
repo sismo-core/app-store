@@ -61,7 +61,23 @@ describe("POST /api/zk-telegram-bot/verify", () => {
     expect(data.message).toMatch(/Failed to verify ZK-Proof/);
   });
 
-  it("Should return approved when the user is not in the whitelist yet", async () => {
+  it("Should return approved when the userId is not in the whitelist", async () => {
+    const response = await POST(
+      new MockedRequest({
+        spaceSlug: "spaceSlug",
+        appSlug: "appSlug",
+        response: mockResponse,
+      }) as any
+    );
+    const data = await response.json();
+    expect(data.status).toEqual("approved");
+  });
+
+  it("Should return approved when the userId is whitelisted but for another app", async () => {
+    await memoryUserStore.add({
+      userId: "6232426394",
+      appSlug: "alreadyApprovedAppSlug",
+    });
     const response = await POST(
       new MockedRequest({
         spaceSlug: "spaceSlug",

@@ -48,7 +48,7 @@ export const sismoConfigMain: SpaceConfig = {
       },
       templateConfig: {
         telegramGroupId: "-1001930531830",
-        telegramInviteLink: "https://t.me/+3hZN4bNCmsw5Mzgy",
+        telegramInviteLink: "https://t.me/+5oMohki7dhgwNDJi",
       },
     },
   ],

@@ -7,6 +7,7 @@ import ReqList from "./ReqList";
 import { GroupMetadata } from "@/src/libs/group-provider";
 import { LockSimpleOpen } from "phosphor-react";
 import { AppFront } from "@/src/utils/getSpaceConfigsFront";
+import { getImpersonateAddresses } from "@/src/utils/getImpersonateAddresses";
 
 const Container = styled.div``;
 
@@ -51,26 +52,12 @@ export default function ProveEligibility({
 
 
   const config = useMemo(() => {
-    const appId = app.appId;
-
     const config = {
-      appId: appId,
+      appId: app.appId,
       vault: env.isDemo ? {
-        impersonate: [
-          "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",
-          "github:vbuterin",
-          "twitter:VitalikButerin:423423",
-          "telegram:VitalkButerin:423423",
-          "0x644177f8d79117c2b9c7596527642b3c2d05888e",
-          "0xca55123aba844d347d0a18d91a958eda531447ff"
-        ]
+        impersonate: getImpersonateAddresses(app)
       } : null
     };
-
-    if (app.impersonateAddresses) {
-      config.vault.impersonate = app.impersonateAddresses
-    }
-
     return config;
   }, [app]);
 

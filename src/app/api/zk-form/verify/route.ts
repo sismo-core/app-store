@@ -9,7 +9,9 @@ import {
 } from "@sismo-core/sismo-connect-server";
 import { NextResponse } from "next/server";
 import { mapAuthTypeToSheetColumnName } from "@/src/utils/mapAuthTypeToSheetColumnName";
-import { ZkFormAppType, getSpace } from "@/src/libs/spaces";
+import { getSpace } from "@/src/libs/spaces";
+import { getImpersonateAddresses } from "@/src/utils/getImpersonateAddresses";
+import { ZkAppType, ZkFormAppType } from "@/src/libs/spaces/types";
 
 const spreadSheetsInitiated = new Map<string, boolean>();
 
@@ -27,61 +29,66 @@ export async function POST(req: Request) {
   const store = await getStore(app);
 
   let fieldsToAdd = fields;
-  if (!env.isDemo) {
-    const result = await verifyResponse(app, response);
-    if (!result) return new Response(null, { status: 500, statusText: "Invalid response" });
 
-    if (!app.saveAuths && needVaultAuth(app)) {
-      const vaultId = await result.getUserId(AuthType.VAULT);
-      if (!vaultId) return new Response(null, { status: 500, statusText: "No Vault Id" });
-      fieldsToAdd = [
-        ...fieldsToAdd,
-        {
-          name: "VaultId",
-          value: vaultId,
-        },
-      ];
+  const result = await verifyResponse(app, response);
+  if (!result) return new Response(null, { status: 500, statusText: "Invalid response" });
+
+  if (!app.saveAuths && needVaultAuth(app)) {
+    const vaultId = await result.getUserId(AuthType.VAULT);
+    if (!vaultId) return new Response(null, { status: 500, statusText: "No Vault Id" });
+    fieldsToAdd = [
+      ...fieldsToAdd,
+      {
+        name: "VaultId",
+        value: vaultId,
+      },
+    ];
+    if (!env.isDemo) {
       const isExist = await isVaultIdExist(store, vaultId);
       if (isExist) return NextResponse.json({ status: "already-subscribed" });
     }
-    if (app.saveAuths && app.authRequests?.length > 0) {
-      for (let authRequest of app.authRequests) {
-        const userId = await result.getUserId(authRequest.authType);
-        if (!userId && !authRequest.isOptional)
-          return new Response(null, { status: 500, statusText: `No ${authRequest.authType} Id` });
+  }
 
+  if (app.saveAuths && app.authRequests?.length > 0) {
+    for (let authRequest of app.authRequests) {
+      const userId = await result.getUserId(authRequest.authType);
+      if (!userId && !authRequest.isOptional)
+        return new Response(null, { status: 500, statusText: `No ${authRequest.authType} Id` });
+
+      if (!env.isDemo) {
         if (authRequest.authType === AuthType.VAULT) {
           const isExist = await isVaultIdExist(store, userId);
           if (isExist) return NextResponse.json({ status: "already-subscribed" });
         }
+      }
 
-        fieldsToAdd = [
-          ...fieldsToAdd,
-          {
-            name: mapAuthTypeToSheetColumnName(authRequest.authType),
-            value: userId,
-          },
-        ];
-      }
+      fieldsToAdd = [
+        ...fieldsToAdd,
+        {
+          name: mapAuthTypeToSheetColumnName(authRequest.authType),
+          value: userId,
+        },
+      ];
     }
-    if (app.saveClaims && app.claimRequests?.length > 0) {
-      for (let claimRequest of app.claimRequests) {
-        if (!claimRequest.isSelectableByUser) claimRequest.isSelectableByUser = false;
-        const claim = result.claims.find(
-          (claim) =>
-            claim.groupId === claimRequest.groupId &&
-            claim.claimType === claimRequest.claimType &&
-            claim.groupTimestamp === claimRequest.groupTimestamp &&
-            claim.isSelectableByUser === claimRequest.isSelectableByUser
-        );
-        fieldsToAdd = [
-          ...fieldsToAdd,
-          {
-            name: claim.groupId,
-            value: claim.value,
-          },
-        ];
-      }
+  }
+
+  if (app.saveClaims && app.claimRequests?.length > 0) {
+    for (let claimRequest of app.claimRequests) {
+      if (!claimRequest.isSelectableByUser) claimRequest.isSelectableByUser = false;
+      const claim = result.claims.find(
+        (claim) =>
+          claim.groupId === claimRequest.groupId &&
+          claim.claimType === claimRequest.claimType &&
+          claim.groupTimestamp === claimRequest.groupTimestamp &&
+          claim.isSelectableByUser === claimRequest.isSelectableByUser
+      );
+      fieldsToAdd = [
+        ...fieldsToAdd,
+        {
+          name: claim.groupId,
+          value: claim.value,
+        },
+      ];
     }
   }
 
@@ -135,8 +142,14 @@ const verifyResponse = async (
 ): Promise<SismoConnectVerifiedResult> => {
   try {
     const config: SismoConnectConfig = {
-      appId: env.isDev ? "0x4c40e70b081752680ce258ad321f9e58" : app.appId,
+      appId: env.isDev ? "0x4c40e70b081752680ce258ad321f9e58" : app.appId
     };
+
+    if (env.isDemo) {
+      config.vault = {
+        impersonate: getImpersonateAddresses(app as ZkAppType)
+      }
+    }
 
     const sismoConnect = SismoConnect({ config });
     return await sismoConnect.verify(response, {

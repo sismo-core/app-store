@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import React, { useEffect, useState } from "react";
 import { styled } from "styled-components";
@@ -40,6 +40,7 @@ export default function Register({ app, onFieldsComplete }: Props): JSX.Element 
         } else {
             onFieldsComplete([]);
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [fields])
     
     const updateField = (name: string, value: string) => {

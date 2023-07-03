@@ -157,16 +157,18 @@ export default function SpacesMain({ config }: Props) {
   const ref = useRef<HTMLParagraphElement>(null);
 
   useLayoutEffect(() => {
-    if (!ref.current?.clientWidth) return;
-    setTwoLines((ref.current?.clientWidth * TWO_LINES) / 262);
+    const _ref = ref?.current;
+    if (!_ref?.clientWidth) return;
+
+    setTwoLines((_ref.clientWidth * TWO_LINES) / 262);
 
     window.addEventListener("resize", () => {
-      setTwoLines((ref.current?.clientWidth * TWO_LINES) / 262);
+      setTwoLines((_ref?.clientWidth * TWO_LINES) / 262);
     });
 
     return () => {
       window.removeEventListener("resize", () => {
-        setTwoLines((ref.current?.clientWidth * TWO_LINES) / 262);
+        setTwoLines((_ref?.clientWidth * TWO_LINES) / 262);
       });
     };
   }, [ref?.current?.clientWidth]);

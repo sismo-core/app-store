@@ -1917,7 +1917,7 @@
     pako "^2.1.0"
     viem "^0.3.1"
 
-"@sismo-core/sismo-connect-react@0.0.15":
+"@sismo-core/sismo-connect-react@^0.0.15":
   version "0.0.15"
   resolved "https://registry.yarnpkg.com/@sismo-core/sismo-connect-react/-/sismo-connect-react-0.0.15.tgz#da719be21ca09ed951c2da2cbe53f41e40639e4b"
   integrity sha512-RaZjjwgP9QSthAgvcYg5LPIB2B53X8qKPac4QaDpd66zOQHwOCgF47DYVmjTRn3ZDpAmmhYbIT+ZhcCb84Pkig==

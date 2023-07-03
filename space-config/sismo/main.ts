@@ -87,7 +87,7 @@ export const sismoConfigMain: SpaceConfig = {
         output: {
           destination: {
             type: "google_sheet",
-            spreadsheetId: "16NuT1HIJvM2jikRmHzN-ZSwJmjg_Ef1-6e-XbPff3z4",
+            spreadsheetId: "1qEPO2SPWowQno-qUs9OZx68us9PUq4-hNH_HIJNLcPM",
           },
           saveAuths: true,
           saveClaims: true,

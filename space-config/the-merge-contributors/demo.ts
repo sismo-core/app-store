@@ -26,7 +26,7 @@ export const theMergeContributorsConfigDemo: SpaceConfig = {
       sismoConnectRequest: {
         appId: "0x0f38b4eb4d51fbd7906c9c7574df075e",
         authRequests: [{ authType: AuthType.VAULT }],
-        claimRequests: [{ groupId: "0x42c768bb8ae79e4c5c05d3b51a4ec74a" }], // Mergooor contributor groupID "0x42c768bb8ae79e4c5c05d3b51a4ec74a"
+        claimRequests: [{ groupId: "0xd4cdaae916464870f7413a03b1fe8c31" }], // Mergooor contributor groupID "0x42c768bb8ae79e4c5c05d3b51a4ec74a"
       },
       templateConfig: {
         fields: [

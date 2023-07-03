@@ -339,13 +339,13 @@ export const sismoConfigDemo: SpaceConfig = {
     {
       type: "zkTelegramBot",
       metadata: {
-        name: "Sismo Citadel Telegram Group Invite",
+        name: "Citadel Invite",
         slug: "telegram",
         description:
-          "Join our private Telegram Group 'Sismo Citadel' - open to Sismo Contributors Level 3. To learn more about our Sismo Contributors Levels, please visit https://community.sismo.io.",
+          "Sismo Citadel telegram chat was created specifically for our most active builders and closest friends. It is gated to Sismo Community level 3. Learn more about community levels: https://community.sismo.io.",
         image: "sismoapps_tg_zk_bot_1014x720.png",
         tags: ["Telegram"],
-        ctaText: "Join our Telegram Group",
+        ctaText: "Join Gated Telegram Chat",
       },
       sismoConnectRequest: {
         appId: "0xa83b7b0d5e268fb4aa3d3582e11700fa",

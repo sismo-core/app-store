@@ -8,8 +8,6 @@ import { GroupMetadata } from "@/src/libs/group-provider";
 import { LockSimpleOpen } from "phosphor-react";
 import { AppFront } from "@/src/utils/getSpaceConfigsFront";
 import { getImpersonateAddresses } from "@/src/utils/getImpersonateAddresses";
-import Modal from "@/src/ui/Modal";
-import RedirectingModal from "./RedirectingModal";
 
 const Container = styled.div``;
 

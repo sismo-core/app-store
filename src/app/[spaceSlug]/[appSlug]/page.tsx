@@ -78,13 +78,13 @@ export default async function SpacePage({
 
   const groupMetadataList: GroupMetadata[] = [];
   if (app && app?.claimRequests?.length > 0) {
-    await Promise.all(
+   await Promise.all(
       app?.claimRequests?.map(async (claimRequest: ClaimRequest) => {
         if (!groupMetadataList.find((el) => el.id === claimRequest?.groupId)) {
           const metadata = await groupProvider.getGroupMetadata({
             groupId: claimRequest?.groupId,
             timestamp: "latest",
-            revalidate: 60 * 10,
+            revalidate: 60 * 60 * 12, // 12 hours
           });
           groupMetadataList.push(metadata);
         }

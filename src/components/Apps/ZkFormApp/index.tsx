@@ -1,9 +1,8 @@
 "use client";
 
-import React, {  useState } from "react";
+import React, {  useMemo, useState } from "react";
 import { styled } from "styled-components";
 import Button3D from "@/src/ui/Button3D";
-import { SismoConnectResponse } from "@sismo-core/sismo-connect-server";
 import Register, { FieldValue } from "./components/Register";
 import Congratulations from "./components/Congratulations";
 import { GroupMetadata } from "@/src/libs/group-provider";
@@ -14,6 +13,10 @@ import Section from "../components/Section";
 import ProveEligibility from "../components/ProveEligibility";
 import { ZkFormAppType } from "@/src/libs/spaces";
 import { useRouter } from "next/navigation";
+import { useSismoConnect } from "@sismo-core/sismo-connect-react";
+import { getImpersonateAddresses } from "@/src/utils/getImpersonateAddresses";
+import env from "@/src/environments";
+import { useSearchParams } from "next/navigation";
 
 const Content = styled.div`
   width: 580px;
@@ -68,10 +71,21 @@ export default function ZkFormApp({
   const [subscribed, setSubscribed] = useState(false);
   const [verifying, setVerifying] = useState<boolean>(false);
   const [fields, setFields] = useState<FieldValue[]>(null);
-  const [response, setResponse] = useState<SismoConnectResponse>(null);
+  const searchParams = useSearchParams();
+
+  const config = useMemo(() => {
+    const config = {
+      appId: app.appId,
+      vault: env.isDemo ? {
+        impersonate: getImpersonateAddresses(app)
+      } : null
+    };
+    return config;
+  }, [app]);
+
+  const { response } = useSismoConnect({config})
   const { hasStarted } = useRemainingTime({startDate: app?.startDate});
   const router = useRouter();
-
 
   const submit = async () => {
     const body = {
@@ -101,6 +115,7 @@ export default function ZkFormApp({
     }
   };
 
+  const hasResponse = Boolean(response) || Boolean(searchParams.get('sismoConnectResponseCompressed'));
 
   if(!hasStarted) return <Content>
     <Timer app={app} />
@@ -114,20 +129,19 @@ export default function ZkFormApp({
         <>
           <Section
             number={1}
-            isOpen={!response}
+            isOpen={!hasResponse}
             title="Sign in with Sismo"
             style={{ marginBottom: 16 }}
-            success={Boolean(response)}
+            success={hasResponse}
           >
             <ProveEligibility
               app={app}
-              onEligible={(_response) => setResponse(_response)}
               groupMetadataList={groupMetadataList}
             />
           </Section>
           <Section
             number={2}
-            isOpen={Boolean(response)}
+            isOpen={Boolean(response) || Boolean(searchParams.get('sismoConnectResponseCompressed'))}
             title={app?.ctaText}
             success={alreadySubscribed || (fields && fields.length === 0)}
           >
@@ -142,7 +156,7 @@ export default function ZkFormApp({
               />
             )}
           </Section>
-          {response && <Bottom>
+          {hasResponse && <Bottom>
             {alreadySubscribed ? (
               <Button3D onClick={()=>{}} secondary>
                 Back to the Space
@@ -151,7 +165,7 @@ export default function ZkFormApp({
               <Button3D
                 onClick={submit}
                 secondary
-                disabled={!fields || !response}
+                disabled={!fields || !hasResponse}
                 loading={verifying}
               >
                 {verifying ? "Verifying..." : "Submit"}

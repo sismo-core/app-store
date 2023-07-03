@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { styled } from "styled-components";
 import Button3D from "@/src/ui/Button3D";
 import ProveEligibility from "../components/ProveEligibility";
@@ -11,6 +11,10 @@ import useRemainingTime from "@/src/utils/useRemainingTime";
 import Timer from "../components/Timer";
 import { AppFront } from "@/src/utils/getSpaceConfigsFront";
 import { ZkTelegramBotAppType } from "@/src/libs/spaces";
+import env from "@/src/environments";
+import { getImpersonateAddresses } from "@/src/utils/getImpersonateAddresses";
+import { useSismoConnect } from "@sismo-core/sismo-connect-react";
+import { useSearchParams } from "next/navigation";
 
 const Content = styled.div`
   width: 580px;
@@ -58,7 +62,17 @@ export default function ZkTelegramBotApp({ app, groupMetadataList }: Props): JSX
   const [error, setError] = useState(null);
   const [approved, setApproved] = useState(false);
   const [verifying, setVerifying] = useState<boolean>(false);
+  const config = useMemo(() => {
+    const config = {
+      appId: app.appId,
+      vault: env.isDemo ? {
+        impersonate: getImpersonateAddresses(app)
+      } : null
+    };
+    return config;
+  }, [app]);
 
+  const { response } = useSismoConnect({config})
   const { hasStarted } = useRemainingTime({ startDate: app?.startDate });
 
   const verify = async (response: SismoConnectResponse) => {
@@ -86,12 +100,11 @@ export default function ZkTelegramBotApp({ app, groupMetadataList }: Props): JSX
     }
   };
 
-  const reset = () => {
-    setTimeout(() => {
-      setError(null);
-      setApproved(false);
-    }, 300);
-  };
+  useEffect(() => {
+    if (response) {
+      verify(response);
+    }
+  }, [response]);
 
   const openInviteLink = () => {
     const inviteLink = (app as unknown as ZkTelegramBotAppType).telegramInviteLink;
@@ -118,7 +131,6 @@ export default function ZkTelegramBotApp({ app, groupMetadataList }: Props): JSX
           >
             <ProveEligibility
               app={app}
-              onEligible={(response) => verify(response)}
               verifying={verifying}
               groupMetadataList={groupMetadataList}
             />

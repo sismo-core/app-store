@@ -1,5 +1,5 @@
 import env from "@/src/environments";
-import { SismoConnectButton, SismoConnectResponse } from "@sismo-core/sismo-connect-react";
+import { SismoConnectButton } from "@sismo-core/sismo-connect-react";
 import React, { useEffect, useState } from "react";
 import { useMemo } from "react";
 import { styled } from "styled-components";
@@ -38,7 +38,6 @@ const ButtonContainer = styled.div`
 type Props = {
   app: AppFront;
   groupMetadataList: GroupMetadata[];
-  onEligible: (response: SismoConnectResponse) => void;
   verifying?: boolean;
 };
 
@@ -46,18 +45,16 @@ export default function ProveEligibility({
   app,
   groupMetadataList,
   verifying,
-  onEligible,
 }: Props): JSX.Element {
   const [isMounted, setIsMounted] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-
   const config = useMemo(() => {
     const config = {
       appId: app.appId,
-      vault: env.isDemo ? {
-        impersonate: getImpersonateAddresses(app)
-      } : null
+      vault: env.isDemo
+        ? {
+            impersonate: getImpersonateAddresses(app),
+          }
+        : null,
     };
     return config;
   }, [app]);
@@ -66,34 +63,31 @@ export default function ProveEligibility({
     setIsMounted(true);
   }, []);
 
-  if(!isMounted) return null;
+  if (!isMounted) return null;
 
   return (
     <>
-    <Container>
-      <RequirementTitle>
-        <LockSimpleOpen size={16} />
-        Requirements
-      </RequirementTitle>
-      <Eligibility style={{ marginBottom: 24 }}>
-        <ReqList app={app} groupMetadataList={groupMetadataList} />
-      </Eligibility>
-      <ButtonContainer>
-        {(app?.claimRequests || app?.authRequests) && (
-          <SismoConnectButton
-            config={config}
-            claims={app?.claimRequests}
-            auths={app?.authRequests}
-            verifying={verifying}
-            text={verifying ? "Verifying..." : "Sign in with Sismo"}
-            callbackPath={window.location.pathname}
-            onResponse={(response) => {
-              response && onEligible(response);
-            }}
-          />
-        )}
-      </ButtonContainer>
-    </Container>
+      <Container>
+        <RequirementTitle>
+          <LockSimpleOpen size={16} />
+          Requirements
+        </RequirementTitle>
+        <Eligibility style={{ marginBottom: 24 }}>
+          <ReqList app={app} groupMetadataList={groupMetadataList} />
+        </Eligibility>
+        <ButtonContainer>
+          {(app?.claimRequests || app?.authRequests) && (
+            <SismoConnectButton
+              config={config}
+              claims={app?.claimRequests}
+              auths={app?.authRequests}
+              verifying={verifying}
+              text={verifying ? "Verifying..." : "Sign in with Sismo"}
+              callbackPath={window.location.pathname}
+            />
+          )}
+        </ButtonContainer>
+      </Container>
     </>
   );
 }

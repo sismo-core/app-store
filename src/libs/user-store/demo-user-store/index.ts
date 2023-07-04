@@ -11,5 +11,9 @@ export class DemoUserStore extends UserStore {
     ];
   }
 
+  public async exists(user: User): Promise<boolean> {
+    return true;
+  }
+
   public async add(user: User): Promise<void> {}
 }

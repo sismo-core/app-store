@@ -1,3 +1,6 @@
+/**
+ * @jest-environment node
+ */
 import { POST } from "./route";
 import { MemoryUserStore } from "@/src/libs/user-store/memory-user-store";
 import { UserStore } from "@/src/libs/user-store/store";
@@ -37,7 +40,9 @@ describe("POST /api/zk-telegram-bot/verify", () => {
     );
     const data = await response.json();
     expect(data.status).toEqual("error");
-    expect(data.message).toMatch(/Failed to verify ZK-Proof/);
+    expect(data.message).toMatch(
+      /Failed to add to the whitelist: sismoConnectResponse provided is undefined/
+    );
   });
 
   it("Should return approved when the userId is not in the whitelist", async () => {

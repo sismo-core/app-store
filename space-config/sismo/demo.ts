@@ -35,7 +35,7 @@ export const sismoConfigDemo: SpaceConfig = {
       type: "zkTelegramBot",
       metadata: {
         name: "Test Demo",
-        slug: "test-demo",
+        slug: "telegram",
         description:
           "Test demo.apps.simso.io",
         image: "sismoapps_tg_zk_bot_1014x720.png",

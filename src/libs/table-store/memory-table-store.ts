@@ -41,4 +41,9 @@ export class MemoryTableStore implements TableStore {
     table.push(row);
     return row;
   }
+
+  // test purpose
+  public getTable(tableName: string): Table {
+    return this.tables[tableName];
+  }
 }

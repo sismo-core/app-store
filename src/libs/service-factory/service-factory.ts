@@ -92,6 +92,7 @@ const ServiceFactory = {
     zkTelegramBotUserStore = null;
     telegramBotService = null;
     loggerService = null;
+    zkFormTableStore = null;
   },
 };
 

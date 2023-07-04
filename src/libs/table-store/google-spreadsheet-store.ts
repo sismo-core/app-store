@@ -9,6 +9,7 @@ const SCOPES = ["https://www.googleapis.com/auth/spreadsheets"];
 
 export class GoogleSpreadsheetStore implements TableStore {
   private readonly _service: sheets_v4.Sheets;
+  private _spreadSheetsInitiated = new Map<string, boolean>();
 
   constructor({ credentials }: { credentials: string }) {
     this._service = google.sheets("v4");
@@ -16,11 +17,13 @@ export class GoogleSpreadsheetStore implements TableStore {
   }
 
   public async createColumns(tableName: string, columns: Column[]): Promise<void> {
+    if (this._spreadSheetsInitiated.get(tableName)) return;
     const table = await this._loadAllTable(tableName);
     const hasColumns = table?.[0]?.length > 0;
     if (!hasColumns) {
       await this._write(tableName, columns);
     }
+    this._spreadSheetsInitiated.set(tableName, true);
   }
 
   public async get(tableName: string, entry: Entry): Promise<string[]> {

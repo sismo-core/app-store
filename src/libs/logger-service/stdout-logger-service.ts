@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import { LoggerService } from "@/src/libs/logger-service/logger-service";
 
 export class StdoutLogger implements LoggerService {

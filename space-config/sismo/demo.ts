@@ -49,7 +49,7 @@ export const sismoConfigDemo: SpaceConfig = {
         impersonateAddresses: ["telegram:dhadrien:1234", "dhadrien.eth"],
       },
       templateConfig: {
-        telegramGroupId: "-827641654",
+        telegramGroupId: "-1001556077209",
         telegramInviteLink: "https://t.me/+fOxTR12jC81kZGM0",
       },
     },

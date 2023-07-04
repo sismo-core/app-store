@@ -116,7 +116,7 @@ export const sismoConfigMain: SpaceConfig = {
         claimRequests: [{ groupId: "0xd630aa769278cacde879c5c0fe5d203c", value: 3 }],
       },
       templateConfig: {
-        telegramGroupId: "-827641654",
+        telegramGroupId: "-1001556077209",
         telegramInviteLink: "https://t.me/+fOxTR12jC81kZGM0",
       },
     },

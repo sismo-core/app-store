@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { ZkTelegramBotAppType, getSpace } from "@/src/libs/spaces";
+import { ZkTelegramBotAppType, getApp, getSpace } from "@/src/libs/spaces";
 import {
   AuthType,
   SismoConnect,
@@ -8,75 +8,57 @@ import {
   SismoConnectVerifiedResult,
 } from "@sismo-core/sismo-connect-server";
 import env from "@/src/environments";
-import { UserStore } from "@/src/libs/user-store/store";
 import ServiceFactory from "@/src/libs/service-factory/service-factory";
 
 export async function POST(req: Request) {
+  const logger = ServiceFactory.getLoggerService();
+  const userStore = ServiceFactory.getZkTelegramBotUserStore();
   const { response, spaceSlug, appSlug } = await req.json();
 
   const space = getSpace({ slug: spaceSlug });
-  const app = space?.apps?.find(
-    (_app) => _app.type === "zkTelegramBot" && _app.slug === appSlug
-  ) as ZkTelegramBotAppType;
+  const app = getApp({ appSlug: appSlug, spaceSlug: space.slug }) as ZkTelegramBotAppType;
 
   if (!app) {
     return errorResponse(`Failed to find app ${appSlug} in space ${spaceSlug}`);
   }
 
-  let result: SismoConnectVerifiedResult;
   try {
-    result = await verifyResponse(app, response);
-  } catch (error) {
-    return errorResponse(`Failed to verify ZK-Proof: ${error.message}`);
-  }
-
-  try {
-    const userStore = ServiceFactory.getZkTelegramBotUserStore();
-
-    const telegramId = result.getUserId(AuthType.TELEGRAM);
-    if (await isAlreadyApproved(userStore, app.slug, telegramId)) {
-      if (env.isDev) {
-        console.info(`User ${telegramId} is already approved`);
-      }
-      return approvedResponse(true);
+    const telegramId = await sismoConnectVerifyResponse(app, response);
+    const isUserAlreadySaved = await userStore.exists({ userId: telegramId, appSlug });
+    if (isUserAlreadySaved) {
+      logger.debug(`User ${telegramId} is already approved`);
+      return NextResponse.json({ status: "already-approved" });
     }
+
     const entry = {
       appSlug: app.slug,
       userId: telegramId,
     };
-    if (env.isDev) {
-      console.info(`Adding ${JSON.stringify(entry)}`);
-    }
+    logger.debug(`Adding ${JSON.stringify(entry)}`);
     await userStore.add(entry);
-
-    return approvedResponse();
+    return NextResponse.json({ status: "approved" });
   } catch (error) {
     return errorResponse(`Failed to add to the whitelist: ${error.message}`);
   }
 }
 
-const verifyResponse = async (
+const sismoConnectVerifyResponse = async (
   app: ZkTelegramBotAppType,
   response: SismoConnectResponse
-): Promise<SismoConnectVerifiedResult> => {
+): Promise<string> => {
   const config: SismoConnectConfig = {
     appId: app.appId,
+    vault: {
+      impersonate: app.impersonateAddresses,
+    },
   };
   const sismoConnect = SismoConnect({ config });
   const verifyParams = {
     claims: app.claimRequests,
     auths: app.authRequests,
   };
-  return await sismoConnect.verify(response, verifyParams);
-};
-
-const isAlreadyApproved = async (
-  store: UserStore,
-  appSlug,
-  telegramId: string
-): Promise<boolean> => {
-  const users = await store.getUsers({ userId: telegramId, appSlug });
-  return users.length > 0;
+  const result = await sismoConnect.verify(response, verifyParams);
+  return result.getUserId(AuthType.TELEGRAM);
 };
 
 const errorResponse = (message: string): Response => {
@@ -86,11 +68,5 @@ const errorResponse = (message: string): Response => {
   return NextResponse.json({
     status: "error",
     message: message,
-  });
-};
-
-const approvedResponse = (isAlreadyApproved: boolean = false): Response => {
-  return NextResponse.json({
-    status: isAlreadyApproved ? "already-approved" : "approved",
   });
 };

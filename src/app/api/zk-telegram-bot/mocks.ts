@@ -70,8 +70,8 @@ export const mockGroupIdCommand = (chatId: number, messageId: number) => {
       chat: {
         id: chatId,
       },
-      text: "/groupid@SismoDevBot"
-    }
+      text: "/groupid@SismoDevBot",
+    },
   };
 };
 
@@ -81,7 +81,7 @@ export const mockMessageWithoutText = () => {
       message_id: 1,
       chat: {
         id: 1,
-      }
-    }
+      },
+    },
   };
 };

@@ -45,7 +45,7 @@ export const sismoConfigDemo: SpaceConfig = {
       },
       sismoConnectRequest: {
         appId: "0xd21d9ab6eaf8bcc16eff8d9a76764eab",
-        claimRequests: [{ groupId: "0x1cde61966decb8600dfd0749bd371f12", value: 15 }],
+        claimRequests: [{ groupId: "0xd630aa769278cacde879c5c0fe5d203c", value: 3 }],
         impersonateAddresses: ["telegram:dhadrien:1234", "dhadrien.eth"],
       },
       templateConfig: {

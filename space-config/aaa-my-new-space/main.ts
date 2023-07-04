@@ -9,7 +9,7 @@ export const myNewSpaceConfigMain : SpaceConfig = {
     name: "My New Space", // UPDATE HERE
     description:
       "This Space is dedicated to my new project. It's a great project, you should check it out!", // UPDATE HERE
-    profileImage: "my_new_space_picture_400x400.png", // UPDATE HERE
+    profileImage: "my_awesome_space_picture_400x400.png", // UPDATE HERE
     socialLinks: [
       {
         type: "link",

@@ -2,7 +2,7 @@
 import { AuthType, ClaimType } from "@sismo-core/sismo-connect-server";
 import { SpaceConfig } from "../types";
 
-export const cowSwapConfigDemo: SpaceConfig = {
+export const cowSwapConfigMain: SpaceConfig = {
   metadata: {
     slug: "cow-swap",
     name: "Cow Swap",
@@ -80,7 +80,7 @@ export const cowSwapConfigDemo: SpaceConfig = {
         output: {
           destination: {
             type: "google_sheet",
-            spreadsheetId: "15NlZQM-jyrFdRtuMVXXAjX4w4MjBPIicfRqO2jwQdB4",
+            spreadsheetId: "1rNILllaOqsar8tpGbwHULbv39FE43VLZ9K419Hy5V_s",
           },
           saveAuths: true,
           saveClaims: true,
@@ -139,7 +139,7 @@ export const cowSwapConfigDemo: SpaceConfig = {
         output: {
           destination: {
             type: "google_sheet",
-            spreadsheetId: "153c26qbdBFxgX1r9mKY7fx3krWPTFjKnYVMpYWEmRM0",
+            spreadsheetId: "1rqSdDnIc2kOpg51rYNS6TSQmxqXLB_JKm70sdJg2smM",
           },
           saveAuths: true,
         },

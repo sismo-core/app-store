@@ -49,7 +49,9 @@ export const aaveChanInitiativeConfigDemo: SpaceConfig = {
             value: 1000,
           },
         ],
-        impersonateAddresses: ["0x5af25164a0f1207db70727a2c447d6a7b44b89d0"],
+        impersonateAddresses: [
+          "0x5af25164a0f1207db70727a2c447d6a7b44b89d0"
+        ],
       },
       templateConfig: {
         fields: [

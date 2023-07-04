@@ -45,9 +45,12 @@ export class GoogleSpreadsheetStore extends Store {
 
   public async add(entries: Entry[]): Promise<string[]> {
     const columns = [];
+    const entriesAdded = [];
     for (let column of this._columns) {
-      const value = entries.find((_value) => _value.name === column)?.value;
-      columns.push(value);
+      const entriesFiltered = entries.filter((_value) => _value.name === column);
+      const currentEntriesAdded = entriesAdded.filter((_value) => _value.name === column);
+      entriesAdded.push({ name: column });
+      columns.push(entriesFiltered[currentEntriesAdded.length]?.value);
     }
     return await this.write(columns);
   }

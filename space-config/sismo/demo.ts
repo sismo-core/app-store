@@ -34,10 +34,10 @@ export const sismoConfigDemo: SpaceConfig = {
     {
       type: "zkTelegramBot",
       metadata: {
-        name: "Join Demo Sismo Builders Group",
-        slug: "join-demo-sismo-builders-group",
+        name: "Test Demo",
+        slug: "test-demo",
         description:
-          "Join our private Telegram Group ‘Sismo Builders’ - available to all members of the Sismo Community.",
+          "Test demo.apps.simso.io",
         image: "sismoapps_tg_zk_bot_1014x720.png",
         tags: ["Telegram"],
         ctaText: "Join our Telegram Group",
@@ -49,8 +49,8 @@ export const sismoConfigDemo: SpaceConfig = {
         impersonateAddresses: ["telegram:dhadrien:1234", "dhadrien.eth"],
       },
       templateConfig: {
-        telegramGroupId: "-1001658867707",
-        telegramInviteLink: "https://t.me/+MJxmxpCwKg82M2I0",
+        telegramGroupId: "-827641654",
+        telegramInviteLink: "https://t.me/+fOxTR12jC81kZGM0",
       },
     },
     {

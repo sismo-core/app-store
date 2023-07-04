@@ -54,7 +54,7 @@ export const cowSwapConfigDemo: SpaceConfig = {
             groupId: "0x34dba00caed5fbe69db7313adebf1eaf",
             isOptional: true,
             value: 1,
-            ClaimType: ClaimType.EQ,
+            claimType: ClaimType.EQ,
           },
         ],
         impersonateAddresses: [

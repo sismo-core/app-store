@@ -8,14 +8,12 @@ import { theMergeContributorsConfigDemo } from "@/space-config/the-merge-contrib
 import { sismoConfigDemo } from "@/space-config/sismo/demo";
 import { privacyIsNormalConfigDemo } from "@/space-config/privacy-is-normal/demo";
 import { aaveChanInitiativeConfigDemo } from "@/space-config/aave-chan-initiative/demo";
-import { testConfigMain } from "@/space-config/test/main";
 
 export const configsMain: SpaceConfig[] = [
   theMergeContributorsConfigMain,
   privacyIsNormalConfigMain,
   aaveChanInitiativeConfigMain,
   sismoConfigMain,
-  testConfigMain,
 ];
 
 export const configsDemo: SpaceConfig[] = [

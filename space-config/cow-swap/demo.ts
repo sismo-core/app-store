@@ -36,7 +36,7 @@ export const cowSwapConfigDemo: SpaceConfig = {
         slug: "cow-swag",
         name: "Cow Swag Claim",
         description:
-          "Enter your email to claim your Cow Swag during EthCC week in Paris - without doxxing your wallet 👀 Exclusively for Tier 1 (Water Flask + Backpack) and Tier 2 (Water flask) Cow Traders & Holders.",
+          "Enter your email to claim your Cow Swag during EthCC week in Paris - without doxxing your wallet 👀 Exclusively for Cow Traders & Holders Level 2 (Water flask) and Level 3 (Water Flask + Backpack).",
         tags: ["Swag"],
         image: "space_cow_swap_pfp_500x500.png",
         ctaText: "Claim your Swag",
@@ -53,12 +53,11 @@ export const cowSwapConfigDemo: SpaceConfig = {
           {
             groupId: "0x34dba00caed5fbe69db7313adebf1eaf",
             isOptional: true,
-            value: 1,
-            claimType: ClaimType.EQ,
+            value: 3,
           },
         ],
         impersonateAddresses: [
-          "0x9e26f0ca1e34e3cae9c5a8e4b47f8b25b757e1cd"
+          "0x7a3dac8cb57b8cc6b5e703df00f543859b530054"
         ],
       },
       templateConfig: {
@@ -97,14 +96,14 @@ export const cowSwapConfigDemo: SpaceConfig = {
         slug: "cow-event",
         name: "Cow Event Invitation",
         description:
-          "Cow Event is an invitation-only event during EthCC week in Paris, organized by Cow Swap. The number of tickets is limited. Exclusive for members of Cow Swap Community.",
+          "Cow Event is an invitation-only event during EthCC week in Paris, organized by Cow Swap. The number of tickets is limited. Exclusive for Cow Traders & Holders.",
         tags: ["Event", "Ticket"],
         image: "space_cow_swap_pfp_500x500.png",
-        ctaText: "Claim your Swag",
+        ctaText: "Register to get your Ticket",
         createdAt: new Date("2023-07-04T18:00"),
       },
       sismoConnectRequest: {
-        appId: "0x1893f6e21acda30ed88d9a7b9f9c30c0",
+        appId: "0x42bf819b60a7f4cbe57f2c5617b6a35c",
         authRequests: [{ authType: AuthType.VAULT }],
         claimRequests: [
           {
@@ -142,7 +141,7 @@ export const cowSwapConfigDemo: SpaceConfig = {
         output: {
           destination: {
             type: "google_sheet",
-            spreadsheetId: "15NlZQM-jyrFdRtuMVXXAjX4w4MjBPIicfRqO2jwQdB4",
+            spreadsheetId: "153c26qbdBFxgX1r9mKY7fx3krWPTFjKnYVMpYWEmRM0",
           },
           saveAuths: true,
           saveClaims: true,

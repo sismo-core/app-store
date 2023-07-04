@@ -1924,9 +1924,9 @@
   dependencies:
     "@sismo-core/sismo-connect-client" "0.0.13"
 
-"@sismo-core/sismo-connect-server@^0.0.13":
+"@sismo-core/sismo-connect-server@0.0.13":
   version "0.0.13"
-  resolved "https://registry.yarnpkg.com/@sismo-core/sismo-connect-server/-/sismo-connect-server-0.0.13.tgz#d0125b41f2e3d9e7a4f1c1dd22fa1874639c4e44"
+  resolved "https://registry.npmjs.org/@sismo-core/sismo-connect-server/-/sismo-connect-server-0.0.13.tgz#d0125b41f2e3d9e7a4f1c1dd22fa1874639c4e44"
   integrity sha512-PMnuf9o6LhS4B5ekaC/JDu5yXDugQdtOUJKVXQN2hKjiSpDBU+Bqzjsag0aLx43HRL7P0jAQashJPPT6C6itng==
   dependencies:
     "@ethersproject/bignumber" "^5.7.0"

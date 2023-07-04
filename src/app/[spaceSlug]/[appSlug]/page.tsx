@@ -10,14 +10,45 @@ import { AppFront } from "@/src/utils/getSpaceConfigsFront";
 // This function runs at build time on the server it generates the static paths for each page
 export async function generateStaticParams() {
   const configs = getSpaces();
-  return configs?.map((config: SpaceType) => {
-    config.apps.map((app: ZkAppType) => {
-      return {
-        params: {
-          appSlug: app.slug,
-        },
-      };
-    });
+  const apps = [];
+  const claimRequests = [];
+  const groupProvider = new GroupProvider({
+    hubApiUrl: env.hubApiUrl,
+  });
+
+  for (const config of configs) {
+    for (const app of config.apps) {
+      apps.push(app);
+      if (app?.claimRequests?.length > 0) {
+        for (const claimRequest of app.claimRequests) {
+          if (!claimRequests.find((el) => el?.groupId === claimRequest?.groupId)) {
+            claimRequests.push(claimRequest);
+          }
+        }
+      }
+    }
+  }
+
+  try {
+    await Promise.all(
+      claimRequests?.map(async (claimRequest: ClaimRequest) => {
+        await groupProvider.getGroupMetadata({
+          groupId: claimRequest?.groupId,
+          timestamp: "latest",
+          revalidate: 60 * 60 * 12, // 12 hours
+        });
+      })
+    );
+  } catch (e) {
+    console.log(e);
+  }
+
+  return apps.map((app: ZkAppType) => {
+    return {
+      params: {
+        appSlug: app.slug,
+      },
+    };
   });
 }
 
@@ -78,7 +109,7 @@ export default async function SpacePage({
 
   const groupMetadataList: GroupMetadata[] = [];
   if (app && app?.claimRequests?.length > 0) {
-   await Promise.all(
+    await Promise.all(
       app?.claimRequests?.map(async (claimRequest: ClaimRequest) => {
         if (!groupMetadataList.find((el) => el.id === claimRequest?.groupId)) {
           const metadata = await groupProvider.getGroupMetadata({

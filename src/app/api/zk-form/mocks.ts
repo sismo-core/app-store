@@ -1,6 +1,6 @@
 import { AppConfig, Field, SpaceConfig } from "@/space-config/types";
 import { MockedRequest } from "@/src/libs/helper";
-import { AuthType, SismoConnectResponse } from "@sismo-core/sismo-connect-server";
+import { AuthType, ClaimType, SismoConnectResponse } from "@sismo-core/sismo-connect-server";
 
 export const mockZkFormTestSpaceType = (
   appSlug: string = "zkFormAppSlug",
@@ -33,7 +33,16 @@ export const mockZkFormTestApp = (appSlug: string = "zkFormAppSlug"): AppConfig 
     sismoConnectRequest: {
       appId: "0x1941996d7a0245ccc2b203847d682298",
       authRequests: [{ authType: AuthType.VAULT }],
-      claimRequests: [{ groupId: "0xa199ee8b75688035fb40f8660adbcdac" }],
+      claimRequests: [
+        {
+          groupId: "0x433ae0c1cb3793f0971f3bf2bbcff10e",
+        },
+        {
+          groupId: "0x1cde61966decb8600dfd0749bd371f12",
+          claimType: ClaimType.GTE,
+          value: 15,
+        },
+      ],
     },
     templateConfig: {
       fields: [

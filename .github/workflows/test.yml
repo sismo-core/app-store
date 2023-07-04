@@ -24,6 +24,8 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
       - name: Build
+        env:
+          NEXT_NODE_ENV: main
         run: yarn build
   prettier:
     name: Prettier

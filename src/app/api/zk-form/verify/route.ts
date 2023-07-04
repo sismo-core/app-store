@@ -7,6 +7,7 @@ import {
   SismoConnectConfig,
   SismoConnectVerifiedResult,
   ClaimType,
+  SismoConnectServerOptions,
 } from "@sismo-core/sismo-connect-server";
 import { NextResponse } from "next/server";
 import { mapAuthTypeToSheetColumnName } from "@/src/utils/mapAuthTypeToSheetColumnName";
@@ -133,13 +134,18 @@ const verifyResponse = async (
   };
 
   if (env.isDemo || env.isTest) {
-    // todo should be choose differently
     config.vault = {
       impersonate: getImpersonateAddresses(app as ZkAppType),
     };
   }
+  let options: SismoConnectServerOptions = {};
+  // todo should be handled in a better way (code should not be aware of env)
+  // if (env.isTest) {
+  //   options.verifier.hydraS3.registryRoot =
+  //     "0x08f621c0e87bb0b37e0e66b8b9e7620d11aa0f15e9f5a60b986364b2db59dbed";
+  // }
 
-  const sismoConnect = SismoConnect({ config });
+  const sismoConnect = SismoConnect({ config, options });
   return await sismoConnect.verify(response, {
     claims: app.claimRequests,
     auths: app.authRequests,

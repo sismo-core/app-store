@@ -30,7 +30,7 @@ export class TelegramAPIBotService extends TelegramBotService implements Telegra
   }
 
   public async approveChatJoinRequest(request: JoinRequest): Promise<void> {
-    const approveURL = new URL(`${this._getUrl()}}/approveChatJoinRequest`);
+    const approveURL = new URL(`${this._getUrl()}/approveChatJoinRequest`);
     approveURL.searchParams.append("chat_id", request.groupId);
     approveURL.searchParams.append("user_id", request.userId);
     this._loggerService.debug(`Sending approveChatJoinRequest: ${approveURL.toString()}`);

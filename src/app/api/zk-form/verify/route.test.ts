@@ -7,6 +7,7 @@ import {
   mockResponseUser1,
   mockResponseUser2,
   mockZkFormTestAppRequest,
+  mockZkFormTestAppRequest2,
 } from "@/src/app/api/zk-form/mocks";
 import { MemoryTableStore } from "@/src/libs/table-store";
 
@@ -81,8 +82,8 @@ describe("POST /api/zk-form/verify", () => {
       })
     );
     expect((await responseUser2.json()).status).toEqual("subscribed");
-    // first row is the header
     expect(memoryTableStore.getTable("testSpreadsheetId1")).toEqual([
+      // first row is the header
       ["VaultId", "Email", "Street address", "Apartment, unit, suite, etc"],
       [
         "0x170e88bf3a73ac848e13b42e09e8fcec33579e3b1fc74231a43379ad88daf34e",
@@ -95,6 +96,46 @@ describe("POST /api/zk-form/verify", () => {
         "test2@sismo.io",
         "second address",
         "other appartement",
+      ],
+    ]);
+  });
+
+  it("Should try with an other more complex app", async () => {
+    const response = await POST(mockZkFormTestAppRequest2());
+    const data = await response.json();
+    console.log("data", data);
+    expect(data.status).toEqual("subscribed");
+    expect(memoryTableStore.getTable("testSpreadsheetId2")).toEqual([
+      // first row is the header
+      [
+        "VaultId",
+        "TwitterId",
+        "GithubId",
+        "0xc9f8691713d04b33d498dd0ac67280ef",
+        "0x1cde61966decb8600dfd0749bd371f12",
+        "0xd630aa769278cacde879c5c0fe5d203c",
+        "0xd630aa769278cacde879c5c0fe5d203c",
+        "0xd630aa769278cacde879c5c0fe5d203c",
+        "First Name",
+        "Last Name",
+        "Company (optional)",
+        "Email",
+        "Will you be in Paris on July 17, 7pm? Tickets are limited.",
+      ],
+      [
+        "0x2f4c021c8cbcb18c38eb9b501889ac2f0d85b7427eadef6094726191ed1004d5",
+        "1448915213877661696",
+        "", // didn't provide github id
+        1, // share 1
+        24, // shared 24 score on gitcoin passport than 15
+        1, // should be 1
+        "", // didn't provide the optional claim requests
+        3, // should be 3
+        "test first name",
+        "test last name",
+        "", // optional one
+        "teset@sismo.io",
+        "yes",
       ],
     ]);
   });

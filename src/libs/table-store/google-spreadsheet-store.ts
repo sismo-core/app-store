@@ -1,6 +1,6 @@
 import { google, sheets_v4 } from "googleapis";
 import { GoogleAuth } from "google-auth-library";
-import { Column, Entry, Row, Table, TableStore } from "./table-store";
+import { Column, Row, Table, TableStore } from "./table-store";
 
 const TABLE_SIZE = 250;
 const SCOPES = ["https://www.googleapis.com/auth/spreadsheets"];
@@ -9,7 +9,7 @@ const SCOPES = ["https://www.googleapis.com/auth/spreadsheets"];
 
 export class GoogleSpreadsheetStore implements TableStore {
   private readonly _service: sheets_v4.Sheets;
-  private _spreadSheetsInitiated = new Map<string, boolean>();
+  private _spreadsheetsColumnsCreated = new Map<string, boolean>();
 
   constructor({ credentials }: { credentials: string }) {
     this._service = google.sheets("v4");
@@ -17,44 +17,22 @@ export class GoogleSpreadsheetStore implements TableStore {
   }
 
   public async createColumns(tableName: string, columns: Column[]): Promise<void> {
-    if (this._spreadSheetsInitiated.get(tableName)) return;
+    if (this._spreadsheetsColumnsCreated.get(tableName)) return;
     const table = await this._loadAllTable(tableName);
     const hasColumns = table?.[0]?.length > 0;
     if (!hasColumns) {
       await this._write(tableName, columns);
     }
-    this._spreadSheetsInitiated.set(tableName, true);
+    this._spreadsheetsColumnsCreated.set(tableName, true);
   }
 
-  public async get(tableName: string, entry: Entry): Promise<string[]> {
+  public async getColumn(tableName: string, columnNumber: number): Promise<string[]> {
     const table = await this._loadAllTable(tableName);
-    const indexOfEntry = this._findColumnIndex(table, entry.name);
-    if (indexOfEntry === -1) return null;
-
-    for (let line of table) {
-      if (line[indexOfEntry] === entry.value) {
-        return line;
-      }
-    }
-    return null;
+    return table.map((line) => line[columnNumber]);
   }
 
-  public async add(tableName: string, entries: Entry[]): Promise<string[]> {
-    const table = await this._loadAllTable(tableName);
-    const row = new Array<string>(table[0].length);
-    const entriesAdded = [];
-    for (let entry of entries) {
-      const indexOfEntry = this._findColumnIndex(table, entry.name);
-      const currentEntriesAdded = entriesAdded.filter((_value) => _value.name === entry.name);
-      entriesAdded.push({ name: entry.name });
-      row[indexOfEntry + currentEntriesAdded.length] = entry.value;
-    }
+  public async addRow(tableName: string, row: Row): Promise<Row> {
     return await this._write(tableName, row);
-  }
-
-  private _findColumnIndex(table: Table, column: Column): number {
-    const indexOfColumn = table[0].findIndex((_column) => _column === column);
-    return indexOfColumn;
   }
 
   private async _loadAllTable(tableName: string): Promise<Table> {
@@ -65,7 +43,7 @@ export class GoogleSpreadsheetStore implements TableStore {
     return result?.data?.values as Table;
   }
 
-  private async _write(tableName: string, row: Row): Promise<string[]> {
+  private async _write(tableName: string, row: Row): Promise<Row> {
     const request: sheets_v4.Params$Resource$Spreadsheets$Values$Append = {
       spreadsheetId: tableName,
       range: `Sheet1!A1:G1`,

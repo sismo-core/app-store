@@ -1,7 +1,7 @@
-import { Column, Entry, Table, TableStore } from "@/src/libs/table-store";
+import { Column, Row, Table, TableStore } from "@/src/libs/table-store";
 
 export class MemoryTableStore implements TableStore {
-  public tables: { [key: string]: Table } = {};
+  private tables: { [key: string]: Table } = {};
 
   public async createColumns(tableName: string, columns: Column[]): Promise<void> {
     if (!this.tables[tableName]) {
@@ -11,34 +11,21 @@ export class MemoryTableStore implements TableStore {
     }
   }
 
-  public async get(tableName: string, entry: Entry): Promise<string[]> {
-    const table = this.tables[tableName];
-    if (!table) return null;
-
-    const columnIndex = table[0].findIndex((column) => column === entry.name);
-    if (columnIndex === -1) return null;
-
-    for (let row of table) {
-      if (row[columnIndex] === entry.value) {
-        return row;
-      }
+  public async getColumn(tableName: string, columnNumber: number): Promise<string[]> {
+    if (!this.tables[tableName]) {
+      throw new Error(`Table ${tableName} does not exist`);
     }
-    return null;
+
+    const table = this.tables[tableName];
+    return table.map((row) => row[columnNumber]);
   }
 
-  public async add(tableName: string, entries: Entry[]): Promise<string[]> {
-    const table = this.tables[tableName];
-    if (!table) throw new Error(`Table '${tableName}' doesn't exist.`);
-
-    const row: string[] = new Array(table[0].length).fill("");
-    for (let entry of entries) {
-      const columnIndex = table[0].findIndex((column) => column === entry.name);
-      if (columnIndex === -1)
-        throw new Error(`Column '${entry.name}' doesn't exist in table '${tableName}'.`);
-
-      row[columnIndex] = entry.value;
+  public async addRow(tableName: string, row: Row): Promise<Row> {
+    if (!this.tables[tableName]) {
+      throw new Error(`Table ${tableName} does not exist`);
     }
-    table.push(row);
+
+    this.tables[tableName].push(row);
     return row;
   }
 

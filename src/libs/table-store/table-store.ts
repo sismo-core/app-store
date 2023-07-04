@@ -1,10 +1,9 @@
-export type Entry = { name; value };
 export type Table = string[][] | null;
 export type Column = string;
 export type Row = string[];
 
 export interface TableStore {
   createColumns(tableName: string, columns: Column[]): Promise<void>;
-  get(tableName: string, entry: Entry): Promise<string[]>;
-  add(tableName: string, entries: Entry[]): Promise<string[]>;
+  getColumn(tableName: string, columnNumber: number): Promise<string[]>;
+  addRow(tableName: string, row: string[]): Promise<string[]>;
 }

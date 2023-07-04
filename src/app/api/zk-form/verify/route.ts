@@ -15,6 +15,7 @@ import { getImpersonateAddresses } from "@/src/utils/getImpersonateAddresses";
 import { ZkAppType, ZkFormAppType } from "@/src/libs/spaces/types";
 import ServiceFactory from "@/src/libs/service-factory/service-factory";
 import { errorResponse } from "@/src/libs/helper/api";
+import { isClaimEquals } from "@/src/app/api/zk-form/verify/helper";
 
 export type Field = {
   name: string;
@@ -30,9 +31,10 @@ export async function POST(req: Request) {
     return errorResponse(`App ${appSlug} not found or not a zkForm app`);
   }
 
-  await initColumns(store, app as ZkFormAppType);
+  const headers = computeHeaders(app);
+  const row = [];
+  await store.createColumns(app.spreadsheetId, headers);
 
-  let fieldsToAdd = fields;
   let result: SismoConnectVerifiedResult;
   try {
     result = await verifyResponse(app, response);
@@ -40,39 +42,23 @@ export async function POST(req: Request) {
     return errorResponse(`Invalid ZK Proof ${error.message}`);
   }
 
-  if (!app.saveAuths && needVaultAuth(app)) {
+  // if AuthType.VAULT is present, we use it as a nullifier
+  if (needVaultAuth(app)) {
     const vaultId = await result.getUserId(AuthType.VAULT);
-    if (!vaultId) return new Response(null, { status: 500, statusText: "No Vault Id" });
-    fieldsToAdd = [
-      ...fieldsToAdd,
-      {
-        name: "VaultId",
-        value: vaultId,
-      },
-    ];
+    if (!vaultId) return errorResponse("No Vault Id");
 
-    const isExist = await isVaultAlreadySaved(app.spreadsheetId, store, vaultId);
+    const isExist = await isVaultAlreadySaved(app, store, vaultId);
     if (isExist) return NextResponse.json({ status: "already-subscribed" });
   }
 
-  if (app.saveAuths && app.authRequests?.length > 0) {
+  if (app.authRequests?.length > 0) {
     for (let authRequest of app.authRequests) {
       const userId = await result.getUserId(authRequest.authType);
-      if (!userId && !authRequest.isOptional)
-        return new Response(null, { status: 500, statusText: `No ${authRequest.authType} Id` });
+      if (!userId && !authRequest.isOptional) return errorResponse(`No ${authRequest.authType} Id`);
 
-      if (authRequest.authType === AuthType.VAULT) {
-        const isExist = await isVaultAlreadySaved(app.spreadsheetId, store, userId);
-        if (isExist) return NextResponse.json({ status: "already-subscribed" });
+      if (authRequest.authType === AuthType.VAULT || app.saveAuths) {
+        row.push(userId ?? "");
       }
-
-      fieldsToAdd = [
-        ...fieldsToAdd,
-        {
-          name: mapAuthTypeToSheetColumnName(authRequest.authType),
-          value: userId,
-        },
-      ];
     }
   }
 
@@ -80,75 +66,62 @@ export async function POST(req: Request) {
     const claimsAdded = [];
     for (let claimRequest of app.claimRequests) {
       if (!claimRequest.isSelectableByUser) claimRequest.isSelectableByUser = false;
-      const claims = result.claims.filter(
-        (claim) =>
-          claim.groupId === claimRequest.groupId &&
-          claim.claimType === claimRequest.claimType &&
-          claim.groupTimestamp === claimRequest.groupTimestamp &&
-          claim.isSelectableByUser === claimRequest.isSelectableByUser && 
-          (claim.isSelectableByUser === false ? claim.value === claimRequest.value : true)
-      );
-      const currentClaimAdded = claimsAdded.filter(
-        (claim) =>
-          claim.groupId === claimRequest.groupId &&
-          claim.claimType === claimRequest.claimType &&
-          claim.groupTimestamp === claimRequest.groupTimestamp &&
-          claim.isSelectableByUser === claimRequest.isSelectableByUser && 
-          (claim.isSelectableByUser === false ? claim.value === claimRequest.value : true)
-      )
+      const claims = result.claims.filter((claim) => isClaimEquals(claim, claimRequest));
+      const currentClaimAdded = claimsAdded.filter((claim) => isClaimEquals(claim, claimRequest));
       claimsAdded.push(claimRequest);
-      fieldsToAdd = [
-          ...fieldsToAdd,
-          {
-            name: claimRequest.groupId,
-            value: claims.length > 0 ? claims[currentClaimAdded.length]?.value : null,
-          },
-      ];
+      const value = claims.length > 0 ? claims[currentClaimAdded.length]?.value : null;
+      row.push(value ?? "");
     }
   }
 
-  await store.add(app.spreadsheetId, fieldsToAdd);
+  for (const fieldName of getAppColumns(app)) {
+    row.push(fields?.find((el) => el.name === fieldName)?.value ?? "");
+  }
+
+  await store.addRow(app.spreadsheetId, row);
 
   return NextResponse.json({
     status: "subscribed",
   });
 }
 
-const initColumns = async (store: TableStore, app: ZkFormAppType): Promise<TableStore> => {
-  const appColumns = app?.fields ? app?.fields.map((el) => el.label) : [];
+const isVaultAlreadySaved = async (
+  app: ZkFormAppType,
+  store: TableStore,
+  vaultId: string
+): Promise<boolean> => {
+  if (env.isDemo) return false;
+  const columns = computeHeaders(app);
+  const vaultIdColumnIndex = columns.findIndex((el) => el === "VaultId");
+  const vaultIdsColumn = await store.getColumn(app.spreadsheetId, vaultIdColumnIndex);
+  return vaultIdsColumn.filter((el) => el === vaultId).length > 0;
+};
 
+const computeHeaders = (app: ZkFormAppType): string[] => {
+  return [...getAuthColumns(app), ...getClaimColumns(app), ...getAppColumns(app)];
+};
+
+const getAuthColumns = (app: ZkFormAppType): string[] => {
   let authColumns = needVaultAuth(app) ? ["VaultId"] : [];
   if (app.saveAuths)
     authColumns = app.authRequests.map((authRequest) =>
       mapAuthTypeToSheetColumnName(authRequest.authType)
     );
-
+  return authColumns;
+};
+const getClaimColumns = (app: ZkFormAppType): string[] => {
   let claimColumns = [];
   if (app.saveClaims) claimColumns = app.claimRequests.map((claimRequest) => claimRequest.groupId);
-
-  const columns = [...authColumns, ...claimColumns, ...appColumns];
-
-  await store.createColumns(app.spreadsheetId, columns);
-
-  return store;
+  return claimColumns;
+};
+const getAppColumns = (app: ZkFormAppType): string[] => {
+  return app?.fields ? app?.fields.map((el) => el.label) : [];
 };
 
 const needVaultAuth = (app: ZkFormAppType): boolean => {
   if (!app.authRequests) return null;
   const authRequest = app.authRequests.find((el) => el.authType === AuthType.VAULT);
   return Boolean(authRequest);
-};
-
-const isVaultAlreadySaved = async (
-  spreadsheetId: string,
-  store: TableStore,
-  vaultId: string
-): Promise<boolean> => {
-  if (env.isDemo) {
-    return false;
-  }
-  const line = await store.get(spreadsheetId, { name: "VaultId", value: vaultId });
-  return Boolean(line);
 };
 
 const verifyResponse = async (

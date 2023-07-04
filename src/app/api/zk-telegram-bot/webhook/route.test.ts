@@ -3,14 +3,10 @@
  */
 import { MockedTelegramBotService } from "@/src/libs/telegram-bot-service/mocked-telegram-bot-service";
 import { POST } from "./route";
-import {
-  MockedRequest,
-  mockGroupIdCommand,
-  mockJoinRequest,
-  mockMessageWithoutText,
-} from "../mocks";
+import { mockGroupIdCommand, mockJoinRequest, mockMessageWithoutText } from "../mocks";
 import { UserStore } from "../../../../libs/user-store/store";
 import ServiceFactory from "@/src/libs/service-factory/service-factory";
+import { MockedRequest } from "@/src/libs/helper";
 
 describe("POST /api/zk-telegram-bot/webhook", () => {
   let memoryUserStore: UserStore;
@@ -27,7 +23,7 @@ describe("POST /api/zk-telegram-bot/webhook", () => {
 
   it("Should return error when app is not found", async () => {
     const requestForUnknownGroup = mockJoinRequest(-1, 1);
-    const response = await POST(new MockedRequest(requestForUnknownGroup) as any); // todo fix this
+    const response = await POST(MockedRequest(requestForUnknownGroup)); // todo fix this
     const data = await response.json();
     expect(data.status).toEqual("error");
     expect(data.message).toMatch("Failed to find a matching app for the group");
@@ -40,7 +36,7 @@ describe("POST /api/zk-telegram-bot/webhook", () => {
     });
 
     const requestForKnownGroup = mockJoinRequest(-2, 6232426394);
-    const response = await POST(new MockedRequest(requestForKnownGroup) as any);
+    const response = await POST(MockedRequest(requestForKnownGroup));
     const data = await response.json();
 
     expect(data.status).toEqual("approved");
@@ -56,7 +52,7 @@ describe("POST /api/zk-telegram-bot/webhook", () => {
 
   it("Should decline when user is not in the whitelist", async () => {
     const requestForKnownGroup = mockJoinRequest(-2, 6232426394);
-    const response = await POST(new MockedRequest(requestForKnownGroup) as any);
+    const response = await POST(MockedRequest(requestForKnownGroup));
     const data = await response.json();
     expect(data.status).toEqual("declined");
     expect(mockedTelegramBotService.joinRequestDeclined).toEqual([
@@ -71,7 +67,7 @@ describe("POST /api/zk-telegram-bot/webhook", () => {
 
   it("Should reply to groupid command", async () => {
     const groupId = -2;
-    const response = await POST(new MockedRequest(mockGroupIdCommand(groupId, 1)) as any);
+    const response = await POST(MockedRequest(mockGroupIdCommand(groupId, 1)));
     const data = await response.json();
     expect(data.status).toEqual("handled");
     expect(mockedTelegramBotService.messageSent).toEqual([
@@ -84,7 +80,7 @@ describe("POST /api/zk-telegram-bot/webhook", () => {
   });
 
   it("Should ignore message events without text", async () => {
-    const response = await POST(new MockedRequest(mockMessageWithoutText()) as any);
+    const response = await POST(MockedRequest(mockMessageWithoutText()));
     const data = await response.json();
     expect(data.status).toEqual("ignored");
   });

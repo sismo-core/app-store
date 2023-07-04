@@ -1,10 +1,12 @@
 import { configsDemo, configsMain } from "@/space-config";
 import { SpaceConfig } from "@/space-config/types";
+import { mockZkFormTestSpaceType } from "@/src/app/api/zk-form/mocks";
 import { mockTelegramTestSpaceType } from "@/src/app/api/zk-telegram-bot/mocks";
 import env from "@/src/environments";
 import { LoggerService } from "@/src/libs/logger-service/logger-service";
 import { MemoryLogger } from "@/src/libs/logger-service/memory-logger-service";
 import { StdoutLogger } from "@/src/libs/logger-service/stdout-logger-service";
+import { GoogleSpreadsheetStore, MemoryTableStore, TableStore } from "@/src/libs/table-store";
 import { MockedTelegramBotService } from "@/src/libs/telegram-bot-service/mocked-telegram-bot-service";
 import { TelegramAPIBotService } from "@/src/libs/telegram-bot-service/telegram-api-bot-service";
 import { TelegramBotInterface } from "@/src/libs/telegram-bot-service/telegram-bot-service";
@@ -13,27 +15,13 @@ import { MemoryUserStore } from "@/src/libs/user-store/memory-user-store";
 import { PostgresUserStore } from "@/src/libs/user-store/postgres-user-store";
 import { UserStore } from "@/src/libs/user-store/store";
 
-let configService: SpaceConfig[];
 let zkTelegramBotUserStore: UserStore;
+let zkFormTableStore: TableStore;
 let telegramBotService: TelegramBotInterface;
+let configService: SpaceConfig[];
 let loggerService: LoggerService;
 
 const ServiceFactory = {
-  getSpaceConfigs: (customConfigService?: SpaceConfig[]): SpaceConfig[] => {
-    if (customConfigService) {
-      configService = customConfigService;
-    }
-    if (!configService) {
-      if (env.isDemo) {
-        configService = configsDemo;
-      } else if (env.isMain) {
-        configService = configsMain;
-      } else if (env.isTest) {
-        configService = [mockTelegramTestSpaceType()];
-      }
-    }
-    return configService;
-  },
   getZkTelegramBotUserStore: (customUserStore?: UserStore): UserStore => {
     if (customUserStore) {
       zkTelegramBotUserStore = customUserStore;
@@ -48,6 +36,18 @@ const ServiceFactory = {
       }
     }
     return zkTelegramBotUserStore;
+  },
+  getZkFormTableStore: (): TableStore => {
+    if (!zkFormTableStore) {
+      if (env.isTest) {
+        zkFormTableStore = new MemoryTableStore();
+      } else if (env.isMain || env.isDemo) {
+        zkFormTableStore = new GoogleSpreadsheetStore({
+          credentials: process.env.ZK_FORM_SPREADSHEET_KEY,
+        });
+      }
+    }
+    return zkFormTableStore;
   },
   getLoggerService: (): LoggerService => {
     if (!loggerService) {
@@ -71,6 +71,21 @@ const ServiceFactory = {
       }
     }
     return telegramBotService;
+  },
+  getSpaceConfigs: (customConfigService?: SpaceConfig[]): SpaceConfig[] => {
+    if (customConfigService) {
+      configService = customConfigService;
+    }
+    if (!configService) {
+      if (env.isDemo) {
+        configService = configsDemo;
+      } else if (env.isMain) {
+        configService = configsMain;
+      } else if (env.isTest) {
+        configService = [mockTelegramTestSpaceType(), mockZkFormTestSpaceType()];
+      }
+    }
+    return configService;
   },
   reset: (): void => {
     configService = null;

@@ -1,17 +1,5 @@
 import { SpaceConfig } from "@/space-config/types";
 
-export class MockedRequest {
-  private data: any;
-
-  constructor(data: any) {
-    this.data = data;
-  }
-
-  json() {
-    return this.data;
-  }
-}
-
 export const mockTelegramTestSpaceType = (
   appSlug: string = "appSlug",
   spaceSlug: string = "spaceSlug",

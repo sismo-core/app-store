@@ -1,5 +1,5 @@
 import env from "@/src/environments";
-import { GoogleSpreadsheetStore, Store } from "@/src/libs/store";
+import { TableStore } from "@/src/libs/table-store";
 import {
   AuthType,
   SismoConnect,
@@ -9,27 +9,31 @@ import {
 } from "@sismo-core/sismo-connect-server";
 import { NextResponse } from "next/server";
 import { mapAuthTypeToSheetColumnName } from "@/src/utils/mapAuthTypeToSheetColumnName";
-import { getSpace } from "@/src/libs/spaces";
+import { getApp } from "@/src/libs/spaces";
 import { getImpersonateAddresses } from "@/src/utils/getImpersonateAddresses";
 import { ZkAppType, ZkFormAppType } from "@/src/libs/spaces/types";
+import ServiceFactory from "@/src/libs/service-factory/service-factory";
+import { errorResponse } from "@/src/libs/helper/api";
 
 const spreadSheetsInitiated = new Map<string, boolean>();
 
+export type Field = {
+  name: string;
+  value: string;
+};
+
 export async function POST(req: Request) {
   const { fields, response, spaceSlug, appSlug } = await req.json();
-  const space = getSpace({ slug: spaceSlug });
-  const app = space.apps.find((_app) => _app.type === "zkForm" && _app.slug === appSlug);
+  const store = ServiceFactory.getZkFormTableStore();
+  const app = getApp({ appSlug: appSlug, spaceSlug: spaceSlug });
 
-  if (app.type !== "zkForm")
-    return new Response(null, {
-      status: 500,
-      statusText: "Verify not available for other apps than zkForm",
-    });
+  if (!app || app.type !== "zkForm") {
+    return errorResponse(`App ${appSlug} not found or not a zkForm app`);
+  }
 
-  const store = await getStore(app);
+  await initColumns(store, app as ZkFormAppType);
 
   let fieldsToAdd = fields;
-
   const result = await verifyResponse(app, response);
   if (!result) return new Response(null, { status: 500, statusText: "Invalid response" });
 
@@ -44,7 +48,7 @@ export async function POST(req: Request) {
       },
     ];
     if (!env.isDemo) {
-      const isExist = await isVaultIdExist(store, vaultId);
+      const isExist = await isVaultAlreadySaved(app.spreadsheetId, store, vaultId);
       if (isExist) return NextResponse.json({ status: "already-subscribed" });
     }
   }
@@ -57,7 +61,7 @@ export async function POST(req: Request) {
 
       if (!env.isDemo) {
         if (authRequest.authType === AuthType.VAULT) {
-          const isExist = await isVaultIdExist(store, userId);
+          const isExist = await isVaultAlreadySaved(app.spreadsheetId, store, userId);
           if (isExist) return NextResponse.json({ status: "already-subscribed" });
         }
       }
@@ -92,14 +96,14 @@ export async function POST(req: Request) {
     }
   }
 
-  await store.add(fieldsToAdd);
+  await store.add(app.spreadsheetId, fieldsToAdd);
 
   return NextResponse.json({
     status: "subscribed",
   });
 }
 
-const getStore = async (app: ZkFormAppType): Promise<Store> => {
+const initColumns = async (store: TableStore, app: ZkFormAppType): Promise<TableStore> => {
   const appColumns = app?.fields ? app?.fields.map((el) => el.label) : [];
 
   let authColumns = needVaultAuth(app) ? ["VaultId"] : [];
@@ -114,13 +118,9 @@ const getStore = async (app: ZkFormAppType): Promise<Store> => {
   const columns = [...authColumns, ...claimColumns, ...appColumns];
 
   const spreadsheetId = app.spreadsheetId;
-  const store = new GoogleSpreadsheetStore({
-    spreadsheetId,
-    columns,
-  });
-  if (!spreadSheetsInitiated.has(app.spreadsheetId)) {
-    await store.init();
-    spreadSheetsInitiated.set(app.spreadsheetId, true);
+  if (!spreadSheetsInitiated.has(spreadsheetId)) {
+    await store.createColumns(spreadsheetId, columns);
+    spreadSheetsInitiated.set(spreadsheetId, true);
   }
   return store;
 };
@@ -131,8 +131,12 @@ const needVaultAuth = (app: ZkFormAppType): boolean => {
   return Boolean(authRequest);
 };
 
-const isVaultIdExist = async (store: Store, vaultId: string): Promise<boolean> => {
-  const line = await store.get({ name: "VaultId", value: vaultId });
+const isVaultAlreadySaved = async (
+  spreadsheetId: string,
+  store: TableStore,
+  vaultId: string
+): Promise<boolean> => {
+  const line = await store.get(spreadsheetId, { name: "VaultId", value: vaultId });
   return Boolean(line);
 };
 
@@ -142,13 +146,13 @@ const verifyResponse = async (
 ): Promise<SismoConnectVerifiedResult> => {
   try {
     const config: SismoConnectConfig = {
-      appId: env.isDev ? "0x4c40e70b081752680ce258ad321f9e58" : app.appId
+      appId: env.isDev ? "0x4c40e70b081752680ce258ad321f9e58" : app.appId,
     };
 
     if (env.isDemo) {
       config.vault = {
-        impersonate: getImpersonateAddresses(app as ZkAppType)
-      }
+        impersonate: getImpersonateAddresses(app as ZkAppType),
+      };
     }
 
     const sismoConnect = SismoConnect({ config });

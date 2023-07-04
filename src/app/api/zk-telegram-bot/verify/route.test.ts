@@ -4,8 +4,8 @@
 import { POST } from "./route";
 import { MemoryUserStore } from "@/src/libs/user-store/memory-user-store";
 import { UserStore } from "@/src/libs/user-store/store";
-import { MockedRequest } from "../mocks";
 import ServiceFactory from "@/src/libs/service-factory/service-factory";
+import { MockedRequest } from "@/src/libs/helper";
 
 describe("POST /api/zk-telegram-bot/verify", () => {
   let memoryUserStore: UserStore;
@@ -21,10 +21,7 @@ describe("POST /api/zk-telegram-bot/verify", () => {
 
   it("Should return error when app is not found", async () => {
     const response = await POST(
-      new MockedRequest({
-        spaceSlug: "spaceSlug",
-        appSlug: "non-existent-app",
-      }) as any
+      MockedRequest({ spaceSlug: "spaceSlug", appSlug: "non-existent-app" })
     );
     const data = await response.json();
     expect(data.status).toEqual("error");
@@ -32,12 +29,7 @@ describe("POST /api/zk-telegram-bot/verify", () => {
   });
 
   it("Should return error when proof is invalid", async () => {
-    const response = await POST(
-      new MockedRequest({
-        spaceSlug: "spaceSlug",
-        appSlug: "appSlug",
-      }) as any
-    );
+    const response = await POST(MockedRequest({ spaceSlug: "spaceSlug", appSlug: "appSlug" }));
     const data = await response.json();
     expect(data.status).toEqual("error");
     expect(data.message).toMatch(
@@ -47,15 +39,11 @@ describe("POST /api/zk-telegram-bot/verify", () => {
 
   it("Should return approved when the userId is not in the whitelist", async () => {
     const response = await POST(
-      new MockedRequest({
-        spaceSlug: "spaceSlug",
-        appSlug: "appSlug",
-        response: mockResponse,
-      }) as any
+      MockedRequest({ spaceSlug: "spaceSlug", appSlug: "appSlug", response: mockResponse })
     );
     const data = await response.json();
     expect(data.status).toEqual("approved");
-    // export(user) // todo search user in database 
+    // export(user) // todo search user in database
   });
 
   it("Should return approved when the userId is whitelisted but for another app", async () => {
@@ -64,11 +52,7 @@ describe("POST /api/zk-telegram-bot/verify", () => {
       appSlug: "alreadyApprovedAppSlug",
     });
     const response = await POST(
-      new MockedRequest({
-        spaceSlug: "spaceSlug",
-        appSlug: "appSlug",
-        response: mockResponse,
-      }) as any
+      MockedRequest({ spaceSlug: "spaceSlug", appSlug: "appSlug", response: mockResponse })
     );
     const data = await response.json();
     expect(data.status).toEqual("approved");
@@ -80,11 +64,7 @@ describe("POST /api/zk-telegram-bot/verify", () => {
       appSlug: "appSlug",
     });
     const response = await POST(
-      new MockedRequest({
-        spaceSlug: "spaceSlug",
-        appSlug: "appSlug",
-        response: mockResponse,
-      }) as any
+      MockedRequest({ spaceSlug: "spaceSlug", appSlug: "appSlug", response: mockResponse })
     );
     const data = await response.json();
     expect(data.status).toEqual("already-approved");

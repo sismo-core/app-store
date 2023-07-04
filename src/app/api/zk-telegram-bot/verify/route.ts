@@ -9,6 +9,7 @@ import {
 import env from "@/src/environments";
 import ServiceFactory from "@/src/libs/service-factory/service-factory";
 import { getImpersonateAddresses } from "@/src/utils/getImpersonateAddresses";
+import { errorResponse } from "@/src/libs/helper/api";
 
 export async function POST(req: Request) {
   const logger = ServiceFactory.getLoggerService();
@@ -48,12 +49,13 @@ const sismoConnectVerifyResponse = async (
 ): Promise<string> => {
   const config: SismoConnectConfig = {
     appId: app.appId,
-    vault: {
-      impersonate: env.isDemo
-        ? getImpersonateAddresses(app as ZkAppType)
-        : app.impersonateAddresses,
-    },
   };
+  if (env.isDemo) {
+    config.vault = {
+      impersonate: getImpersonateAddresses(app as ZkAppType),
+    };
+  }
+
   const sismoConnect = SismoConnect({ config });
   const verifyParams = {
     claims: app.claimRequests,
@@ -61,14 +63,4 @@ const sismoConnectVerifyResponse = async (
   };
   const result = await sismoConnect.verify(response, verifyParams);
   return result.getUserId(AuthType.TELEGRAM);
-};
-
-const errorResponse = (message: string): Response => {
-  if (env.isDev) {
-    console.error(message);
-  }
-  return NextResponse.json({
-    status: "error",
-    message: message,
-  });
 };

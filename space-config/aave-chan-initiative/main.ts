@@ -35,16 +35,16 @@ export const aaveChanInitiativeConfigMain: SpaceConfig = {
         authRequests: [{ authType: AuthType.VAULT }],
         claimRequests: [
           {
-            groupId: "0x7c9b0c61b5d537b205ae4d0ff01b3b14",
+            groupId: "0xf0285dcfe412b24a6ac9a1c365b7b35d",
             value: 50,
           },
           {
-            groupId: "0x7c9b0c61b5d537b205ae4d0ff01b3b14",
+            groupId: "0xf0285dcfe412b24a6ac9a1c365b7b35d",
             isOptional: true,
             value: 250,
           },
           {
-            groupId: "0x7c9b0c61b5d537b205ae4d0ff01b3b14",
+            groupId: "0xf0285dcfe412b24a6ac9a1c365b7b35d",
             isOptional: true,
             value: 1000,
           },

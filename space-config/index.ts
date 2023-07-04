@@ -1,6 +1,6 @@
 import env from "@/src/environments";
 import { SpaceConfig } from "./types";
-import { TestSpaceConfigMain } from "@/space-config/test-space/main"; // UPDATE HERE
+import { myNewSpaceConfigMain } from "@/space-config/test-space/main"; // UPDATE HERE
 import { theMergeContributorsConfigMain } from "@/space-config/the-merge-contributors/main";
 import { privacyIsNormalConfigMain } from "@/space-config/privacy-is-normal/main";
 import { aaveChanInitiativeConfigMain } from "./aave-chan-initiative/main";
@@ -11,7 +11,7 @@ import { privacyIsNormalConfigDemo } from "@/space-config/privacy-is-normal/demo
 import { aaveChanInitiativeConfigDemo } from "@/space-config/aave-chan-initiative/demo";
 
 export const configsMain: SpaceConfig[] = [
-  TestSpaceConfigMain, // UPDATE HERE
+  myNewSpaceConfigMain, // UPDATE HERE
   theMergeContributorsConfigMain,
   privacyIsNormalConfigMain,
   aaveChanInitiativeConfigMain,

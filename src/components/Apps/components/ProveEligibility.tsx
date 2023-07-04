@@ -51,10 +51,10 @@ export default function ProveEligibility({
     const config = {
       appId: app.appId,
       vault: env.isDemo
-        ? {
-            impersonate: getImpersonateAddresses(app),
-          }
-        : null,
+      ? {
+        impersonate: getImpersonateAddresses(app),
+      }
+      : null,
     };
     return config;
   }, [app]);

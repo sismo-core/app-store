@@ -13,7 +13,7 @@ const customJestConfig = {
 
 process.env = {
   ...process.env,
-  NEXT_NODE_ENV: "test",
+  NEXT_PUBLIC_NODE_ENV: "test",
 };
 
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async

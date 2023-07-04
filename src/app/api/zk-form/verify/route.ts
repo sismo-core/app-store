@@ -1,5 +1,5 @@
 import env from "@/src/environments";
-import { GoogleSpreadsheetStore, Store } from "@/src/libs/store";
+import { TableStore } from "@/src/libs/table-store";
 import {
   AuthType,
   SismoConnect,
@@ -7,69 +7,59 @@ import {
   SismoConnectConfig,
   SismoConnectVerifiedResult,
   ClaimType,
+  SismoConnectServerOptions,
 } from "@sismo-core/sismo-connect-server";
 import { NextResponse } from "next/server";
 import { mapAuthTypeToSheetColumnName } from "@/src/utils/mapAuthTypeToSheetColumnName";
-import { getSpace } from "@/src/libs/spaces";
+import { getApp } from "@/src/libs/spaces";
 import { getImpersonateAddresses } from "@/src/utils/getImpersonateAddresses";
 import { ZkAppType, ZkFormAppType } from "@/src/libs/spaces/types";
+import ServiceFactory from "@/src/libs/service-factory/service-factory";
+import { errorResponse } from "@/src/libs/helper/api";
+import { isClaimEquals } from "@/src/app/api/zk-form/verify/helper";
 
-const spreadSheetsInitiated = new Map<string, boolean>();
+export type Field = {
+  name: string;
+  value: string;
+};
 
 export async function POST(req: Request) {
   const { fields, response, spaceSlug, appSlug } = await req.json();
-  const space = getSpace({ slug: spaceSlug });
-  const app = space.apps.find((_app) => _app.type === "zkForm" && _app.slug === appSlug);
+  const store = ServiceFactory.getZkFormTableStore();
+  const app = getApp({ appSlug: appSlug, spaceSlug: spaceSlug });
 
-  if (app.type !== "zkForm")
-    return new Response(null, {
-      status: 500,
-      statusText: "Verify not available for other apps than zkForm",
-    });
-
-  const store = await getStore(app);
-
-  let fieldsToAdd = fields;
-
-  const result = await verifyResponse(app, response);
-  if (!result) return new Response(null, { status: 500, statusText: "Invalid response" });
-
-  if (!app.saveAuths && needVaultAuth(app)) {
-    const vaultId = await result.getUserId(AuthType.VAULT);
-    if (!vaultId) return new Response(null, { status: 500, statusText: "No Vault Id" });
-    fieldsToAdd = [
-      ...fieldsToAdd,
-      {
-        name: "VaultId",
-        value: vaultId,
-      },
-    ];
-    if (!env.isDemo) {
-      const isExist = await isVaultIdExist(store, vaultId);
-      if (isExist) return NextResponse.json({ status: "already-subscribed" });
-    }
+  if (!app || app.type !== "zkForm") {
+    return errorResponse(`App ${appSlug} not found or not a zkForm app`);
   }
 
-  if (app.saveAuths && app.authRequests?.length > 0) {
+  const headers = computeHeaders(app);
+  const row = [];
+  await store.createColumns(app.spreadsheetId, headers);
+
+  let result: SismoConnectVerifiedResult;
+  try {
+    result = await verifyResponse(app, response);
+  } catch (error) {
+    return errorResponse(`Invalid ZK Proof ${error.message}`);
+  }
+
+  // if AuthType.VAULT is present, we use it as a nullifier
+  if (needVaultAuth(app)) {
+    const vaultId = await result.getUserId(AuthType.VAULT);
+    if (!vaultId) return errorResponse("No Vault Id");
+
+    const isExist = await isVaultAlreadySaved(app, store, vaultId);
+    if (isExist) return NextResponse.json({ status: "already-subscribed" });
+  }
+
+  if (app.authRequests?.length > 0) {
     for (let authRequest of app.authRequests) {
       const userId = await result.getUserId(authRequest.authType);
-      if (!userId && !authRequest.isOptional)
-        return new Response(null, { status: 500, statusText: `No ${authRequest.authType} Id` });
+      if (!userId && !authRequest.isOptional) return errorResponse(`No ${authRequest.authType} Id`);
 
-      if (!env.isDemo) {
-        if (authRequest.authType === AuthType.VAULT) {
-          const isExist = await isVaultIdExist(store, userId);
-          if (isExist) return NextResponse.json({ status: "already-subscribed" });
-        }
+      if (authRequest.authType === AuthType.VAULT || app.saveAuths) {
+        row.push(userId ?? "");
       }
-
-      fieldsToAdd = [
-        ...fieldsToAdd,
-        {
-          name: mapAuthTypeToSheetColumnName(authRequest.authType),
-          value: userId,
-        },
-      ];
     }
   }
 
@@ -77,64 +67,56 @@ export async function POST(req: Request) {
     const claimsAdded = [];
     for (let claimRequest of app.claimRequests) {
       if (!claimRequest.isSelectableByUser) claimRequest.isSelectableByUser = false;
-      const claims = result.claims.filter(
-        (claim) =>
-          claim.groupId === claimRequest.groupId &&
-          claim.claimType === claimRequest.claimType &&
-          claim.groupTimestamp === claimRequest.groupTimestamp &&
-          claim.isSelectableByUser === claimRequest.isSelectableByUser && 
-          (claim.isSelectableByUser === false ? claim.value === claimRequest.value : true)
-      );
-      const currentClaimAdded = claimsAdded.filter(
-        (claim) =>
-          claim.groupId === claimRequest.groupId &&
-          claim.claimType === claimRequest.claimType &&
-          claim.groupTimestamp === claimRequest.groupTimestamp &&
-          claim.isSelectableByUser === claimRequest.isSelectableByUser && 
-          (claim.isSelectableByUser === false ? claim.value === claimRequest.value : true)
-      )
+      const claims = result.claims.filter((claim) => isClaimEquals(claim, claimRequest));
+      const currentClaimAdded = claimsAdded.filter((claim) => isClaimEquals(claim, claimRequest));
       claimsAdded.push(claimRequest);
-      fieldsToAdd = [
-          ...fieldsToAdd,
-          {
-            name: claimRequest.groupId,
-            value: claims.length > 0 ? claims[currentClaimAdded.length]?.value : null,
-          },
-      ];
+      const value = claims.length > 0 ? claims[currentClaimAdded.length]?.value : null;
+      row.push(value ?? "");
     }
   }
 
-  await store.add(fieldsToAdd);
+  for (const fieldName of getAppColumns(app)) {
+    row.push(fields?.find((el) => el.name === fieldName)?.value ?? "");
+  }
+
+  await store.addRow(app.spreadsheetId, row);
 
   return NextResponse.json({
     status: "subscribed",
   });
 }
 
-const getStore = async (app: ZkFormAppType): Promise<Store> => {
-  const appColumns = app?.fields ? app?.fields.map((el) => el.label) : [];
+const isVaultAlreadySaved = async (
+  app: ZkFormAppType,
+  store: TableStore,
+  vaultId: string
+): Promise<boolean> => {
+  if (env.isDemo) return false;
+  const columns = computeHeaders(app);
+  const vaultIdColumnIndex = columns.findIndex((el) => el === "VaultId");
+  const vaultIdsColumn = await store.getColumn(app.spreadsheetId, vaultIdColumnIndex);
+  return vaultIdsColumn.filter((el) => el === vaultId).length > 0;
+};
 
+const computeHeaders = (app: ZkFormAppType): string[] => {
+  return [...getAuthColumns(app), ...getClaimColumns(app), ...getAppColumns(app)];
+};
+
+const getAuthColumns = (app: ZkFormAppType): string[] => {
   let authColumns = needVaultAuth(app) ? ["VaultId"] : [];
   if (app.saveAuths)
     authColumns = app.authRequests.map((authRequest) =>
       mapAuthTypeToSheetColumnName(authRequest.authType)
     );
-
+  return authColumns;
+};
+const getClaimColumns = (app: ZkFormAppType): string[] => {
   let claimColumns = [];
   if (app.saveClaims) claimColumns = app.claimRequests.map((claimRequest) => claimRequest.groupId);
-
-  const columns = [...authColumns, ...claimColumns, ...appColumns];
-
-  const spreadsheetId = app.spreadsheetId;
-  const store = new GoogleSpreadsheetStore({
-    spreadsheetId,
-    columns,
-  });
-  if (!spreadSheetsInitiated.has(app.spreadsheetId)) {
-    await store.init();
-    spreadSheetsInitiated.set(app.spreadsheetId, true);
-  }
-  return store;
+  return claimColumns;
+};
+const getAppColumns = (app: ZkFormAppType): string[] => {
+  return app?.fields ? app?.fields.map((el) => el.label) : [];
 };
 
 const needVaultAuth = (app: ZkFormAppType): boolean => {
@@ -143,33 +125,29 @@ const needVaultAuth = (app: ZkFormAppType): boolean => {
   return Boolean(authRequest);
 };
 
-const isVaultIdExist = async (store: Store, vaultId: string): Promise<boolean> => {
-  const line = await store.get({ name: "VaultId", value: vaultId });
-  return Boolean(line);
-};
-
 const verifyResponse = async (
   app: ZkFormAppType,
   response: SismoConnectResponse
 ): Promise<SismoConnectVerifiedResult> => {
-  try {
-    const config: SismoConnectConfig = {
-      appId: env.isDev ? "0x4c40e70b081752680ce258ad321f9e58" : app.appId
+  const config: SismoConnectConfig = {
+    appId: env.isDev ? "0x4c40e70b081752680ce258ad321f9e58" : app.appId,
+  };
+
+  if (env.isDemo || env.isTest) {
+    config.vault = {
+      impersonate: getImpersonateAddresses(app as ZkAppType),
     };
-
-    if (env.isDemo) {
-      config.vault = {
-        impersonate: getImpersonateAddresses(app as ZkAppType)
-      }
-    }
-
-    const sismoConnect = SismoConnect({ config });
-    return await sismoConnect.verify(response, {
-      claims: app.claimRequests,
-      auths: app.authRequests,
-    });
-  } catch (e) {
-    console.log("error", e);
   }
-  return null;
+  let options: SismoConnectServerOptions = {};
+  // todo should be handled in a better way (code should not be aware of env)
+  // if (env.isTest) {
+  //   options.verifier.hydraS3.registryRoot =
+  //     "0x08f621c0e87bb0b37e0e66b8b9e7620d11aa0f15e9f5a60b986364b2db59dbed";
+  // }
+
+  const sismoConnect = SismoConnect({ config, options });
+  return await sismoConnect.verify(response, {
+    claims: app.claimRequests,
+    auths: app.authRequests,
+  });
 };

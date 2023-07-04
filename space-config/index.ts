@@ -1,4 +1,3 @@
-import env from "@/src/environments";
 import { SpaceConfig } from "./types";
 import { theMergeContributorsConfigMain } from "@/space-config/the-merge-contributors/main";
 import { privacyIsNormalConfigMain } from "@/space-config/privacy-is-normal/main";
@@ -22,5 +21,3 @@ export const configsDemo: SpaceConfig[] = [
   privacyIsNormalConfigDemo,
   aaveChanInitiativeConfigDemo,
 ];
-
-export const spacesConfig: SpaceConfig[] = env.isDemo ? configsDemo : configsMain;

@@ -3,34 +3,16 @@
  */
 import { POST } from "./route";
 import { MemoryUserStore } from "@/src/libs/user-store/memory-user-store";
-import { getUserStore } from "@/src/libs/user-store";
 import { UserStore } from "@/src/libs/user-store/store";
-import { MockedRequest, mockSpaceType } from "../mocks";
-import { getSpace } from "@/src/libs/spaces";
-
-jest.mock("../../../../libs/user-store", () => ({
-  getUserStore: jest.fn(),
-}));
-
-jest.mock("../../../../environments", () => ({
-  isDemo: false,
-  isDev: true,
-}));
-
-jest.mock("../../../../libs/spaces", () => {
-  return {
-    getSpace: jest.fn(),
-  };
-});
+import ServiceFactory from "@/src/libs/service-factory/service-factory";
+import { MockedRequest } from "@/src/libs/helper";
 
 describe("POST /api/zk-telegram-bot/verify", () => {
   let memoryUserStore: UserStore;
 
   beforeEach(() => {
-    jest.resetModules();
     memoryUserStore = new MemoryUserStore();
-    (getSpace as jest.Mock).mockReturnValue(mockSpaceType());
-    (getUserStore as jest.Mock).mockReturnValue(memoryUserStore);
+    ServiceFactory.getZkTelegramBotUserStore(memoryUserStore);
   });
 
   afterAll(() => {
@@ -39,10 +21,7 @@ describe("POST /api/zk-telegram-bot/verify", () => {
 
   it("Should return error when app is not found", async () => {
     const response = await POST(
-      new MockedRequest({
-        spaceSlug: "spaceSlug",
-        appSlug: "non-existent-app",
-      }) as any
+      MockedRequest({ spaceSlug: "spaceSlug", appSlug: "non-existent-app" })
     );
     const data = await response.json();
     expect(data.status).toEqual("error");
@@ -50,27 +29,21 @@ describe("POST /api/zk-telegram-bot/verify", () => {
   });
 
   it("Should return error when proof is invalid", async () => {
-    const response = await POST(
-      new MockedRequest({
-        spaceSlug: "spaceSlug",
-        appSlug: "appSlug",
-      }) as any
-    );
+    const response = await POST(MockedRequest({ spaceSlug: "spaceSlug", appSlug: "appSlug" }));
     const data = await response.json();
     expect(data.status).toEqual("error");
-    expect(data.message).toMatch(/Failed to verify ZK-Proof/);
+    expect(data.message).toMatch(
+      /Failed to add to the whitelist: sismoConnectResponse provided is undefined/
+    );
   });
 
   it("Should return approved when the userId is not in the whitelist", async () => {
     const response = await POST(
-      new MockedRequest({
-        spaceSlug: "spaceSlug",
-        appSlug: "appSlug",
-        response: mockResponse,
-      }) as any
+      MockedRequest({ spaceSlug: "spaceSlug", appSlug: "appSlug", response: mockResponse })
     );
     const data = await response.json();
     expect(data.status).toEqual("approved");
+    // export(user) // todo search user in database
   });
 
   it("Should return approved when the userId is whitelisted but for another app", async () => {
@@ -79,11 +52,7 @@ describe("POST /api/zk-telegram-bot/verify", () => {
       appSlug: "alreadyApprovedAppSlug",
     });
     const response = await POST(
-      new MockedRequest({
-        spaceSlug: "spaceSlug",
-        appSlug: "appSlug",
-        response: mockResponse,
-      }) as any
+      MockedRequest({ spaceSlug: "spaceSlug", appSlug: "appSlug", response: mockResponse })
     );
     const data = await response.json();
     expect(data.status).toEqual("approved");
@@ -95,11 +64,7 @@ describe("POST /api/zk-telegram-bot/verify", () => {
       appSlug: "appSlug",
     });
     const response = await POST(
-      new MockedRequest({
-        spaceSlug: "spaceSlug",
-        appSlug: "appSlug",
-        response: mockResponse,
-      }) as any
+      MockedRequest({ spaceSlug: "spaceSlug", appSlug: "appSlug", response: mockResponse })
     );
     const data = await response.json();
     expect(data.status).toEqual("already-approved");

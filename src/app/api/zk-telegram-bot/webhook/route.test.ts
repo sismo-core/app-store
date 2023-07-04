@@ -1,45 +1,29 @@
 /**
  * @jest-environment node
  */
+import { MockedTelegramBotService } from "@/src/libs/telegram-bot-service/mocked-telegram-bot-service";
 import { POST } from "./route";
-import { getSpaces } from "@/src/libs/spaces";
-import axios from "axios";
-import { getUserStore } from "@/src/libs/user-store";
-import { UserStore } from "@/src/libs/user-store/store";
-import { MemoryUserStore } from "@/src/libs/user-store/memory-user-store";
-import { MockedRequest, mockGroupIdCommand, mockJoinRequest, mockMessageWithoutText, mockSpacesType } from "../mocks";
-
-jest.mock("axios");
-const mockedAxios = axios as jest.Mocked<typeof axios>;
-
-jest.mock("../../../../libs/user-store", () => ({
-  getUserStore: jest.fn(),
-}));
-let memoryUserStore: UserStore;
-
-jest.mock("../../../../environments", () => ({
-  isDemo: false,
-  isDev: false,
-  telegramBotToken: "123",
-}));
-
-jest.mock("../../../../libs/spaces", () => {
-  return {
-    getSpaces: jest.fn(),
-  };
-});
+import { mockGroupIdCommand, mockJoinRequest, mockMessageWithoutText } from "../mocks";
+import { UserStore } from "../../../../libs/user-store/store";
+import ServiceFactory from "@/src/libs/service-factory/service-factory";
+import { MockedRequest } from "@/src/libs/helper";
 
 describe("POST /api/zk-telegram-bot/webhook", () => {
+  let memoryUserStore: UserStore;
+  let mockedTelegramBotService: MockedTelegramBotService;
+
   beforeEach(() => {
-    jest.resetModules();
-    memoryUserStore = new MemoryUserStore();
-    (getUserStore as jest.Mock).mockReturnValue(memoryUserStore);
-    (getSpaces as jest.Mock).mockReturnValue(mockSpacesType("appSlug", "spaceSlug", "-2"));
+    memoryUserStore = ServiceFactory.getZkTelegramBotUserStore();
+    mockedTelegramBotService = ServiceFactory.getTelegramBotService() as MockedTelegramBotService;
+  });
+
+  afterEach(() => {
+    ServiceFactory.reset();
   });
 
   it("Should return error when app is not found", async () => {
     const requestForUnknownGroup = mockJoinRequest(-1, 1);
-    const response = await POST(new MockedRequest(requestForUnknownGroup) as any);
+    const response = await POST(MockedRequest(requestForUnknownGroup)); // todo fix this
     const data = await response.json();
     expect(data.status).toEqual("error");
     expect(data.message).toMatch("Failed to find a matching app for the group");
@@ -51,76 +35,53 @@ describe("POST /api/zk-telegram-bot/webhook", () => {
       appSlug: "appSlug",
     });
 
-    let performedApproveRequest = false;
-    mockedAxios.get.mockImplementation((url) => {
-      if (
-        url ===
-        "https://api.telegram.org/bot123/approveChatJoinRequest?chat_id=-2&user_id=6232426394"
-      ) {
-        performedApproveRequest = true;
-      }
-      return Promise.resolve();
-    });
-
     const requestForKnownGroup = mockJoinRequest(-2, 6232426394);
-    const response = await POST(new MockedRequest(requestForKnownGroup) as any);
+    const response = await POST(MockedRequest(requestForKnownGroup));
     const data = await response.json();
-    expect(performedApproveRequest).toEqual(true);
+
     expect(data.status).toEqual("approved");
+    expect(mockedTelegramBotService.joinRequestApproved).toEqual([
+      {
+        groupId: "-2",
+        groupTitle: "title",
+        userId: "6232426394",
+        username: "username",
+      },
+    ]);
   });
 
   it("Should decline when user is not in the whitelist", async () => {
-    let performedDeclineRequest = false;
-    mockedAxios.get.mockImplementation((url) => {
-      if (
-        url ===
-        "https://api.telegram.org/bot123/declineChatJoinRequest?chat_id=-2&user_id=6232426394"
-      ) {
-        performedDeclineRequest = true;
-      }
-      return Promise.resolve();
-    });
-
     const requestForKnownGroup = mockJoinRequest(-2, 6232426394);
-    const response = await POST(new MockedRequest(requestForKnownGroup) as any);
+    const response = await POST(MockedRequest(requestForKnownGroup));
     const data = await response.json();
-    expect(performedDeclineRequest).toEqual(true);
     expect(data.status).toEqual("declined");
+    expect(mockedTelegramBotService.joinRequestDeclined).toEqual([
+      {
+        groupId: "-2",
+        groupTitle: "title",
+        userId: "6232426394",
+        username: "username",
+      },
+    ]);
   });
 
   it("Should reply to groupid command", async () => {
-    (getSpaces as jest.Mock).mockReturnValue(mockSpacesType("appSlug", "spaceSlug", "-2"));
-
-    let performedSendMessage = false;
-    mockedAxios.get.mockImplementation((url) => {
-      if (url === "https://api.telegram.org/bot123/sendMessage?chat_id=-2&reply_to_message_id=1&text=-2") {
-        performedSendMessage = true;
-      }
-      return Promise.resolve();
-     });
-
-    const response = await POST(
-      new MockedRequest(mockGroupIdCommand(-2, 1)) as any
-    );
+    const groupId = -2;
+    const response = await POST(MockedRequest(mockGroupIdCommand(groupId, 1)));
     const data = await response.json();
-    expect(performedSendMessage).toEqual(true);
     expect(data.status).toEqual("handled");
+    expect(mockedTelegramBotService.messageSent).toEqual([
+      {
+        groupId: `${groupId}`,
+        messageId: "1",
+        text: "-2",
+      },
+    ]);
   });
 
   it("Should ignore message events without text", async () => {
-    (getSpaces as jest.Mock).mockReturnValue(mockSpacesType());
-
-    let performedSendMessage = false;
-    mockedAxios.get.mockImplementation((_) => {
-      performedSendMessage = true;
-      return Promise.resolve();
-     });
-
-    const response = await POST(
-      new MockedRequest(mockMessageWithoutText()) as any
-    );
+    const response = await POST(MockedRequest(mockMessageWithoutText()));
     const data = await response.json();
-    expect(performedSendMessage).toEqual(false);
     expect(data.status).toEqual("ignored");
   });
 });

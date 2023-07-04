@@ -1,14 +1,14 @@
 import { NextResponse } from "next/server";
-import { ZkTelegramBotAppType, getApp, getSpace } from "@/src/libs/spaces";
+import { ZkAppType, ZkTelegramBotAppType, getApp, getSpace } from "@/src/libs/spaces";
 import {
   AuthType,
   SismoConnect,
   SismoConnectResponse,
   SismoConnectConfig,
-  SismoConnectVerifiedResult,
 } from "@sismo-core/sismo-connect-server";
 import env from "@/src/environments";
 import ServiceFactory from "@/src/libs/service-factory/service-factory";
+import { getImpersonateAddresses } from "@/src/utils/getImpersonateAddresses";
 
 export async function POST(req: Request) {
   const logger = ServiceFactory.getLoggerService();
@@ -49,7 +49,9 @@ const sismoConnectVerifyResponse = async (
   const config: SismoConnectConfig = {
     appId: app.appId,
     vault: {
-      impersonate: app.impersonateAddresses,
+      impersonate: env.isDemo
+        ? getImpersonateAddresses(app as ZkAppType)
+        : app.impersonateAddresses,
     },
   };
   const sismoConnect = SismoConnect({ config });

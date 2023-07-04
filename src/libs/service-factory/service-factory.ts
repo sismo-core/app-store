@@ -6,10 +6,8 @@ import { LoggerService } from "@/src/libs/logger-service/logger-service";
 import { MemoryLogger } from "@/src/libs/logger-service/memory-logger-service";
 import { StdoutLogger } from "@/src/libs/logger-service/stdout-logger-service";
 import { MockedTelegramBotService } from "@/src/libs/telegram-bot-service/mocked-telegram-bot-service";
-import {
-  TelegramAPIBotService,
-  TelegramBotInterface,
-} from "@/src/libs/telegram-bot-service/telegram-bot-service";
+import { TelegramAPIBotService } from "@/src/libs/telegram-bot-service/telegram-api-bot-service";
+import { TelegramBotInterface } from "@/src/libs/telegram-bot-service/telegram-bot-service";
 import { DemoUserStore } from "@/src/libs/user-store/demo-user-store";
 import { MemoryUserStore } from "@/src/libs/user-store/memory-user-store";
 import { PostgresUserStore } from "@/src/libs/user-store/postgres-user-store";

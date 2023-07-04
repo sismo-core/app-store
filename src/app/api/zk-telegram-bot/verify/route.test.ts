@@ -55,6 +55,7 @@ describe("POST /api/zk-telegram-bot/verify", () => {
     );
     const data = await response.json();
     expect(data.status).toEqual("approved");
+    // export(user) // todo search user in database 
   });
 
   it("Should return approved when the userId is whitelisted but for another app", async () => {

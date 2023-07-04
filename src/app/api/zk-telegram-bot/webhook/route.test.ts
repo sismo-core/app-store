@@ -70,12 +70,13 @@ describe("POST /api/zk-telegram-bot/webhook", () => {
   });
 
   it("Should reply to groupid command", async () => {
-    const response = await POST(new MockedRequest(mockGroupIdCommand(-2, 1)) as any);
+    const groupId = -2;
+    const response = await POST(new MockedRequest(mockGroupIdCommand(groupId, 1)) as any);
     const data = await response.json();
     expect(data.status).toEqual("handled");
     expect(mockedTelegramBotService.messageSent).toEqual([
       {
-        groupId: "-2",
+        groupId: `${groupId}`,
         messageId: "1",
         text: "-2",
       },

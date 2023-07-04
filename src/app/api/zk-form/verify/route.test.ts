@@ -50,17 +50,18 @@ describe("POST /api/zk-form/verify", () => {
   });
 
   it("Should be marked as already subscribe when doing the flow twice", async () => {
-    await POST(mockZkFormTestAppRequest());
-    const responseSecondCall = await POST(mockZkFormTestAppRequest());
-    const data = await responseSecondCall.json();
-    expect(data.status).toEqual("already-subscribed");
-  });
-
-  it("Should create the table columns and save two different users information into the tableStore", async () => {
     const responseFirstCall = await POST(mockZkFormTestAppRequest());
     expect((await responseFirstCall.json()).status).toEqual("subscribed");
 
-    const responseSecondCall = await POST(
+    const responseSecondCall = await POST(mockZkFormTestAppRequest());
+    expect((await responseSecondCall.json()).status).toEqual("already-subscribed");
+  });
+
+  it("Should create the table columns and save two different users information into the tableStore", async () => {
+    const responseUser1 = await POST(mockZkFormTestAppRequest());
+    expect((await responseUser1.json()).status).toEqual("subscribed");
+
+    const responseUser2 = await POST(
       mockZkFormTestAppRequest({
         fields: [
           {
@@ -79,7 +80,7 @@ describe("POST /api/zk-form/verify", () => {
         response: mockResponseUser2,
       })
     );
-    expect((await responseSecondCall.json()).status).toEqual("subscribed");
+    expect((await responseUser2.json()).status).toEqual("subscribed");
     // first row is the header
     expect(memoryTableStore.getTable("testSpreadsheetId1")).toEqual([
       ["VaultId", "Email", "Street address", "Apartment, unit, suite, etc"],

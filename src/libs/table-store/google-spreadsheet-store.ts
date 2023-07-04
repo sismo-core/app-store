@@ -42,9 +42,12 @@ export class GoogleSpreadsheetStore implements TableStore {
   public async add(tableName: string, entries: Entry[]): Promise<string[]> {
     const table = await this._loadAllTable(tableName);
     const row = new Array<string>(table[0].length);
+    const entriesAdded = [];
     for (let entry of entries) {
       const indexOfEntry = this._findColumnIndex(table, entry.name);
-      row[indexOfEntry] = entry.value;
+      const currentEntriesAdded = entriesAdded.filter((_value) => _value.name === entry.name);
+      entriesAdded.push({ name: entry.name });
+      row[indexOfEntry + currentEntriesAdded.length] = entry.value;
     }
     return await this._write(tableName, row);
   }

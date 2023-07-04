@@ -6,6 +6,7 @@ import {
   SismoConnectResponse,
   SismoConnectConfig,
   SismoConnectVerifiedResult,
+  ClaimType,
 } from "@sismo-core/sismo-connect-server";
 import { NextResponse } from "next/server";
 import { mapAuthTypeToSheetColumnName } from "@/src/utils/mapAuthTypeToSheetColumnName";
@@ -76,21 +77,32 @@ export async function POST(req: Request) {
   }
 
   if (app.saveClaims && app.claimRequests?.length > 0) {
+    const claimsAdded = [];
     for (let claimRequest of app.claimRequests) {
       if (!claimRequest.isSelectableByUser) claimRequest.isSelectableByUser = false;
-      const claim = result.claims.find(
+      const claims = result.claims.filter(
         (claim) =>
           claim.groupId === claimRequest.groupId &&
           claim.claimType === claimRequest.claimType &&
           claim.groupTimestamp === claimRequest.groupTimestamp &&
-          claim.isSelectableByUser === claimRequest.isSelectableByUser
+          claim.isSelectableByUser === claimRequest.isSelectableByUser && 
+          (claim.isSelectableByUser === false ? claim.value === claimRequest.value : true)
       );
+      const currentClaimAdded = claimsAdded.filter(
+        (claim) =>
+          claim.groupId === claimRequest.groupId &&
+          claim.claimType === claimRequest.claimType &&
+          claim.groupTimestamp === claimRequest.groupTimestamp &&
+          claim.isSelectableByUser === claimRequest.isSelectableByUser && 
+          (claim.isSelectableByUser === false ? claim.value === claimRequest.value : true)
+      )
+      claimsAdded.push(claimRequest);
       fieldsToAdd = [
-        ...fieldsToAdd,
-        {
-          name: claim.groupId,
-          value: claim.value,
-        },
+          ...fieldsToAdd,
+          {
+            name: claimRequest.groupId,
+            value: claims.length > 0 ? claims[currentClaimAdded.length]?.value : null,
+          },
       ];
     }
   }

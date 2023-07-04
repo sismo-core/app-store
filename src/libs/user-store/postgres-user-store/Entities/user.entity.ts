@@ -1,11 +1,12 @@
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm"
+import { Entity, Column, PrimaryGeneratedColumn, Unique } from "typeorm"
 
 @Entity("zk-telegram-bot")
+@Unique(["userId", "appSlug"])
 export class UserEntity {
     @PrimaryGeneratedColumn()
     id: number
 
-    @Column({ unique: true })
+    @Column()
     userId: string
 
     @Column()

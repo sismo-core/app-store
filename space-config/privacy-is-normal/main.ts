@@ -13,19 +13,11 @@ export const privacyIsNormalConfigMain: SpaceConfig = {
     socialLinks: [
       {
         type: "link",
-        link: "https://www.sismo.io/",
+        link: "https://case-studies.sismo.io/db/anon-lottery",
       },
       {
         type: "twitter",
-        link: "https://twitter.com/Sismo_eth",
-      },
-      {
-        type: "discord",
-        link: "https://discord.com/invite/sismo",
-      },
-      {
-        type: "github",
-        link: "https://github.com/sismo-core",
+        link: "https://twitter.com/Sismo_eth/status/1659164330900746240?s=20",
       },
     ],
   },

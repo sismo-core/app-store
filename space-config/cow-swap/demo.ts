@@ -54,7 +54,7 @@ export const cowSwapConfigDemo: SpaceConfig = {
             groupId: "0x34dba00caed5fbe69db7313adebf1eaf",
             isOptional: true,
             value: 1,
-            authType: AuthType.EQ,
+            ClaimType: ClaimType.EQ,
           },
         ],
         impersonateAddresses: [
@@ -97,7 +97,7 @@ export const cowSwapConfigDemo: SpaceConfig = {
         slug: "cow-event",
         name: "Cow Event Invitation",
         description:
-          "Future of France is an invitation-only event during EthCC week in Paris, organized by French-based crypto startups. The number of tickets is limited. Exclusive for members of Sismo Community Level 3.",
+          "Cow Event is an invitation-only event during EthCC week in Paris, organized by Cow Swap. The number of tickets is limited. Exclusive for members of Cow Swap Community.",
         tags: ["Event", "Ticket"],
         image: "space_cow_swap_pfp_500x500.png",
         ctaText: "Claim your Swag",

@@ -402,5 +402,73 @@ export const sismoConfigDemo: SpaceConfig = {
         endDate: new Date("2023-07-10T18:00"),
       },
     },
+    {
+      type: "zkForm",
+      metadata: {
+        name: "Future of France Lottery",
+        slug: "lottery-fof",
+        description:
+          "Enter the Lottery to get a chance to receive an Invite for Future of France, an invitation-only event during EthCC week in Paris, organized by French-based crypto startups.",
+        tags: ["Event", "Ticket"],
+        image: "sismo_appstore_fof_tickets.png",
+        ctaText: "Enter the Lottery",
+        createdAt: new Date("2023-07-03T18:00"),
+      },
+      sismoConnectRequest: {
+        appId: "0xd3448b2ad00929478df698a73ae98fe1",
+        authRequests: [{ authType: AuthType.VAULT }],
+        claimRequests: [{ groupId: "0x1cde61966decb8600dfd0749bd371f12", value: 15 }],
+        impersonateAddresses: ["0x8ab1760889F26cBbf33A75FD2cF1696BFccDc9e6"],
+      },
+      templateConfig: {
+        fields: [
+          {
+            type: "short-text",
+            label: "First Name",
+            isRequired: true,
+          },
+          {
+            type: "short-text",
+            label: "Last Name",
+            isRequired: true,
+          },
+          {
+            type: "short-text",
+            label: "Company (optional)",
+            isRequired: false,
+          },
+          {
+            type: "short-text",
+            label: "Email",
+            isRequired: true,
+          },
+          {
+            type: "short-text",
+            label: "Will you be in Paris on July 17, 7pm? Tickets are limited.",
+            isRequired: true,
+            placeholder: "Yes/No",
+          },
+        ],
+        congratulationsMessage: {
+          title: "Fingers crossed!",
+          description: "You will receive the ticket in a few days if you win! See you there 💜",
+        },
+        failedMessage: {
+          title: "Sorry, too late this time 😕",
+          description: "Stay in touch for the next one 💜",
+        },
+        output: {
+          destination: {
+            type: "google_sheet",
+            spreadsheetId: "1Ez5GohjjiudF461EHO-L0NpwUXpdvtUVpj16nGa03Ig",
+          },
+          saveAuths: true,
+        },
+        userSelection: { type: "Lottery", numberOfWinners: 10 },
+      },
+      options: {
+        endDate: new Date("2023-07-10T18:00"),
+      },
+    },
   ],
 };

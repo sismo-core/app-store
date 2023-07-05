@@ -9,7 +9,6 @@ export const theMergeContributorsConfigMain: SpaceConfig = {
     slug: "the-merge-contributors",
     description: "Tribute to contributors to the Ethereum Merge.",
     profileImage: "pfp_Space_TheMergeContributors_400x400.png",
-    coverImage: "Cover_Space_TheMergeContributors_1160x340.png",
   },
   apps: [
     {
@@ -84,7 +83,7 @@ export const theMergeContributorsConfigMain: SpaceConfig = {
       },
       options: {
         isFeatured: true,
-      }
+      },
     },
   ],
 };

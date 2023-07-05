@@ -1,6 +1,6 @@
 "use client";
 
-import React, {  useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { styled } from "styled-components";
 import Button3D from "@/src/ui/Button3D";
 import Register, { FieldValue } from "./components/Register";
@@ -12,11 +12,10 @@ import Timer from "../components/Timer";
 import Section from "../components/Section";
 import ProveEligibility from "../components/ProveEligibility";
 import { ZkFormAppType } from "@/src/libs/spaces";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { useSismoConnect } from "@sismo-core/sismo-connect-react";
 import { getImpersonateAddresses } from "@/src/utils/getImpersonateAddresses";
 import env from "@/src/environments";
-import { useSearchParams } from "next/navigation";
 
 const Content = styled.div`
   width: 580px;
@@ -62,29 +61,30 @@ type Props = {
   app: AppFront;
 };
 
-export default function ZkFormApp({
-  app,
-  groupMetadataList,
-}: Props): JSX.Element {
+export default function ZkFormApp({ app, groupMetadataList }: Props): JSX.Element {
   const [error, setError] = useState(null);
   const [alreadySubscribed, setAlreadySubscribed] = useState(false);
   const [subscribed, setSubscribed] = useState(false);
   const [verifying, setVerifying] = useState<boolean>(false);
   const [fields, setFields] = useState<FieldValue[]>(null);
-  const searchParams = useSearchParams();
 
   const config = useMemo(() => {
     const config = {
       appId: app.appId,
-      vault: env.isDemo ? {
-        impersonate: getImpersonateAddresses(app)
-      } : null
+      vault: env.isDemo
+        ? {
+            impersonate: getImpersonateAddresses(app),
+          }
+        : null,
     };
     return config;
   }, [app]);
 
-  const { response } = useSismoConnect({config})
-  const { hasStarted } = useRemainingTime({startDate: app?.startDate});
+  const { response } = useSismoConnect({ config });
+  const { hasStarted, hasEnded } = useRemainingTime({
+    startDate: app?.startDate,
+    endDate: app?.endDate,
+  });
   const router = useRouter();
 
   const submit = async () => {
@@ -115,16 +115,28 @@ export default function ZkFormApp({
     }
   };
 
-  const hasResponse = Boolean(response) || Boolean(searchParams.get('sismoConnectResponseCompressed'));
+  const hasResponse = Boolean(response);
 
-  if(!hasStarted) return <Content>
-    <Timer app={app} />
-  </Content>
+  if (hasEnded) {
+    redirect("/");
+  }
+
+  if (!hasStarted)
+    return (
+      <Content>
+        <Timer app={app} />
+      </Content>
+    );
 
   return (
     <Content>
       {subscribed ? (
-        <Congratulations onBackToApps={()=>{router.push('/')}} app={app as unknown as ZkFormAppType} />
+        <Congratulations
+          onBackToApps={() => {
+            router.push("/");
+          }}
+          app={app as unknown as ZkFormAppType}
+        />
       ) : (
         <>
           <Section
@@ -134,14 +146,11 @@ export default function ZkFormApp({
             style={{ marginBottom: 16 }}
             success={hasResponse}
           >
-            <ProveEligibility
-              app={app}
-              groupMetadataList={groupMetadataList}
-            />
+            <ProveEligibility app={app} groupMetadataList={groupMetadataList} />
           </Section>
           <Section
             number={2}
-            isOpen={Boolean(response) || Boolean(searchParams.get('sismoConnectResponseCompressed'))}
+            isOpen={Boolean(response)}
             title={app?.ctaText}
             success={alreadySubscribed || (fields && fields.length === 0)}
           >
@@ -156,23 +165,25 @@ export default function ZkFormApp({
               />
             )}
           </Section>
-          {hasResponse && <Bottom>
-            {alreadySubscribed ? (
-              <Button3D onClick={()=>{}} secondary>
-                Back to the Space
-              </Button3D>
-            ) : (
-              <Button3D
-                onClick={submit}
-                secondary
-                disabled={!fields || !hasResponse}
-                loading={verifying}
-              >
-                {verifying ? "Verifying..." : "Submit"}
-              </Button3D>
-            )}
-            <ErrorMsg>{error}</ErrorMsg>
-          </Bottom>}
+          {hasResponse && (
+            <Bottom>
+              {alreadySubscribed ? (
+                <Button3D onClick={() => {}} secondary>
+                  Back to the Space
+                </Button3D>
+              ) : (
+                <Button3D
+                  onClick={submit}
+                  secondary
+                  disabled={!fields || !hasResponse}
+                  loading={verifying}
+                >
+                  {verifying ? "Verifying..." : "Submit"}
+                </Button3D>
+              )}
+              <ErrorMsg>{error}</ErrorMsg>
+            </Bottom>
+          )}
         </>
       )}
     </Content>

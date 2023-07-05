@@ -8,6 +8,7 @@ import { GroupMetadata } from "@/src/libs/group-provider";
 import { LockSimpleOpen } from "phosphor-react";
 import { AppFront } from "@/src/utils/getSpaceConfigsFront";
 import { getImpersonateAddresses } from "@/src/utils/getImpersonateAddresses";
+import { usePathname } from "next/navigation";
 
 const Container = styled.div``;
 
@@ -33,6 +34,7 @@ const Eligibility = styled.div`
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
+  height: 53px;
 `;
 
 type Props = {
@@ -46,10 +48,11 @@ export default function ProveEligibility({
   groupMetadataList,
   verifying,
 }: Props): JSX.Element {
-  const [isMounted, setIsMounted] = useState(false);
+  const pathname = usePathname();
   const config = useMemo(() => {
     const config = {
       appId: app.appId,
+      vaultBaseUrl: "http:localhost:3001",
       vault: env.isDemo
       ? {
         impersonate: getImpersonateAddresses(app),
@@ -58,12 +61,6 @@ export default function ProveEligibility({
     };
     return config;
   }, [app]);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  if (!isMounted) return null;
 
   return (
     <>
@@ -83,7 +80,7 @@ export default function ProveEligibility({
               auths={app?.authRequests}
               verifying={verifying}
               text={verifying ? "Verifying..." : "Sign in with Sismo"}
-              callbackPath={window.location.pathname}
+              callbackPath={pathname}
             />
           )}
         </ButtonContainer>

@@ -14,7 +14,7 @@ import { ZkTelegramBotAppType } from "@/src/libs/spaces";
 import env from "@/src/environments";
 import { getImpersonateAddresses } from "@/src/utils/getImpersonateAddresses";
 import { useSismoConnect } from "@sismo-core/sismo-connect-react";
-import { useSearchParams } from "next/navigation";
+import { redirect } from "next/navigation";
 
 const Content = styled.div`
   width: 580px;
@@ -73,7 +73,7 @@ export default function ZkTelegramBotApp({ app, groupMetadataList }: Props): JSX
   }, [app]);
 
   const { response } = useSismoConnect({config})
-  const { hasStarted } = useRemainingTime({ startDate: app?.startDate });
+  const { hasStarted, hasEnded } = useRemainingTime({ startDate: app?.startDate, endDate: app?.endDate });
 
   const verify = async (response: SismoConnectResponse) => {
     const body = {
@@ -110,6 +110,11 @@ export default function ZkTelegramBotApp({ app, groupMetadataList }: Props): JSX
     const inviteLink = (app as unknown as ZkTelegramBotAppType).telegramInviteLink;
     window.open(inviteLink, "_blank");
   };
+
+  if (hasEnded) {
+    redirect("/");
+  }
+
 
   if (!hasStarted)
     return (

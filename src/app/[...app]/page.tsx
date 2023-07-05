@@ -1,7 +1,7 @@
 import env from "@/src/environments";
 import { ClaimRequest } from "@sismo-core/sismo-connect-server";
 import { notFound } from "next/navigation";
-import { SpaceType, ZkAppType, getSpaces } from "@/src/libs/spaces";
+import { ZkAppType, getSpaces } from "@/src/libs/spaces";
 import getAppFront from "@/src/utils/getAppFront";
 import { GroupMetadata, GroupProvider } from "@/src/libs/group-provider";
 import AppMain from "@/src/components/AppMain";
@@ -10,15 +10,20 @@ import { AppFront } from "@/src/utils/getSpaceConfigsFront";
 // This function runs at build time on the server it generates the static paths for each page
 export async function generateStaticParams() {
   const configs = getSpaces();
-  const apps = [];
+  type ZkAppTypeWithSpaceSlug = ZkAppType & {
+    spaceSlug: string;
+  };
+  const apps: ZkAppTypeWithSpaceSlug[] = [];
   const claimRequests = [];
-  const groupProvider = new GroupProvider({
-    hubApiUrl: env.hubApiUrl,
-  });
 
   for (const config of configs) {
+    if(!config?.apps) continue;
     for (const app of config.apps) {
-      apps.push(app);
+      const _app = {
+        ...app,
+        spaceSlug: config.slug,
+      };
+      apps.push(_app);
       if (app?.claimRequests?.length > 0) {
         for (const claimRequest of app.claimRequests) {
           if (!claimRequests.find((el) => el?.groupId === claimRequest?.groupId)) {
@@ -28,41 +33,16 @@ export async function generateStaticParams() {
       }
     }
   }
-
-  try {
-    await Promise.all(
-      claimRequests?.map(async (claimRequest: ClaimRequest) => {
-        await groupProvider.getGroupMetadata({
-          groupId: claimRequest?.groupId,
-          timestamp: "latest",
-          revalidate: 60 * 60 * 12, // 12 hours
-        });
-      })
-    );
-  } catch (e) {
-    console.log(e);
-  }
-
-  return apps.map((app: ZkAppType) => {
-    return {
-      params: {
-        appSlug: app.slug,
-      },
-    };
-  });
+  return apps.map((app) => { return { app: [app.spaceSlug, app.slug]}})
 }
 
 // This function runs at build time on the server it generates the HTML metadata for each page
-export async function generateMetadata({
-  params,
-}: {
-  params: { appSlug: string; spaceSlug: string };
-}) {
+export async function generateMetadata({ params }: { params: { app: [string, string] } }) {
   let app: AppFront;
   let appImage;
   try {
-    const { appSlug, spaceSlug } = params;
-    app = await getAppFront({ appSlug: appSlug, spaceSlug: spaceSlug });
+    const { app: slug } = params;
+    app = await getAppFront({ spaceSlug: slug[0], appSlug: slug[1] });
 
     appImage = app.image;
     if (typeof appImage === "string") {
@@ -72,6 +52,7 @@ export async function generateMetadata({
     }
     if (!app) return notFound();
   } catch (e) {
+    console.log(e);
     notFound();
   }
 
@@ -96,13 +77,9 @@ export async function generateMetadata({
 }
 
 // This function runs at build time on the server it generates the HTML for each page
-export default async function SpacePage({
-  params,
-}: {
-  params: { appSlug: string; spaceSlug: string };
-}) {
-  const { appSlug, spaceSlug } = params;
-  const app = await getAppFront({ appSlug: appSlug, spaceSlug: spaceSlug });
+export default async function SpacePage({ params }: { params: { app: [string, string] } }) {
+  const { app: slug } = params;
+  const app = await getAppFront({ spaceSlug: slug[0], appSlug: slug[1] });
   const groupProvider = new GroupProvider({
     hubApiUrl: env.hubApiUrl,
   });
@@ -111,12 +88,13 @@ export default async function SpacePage({
   if (app && app?.claimRequests?.length > 0) {
     await Promise.all(
       app?.claimRequests?.map(async (claimRequest: ClaimRequest) => {
-        if (!groupMetadataList.find((el) => el.id === claimRequest?.groupId)) {
+        if (!groupMetadataList.find((el) => el?.id === claimRequest?.groupId)) {
           const metadata = await groupProvider.getGroupMetadata({
             groupId: claimRequest?.groupId,
             timestamp: "latest",
             revalidate: 60 * 60 * 12, // 12 hours
           });
+          console.log("FETCHING AT BUILD APP PAGE");
           groupMetadataList.push(metadata);
         }
       })

@@ -8,6 +8,8 @@ import Image from "next/image";
 import SpaceTag from "../SpaceTag";
 import Default from "@/src/assets/default.svg";
 import ZkBotApp from "@/src/components/Apps/ZkTelegramBotApp";
+import useRemainingTime from "@/src/utils/useRemainingTime";
+import { redirect } from "next/navigation";
 
 const Container = styled.div`
   flex-grow: 1;
@@ -133,8 +135,8 @@ type Props = {
 };
 
 export default function AppMain({ app, groupMetadataList }: Props) {
-  return (
-    <Container>
+
+    return (<Container>
       <Top>
         <ImageContainer>
           {app.image && app.name && (
@@ -154,18 +156,16 @@ export default function AppMain({ app, groupMetadataList }: Props) {
           {app.description && <Description>{app.description}</Description>}
         </TitleAndDescription>
       </Top>
-      {app.description && (
-        <DescriptionMobile>{app.description}</DescriptionMobile>
-      )}
+      {app.description && <DescriptionMobile>{app.description}</DescriptionMobile>}
       <Separator />
       <AppContainer>
-        {app?.type == "zkForm" && (
-          <ZkFormApp app={app} groupMetadataList={groupMetadataList} />
-        )}
+        {app?.type == "zkForm" && <ZkFormApp app={app} groupMetadataList={groupMetadataList} />}
         {app?.type == "zkTelegramBot" && (
           <ZkBotApp app={app} groupMetadataList={groupMetadataList} />
         )}
       </AppContainer>
     </Container>
   );
+
+
 }

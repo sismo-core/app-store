@@ -9,7 +9,6 @@ export const aaveChanInitiativeConfigMain: SpaceConfig = {
     description:
       "This Space is dedicated to the Aave-Chan Initiative (ACI - Aavechan.eth), a delegate platform. Aave users that delegated their governance power to ACI will get access to gifts and premium features.",
     profileImage: "space_aave_chan_initiative_pfp_400x400.png",
-    coverImage: "space_aave_chan_initiative_cover_1740x540.png",
     socialLinks: [
       {
         type: "twitter",
@@ -26,7 +25,7 @@ export const aaveChanInitiativeConfigMain: SpaceConfig = {
         description:
           "Enter your delivery address to claim your Aave-Chan Initiative Chads Swag - without doxxing your wallet 👀 Don't forget to share all your levels to get more swags!",
         tags: ["Swag"],
-        image: "aave_chan_initiative_apps_swag_1014x720.png",
+        image: "aave_chan_initiative_apps_swag_500x500.png",
         ctaText: "Claim your Swag",
         createdAt: new Date("2023-07-02T18:00"),
       },
@@ -113,7 +112,7 @@ export const aaveChanInitiativeConfigMain: SpaceConfig = {
       },
       options: {
         isFeatured: true,
-      }
+      },
     },
   ],
 };

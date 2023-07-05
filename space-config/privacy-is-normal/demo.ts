@@ -9,7 +9,6 @@ export const privacyIsNormalConfigDemo: SpaceConfig = {
     description:
       "This Space celebrates privacy as a fundamental human right. By proving you are a Tornado Cash user in a privacy-preserving manner and with a Gitcoin Passport, you were able to participate in our Sybil-resistant lottery. 10 winners have been selected to receive a printed ‘Privacy Is Normal’ artwork.",
     profileImage: "space_privacy_is_normal_pfp_400x400.png",
-    coverImage: "space_privacy_is_normal_cover_1740x540.png",
     socialLinks: [
       {
         type: "link",

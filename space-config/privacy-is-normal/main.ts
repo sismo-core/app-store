@@ -37,7 +37,7 @@ export const privacyIsNormalConfigMain: SpaceConfig = {
         description:
           "Enter the Sybil-resistant lottery to get a chance to be among the 10 lucky winners to receive the ‘Privacy Is Normal’ artwork.",
         tags: ["Artwork"],
-        image: "privacy_is_normal_apps_lotery_1014x720.png",
+        image: "privacy_is_normal_apps_lotery_500x500.png",
         ctaText: "Enter the Sybil-Resistant Lottery",
         createdAt: new Date("2022-07-01T00:00:00.000Z"),
       },
@@ -87,7 +87,7 @@ export const privacyIsNormalConfigMain: SpaceConfig = {
         description:
           "Check if you won in the lottery and enter your shipping address to receive the ‘Privacy Is Normal’ artwork - without doxxing your wallet 👀",
         tags: ["Artwork"],
-        image: "privacy_is_normal_apps_print_1014x720.png",
+        image: "privacy_is_normal_apps_print_500x500.png",
         ctaText: "Claim Your Artwork",
         slug: "artwork-claim",
         createdAt: new Date("2022-07-01T00:00:00.000Z"),

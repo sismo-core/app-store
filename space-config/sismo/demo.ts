@@ -37,7 +37,7 @@ export const sismoConfigDemo: SpaceConfig = {
         slug: "join-demo-sismo-builders-group",
         description:
           "Join our private Telegram Group ‘Sismo Builders’ - available to all members of the Sismo Community.",
-        image: "sismoapps_tg_zk_bot_1014x720.png",
+        image: "sismoapps_tg_zk_bot_500x500.png",
         tags: ["Telegram"],
         ctaText: "Join our Telegram Group",
         createdAt: new Date("2022-07-03T00:00:00.000Z"),
@@ -58,7 +58,7 @@ export const sismoConfigDemo: SpaceConfig = {
         name: "Newsletter Subscription",
         slug: "newsletter",
         description: "Register your email address to receive the Sismo newsletter - open to all.",
-        image: "sismoapps_newletter_1014x720.png",
+        image: "sismo_app_store_newletter_500x500.png",
         ctaText: "Subscribe to the Newsletter",
         tags: ["Newsletter"],
         createdAt: new Date("2022-07-01T00:00:00.000Z"),
@@ -98,7 +98,7 @@ export const sismoConfigDemo: SpaceConfig = {
         slug: "space-feedback",
         description:
           "Provide feedback to help us improve your Sismo Space experience and become a Sismo Contributor Level 1.",
-        image: "sismoapps_feedback_1014x720.png",
+        image: "sismo_app_store_feedback_500x500.png",
         tags: ["Feedback"],
         ctaText: "Give Feedback",
         createdAt: new Date("2022-07-01T00:00:00.000Z"),
@@ -166,7 +166,7 @@ export const sismoConfigDemo: SpaceConfig = {
         slug: "alpha-tester",
         description:
           "Register to become a Sismo Alpha Tester - open to Ethereum Power Users & ENS Domains Holders.",
-        image: "sismoapps_alpha_tester_1014x720.png",
+        image: "sismo_app_store_alpha_tester_500x500.png",
         tags: ["Alpha"],
         ctaText: "Become an Alpha Tester",
         createdAt: new Date("2022-07-01T00:00:00.000Z"),
@@ -214,8 +214,8 @@ export const sismoConfigDemo: SpaceConfig = {
         slug: "anon-wall",
         description:
           "Write a public message on the Sismo Contributors' Anon Wall - available to all members of the Sismo Community.",
-        tags: ["Feedback"],
-        image: "sismoapps_anon_wall_1014x720.png",
+        tags: ["Anon Wall"],
+        image: "sismo_app_store_anon_wall_500x500.png",
         ctaText: "Publish on Contributors' Anon Wall",
         createdAt: new Date("2022-07-01T00:00:00.000Z"),
       },
@@ -253,7 +253,7 @@ export const sismoConfigDemo: SpaceConfig = {
         slug: "event",
         description: "Pre-register to the future Sismo events - open to Sismo Contributors.",
         tags: ["Event"],
-        image: "sismoapps_sismo_events_1014x720.png",
+        image: "sismo_app_store_sismo_events_500x500.png",
         ctaText: "Pre-register to Sismo events",
         createdAt: new Date("2022-07-01T00:00:00.000Z"),
       },
@@ -298,7 +298,7 @@ export const sismoConfigDemo: SpaceConfig = {
         description:
           "Register to have a chance to be one of 10 lucky winners to get Sismo swag - open to Sismo GitHub Contributors.",
         tags: ["Swag"],
-        image: "sismoapps_swag_lotery_1014x720.png",
+        image: "sismo_app_store_swag_lotery_500x500.png",
         ctaText: "Participate in the Swag Lottery",
         createdAt: new Date("2022-07-01T00:00:00.000Z"),
       },
@@ -340,7 +340,7 @@ export const sismoConfigDemo: SpaceConfig = {
         description:
           "Future of France is an invitation-only event during EthCC week in Paris, organized by French-based crypto startups. The number of tickets is limited. Exclusive for members of Sismo Community Level 3.",
         tags: ["Event", "Ticket"],
-        image: "sismo_appstore_fof_tickets.png",
+        image: "sismo_app_store_fof_event_500x500.png",
         ctaText: "Register to get the Invite",
         createdAt: new Date("2023-07-03T18:00"),
       },

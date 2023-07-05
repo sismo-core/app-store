@@ -19,7 +19,7 @@ export const theMergeContributorsConfigDemo: SpaceConfig = {
         description:
           "Register your email address to receive exclusive tickets for web3 events - open to contributors to The Merge.",
         tags: ["Event"],
-        image: "EthCCtickets_1014x720px.png",
+        image: "apps_mergooor_EthCC_tickets_500x500.png",
         ctaText: "Register to get tickets",
         createdAt: new Date("2022-07-01T00:00:00.000Z"),
       },

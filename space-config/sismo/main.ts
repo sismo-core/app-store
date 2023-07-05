@@ -38,7 +38,7 @@ export const sismoConfigMain: SpaceConfig = {
         description:
           "Future of France is an invitation-only event during EthCC week in Paris, organized by French-based crypto startups. The number of tickets is limited. Exclusive for members of Sismo Community Level 3.",
         tags: ["Event", "Ticket"],
-        image: "sismo_appstore_fof_tickets.png",
+        image: "sismo_app_store_fof_event_500x500.png",
         ctaText: "Register to get the Invite",
         createdAt: new Date("2023-07-03T18:00"),
       },
@@ -105,7 +105,7 @@ export const sismoConfigMain: SpaceConfig = {
         slug: "join-citadel",
         description:
           "Sismo Citadel telegram chat was created specifically for our most active builders and closest friends. It is gated to Sismo Community level 3. Learn more about community levels: https://community.sismo.io.",
-        image: "sismoapps_tg_zk_bot_1014x720.png",
+        image: "sismoapps_tg_zk_bot_500x500.png",
         tags: ["Telegram"],
         ctaText: "Join Gated Telegram Chat",
         createdAt: new Date("2023-07-01T18:00"),

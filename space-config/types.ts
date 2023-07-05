@@ -34,7 +34,6 @@ type AppCommonConfig = {
     name: string; // 40 characters max
     slug: string;
     description: string; // 200 characters max
-    innerDescription?: string; 
     image: string; // 550x390px can be an url or local file
     tags: string[];
     createdAt: Date;

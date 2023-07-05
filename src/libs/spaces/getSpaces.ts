@@ -18,7 +18,6 @@ export function getSpaces(): SpaceType[] {
         name: appConfig.metadata.name,
         slug: appConfig.metadata.slug,
         description: appConfig.metadata.description,
-        innerDescription: appConfig.metadata.innerDescription,
         image: appConfig.metadata.image,
         tags: appConfig.metadata.tags,
         claimRequests: appConfig.sismoConnectRequest.claimRequests,

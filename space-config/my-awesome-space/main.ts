@@ -3,7 +3,7 @@ import { AuthType, ClaimType } from "@sismo-core/sismo-connect-server";
 import { SpaceConfig } from "../types";
 
 //           UPDATE HERE ↓↓↓
-export const myNewSpaceConfigMain : SpaceConfig = {
+export const myAwesomeSpaceConfigMain: SpaceConfig = {
   metadata: {
     slug: "aaa-my-new-space", // UPDATE HERE
     name: "My New Space", // UPDATE HERE
@@ -28,6 +28,6 @@ export const myNewSpaceConfigMain : SpaceConfig = {
         link: "https://github.com/sismo-core", // UPDATE HERE
       },
     ],
-  }, 
-  apps: []
+  },
+  apps: [],
 };

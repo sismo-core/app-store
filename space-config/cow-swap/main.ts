@@ -9,7 +9,6 @@ export const cowSwapConfigMain: SpaceConfig = {
     description:
       "This Space is dedicated to Cow Swap, a DEX aggregator. Cow Traders and Holders will get access to gifts and premium features.",
     profileImage: "space_cow_swap_pfp_500x500.png",
-    coverImage: "space_cow_swap_pfp_500x500.png",
     socialLinks: [
       {
         type: "link",
@@ -55,9 +54,6 @@ export const cowSwapConfigMain: SpaceConfig = {
             isOptional: true,
             value: 3,
           },
-        ],
-        impersonateAddresses: [
-          "0x7a3dac8cb57b8cc6b5e703df00f543859b530054"
         ],
       },
       templateConfig: {
@@ -110,9 +106,6 @@ export const cowSwapConfigMain: SpaceConfig = {
             groupId: "0x34dba00caed5fbe69db7313adebf1eaf",
             value: 1,
           },
-        ],
-        impersonateAddresses: [
-          "0x7a3dac8cb57b8cc6b5e703df00f543859b530054"
         ],
       },
       templateConfig: {

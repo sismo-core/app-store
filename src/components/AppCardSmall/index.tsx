@@ -8,10 +8,10 @@ import { getHumanReadableRemainingTimeTag } from "@/src/utils/getHumanReadableTi
 import SpaceTag from "../SpaceTag";
 import { useState } from "react";
 import { AppFront } from "@/src/utils/getSpaceConfigsFront";
-import { useRouter } from "next/navigation";
 import Default from "@/src/assets/default.svg";
 import colors from "@/src/themes/colors";
 import { ExternalAppType, ZkDropAppType, Lottery } from "@/src/libs/spaces";
+import Link from "next/link";
 
 const CardContainer = styled.div<{ $isSeparator: boolean }>`
   position: relative;
@@ -38,7 +38,7 @@ const CardContainer = styled.div<{ $isSeparator: boolean }>`
   }
 `;
 
-const Container = styled.div<{ $isDisabled: boolean; $isHovered: boolean }>`
+const Container = styled(Link)<{ $isDisabled: boolean; $isHovered: boolean }>`
   position: relative;
   display: flex;
   align-items: center;
@@ -52,6 +52,7 @@ const Container = styled.div<{ $isDisabled: boolean; $isHovered: boolean }>`
   transition: background-color ${({ theme }) => theme.animations.transition},
     transform ${({ theme }) => theme.animations.transition};
   cursor: ${({ $isDisabled }) => ($isDisabled ? "default" : "pointer")};
+  pointer-events: ${({ $isDisabled }) => ($isDisabled ? "none" : "auto")};
 
   transition: transform ${({ theme }) => theme.animations.transition};
   transform: ${({ $isHovered }) => ($isHovered ? "scale(1.01)" : "scale(1)")};
@@ -82,9 +83,7 @@ const StyledImage = styled(Image)<{ $isHovered: boolean }>`
   object-fit: cover;
   transition: filter ${({ theme }) => theme.animations.transition};
   filter: ${({ $isHovered }) =>
-    $isHovered
-      ? "brightness(1.04) contrast(1.05)"
-      : "brightness(1) contrast(1)"};
+    $isHovered ? "brightness(1.04) contrast(1.05)" : "brightness(1) contrast(1)"};
 
   @media (max-width: 900px) {
     filter: none;
@@ -255,16 +254,13 @@ type Props = {
   isSeparator?: boolean;
 };
 
-export default function AppCardLarge({
-  app,
-  className,
-  isSeparator,
-}: Props): JSX.Element {
+export default function AppCardLarge({ app, className, isSeparator }: Props): JSX.Element {
   const [isHovered, setIsHovered] = useState(false);
-  const router = useRouter();
 
-  const { remainingStartTime, remainingEndTime, hasStarted, hasEnded } =
-    useRemainingTime({ startDate: app?.startDate, endDate: app?.endDate });
+  const { remainingStartTime, remainingEndTime, hasStarted, hasEnded } = useRemainingTime({
+    startDate: app?.startDate,
+    endDate: app?.endDate,
+  });
 
   const isDisabled = hasEnded;
 
@@ -273,15 +269,16 @@ export default function AppCardLarge({
     (app as unknown as ZkDropAppType)?.userSelection?.type == "Lottery" &&
     ((app as unknown as ZkDropAppType)?.userSelection as Lottery)?.maxNumberOfEntries;
 
-  const link = app?.type === "external" ? (app as unknown as ExternalAppType)?.link : `/${app.spaceSlug}/${app.slug}`;
+  const link =
+    app?.type === "external"
+      ? (app as unknown as ExternalAppType)?.link
+      : `/${app.spaceSlug}/${app.slug}`;
 
   if (app)
     return (
       <CardContainer $isSeparator={isSeparator}>
         <Container
-          onClick={() => {
-            !isDisabled && router.push(link);
-          }}
+          href={link}
           $isDisabled={isDisabled}
           className={className}
           onMouseEnter={() => setIsHovered(true)}
@@ -327,13 +324,9 @@ export default function AppCardLarge({
                       )}
                     </AppTitle>
                   )}
-                  {app.configImage && app.space && (
-                    <SpaceTag app={app} isDisabled={isDisabled} />
-                  )}
+                  {app.configImage && app.space && <SpaceTag app={app} isDisabled={isDisabled} />}
                   {app.description && (
-                    <Description $isDisabled={isDisabled}>
-                      {app.description}
-                    </Description>
+                    <Description $isDisabled={isDisabled}>{app.description}</Description>
                   )}
                 </DescriptionContainer>
               </TitleAndDescription>
@@ -375,10 +368,7 @@ export default function AppCardLarge({
                   )}
                   {app.tags?.length > 0 &&
                     app.tags.map((tag) => (
-                      <StyledAppTag
-                        key={tag}
-                        $isHovered={isHovered && !hasEnded}
-                      >
+                      <StyledAppTag key={tag} $isHovered={isHovered && !hasEnded}>
                         {tag}
                       </StyledAppTag>
                     ))}

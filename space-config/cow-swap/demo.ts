@@ -56,7 +56,7 @@ export const cowSwapConfigDemo: SpaceConfig = {
           },
         ],
         impersonateAddresses: [
-          "0x7a3dac8cb57b8cc6b5e703df00f543859b530054"
+          "0xb18e3bf33365fd2466c2e99b181e527a165c210c"
         ],
       },
       templateConfig: {
@@ -112,7 +112,7 @@ export const cowSwapConfigDemo: SpaceConfig = {
           },
         ],
         impersonateAddresses: [
-          "0x7a3dac8cb57b8cc6b5e703df00f543859b530054"
+          "0xb18e3bf33365fd2466c2e99b181e527a165c210c"
         ],
       },
       templateConfig: {

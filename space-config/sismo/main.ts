@@ -1,4 +1,3 @@
-import { initAppDataSource } from "../../src/libs/user-store/postgres-user-store/initAppDataSource";
 // add an images folder in your space folder if you would like Sismo to host your images
 import { AuthType } from "@sismo-core/sismo-connect-server";
 import { SpaceConfig } from "../types";
@@ -39,7 +38,7 @@ export const sismoConfigMain: SpaceConfig = {
           "Future of France is an invitation-only event during EthCC week in Paris, organized by French-based crypto startups. The number of tickets is limited. Exclusive for members of Sismo Community Level 3.",
         tags: ["Event", "Ticket"],
         image: "sismo_appstore_fof_tickets.png",
-        ctaText: "Register to get the Invite",
+
         createdAt: new Date("2023-07-03T18:00"),
       },
       sismoConnectRequest: {
@@ -48,6 +47,7 @@ export const sismoConfigMain: SpaceConfig = {
         claimRequests: [{ groupId: "0xd630aa769278cacde879c5c0fe5d203c", value: 3 }],
       },
       templateConfig: {
+        step2CtaText: "Register to get the Invite",
         fields: [
           {
             type: "short-text",
@@ -107,7 +107,6 @@ export const sismoConfigMain: SpaceConfig = {
           "Sismo Citadel telegram chat was created specifically for our most active builders and closest friends. It is gated to Sismo Community level 3. Learn more about community levels: https://community.sismo.io.",
         image: "sismoapps_tg_zk_bot_1014x720.png",
         tags: ["Telegram"],
-        ctaText: "Join Gated Telegram Chat",
         createdAt: new Date("2023-07-01T18:00"),
       },
       sismoConnectRequest: {
@@ -115,6 +114,7 @@ export const sismoConfigMain: SpaceConfig = {
         claimRequests: [{ groupId: "0xd630aa769278cacde879c5c0fe5d203c", value: 3 }],
       },
       templateConfig: {
+        step2CtaText: "Join Gated Telegram Chat",
         telegramGroupId: "-1001930531830",
         telegramInviteLink: "https://t.me/+5oMohki7dhgwNDJi",
       },
@@ -128,7 +128,6 @@ export const sismoConfigMain: SpaceConfig = {
           "Enter the Lottery to get a chance to receive an Invite for Future of France, an invitation-only event during EthCC week in Paris, organized by French-based crypto startups.",
         tags: ["Event", "Ticket"],
         image: "sismo_appstore_fof_tickets.png",
-        ctaText: "Enter the Lottery",
         createdAt: new Date("2023-07-03T18:00"),
       },
       sismoConnectRequest: {
@@ -137,6 +136,7 @@ export const sismoConfigMain: SpaceConfig = {
         claimRequests: [{ groupId: "0x1cde61966decb8600dfd0749bd371f12", value: 15 }],
       },
       templateConfig: {
+        step2CtaText: "Enter the Lottery",
         fields: [
           {
             type: "short-text",

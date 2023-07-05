@@ -1,10 +1,9 @@
 import env from "@/src/environments";
 import { SismoConnectButton } from "@sismo-core/sismo-connect-react";
-import React, { useEffect, useState } from "react";
 import { useMemo } from "react";
 import { styled } from "styled-components";
 import ReqList from "./ReqList";
-import { GroupMetadata } from "@/src/libs/group-provider";
+import { GroupSnapshotMetadata } from "@/src/libs/group-provider";
 import { LockSimpleOpen } from "phosphor-react";
 import { AppFront } from "@/src/utils/getSpaceConfigsFront";
 import { getImpersonateAddresses } from "@/src/utils/getImpersonateAddresses";
@@ -39,13 +38,13 @@ const ButtonContainer = styled.div`
 
 type Props = {
   app: AppFront;
-  groupMetadataList: GroupMetadata[];
+  groupSnapshotMetadataList: GroupSnapshotMetadata[];
   verifying?: boolean;
 };
 
 export default function ProveEligibility({
   app,
-  groupMetadataList,
+  groupSnapshotMetadataList,
   verifying,
 }: Props): JSX.Element {
   const pathname = usePathname();
@@ -70,7 +69,7 @@ export default function ProveEligibility({
           Requirements
         </RequirementTitle>
         <Eligibility style={{ marginBottom: 24 }}>
-          <ReqList app={app} groupMetadataList={groupMetadataList} />
+          <ReqList app={app} groupSnapshotMetadataList={groupSnapshotMetadataList} />
         </Eligibility>
         <ButtonContainer>
           {(app?.claimRequests || app?.authRequests) && (

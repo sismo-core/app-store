@@ -19,7 +19,6 @@ export const theMergeContributorsConfigMain: SpaceConfig = {
         description: "Claim your Mergooor Pass NFT - open to contributors to The Merge.",
         tags: ["NFT"],
         image: "Mergooor_NFT_1014x720px.png",
-        ctaText: "Get NFT",
         createdAt: new Date("2022-07-01T00:00:00.000Z"),
       },
       sismoConnectRequest: {
@@ -43,7 +42,6 @@ export const theMergeContributorsConfigMain: SpaceConfig = {
           "Register your email address to receive exclusive tickets for web3 events - open to contributors to The Merge.",
         tags: ["Event"],
         image: "EthCCtickets_1014x720px.png",
-        ctaText: "Register to get tickets",
         createdAt: new Date("2022-07-01T00:00:00.000Z"),
       },
       sismoConnectRequest: {
@@ -52,6 +50,7 @@ export const theMergeContributorsConfigMain: SpaceConfig = {
         claimRequests: [{ groupId: "0x42c768bb8ae79e4c5c05d3b51a4ec74a" }], // Mergooor contributor groupID "0x42c768bb8ae79e4c5c05d3b51a4ec74a"
       },
       templateConfig: {
+        step2CtaText: "Register to get tickets",
         fields: [
           {
             type: "short-text",

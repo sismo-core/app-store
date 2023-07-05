@@ -5,15 +5,16 @@ import { styled } from "styled-components";
 import Button3D from "@/src/ui/Button3D";
 import Register, { FieldValue } from "./components/Register";
 import Congratulations from "./components/Congratulations";
-import { GroupMetadata } from "@/src/libs/group-provider";
+import { GroupSnapshotMetadata } from "@/src/libs/group-provider";
 import { AppFront } from "@/src/utils/getSpaceConfigsFront";
 import Section from "../components/Section";
 import ProveEligibility from "../components/ProveEligibility";
 import { ZkFormAppType } from "@/src/libs/spaces";
-import {  useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useSismoConnect } from "@sismo-core/sismo-connect-react";
 import { getImpersonateAddresses } from "@/src/utils/getImpersonateAddresses";
 import env from "@/src/environments";
+import Error from "@/src/ui/Error";
 
 const Content = styled.div`
   width: 580px;
@@ -55,11 +56,11 @@ const AlreadyRegistered = styled.div`
 `;
 
 type Props = {
-  groupMetadataList: GroupMetadata[];
+  groupSnapshotMetadataList: GroupSnapshotMetadata[];
   app: AppFront;
 };
 
-export default function ZkFormApp({ app, groupMetadataList }: Props): JSX.Element {
+export default function ZkFormApp({ app, groupSnapshotMetadataList }: Props): JSX.Element {
   const [error, setError] = useState(null);
   const [alreadySubscribed, setAlreadySubscribed] = useState(false);
   const [subscribed, setSubscribed] = useState(false);
@@ -111,7 +112,6 @@ export default function ZkFormApp({ app, groupMetadataList }: Props): JSX.Elemen
 
   const hasResponse = Boolean(response);
 
-
   return (
     <Content>
       {subscribed ? (
@@ -130,7 +130,7 @@ export default function ZkFormApp({ app, groupMetadataList }: Props): JSX.Elemen
             style={{ marginBottom: 16 }}
             success={hasResponse}
           >
-            <ProveEligibility app={app} groupMetadataList={groupMetadataList} />
+            <ProveEligibility app={app} groupSnapshotMetadataList={groupSnapshotMetadataList} />
           </Section>
           <Section
             number={2}
@@ -142,6 +142,8 @@ export default function ZkFormApp({ app, groupMetadataList }: Props): JSX.Elemen
               <AlreadyRegistered style={{ marginTop: 24 }}>
                 You already registered.
               </AlreadyRegistered>
+            ) : error ? (
+              <Error style={{ marginTop: 24 }}>{error}</Error>
             ) : (
               <Register
                 app={app as unknown as ZkFormAppType}
@@ -152,7 +154,12 @@ export default function ZkFormApp({ app, groupMetadataList }: Props): JSX.Elemen
           {hasResponse && (
             <Bottom>
               {alreadySubscribed ? (
-                <Button3D onClick={() => {router.push("/")}} secondary>
+                <Button3D
+                  onClick={() => {
+                    router.push("/");
+                  }}
+                  secondary
+                >
                   Back to the Apps
                 </Button3D>
               ) : (
@@ -165,7 +172,6 @@ export default function ZkFormApp({ app, groupMetadataList }: Props): JSX.Elemen
                   {verifying ? "Verifying..." : "Submit"}
                 </Button3D>
               )}
-              <ErrorMsg>{error}</ErrorMsg>
             </Bottom>
           )}
         </>

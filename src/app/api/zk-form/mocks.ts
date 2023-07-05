@@ -26,7 +26,6 @@ export const mockZkFormTestApp1 = (appSlug: string = "zkFormAppSlug"): AppConfig
       description: "Test Description",
       tags: ["Artwork"],
       image: "",
-      ctaText: "claim",
       slug: appSlug,
       createdAt: new Date("2022-07-01T00:00:00.000Z"),
     },
@@ -45,6 +44,7 @@ export const mockZkFormTestApp1 = (appSlug: string = "zkFormAppSlug"): AppConfig
       ],
     },
     templateConfig: {
+      step2CtaText: "claim",
       fields: [
         {
           type: "short-text",
@@ -85,7 +85,6 @@ export const mockZkFormTestApp2 = (appSlug: string = "zkFormAppSlug2"): AppConfi
       description: "Test Description",
       tags: ["Artwork"],
       image: "",
-      ctaText: "claim",
       slug: appSlug,
       createdAt: new Date("2022-07-01T00:00:00.000Z"),
     },
@@ -129,6 +128,7 @@ export const mockZkFormTestApp2 = (appSlug: string = "zkFormAppSlug2"): AppConfi
       ],
     },
     templateConfig: {
+      step2CtaText: "claim",
       fields: [
         {
           type: "short-text",

@@ -3,7 +3,7 @@ import { ClaimRequest } from "@sismo-core/sismo-connect-server";
 import { notFound } from "next/navigation";
 import { ZkAppType, getSpaces } from "@/src/libs/spaces";
 import getAppFront from "@/src/utils/getAppFront";
-import { GroupMetadata, GroupProvider } from "@/src/libs/group-provider";
+import { GroupProvider, GroupSnapshotMetadata } from "@/src/libs/group-provider";
 import AppMain from "@/src/components/AppMain";
 import { AppFront } from "@/src/utils/getSpaceConfigsFront";
 
@@ -84,21 +84,20 @@ export default async function SpacePage({ params }: { params: { app: [string, st
     hubApiUrl: env.hubApiUrl,
   });
 
-  const groupMetadataList: GroupMetadata[] = [];
+  const groupSnapshotMetadataList: GroupSnapshotMetadata[] = [];
   if (app && app?.claimRequests?.length > 0) {
     await Promise.all(
       app?.claimRequests?.map(async (claimRequest: ClaimRequest) => {
-        if (!groupMetadataList.find((el) => el?.id === claimRequest?.groupId)) {
-          const metadata = await groupProvider.getGroupMetadata({
+        if (!groupSnapshotMetadataList.find((el) => el?.id === claimRequest?.groupId)) {
+          const metadata = await groupProvider.getGroupSnapshotMetadata({
             groupId: claimRequest?.groupId,
             timestamp: "latest",
-            revalidate: 60 * 60 * 12, // 12 hours
           });
-          groupMetadataList.push(metadata);
+          groupSnapshotMetadataList.push(metadata);
         }
       })
     );
   }
 
-  return <AppMain app={app} groupMetadataList={groupMetadataList} />;
+  return <AppMain app={app} groupSnapshotMetadataList={groupSnapshotMetadataList} />;
 }

@@ -103,7 +103,6 @@ describe("POST /api/zk-form/verify", () => {
   it("Should try with an other more complex app", async () => {
     const response = await POST(mockZkFormTestAppRequest2());
     const data = await response.json();
-    console.log("data", data);
     expect(data.status).toEqual("subscribed");
     expect(memoryTableStore.getTable("testSpreadsheetId2")).toEqual([
       // first row is the header

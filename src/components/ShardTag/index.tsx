@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { ClaimRequest, ClaimType } from "@sismo-core/sismo-connect-react";
 import colors from "@/src/themes/colors";
 import { textShorten } from "@/src/utils/textShorten";
-import { GroupMetadata } from "@/src/libs/group-provider";
+import { GroupSnapshotMetadata } from "@/src/libs/group-provider";
 
 const OuterContainer = styled.div<{ fullWidth: boolean }>`
   display: flex;
@@ -74,14 +74,14 @@ const InfoWrapper = styled.div`
 
 type Props = {
   claimRequest: ClaimRequest;
-  groupMetadata: GroupMetadata;
+  groupSnapshotMetadata: GroupSnapshotMetadata;
   fullWidth?: boolean;
   onModal?: (isOpen: boolean) => void
 };
 
 export default function ShardTag({
   claimRequest,
-  groupMetadata,
+  groupSnapshotMetadata,
   fullWidth,
   onModal
 }: 
@@ -92,7 +92,7 @@ Props) {
   const requestedValue = claimRequest?.value ?? 1;
   const claimType = claimRequest?.claimType ?? ClaimType.GTE;
 
-  const humanReadableGroupName = groupMetadata?.name
+  const humanReadableGroupName = groupSnapshotMetadata?.name
     ?.replace(/-/g, " ")
     .replace(/\w\S*/g, (w) => w.replace(/^\w/, (c) => c.toUpperCase()));
 

@@ -18,9 +18,9 @@ export function getSpaces(): SpaceType[] {
         name: appConfig.metadata.name,
         slug: appConfig.metadata.slug,
         description: appConfig.metadata.description,
+        innerDescription: appConfig.metadata.innerDescription,
         image: appConfig.metadata.image,
         tags: appConfig.metadata.tags,
-        ctaText: appConfig.metadata.ctaText,
         claimRequests: appConfig.sismoConnectRequest.claimRequests,
         authRequests: appConfig.sismoConnectRequest.authRequests,
         impersonateAddresses: appConfig.sismoConnectRequest.impersonateAddresses,
@@ -50,6 +50,8 @@ export function getSpaces(): SpaceType[] {
           userSelection: appConfig.templateConfig.userSelection,
           output: appConfig.templateConfig.output.destination.type,
           spreadsheetId: appConfig.templateConfig.output.destination.spreadsheetId,
+          ctaText: appConfig.templateConfig.step2CtaText,
+          appDescription: appConfig.templateConfig.appDescription,
         } as ZkFormAppType);
       } else if (appConfig.type === "zkTelegramBot") {
         apps.push({
@@ -58,6 +60,8 @@ export function getSpaces(): SpaceType[] {
           authRequests: appConfig.sismoConnectRequest.authRequests ?? [
             { authType: AuthType.TELEGRAM },
           ],
+          ctaText: appConfig.templateConfig.step2CtaText,
+          appDescription: appConfig.templateConfig.appDescription,
           telegramGroupId: appConfig.templateConfig.telegramGroupId,
           telegramInviteLink: appConfig.templateConfig.telegramInviteLink,
         } as ZkTelegramBotAppType);

@@ -38,7 +38,6 @@ export const privacyIsNormalConfigMain: SpaceConfig = {
           "Enter the Sybil-resistant lottery to get a chance to be among the 10 lucky winners to receive the ‘Privacy Is Normal’ artwork.",
         tags: ["Artwork"],
         image: "privacy_is_normal_apps_lotery_1014x720.png",
-        ctaText: "Enter the Sybil-Resistant Lottery",
         createdAt: new Date("2022-07-01T00:00:00.000Z"),
       },
       sismoConnectRequest: {
@@ -56,6 +55,7 @@ export const privacyIsNormalConfigMain: SpaceConfig = {
         ],
       },
       templateConfig: {
+        step2CtaText: "Enter the Sybil-Resistant Lottery",
         fields: [
           {
             type: "short-text",
@@ -88,7 +88,6 @@ export const privacyIsNormalConfigMain: SpaceConfig = {
           "Check if you won in the lottery and enter your shipping address to receive the ‘Privacy Is Normal’ artwork - without doxxing your wallet 👀",
         tags: ["Artwork"],
         image: "privacy_is_normal_apps_print_1014x720.png",
-        ctaText: "Claim Your Artwork",
         slug: "artwork-claim",
         createdAt: new Date("2022-07-01T00:00:00.000Z"),
       },
@@ -98,6 +97,7 @@ export const privacyIsNormalConfigMain: SpaceConfig = {
         claimRequests: [{ groupId: "0xa199ee8b75688035fb40f8660adbcdac" }],
       },
       templateConfig: {
+        step2CtaText: "Claim Your Artwork",
         fields: [
           {
             type: "short-text",

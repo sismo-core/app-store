@@ -6,12 +6,12 @@ import Congratulations from "./components/Congratulations";
 import Section from "./components/Section";
 import ProveEligibility from "./components/ProveEligibility";
 import Button from "@/src/ui/Button";
-import CustomAppContainer from "@/src/components/CustomAppContainer";
 import { ZkCustomAppConfig } from "@/space-config/types";
 import Button3D from "@/src/ui/Button3D";
 import { useRouter } from "next/navigation";
 import { worldcoinConfigMain } from "../main";
 import { CredentialType, IDKitWidget } from "@worldcoin/idkit";
+import { ZkCustomAppContainer } from "@/src/components/ZkCustomAppContainer";
 
 const Title = styled.div`
     margin-bottom: 16px;
@@ -57,7 +57,7 @@ const ErrorMsg = styled.div`
     font-family: ${props => props.theme.fonts.regular};
 `
 
-export default function ProofOfPersonhoodCustomApp(): JSX.Element {
+export default function WorldcoinProofOfPersonhoodCustomApp(): JSX.Element {
     const router = useRouter();
     const app = worldcoinConfigMain.apps[0] as ZkCustomAppConfig;
     const api = app.templateConfig.extraData.api;
@@ -131,16 +131,9 @@ export default function ProofOfPersonhoodCustomApp(): JSX.Element {
 
     if (!domReady) return;
 
-    return <CustomAppContainer>
-        <Content>
+    return <ZkCustomAppContainer>
             {
                 !finished && <>
-                    <Title>
-                        {app?.metadata?.name}
-                    </Title>
-                    <Description>
-                        {app?.metadata?.description}
-                    </Description>
                     <Section number={1} isOpen={!sismoResponse} title="Sign in with Sismo" style={{marginBottom: 16}} success={Boolean(sismoResponse)}>
                         <ProveEligibility app={app} onEligible={(_response) => setSismoResponse(_response)}/>
                     </Section>
@@ -172,19 +165,17 @@ export default function ProofOfPersonhoodCustomApp(): JSX.Element {
                             </>
                         }
                     </Section>
-                    {/* {
-                        alreadySubscribed &&  */}
+                    {Boolean(sismoResponse) && 
                         <Bottom>
                             <Button3D onClick={() => redirect ? window.location.href = redirect : router.push("/synaps")} secondary>
                                 { redirect ? "Back to the Vault App" : "Back to the space" }
                             </Button3D>
                         </Bottom>
-                    {/* } */}
+                    }
                 </>
             }
             {
                 finished && <Congratulations app={app}/>
             }
-        </Content>
-    </CustomAppContainer>;
+    </ZkCustomAppContainer>;
 }

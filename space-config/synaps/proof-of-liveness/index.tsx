@@ -8,24 +8,11 @@ import ProveEligibility from "./components/ProveEligibility";
 import Button from "@/src/ui/Button";
 import SynapsModal from "./components/SynapsModal";
 import { synapsConfigMain } from "@/space-config/synaps/main";
-import CustomAppContainer from "@/src/components/CustomAppContainer";
 import { ZkCustomAppConfig } from "@/space-config/types";
 import Button3D from "@/src/ui/Button3D";
 import { useRouter } from "next/navigation";
+import { ZkCustomAppContainer } from "@/src/components/ZkCustomAppContainer";
 
-const Title = styled.div`
-    margin-bottom: 16px;
-    font-family: ${props => props.theme.fonts.semibold};
-    color: ${props => props.theme.colors.neutral1};
-    font-size: 32px;
-`
-
-const Description = styled.div`
-    margin-bottom: 32px;
-    font-family: ${props => props.theme.fonts.regular};
-    color: ${props => props.theme.colors.neutral3};
-    font-size: 16px;
-`
 
 const AlreadyRegistered = styled.div`
     color: ${props => props.theme.colors.neutral1};
@@ -38,10 +25,6 @@ const AlreadyRegistered = styled.div`
     align-items: center;
     justify-content: center;
     border-radius: 4px;
-`
-
-const Content = styled.div`
-    max-width: 580px;
 `
 
 const Bottom = styled.div`
@@ -57,7 +40,7 @@ const ErrorMsg = styled.div`
     font-family: ${props => props.theme.fonts.regular};
 `
 
-export default function ProofOfLivenessCustomApp(): JSX.Element {
+export default function SynapsProofOfLivenessCustomApp(): JSX.Element {
     const app = synapsConfigMain.apps[0] as ZkCustomAppConfig;
     const router = useRouter();
     const api = app.templateConfig.extraData.api;
@@ -119,17 +102,11 @@ export default function ProofOfLivenessCustomApp(): JSX.Element {
 
     if (!domReady) return;
 
-    return <CustomAppContainer>
+    return <>
         <SynapsModal sessionId={sessionId} isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onFinish={() => onFinish()}/>
-        <Content>
+        <ZkCustomAppContainer>
             {
                 !finished && <>
-                    <Title>
-                        {app?.metadata?.name}
-                    </Title>
-                    <Description>
-                        {app?.metadata?.description}
-                    </Description>
                     <Section number={1} isOpen={!response} title="Sign in with Sismo" style={{marginBottom: 16}} success={Boolean(response)}>
                         <ProveEligibility app={app} onEligible={(_response) => setResponse(_response)}/>
                     </Section>
@@ -166,6 +143,6 @@ export default function ProofOfLivenessCustomApp(): JSX.Element {
             {
                 finished && <Congratulations app={app}/>
             }
-        </Content>
-    </CustomAppContainer>;
+        </ZkCustomAppContainer>
+    </>;
 }

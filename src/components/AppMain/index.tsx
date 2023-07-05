@@ -8,6 +8,7 @@ import Image from "next/image";
 import SpaceTag from "../SpaceTag";
 import Default from "@/src/assets/default.svg";
 import ZkBotApp from "@/src/components/Apps/ZkTelegramBotApp";
+import { zkCustomApps } from "@/space-config/zk-custom-apps";
 
 const Container = styled.div`
   flex-grow: 1;
@@ -165,6 +166,11 @@ export default function AppMain({ app, groupMetadataList }: Props) {
         {app?.type == "zkTelegramBot" && (
           <ZkBotApp app={app} groupMetadataList={groupMetadataList} />
         )}
+        {
+          app?.type == "zkCustom" && (
+            zkCustomApps[app.spaceSlug][app.slug]
+          )
+        }
       </AppContainer>
     </Container>
   );

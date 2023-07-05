@@ -73,7 +73,6 @@ export default function ProveEligibility({
           auths={[{ authType: AuthType.VAULT }]}
           callbackUrl={window.location.href}
           onResponse={(response) => {
-            console.log("response", response)
             response && onEligible(response);
           }}
         />

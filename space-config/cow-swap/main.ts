@@ -36,9 +36,9 @@ export const cowSwapConfigMain: SpaceConfig = {
         slug: "cow-swag",
         name: "Cow Swag Claim",
         description:
-          "Enter your email to claim your Cow Swag during EthCC week in Paris - without doxxing your wallet 👀 Exclusively for Cow Traders & Holders Level 2 (Water flask) and Level 3 (Water Flask + Backpack).",
+          "Prove you are a Cow Trader or Holder to claim your Cow Swag, during EthCC week in Paris. Exclusive for Level 2 (Water Flask) and Level 3 (Water Flask + Backpack).",
         tags: ["Swag"],
-        image: "space_cow_swap_pfp_500x500.png",
+        image: "cowswap_app_store_cow_swag_400x400.png",
         ctaText: "Claim your Swag",
         createdAt: new Date("2023-07-04T18:00"),
       },
@@ -47,11 +47,11 @@ export const cowSwapConfigMain: SpaceConfig = {
         authRequests: [{ authType: AuthType.VAULT }],
         claimRequests: [
           {
-            groupId: "0x34dba00caed5fbe69db7313adebf1eaf",
+            groupId: "0x70c30e9a9abdb5fd41ba9e9cb7f50173",
             value: 2,
           },
           {
-            groupId: "0x34dba00caed5fbe69db7313adebf1eaf",
+            groupId: "0x70c30e9a9abdb5fd41ba9e9cb7f50173",
             isOptional: true,
             value: 3,
           },
@@ -75,7 +75,7 @@ export const cowSwapConfigMain: SpaceConfig = {
         ],
         congratulationsMessage: {
           title: "Congratulations!",
-          description: "You will receive an email soon to show at EthCC to get your Cow Swag 💜",
+          description: "Swags are given on a first come first serve basis. Come to our booth and tell us your name/pseudonym to claim your Swag 🎒",
         },
         output: {
           destination: {
@@ -88,6 +88,7 @@ export const cowSwapConfigMain: SpaceConfig = {
       },
       options: {
         isFeatured: true,
+        endDate: new Date("2023-07-19T18:00Z"),
       },
     },
     {
@@ -96,9 +97,9 @@ export const cowSwapConfigMain: SpaceConfig = {
         slug: "cow-event",
         name: "Cow Event Invitation",
         description:
-          "Cow Event is an invitation-only event during EthCC week in Paris, organized by Cow Swap. The number of tickets is limited. Exclusive for Cow Traders and Holders.",
+          "Prove you are a Cow Trader or Holder to register to an invitation-only event organized by Cow Swap, during EthCC week in Paris.",
         tags: ["Event", "Ticket"],
-        image: "space_cow_swap_pfp_500x500.png",
+        image: "cowswap_app_store_cow_event_400x400.png",
         ctaText: "Register to get your Ticket",
         createdAt: new Date("2023-07-04T18:00"),
       },
@@ -107,7 +108,7 @@ export const cowSwapConfigMain: SpaceConfig = {
         authRequests: [{ authType: AuthType.VAULT }],
         claimRequests: [
           {
-            groupId: "0x34dba00caed5fbe69db7313adebf1eaf",
+            groupId: "0x70c30e9a9abdb5fd41ba9e9cb7f50173",
             value: 1,
           },
         ],
@@ -130,11 +131,7 @@ export const cowSwapConfigMain: SpaceConfig = {
         ],
         congratulationsMessage: {
           title: "Congratulations!",
-          description: "You will receive the ticket in a few days! See you there 💜",
-        },
-        failedMessage: {
-          title: "Sorry, too late this time 😕",
-          description: "Stay in touch for the next one 💜",
+          description: "Tickets are processed on a first come first serve basis. You will receive an email update in a few days! See you there 💜",
         },
         output: {
           destination: {
@@ -146,6 +143,7 @@ export const cowSwapConfigMain: SpaceConfig = {
       },
       options: {
         isFeatured: true,
+        endDate: new Date("2023-07-19T18:00Z"),
       },
     },
   ],

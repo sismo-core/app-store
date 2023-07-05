@@ -86,7 +86,6 @@ export const cowSwapConfigDemo: SpaceConfig = {
         },
       },
       options: {
-        isFeatured: true,
         endDate: new Date("2023-07-19T18:00Z"),
       },
     },

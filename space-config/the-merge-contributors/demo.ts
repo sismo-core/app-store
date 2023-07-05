@@ -29,7 +29,6 @@ export const theMergeContributorsConfigDemo: SpaceConfig = {
       },
       templateConfig: {
         step2CtaText: "Register to get tickets",
-        appDescription: "lorem ipsum test",
         fields: [
           {
             type: "short-text",

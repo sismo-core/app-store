@@ -1,10 +1,6 @@
-import getImgSrcFromConfig, {
-  ImportedNextImage,
-} from "@/src/utils/getImgSrcFromConfig";
+import getImgSrcFromConfig, { ImportedNextImage } from "@/src/utils/getImgSrcFromConfig";
 import { notFound } from "next/navigation";
-import getSpaceFront, {
-  SpaceConfigFront,
-} from "@/src/utils/getSpaceConfigsFront";
+import getSpaceFront, { SpaceConfigFront } from "@/src/utils/getSpaceConfigsFront";
 import SpacesMain from "@/src/components/SpacesMain";
 import { SpaceType, ZkAppType, getSpace, getSpaces } from "@/src/libs/spaces";
 
@@ -13,35 +9,31 @@ export async function generateStaticParams() {
   const spaces = getSpaces();
   return spaces?.map((space: SpaceType) => {
     return {
-      spaceSlug: space.slug,
+      space: space.slug,
     };
   });
 }
 
 // This function runs at build time on the server it generates the HTML metadata for each page
-export async function generateMetadata({
-  params,
-}: {
-  params: { spaceSlug: string };
-}) {
-  let space : SpaceType;
+export async function generateMetadata({ params }: { params: { space: string } }) {
+  let space: SpaceType;
   let coverImageUrl: string;
-  try{
-    const { spaceSlug } = params;
-    space =  getSpace({ slug: spaceSlug });
+  try {
+    const { space: slug } = params;
+    space = getSpace({ slug: slug });
     const coverImageElement = await getImgSrcFromConfig({
       configSlug: space?.slug,
       fileName: space?.coverImage,
     });
-  
+
     if (typeof coverImageElement === "string") {
       coverImageUrl = coverImageElement;
     } else {
       coverImageUrl = coverImageElement.src;
     }
-  
+
     if (!space) return notFound();
-  } catch(e) {
+  } catch (e) {
     notFound();
   }
 
@@ -71,26 +63,16 @@ export type ImportedImage = {
 };
 
 // This function runs at build time on the server it generates the HTML for each page
-export default async function SpacePage({
-  params,
-}: {
-  params: { spaceSlug: string };
-}) {
+export default async function SpacePage({ params }: { params: { space: string } }) {
   let spaceFront: SpaceConfigFront;
-  try{
-  const {spaceSlug} = params;
-  const _space = getSpace({ slug: spaceSlug });
-  const spaceConfigFront: SpaceConfigFront[] = await getSpaceFront([
-    _space,
-  ]);
-  spaceFront = spaceConfigFront[0];
-  } catch(e) {
+  try {
+    const { space: slug } = params;
+    const _space = getSpace({ slug: slug });
+    const spaceConfigFront: SpaceConfigFront[] = await getSpaceFront([_space]);
+    spaceFront = spaceConfigFront[0];
+  } catch (e) {
     notFound();
   }
 
-  return (
-    <>
-      <SpacesMain config={spaceFront} />
-    </>
-  );
+  return <SpacesMain config={spaceFront} />;
 }

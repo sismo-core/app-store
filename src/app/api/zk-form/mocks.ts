@@ -12,8 +12,7 @@ export const mockZkFormTestSpaceType = (
       slug: spaceSlug,
       description: "description",
       name: "name",
-      profileImage: "",
-      coverImage: "",
+      image: "",
     },
     apps: [mockZkFormTestApp1(appSlug), mockZkFormTestApp2()],
   };

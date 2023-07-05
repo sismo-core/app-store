@@ -7,14 +7,11 @@ import ProveEligibility from "../components/ProveEligibility";
 import { SismoConnectResponse } from "@sismo-core/sismo-connect-server";
 import Section from "../components/Section";
 import { GroupMetadata } from "@/src/libs/group-provider";
-import useRemainingTime from "@/src/utils/useRemainingTime";
-import Timer from "../components/Timer";
 import { AppFront } from "@/src/utils/getSpaceConfigsFront";
 import { ZkTelegramBotAppType } from "@/src/libs/spaces";
 import env from "@/src/environments";
 import { getImpersonateAddresses } from "@/src/utils/getImpersonateAddresses";
 import { useSismoConnect } from "@sismo-core/sismo-connect-react";
-import { useSearchParams } from "next/navigation";
 
 const Content = styled.div`
   width: 580px;
@@ -73,7 +70,6 @@ export default function ZkTelegramBotApp({ app, groupMetadataList }: Props): JSX
   }, [app]);
 
   const { response } = useSismoConnect({config})
-  const { hasStarted } = useRemainingTime({ startDate: app?.startDate });
 
   const verify = async (response: SismoConnectResponse) => {
     const body = {
@@ -110,13 +106,6 @@ export default function ZkTelegramBotApp({ app, groupMetadataList }: Props): JSX
     const inviteLink = (app as unknown as ZkTelegramBotAppType).telegramInviteLink;
     window.open(inviteLink, "_blank");
   };
-
-  if (!hasStarted)
-    return (
-      <Content>
-        <Timer app={app} />
-      </Content>
-    );
 
   return (
     <Content>

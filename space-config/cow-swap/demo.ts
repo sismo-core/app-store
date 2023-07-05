@@ -32,7 +32,7 @@ export const cowSwapConfigDemo: SpaceConfig = {
     {
       type: "zkForm",
       metadata: {
-        slug: "cow-swag",
+        slug: "swag",
         name: "Cow Swag Claim",
         description:
           "Prove you are a Cow Trader or Holder to claim your Cow Swag, during EthCC week in Paris. Exclusive for Level 2 (Water Flask) and Level 3 (Water Flask + Backpack).",
@@ -93,7 +93,7 @@ export const cowSwapConfigDemo: SpaceConfig = {
     {
       type: "zkForm",
       metadata: {
-        slug: "cow-event",
+        slug: "event",
         name: "Cow Event Invitation",
         description:
           "Prove you are a Cow Trader or Holder to register to an invitation-only event organized by Cow Swap, during EthCC week in Paris.",

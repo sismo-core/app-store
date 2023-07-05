@@ -8,8 +8,7 @@ export const cowSwapConfigDemo: SpaceConfig = {
     name: "Cow Swap",
     description:
       "This Space is dedicated to Cow Swap, a DEX aggregator. Cow Traders and Holders will get access to gifts and premium features.",
-    profileImage: "space_cow_swap_pfp_500x500.png",
-    coverImage: "space_cow_swap_pfp_500x500.png",
+    image: "space_cow_swap_pfp_500x500.png",
     socialLinks: [
       {
         type: "link",

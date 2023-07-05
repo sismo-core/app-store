@@ -8,8 +8,7 @@ export const cowSwapConfigMain: SpaceConfig = {
     name: "Cow Swap",
     description:
       "This Space is dedicated to Cow Swap, a DEX aggregator. Cow Traders and Holders will get access to gifts and premium features.",
-    profileImage: "space_cow_swap_pfp_500x500.png",
-    coverImage: "space_cow_swap_pfp_500x500.png",
+    image: "space_cow_swap_pfp_500x500.png",
     socialLinks: [
       {
         type: "link",
@@ -47,11 +46,11 @@ export const cowSwapConfigMain: SpaceConfig = {
         authRequests: [{ authType: AuthType.VAULT }],
         claimRequests: [
           {
-            groupId: "0x70c30e9a9abdb5fd41ba9e9cb7f50173",
+            groupId: "0x0ee8d690443fb9eae77fd524e74090cf",
             value: 2,
           },
           {
-            groupId: "0x70c30e9a9abdb5fd41ba9e9cb7f50173",
+            groupId: "0x0ee8d690443fb9eae77fd524e74090cf",
             isOptional: true,
             value: 3,
           },
@@ -105,7 +104,7 @@ export const cowSwapConfigMain: SpaceConfig = {
         authRequests: [{ authType: AuthType.VAULT }],
         claimRequests: [
           {
-            groupId: "0x70c30e9a9abdb5fd41ba9e9cb7f50173",
+            groupId: "0x0ee8d690443fb9eae77fd524e74090cf",
             value: 1,
           },
         ],

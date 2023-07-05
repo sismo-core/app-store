@@ -76,7 +76,7 @@ export const cowSwapConfigMain: SpaceConfig = {
         output: {
           destination: {
             type: "google_sheet",
-            spreadsheetId: "1rNILllaOqsar8tpGbwHULbv39FE43VLZ9K419Hy5V_s",
+            spreadsheetId: "1DnNkRcCPMYF7ukD1iNdxU0rxAnssr6n3ceFtlKpbuDQ",
           },
           saveAuths: true,
           saveClaims: true,
@@ -129,7 +129,7 @@ export const cowSwapConfigMain: SpaceConfig = {
         output: {
           destination: {
             type: "google_sheet",
-            spreadsheetId: "1rqSdDnIc2kOpg51rYNS6TSQmxqXLB_JKm70sdJg2smM",
+            spreadsheetId: "10g8bSa_XlL-LLkQ_jak-t98A873VYKlqeKFMCytVmzk",
           },
           saveAuths: true,
         },

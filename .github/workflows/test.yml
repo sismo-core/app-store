@@ -46,4 +46,6 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
       - name: Tests
+        env:
+          NEXT_PUBLIC_NODE_ENV: main
         run: yarn test

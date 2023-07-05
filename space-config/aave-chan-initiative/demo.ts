@@ -8,8 +8,7 @@ export const aaveChanInitiativeConfigDemo: SpaceConfig = {
     name: "Aave-Chan Initiative",
     description:
       "This Space is dedicated to the Aave-Chan Initiative (ACI - Aavechan.eth), a delegate platform. Aave users that delegated their governance power to ACI will get access to gifts and premium features.",
-    profileImage: "space_aave_chan_initiative_pfp_400x400.png",
-    coverImage: "space_aave_chan_initiative_cover_1740x540.png",
+    image: "space_aave_chan_initiative_pfp_400x400.png",
     socialLinks: [
       {
         type: "twitter",

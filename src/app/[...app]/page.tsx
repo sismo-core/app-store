@@ -94,7 +94,6 @@ export default async function SpacePage({ params }: { params: { app: [string, st
             timestamp: "latest",
             revalidate: 60 * 60 * 12, // 12 hours
           });
-          console.log("FETCHING AT BUILD APP PAGE");
           groupMetadataList.push(metadata);
         }
       })

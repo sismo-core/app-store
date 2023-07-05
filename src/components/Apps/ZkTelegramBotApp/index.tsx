@@ -8,7 +8,6 @@ import { SismoConnectResponse } from "@sismo-core/sismo-connect-server";
 import Section from "../components/Section";
 import { GroupMetadata } from "@/src/libs/group-provider";
 import useRemainingTime from "@/src/utils/useRemainingTime";
-import Timer from "../components/Timer";
 import { AppFront } from "@/src/utils/getSpaceConfigsFront";
 import { ZkTelegramBotAppType } from "@/src/libs/spaces";
 import env from "@/src/environments";
@@ -73,7 +72,6 @@ export default function ZkTelegramBotApp({ app, groupMetadataList }: Props): JSX
   }, [app]);
 
   const { response } = useSismoConnect({config})
-  const { hasStarted, hasEnded } = useRemainingTime({ startDate: app?.startDate, endDate: app?.endDate });
 
   const verify = async (response: SismoConnectResponse) => {
     const body = {
@@ -110,18 +108,6 @@ export default function ZkTelegramBotApp({ app, groupMetadataList }: Props): JSX
     const inviteLink = (app as unknown as ZkTelegramBotAppType).telegramInviteLink;
     window.open(inviteLink, "_blank");
   };
-
-  if (hasEnded) {
-    redirect("/");
-  }
-
-
-  if (!hasStarted)
-    return (
-      <Content>
-        <Timer app={app} />
-      </Content>
-    );
 
   return (
     <Content>

@@ -10,6 +10,7 @@ import Default from "@/src/assets/default.svg";
 import ZkBotApp from "@/src/components/Apps/ZkTelegramBotApp";
 import useRemainingTime from "@/src/utils/useRemainingTime";
 import { redirect } from "next/navigation";
+import Timer from "../Apps/components/Timer";
 
 const Container = styled.div`
   flex-grow: 1;
@@ -22,6 +23,14 @@ const Container = styled.div`
 
   @media (max-width: 900px) {
     padding: 0px 20px;
+  }
+`;
+
+const Content = styled.div`
+  width: 580px;
+
+  @media (max-width: 900px) {
+    width: 100%;
   }
 `;
 
@@ -135,8 +144,18 @@ type Props = {
 };
 
 export default function AppMain({ app, groupMetadataList }: Props) {
+  const { hasEnded, hasStarted } = useRemainingTime({
+    startDate: app?.startDate,
+    endDate: app?.endDate,
+  });
 
-    return (<Container>
+
+  if (hasEnded) {
+    redirect("/");
+  }
+
+  return (
+    <Container>
       <Top>
         <ImageContainer>
           {app.image && app.name && (
@@ -159,13 +178,19 @@ export default function AppMain({ app, groupMetadataList }: Props) {
       {app.description && <DescriptionMobile>{app.description}</DescriptionMobile>}
       <Separator />
       <AppContainer>
-        {app?.type == "zkForm" && <ZkFormApp app={app} groupMetadataList={groupMetadataList} />}
-        {app?.type == "zkTelegramBot" && (
-          <ZkBotApp app={app} groupMetadataList={groupMetadataList} />
+        {!hasStarted ? (
+          <Content>
+            <Timer app={app} />
+          </Content>
+        ) : (
+          <>
+            {app?.type == "zkForm" && <ZkFormApp app={app} groupMetadataList={groupMetadataList} />}
+            {app?.type == "zkTelegramBot" && (
+              <ZkBotApp app={app} groupMetadataList={groupMetadataList} />
+            )}
+          </>
         )}
       </AppContainer>
     </Container>
   );
-
-
 }

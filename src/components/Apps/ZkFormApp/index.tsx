@@ -81,10 +81,6 @@ export default function ZkFormApp({ app, groupMetadataList }: Props): JSX.Elemen
   }, [app]);
 
   const { response } = useSismoConnect({ config });
-  const { hasStarted, hasEnded } = useRemainingTime({
-    startDate: app?.startDate,
-    endDate: app?.endDate,
-  });
   const router = useRouter();
 
   const submit = async () => {
@@ -117,16 +113,6 @@ export default function ZkFormApp({ app, groupMetadataList }: Props): JSX.Elemen
 
   const hasResponse = Boolean(response);
 
-  if (hasEnded) {
-    redirect("/");
-  }
-
-  if (!hasStarted)
-    return (
-      <Content>
-        <Timer app={app} />
-      </Content>
-    );
 
   return (
     <Content>

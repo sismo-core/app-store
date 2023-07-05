@@ -46,11 +46,11 @@ export const cowSwapConfigMain: SpaceConfig = {
         authRequests: [{ authType: AuthType.VAULT }],
         claimRequests: [
           {
-            groupId: "0x0ee8d690443fb9eae77fd524e74090cf",
+            groupId: "0x70c30e9a9abdb5fd41ba9e9cb7f50173",
             value: 2,
           },
           {
-            groupId: "0x0ee8d690443fb9eae77fd524e74090cf",
+            groupId: "0x70c30e9a9abdb5fd41ba9e9cb7f50173",
             isOptional: true,
             value: 3,
           },
@@ -103,7 +103,7 @@ export const cowSwapConfigMain: SpaceConfig = {
         authRequests: [{ authType: AuthType.VAULT }],
         claimRequests: [
           {
-            groupId: "0x0ee8d690443fb9eae77fd524e74090cf",
+            groupId: "0x70c30e9a9abdb5fd41ba9e9cb7f50173",
             value: 1,
           },
         ],

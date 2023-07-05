@@ -7,13 +7,11 @@ import ProveEligibility from "../components/ProveEligibility";
 import { SismoConnectResponse } from "@sismo-core/sismo-connect-server";
 import Section from "../components/Section";
 import { GroupMetadata } from "@/src/libs/group-provider";
-import useRemainingTime from "@/src/utils/useRemainingTime";
 import { AppFront } from "@/src/utils/getSpaceConfigsFront";
 import { ZkTelegramBotAppType } from "@/src/libs/spaces";
 import env from "@/src/environments";
 import { getImpersonateAddresses } from "@/src/utils/getImpersonateAddresses";
 import { useSismoConnect } from "@sismo-core/sismo-connect-react";
-import { redirect } from "next/navigation";
 
 const Content = styled.div`
   width: 580px;

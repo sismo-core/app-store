@@ -109,7 +109,8 @@ export const cowSwapConfigMain: SpaceConfig = {
         ],
       },
       templateConfig: {
-        step2CtaText: "Register to get your Ticket",
+        step2CtaText
+        : "Register to get your Ticket",
         fields: [
           {
             type: "short-text",

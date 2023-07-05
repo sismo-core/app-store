@@ -184,6 +184,7 @@ export const sismoConfigMain: SpaceConfig = {
       },
       options: {
         endDate: new Date("2023-07-07T18:00"),
+        isFeatured: true,
       },
     },
   ],

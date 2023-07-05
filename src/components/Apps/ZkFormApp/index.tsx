@@ -7,12 +7,10 @@ import Register, { FieldValue } from "./components/Register";
 import Congratulations from "./components/Congratulations";
 import { GroupMetadata } from "@/src/libs/group-provider";
 import { AppFront } from "@/src/utils/getSpaceConfigsFront";
-import useRemainingTime from "@/src/utils/useRemainingTime";
-import Timer from "../components/Timer";
 import Section from "../components/Section";
 import ProveEligibility from "../components/ProveEligibility";
 import { ZkFormAppType } from "@/src/libs/spaces";
-import { redirect, useRouter } from "next/navigation";
+import {  useRouter } from "next/navigation";
 import { useSismoConnect } from "@sismo-core/sismo-connect-react";
 import { getImpersonateAddresses } from "@/src/utils/getImpersonateAddresses";
 import env from "@/src/environments";
@@ -154,8 +152,8 @@ export default function ZkFormApp({ app, groupMetadataList }: Props): JSX.Elemen
           {hasResponse && (
             <Bottom>
               {alreadySubscribed ? (
-                <Button3D onClick={() => {}} secondary>
-                  Back to the Space
+                <Button3D onClick={() => {router.push("/")}} secondary>
+                  Back to the Apps
                 </Button3D>
               ) : (
                 <Button3D

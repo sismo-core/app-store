@@ -19,7 +19,7 @@ const env: Environment = {
   isDev: isEnv("dev"),
   isMain: isEnv("main"),
   isTest: isEnv("test"),
-  hubApiUrl: process.env.HUB_API_URL,
+  hubApiUrl: process.env.NEXT_PUBLIC_HUB_API_URL,
   redirection: process.env.NEXT_PUBLIC_REDIRECTION,
   telegramBotToken: process.env.TELEGRAM_BOT_TOKEN,
 };

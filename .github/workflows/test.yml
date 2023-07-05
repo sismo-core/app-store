@@ -48,5 +48,5 @@ jobs:
       - name: Tests
         env:
           NEXT_PUBLIC_NODE_ENV: main
-          HUB_API_URL: https://hub.sismo.io
+          NEXT_PUBLIC_HUB_API_URL: https://hub.sismo.io
         run: yarn test

@@ -4,7 +4,7 @@ import SynapsProofOfLivenessCustomApp from "./synaps/proof-of-liveness"
 import WorldcoinProofOfPersonhoodCustomApp from "./worldcoin/proof-of-personhood"
 
 
-export const zkCustomApps = {
+export const customApps = {
     "worldcoin": {
         "proof-of-personhood": <WorldcoinProofOfPersonhoodCustomApp />,
     },

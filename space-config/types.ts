@@ -25,7 +25,7 @@ export type AppConfig =
   | ExternalAppConfig
   | ZkBadgeAppConfig
   | ZkTelegramBotAppConfig
-  | ZkCustomAppConfig
+  | CustomAppConfig
 
 type SocialType = "twitter" | "discord" | "link" | "github" | "telegram";
 
@@ -87,11 +87,9 @@ export type ZkDropAppConfig = AppCommonConfig & {
   };
 };
 
-export type ZkCustomAppConfig = AppCommonConfig & {
-  type: "zkCustom";
-  templateConfig: {
-    extraData: any;
-  }
+export type CustomAppConfig = AppCommonConfig & {
+  type: "custom";
+  templateConfig: any
 };
 
 export type ZkBadgeAppConfig = AppCommonConfig & {

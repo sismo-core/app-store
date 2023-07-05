@@ -7,6 +7,7 @@ const Container = styled.div`
     border: 1px solid #4F5B7E;
     border-radius: 4px;
     padding: 16px;
+    position: relative;
 `
 
 

@@ -1,6 +1,6 @@
 'use client'
 
-import { ZkCustomAppConfig } from "@/space-config/types";
+import { CustomAppConfig } from "@/space-config/types";
 import Button3D from "@/src/ui/Button3D";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -28,7 +28,7 @@ const Subtitle = styled.div`
 `
 
 type Props = {
-    app: ZkCustomAppConfig
+    app: CustomAppConfig
 }
 
 export default function Congratulations({ app }: Props): JSX.Element {
@@ -36,10 +36,10 @@ export default function Congratulations({ app }: Props): JSX.Element {
     
     return <Container>
         <Title style={{marginBottom: 16}}>
-            {app?.templateConfig?.extraData?.congratulationsMessage?.title}
+            {app?.templateConfig?.congratulationsMessage?.title}
         </Title>
         <Subtitle>
-            {app?.templateConfig?.extraData?.congratulationsMessage?.description}
+            {app?.templateConfig?.congratulationsMessage?.description}
         </Subtitle>
         <Button3D onClick={() => router.push("/synaps")} secondary>
             Back to the space

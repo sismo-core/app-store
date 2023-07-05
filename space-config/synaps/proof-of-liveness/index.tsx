@@ -8,10 +8,10 @@ import ProveEligibility from "./components/ProveEligibility";
 import Button from "@/src/ui/Button";
 import SynapsModal from "./components/SynapsModal";
 import { synapsConfigMain } from "@/space-config/synaps/main";
-import { ZkCustomAppConfig } from "@/space-config/types";
+import { CustomAppConfig } from "@/space-config/types";
 import Button3D from "@/src/ui/Button3D";
 import { useRouter } from "next/navigation";
-import { ZkCustomAppContainer } from "@/src/components/ZkCustomAppContainer";
+import { CustomAppContainer } from "@/src/components/CustomAppContainer";
 
 
 const AlreadyRegistered = styled.div`
@@ -41,9 +41,9 @@ const ErrorMsg = styled.div`
 `
 
 export default function SynapsProofOfLivenessCustomApp(): JSX.Element {
-    const app = synapsConfigMain.apps[0] as ZkCustomAppConfig;
+    const app = synapsConfigMain.apps[0] as CustomAppConfig;
     const router = useRouter();
-    const api = app.templateConfig.extraData.api;
+    const api = app.templateConfig.api;
     const [response, setResponse] = useState();
     const [alreadySubscribed, setAlreadySubscribed] = useState(false);
     const [domReady, setDomReady] = React.useState(false);
@@ -104,13 +104,13 @@ export default function SynapsProofOfLivenessCustomApp(): JSX.Element {
 
     return <>
         <SynapsModal sessionId={sessionId} isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onFinish={() => onFinish()}/>
-        <ZkCustomAppContainer>
+        <CustomAppContainer>
             {
                 !finished && <>
                     <Section number={1} isOpen={!response} title="Sign in with Sismo" style={{marginBottom: 16}} success={Boolean(response)}>
                         <ProveEligibility app={app} onEligible={(_response) => setResponse(_response)}/>
                     </Section>
-                    <Section number={2} isOpen={Boolean(response)} title={app?.metadata?.ctaText} success={alreadySubscribed}>
+                    <Section number={2} isOpen={Boolean(response)} title={app?.templateConfig?.step2CtaText} success={alreadySubscribed}>
                         {
                             alreadySubscribed ?
                             <AlreadyRegistered style={{marginTop: 24}}>
@@ -143,6 +143,6 @@ export default function SynapsProofOfLivenessCustomApp(): JSX.Element {
             {
                 finished && <Congratulations app={app}/>
             }
-        </ZkCustomAppContainer>
+        </CustomAppContainer>
     </>;
 }

@@ -6,21 +6,19 @@ export const worldcoinConfigMain: SpaceConfig = {
     slug: "worldcoin",
     name: "Worldcoin",
     description: "Worldcoin is building the world's largest identity and financial network as a public utility, giving ownership to everyone.",
-    profileImage: "worldcoin_pfp.jpeg",
-    coverImage: "worldcoin_cover.jpeg",
+    image: "worldcoin_pfp.jpeg",
   },
   options: {
     hidden: false,
   },
   apps: [
     {
-      type: "zkCustom",
+      type: "custom",
       metadata: {
         name: "Proof of personhood",
         description: "World ID is a digital passport that lets you prove you are a unique and real person while remaining anonymous.",
         tags: ["Proof of personhood"],
         image: "proof-of-personhood.png",
-        ctaText: "Prove your are unique",
         slug: "proof-of-personhood",
         createdAt: new Date("2023-07-05T18:00")
       },
@@ -29,12 +27,11 @@ export const worldcoinConfigMain: SpaceConfig = {
         authRequests: [{ authType: 0 }],
       },
       templateConfig: {
-        extraData: {
-          api: "https://worldcoin-app-backend.vercel.app/api/proof-of-personhood",
-          congratulationsMessage: {
-            title: "Congratulations",
-            description: "You have successfully proven your personhood. Your proof of personhood will be available in your Sismo Vault within 24 hours.",
-          }
+        step2CtaText: "Prove your are unique",
+        api: "https://worldcoin-app-backend.vercel.app/api/proof-of-personhood",
+        congratulationsMessage: {
+          title: "Congratulations",
+          description: "You have successfully proven your personhood. Your proof of personhood will be available in your Sismo Vault within 24 hours.",
         }
       }
     }

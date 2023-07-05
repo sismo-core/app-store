@@ -4,17 +4,29 @@ import { AuthType, SismoConnectButton } from "@sismo-core/sismo-connect-react";
 import React from "react";
 import { styled } from "styled-components";
 import HoverTooltip from "@/src/ui/HoverTooltip";
-import { Info } from "phosphor-react";
+import { Info, LockSimpleOpen } from "phosphor-react";
 import colors from "@/src/themes/colors";
-import { ZkCustomAppConfig } from "@/space-config/types";
+import { CustomAppConfig } from "@/space-config/types";
 
 const Container = styled.div``;
 
 const Eligibility = styled.div`
-  margin-top: 22px;
-  border-top: 1px solid #262e45;
-  border-bottom: 1px solid #262e45;
+  margin-top: 7px;
+  border-top: 1px solid ${(props) => props.theme.colors.neutral7};
+  border-bottom: 1px solid ${(props) => props.theme.colors.neutral7};
   padding: 10px 0px;
+`;
+
+const RequirementTitle = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+  color: ${(props) => props.theme.colors.neutral4};
+  font-size: 14px;
+  font-family: ${(props) => props.theme.fonts.medium};
+  line-height: 20px;
+  margin-top: 24px;
 `;
 
 const ButtonContainer = styled.div`
@@ -31,6 +43,7 @@ const AuthItem = styled.div`
   font-family: ${(props) => props.theme.fonts.regular};
   gap: 8px;
   white-space: nowrap;
+  padding: 0px 16px;
 `;
 
 const Bold = styled.span`
@@ -38,7 +51,7 @@ const Bold = styled.span`
 `;
 
 type Props = {
-  app: ZkCustomAppConfig;
+  app: CustomAppConfig;
   onEligible: (response) => void;
 };
 
@@ -53,12 +66,16 @@ export default function ProveEligibility({
 
   return (
     <Container>
+      <RequirementTitle>
+        <LockSimpleOpen size={16} />
+        Requirements
+      </RequirementTitle>
       <Eligibility style={{ marginBottom: 24 }}>
         <AuthItem>
-          Share: <Bold>Vault Id</Bold>
+          <Bold>User Id</Bold>
           <HoverTooltip
             text={
-              "Vault Id is an anonymous identifier that indicates a unique user on a specific app. Sharing your Vault ID only reveals that you are a unique user and authenticates that you own a Data Vault."
+              "User Id is an anonymous identifier that indicates a unique user on a specific app. Sharing your User Id only reveals that you are a unique user and authenticates that you own a Data Vault."
             }
             width={300}
             style={{ marginLeft: -4 }}

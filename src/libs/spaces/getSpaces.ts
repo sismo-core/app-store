@@ -6,7 +6,7 @@ import {
   SpaceType,
   ZkFormAppType,
   ZkTelegramBotAppType,
-  ZkCustomAppType,
+  CustomAppType,
 } from "./types";
 import { AuthType } from "@sismo-core/sismo-connect-server";
 
@@ -69,15 +69,15 @@ export function getSpaces(): SpaceType[] {
             telegramInviteLink: appConfig.templateConfig.telegramInviteLink,
           } as ZkTelegramBotAppType);
           break;
-        case "zkCustom":
+        case "custom":
           apps.push({
             type: appConfig.type,
             ...appCommon,
             authRequests: appConfig.sismoConnectRequest.authRequests ?? [
               { authType: AuthType.VAULT },
             ],
-            extraData: appConfig.templateConfig.extraData,
-          } as ZkCustomAppType);
+            extraData: appConfig.templateConfig,
+          } as CustomAppType);
           break;
       }
     }

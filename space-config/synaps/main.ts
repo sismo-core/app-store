@@ -6,21 +6,19 @@ export const synapsConfigMain: SpaceConfig = {
     slug: "synaps",
     name: "Synaps",
     description: "This Space is a tribute to users willing to prove their liveness with Synaps - a crypto-native identity verification provider. Proof of Liveness is performed through a liveness verification session, where a privacy-preserving encrypted vector graph is generated. It contains no biometric data and cannot be used to recreate your face.",
-    profileImage: "synaps_pfp.png",
-    coverImage: "synaps_cover.png",
+    image: "synaps_pfp.png",
   },
   options: {
     hidden: true
   },
   apps: [
     {
-      type: "zkCustom",
+      type: "custom",
       metadata: {
         name: "Liveness Verification",
         description: "Perform liveness verification with Synaps to join the 'Proof of Liveness' Data Group and access Sismo Apps that request to be part of it. This liveness session stores no personal data.",
         tags: ["Liveness"],
         image: "synaps_liveness_img.png",
-        ctaText: "Prove your Liveness",
         slug: "proof-of-liveness",
         createdAt: new Date("2023-07-05T18:00")
       },
@@ -29,12 +27,11 @@ export const synapsConfigMain: SpaceConfig = {
         authRequests: [{ authType: 0 }],
       },
       templateConfig: {
-        extraData: {
-          api: "https://synaps-integration.vercel.app/api/proof-of-liveness",
-          congratulationsMessage: {
-            title: "Congratulations",
-            description: "You have successfully proven your liveliness. Your proof of liveliness will be available in your Sismo Vault within 24 hours.",
-          }
+        step2CtaText: "Prove your Liveness",
+        api: "https://synaps-integration.vercel.app/api/proof-of-liveness",
+        congratulationsMessage: {
+          title: "Congratulations",
+          description: "You have successfully proven your liveliness. Your proof of liveliness will be available in your Sismo Vault within 24 hours.",
         }
       }
     }

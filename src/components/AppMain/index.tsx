@@ -11,8 +11,7 @@ import ZkBotApp from "@/src/components/Apps/ZkTelegramBotApp";
 import useRemainingTime from "@/src/utils/useRemainingTime";
 import { redirect } from "next/navigation";
 import Timer from "../Apps/components/Timer";
-import { useEffect } from "react";
-import { zkCustomApps } from "@/space-config/zk-custom-apps";
+import { customApps } from "@/space-config/zk-custom-apps";
 
 const Container = styled.div`
   flex-grow: 1;
@@ -208,8 +207,8 @@ export default function AppMain({ app, groupSnapshotMetadataList }: Props) {
           </>
         )}
         {
-          app?.type == "zkCustom" && (
-            zkCustomApps[app.spaceSlug][app.slug]
+          app?.type == "custom" && (
+            customApps[app.spaceSlug][app.slug]
           )
         }
       </AppContainer>

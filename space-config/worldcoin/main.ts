@@ -14,7 +14,7 @@ export const worldcoinConfigMain: SpaceConfig = {
   },
   apps: [
     {
-      type: "custom",
+      type: "zkCustom",
       metadata: {
         name: "Proof of personhood",
         description: "World ID is a digital passport that lets you prove you are a unique and real person while remaining anonymous.",
@@ -29,7 +29,6 @@ export const worldcoinConfigMain: SpaceConfig = {
         authRequests: [{ authType: 0 }],
       },
       templateConfig: {
-        path: "/worldcoin/proof-of-personhood",
         extraData: {
           api: "https://worldcoin-app-backend.vercel.app/api/proof-of-personhood",
           congratulationsMessage: {

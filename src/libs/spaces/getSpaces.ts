@@ -6,6 +6,7 @@ import {
   SpaceType,
   ZkFormAppType,
   ZkTelegramBotAppType,
+  ZkCustomAppType,
 } from "./types";
 import { AuthType } from "@sismo-core/sismo-connect-server";
 
@@ -31,39 +32,53 @@ export function getSpaces(): SpaceType[] {
         lastUpdateAt: appConfig.metadata?.lastUpdateAt,
         isFeatured: appConfig.options?.isFeatured,
       };
-      if (appConfig.type === "external") {
-        apps.push({
-          type: appConfig.type,
-          ...appCommon,
-          link: appConfig.templateConfig.link,
-        } as ExternalAppType);
-      } else if (appConfig.type === "zkForm") {
-        apps.push({
-          type: appConfig.type,
-          ...appCommon,
-          fields: appConfig.templateConfig.fields,
-          saveClaims: appConfig.templateConfig.output.saveClaims,
-          saveAuths: appConfig.templateConfig.output.saveAuths,
-          congratulationsMessage: appConfig.templateConfig.congratulationsMessage,
-          failedMessage: appConfig.templateConfig.failedMessage,
-          userSelection: appConfig.templateConfig.userSelection,
-          output: appConfig.templateConfig.output.destination.type,
-          spreadsheetId: appConfig.templateConfig.output.destination.spreadsheetId,
-          ctaText: appConfig.templateConfig.step2CtaText,
-          appDescription: appConfig.templateConfig.appDescription,
-        } as ZkFormAppType);
-      } else if (appConfig.type === "zkTelegramBot") {
-        apps.push({
-          type: appConfig.type,
-          ...appCommon,
-          authRequests: appConfig.sismoConnectRequest.authRequests ?? [
-            { authType: AuthType.TELEGRAM },
-          ],
-          ctaText: appConfig.templateConfig.step2CtaText,
-          appDescription: appConfig.templateConfig.appDescription,
-          telegramGroupId: appConfig.templateConfig.telegramGroupId,
-          telegramInviteLink: appConfig.templateConfig.telegramInviteLink,
-        } as ZkTelegramBotAppType);
+      switch (appConfig.type) {
+        case "external":
+          apps.push({
+            type: appConfig.type,
+            ...appCommon,
+            link: appConfig.templateConfig.link,
+          } as ExternalAppType);
+          break;
+        case "zkForm": 
+          apps.push({
+            type: appConfig.type,
+            ...appCommon,
+            fields: appConfig.templateConfig.fields,
+            saveClaims: appConfig.templateConfig.output.saveClaims,
+            saveAuths: appConfig.templateConfig.output.saveAuths,
+            congratulationsMessage: appConfig.templateConfig.congratulationsMessage,
+            failedMessage: appConfig.templateConfig.failedMessage,
+            userSelection: appConfig.templateConfig.userSelection,
+            output: appConfig.templateConfig.output.destination.type,
+            spreadsheetId: appConfig.templateConfig.output.destination.spreadsheetId,
+            ctaText: appConfig.templateConfig.step2CtaText,
+            appDescription: appConfig.templateConfig.appDescription,
+          } as ZkFormAppType);
+          break;
+        case "zkTelegramBot":
+          apps.push({
+            type: appConfig.type,
+            ...appCommon,
+            authRequests: appConfig.sismoConnectRequest.authRequests ?? [
+              { authType: AuthType.TELEGRAM },
+            ],
+            ctaText: appConfig.templateConfig.step2CtaText,
+            appDescription: appConfig.templateConfig.appDescription,
+            telegramGroupId: appConfig.templateConfig.telegramGroupId,
+            telegramInviteLink: appConfig.templateConfig.telegramInviteLink,
+          } as ZkTelegramBotAppType);
+          break;
+        case "zkCustom":
+          apps.push({
+            type: appConfig.type,
+            ...appCommon,
+            authRequests: appConfig.sismoConnectRequest.authRequests ?? [
+              { authType: AuthType.VAULT },
+            ],
+            extraData: appConfig.templateConfig.extraData,
+          } as ZkCustomAppType);
+          break;
       }
     }
     const space: SpaceType = {

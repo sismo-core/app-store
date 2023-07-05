@@ -14,7 +14,7 @@ export const synapsConfigMain: SpaceConfig = {
   },
   apps: [
     {
-      type: "custom",
+      type: "zkCustom",
       metadata: {
         name: "Liveness Verification",
         description: "Perform liveness verification with Synaps to join the 'Proof of Liveness' Data Group and access Sismo Apps that request to be part of it. This liveness session stores no personal data.",
@@ -29,7 +29,6 @@ export const synapsConfigMain: SpaceConfig = {
         authRequests: [{ authType: 0 }],
       },
       templateConfig: {
-        path: "/synaps/proof-of-liveness",
         extraData: {
           api: "https://synaps-integration.vercel.app/api/proof-of-liveness",
           congratulationsMessage: {

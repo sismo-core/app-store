@@ -87,11 +87,9 @@ export type ZkDropAppConfig = AppCommonConfig & {
   };
 };
 
-
 export type ZkCustomAppConfig = AppCommonConfig & {
-  type: "custom";
+  type: "zkCustom";
   templateConfig: {
-    path: string;
     extraData: any;
   }
 };

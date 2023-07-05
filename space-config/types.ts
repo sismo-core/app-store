@@ -6,7 +6,6 @@ export type SpaceConfig = {
     slug: string; // spaces.sismo.io/[slug]
     description: string; // 300 characters max
     profileImage?: string; // 160x160px can be an url or local file
-    coverImage?: string; // 1440x340px can be an url or local file
     socialLinks?: {
       type: SocialType;
       link: string;
@@ -54,7 +53,6 @@ type AppCommonConfig = {
     isFeatured?: boolean; // default false
   };
 };
-
 
 export type ExternalAppTemplateConfig = {
   link: string;

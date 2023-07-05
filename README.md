@@ -46,6 +46,11 @@ Firstly, ensure that you have set up environment variables in the .env.local fil
 cp .env.example .env.local
 ```
 
+The environment variable NEXT_PUBLIC_NODE_ENV lets you choose your environment.
+
+- If you want to use the main configuration, set `NEXT_PUBLIC_NODE_ENV=main`.
+- For using the demo configuration, set `NEXT_PUBLIC_NODE_ENV=demo`.
+
 To run the application:
 
 ```bash

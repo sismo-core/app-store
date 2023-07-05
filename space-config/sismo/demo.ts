@@ -464,10 +464,10 @@ export const sismoConfigDemo: SpaceConfig = {
           },
           saveAuths: true,
         },
-        userSelection: { type: "Lottery", numberOfWinners: 10 },
+        userSelection: { type: "Lottery", maxNumberOfEntries: 1000, numberOfWinners: 10 },
       },
       options: {
-        endDate: new Date("2023-07-10T18:00"),
+        endDate: new Date("2023-07-07T18:00"),
       },
     },
   ],

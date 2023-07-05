@@ -20,7 +20,7 @@ const Container = styled(Link)`
   align-items: center;
   padding: 32px 20px;
   flex-shrink: 0;
-  scroll-snap-stop: always;
+  scroll-snap-align: center;
 
   transition: background-color ${(props) => props.theme.animations.transition}, border ${(props) => props.theme.animations.transition};
 

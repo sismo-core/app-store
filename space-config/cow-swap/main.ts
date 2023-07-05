@@ -56,9 +56,6 @@ export const cowSwapConfigMain: SpaceConfig = {
             value: 3,
           },
         ],
-        impersonateAddresses: [
-          "0x7a3dac8cb57b8cc6b5e703df00f543859b530054"
-        ],
       },
       templateConfig: {
         fields: [
@@ -111,9 +108,6 @@ export const cowSwapConfigMain: SpaceConfig = {
             groupId: "0x70c30e9a9abdb5fd41ba9e9cb7f50173",
             value: 1,
           },
-        ],
-        impersonateAddresses: [
-          "0x7a3dac8cb57b8cc6b5e703df00f543859b530054"
         ],
       },
       templateConfig: {

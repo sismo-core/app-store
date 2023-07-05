@@ -5,7 +5,6 @@ import Footer from "../components/Footer";
 import Theme from "../themes/provider";
 import { PageContent } from "../components/Layouts/PageContent";
 import PageContainer from "../components/Layouts/PageContainer";
-import ModalsProvider from "../state/ModalState";
 import PlausibleProvider from "next-plausible";
 import env from "../environments";
 
@@ -28,7 +27,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <div id="modal-root" style={{ zIndex: 9999 }} />
         <PlausibleProvider domain={env.isDemo ? "demo.apps.sismo.io" : "apps.sismo.io"}>
           <StyledComponentsRegistry>
-            <ModalsProvider>
               <Theme>
                 <PageContainer>
                   <Navbar />
@@ -36,7 +34,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   <Footer />
                 </PageContainer>
               </Theme>
-            </ModalsProvider>
           </StyledComponentsRegistry>
         </PlausibleProvider>
       </body>

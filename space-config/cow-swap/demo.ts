@@ -38,7 +38,6 @@ export const cowSwapConfigDemo: SpaceConfig = {
           "Prove you are a Cow Trader or Holder to claim your Cow Swag, during EthCC week in Paris. Exclusive for Level 2 (Water Flask) and Level 3 (Water Flask + Backpack).",
         tags: ["Swag"],
         image: "cowswap_app_store_cow_swag_400x400.png",
-        ctaText: "Claim your Swag",
         createdAt: new Date("2023-07-04T18:00"),
       },
       sismoConnectRequest: {
@@ -60,6 +59,7 @@ export const cowSwapConfigDemo: SpaceConfig = {
         ],
       },
       templateConfig: {
+        step2CtaText: "Claim your Swag",
         fields: [
           {
             type: "short-text",
@@ -98,7 +98,6 @@ export const cowSwapConfigDemo: SpaceConfig = {
           "Prove you are a Cow Trader or Holder to register to an invitation-only event organized by Cow Swap, during EthCC week in Paris.",
         tags: ["Event", "Ticket"],
         image: "cowswap_app_store_cow_event_400x400.png",
-        ctaText: "Register to get your Ticket",
         createdAt: new Date("2023-07-04T18:00"),
       },
       sismoConnectRequest: {
@@ -115,6 +114,7 @@ export const cowSwapConfigDemo: SpaceConfig = {
         ],
       },
       templateConfig: {
+        step2CtaText: "Register to get your Ticket",
         fields: [
           {
             type: "short-text",

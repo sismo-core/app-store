@@ -246,8 +246,6 @@ export default function HoverTooltip({
     setIsMounted(true);
   }, []);
 
-  if (!isMounted) return null;
-
   return (
     <Container
       ref={infoRef}
@@ -260,7 +258,7 @@ export default function HoverTooltip({
       onMouseLeave={() => setIsHover(false)}
     >
       {children}
-      {ReactDOM.createPortal(
+      {isMounted && ReactDOM.createPortal(
         <Tip ref={ref} $isHover={isHover} $tooltipPosition={tooltipPosition}>
           <TipContent $width={width}>{text}</TipContent>
 

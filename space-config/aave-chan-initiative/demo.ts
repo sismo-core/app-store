@@ -26,7 +26,6 @@ export const aaveChanInitiativeConfigDemo: SpaceConfig = {
           "Enter your delivery address to claim your Aave-Chan Initiative Chads Swag - without doxxing your wallet 👀 Don't forget to share all your levels to get more swags!",
         tags: ["Swag"],
         image: "aave_chan_initiative_apps_swag_1014x720.png",
-        ctaText: "Claim your Swag",
         createdAt: new Date("2022-07-01T00:00:00.000Z"),
       },
       sismoConnectRequest: {
@@ -53,6 +52,7 @@ export const aaveChanInitiativeConfigDemo: SpaceConfig = {
         ],
       },
       templateConfig: {
+        step2CtaText: "Claim your Swag",
         fields: [
           {
             type: "short-text",

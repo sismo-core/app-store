@@ -36,7 +36,6 @@ type AppCommonConfig = {
     description: string; // 200 characters max
     image: string; // 550x390px can be an url or local file
     tags: string[];
-    ctaText?: string;
     createdAt: Date;
     lastUpdateAt?: Date;
   };
@@ -79,6 +78,8 @@ export type FirstComeFirstServed = {
 export type ZkDropAppConfig = AppCommonConfig & {
   type: "zkdrop";
   templateConfig: {
+    step2CtaText: string;
+    appDescription?: string;
     chainId: number;
     userSelection?: UserSelection; // default none
     contractAddress: string;
@@ -88,6 +89,8 @@ export type ZkDropAppConfig = AppCommonConfig & {
 export type ZkBadgeAppConfig = AppCommonConfig & {
   type: "zkbadge";
   templateConfig: {
+    step2CtaText: string;
+    appDescription?: string;
     chainId: number;
     collectionId: string;
   };
@@ -96,6 +99,8 @@ export type ZkBadgeAppConfig = AppCommonConfig & {
 export type ZkFormAppConfig = AppCommonConfig & {
   type: "zkForm";
   templateConfig: {
+    step2CtaText: string;
+    appDescription?: string;
     fields?: Field[];
     congratulationsMessage?: {
       title: string;
@@ -120,6 +125,8 @@ export type ZkFormAppConfig = AppCommonConfig & {
 export type ZkTelegramBotAppConfig = AppCommonConfig & {
   type: "zkTelegramBot";
   templateConfig: {
+    step2CtaText: string;
+    appDescription?: string;
     telegramGroupId: string;
     telegramInviteLink: string;
   };

@@ -68,6 +68,7 @@ const ImageContainer = styled.div<{ $isDisabled: boolean }>`
   width: 88px;
   height: 88px;
   flex-shrink: 0;
+  scale: 1;
   border-radius: 8px;
   opacity: ${({ $isDisabled }) => ($isDisabled ? 0.5 : 1)};
 

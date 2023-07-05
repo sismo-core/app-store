@@ -3,7 +3,7 @@
 import { AppFront } from "@/src/utils/getSpaceConfigsFront";
 import styled from "styled-components";
 import ZkFormApp from "../Apps/ZkFormApp";
-import { GroupMetadata } from "@/src/libs/group-provider";
+import { GroupSnapshotMetadata } from "@/src/libs/group-provider";
 import Image from "next/image";
 import SpaceTag from "../SpaceTag";
 import Default from "@/src/assets/default.svg";
@@ -11,6 +11,7 @@ import ZkBotApp from "@/src/components/Apps/ZkTelegramBotApp";
 import useRemainingTime from "@/src/utils/useRemainingTime";
 import { redirect } from "next/navigation";
 import Timer from "../Apps/components/Timer";
+import { useEffect } from "react";
 
 const Container = styled.div`
   flex-grow: 1;
@@ -101,6 +102,19 @@ const Description = styled.p`
   }
 `;
 
+const InnerDescription = styled.p`
+  color: ${({ theme }) => theme.colors.neutral4};
+  font-size: 16px;
+  font-family: ${({ theme }) => theme.fonts.regular};
+  line-height: 22px;
+  width: 580px;
+  margin-bottom: 16px;
+
+  @media (max-width: 900px) {
+    width: 100%;
+  }
+`;
+
 const DescriptionMobile = styled.p`
   margin-top: 16px;
   color: ${({ theme }) => theme.colors.neutral4};
@@ -140,15 +154,14 @@ const Separator = styled.div`
 
 type Props = {
   app: AppFront;
-  groupMetadataList: GroupMetadata[];
+  groupSnapshotMetadataList: GroupSnapshotMetadata[];
 };
 
-export default function AppMain({ app, groupMetadataList }: Props) {
+export default function AppMain({ app, groupSnapshotMetadataList }: Props) {
   const { hasEnded, hasStarted } = useRemainingTime({
     startDate: app?.startDate,
     endDate: app?.endDate,
   });
-
 
   if (hasEnded) {
     redirect("/");
@@ -184,9 +197,12 @@ export default function AppMain({ app, groupMetadataList }: Props) {
           </Content>
         ) : (
           <>
-            {app?.type == "zkForm" && <ZkFormApp app={app} groupMetadataList={groupMetadataList} />}
+            {app?.appDescription && <InnerDescription>{app?.appDescription}</InnerDescription>}
+            {app?.type == "zkForm" && (
+              <ZkFormApp app={app} groupSnapshotMetadataList={groupSnapshotMetadataList} />
+            )}
             {app?.type == "zkTelegramBot" && (
-              <ZkBotApp app={app} groupMetadataList={groupMetadataList} />
+              <ZkBotApp app={app} groupSnapshotMetadataList={groupSnapshotMetadataList} />
             )}
           </>
         )}

@@ -20,7 +20,6 @@ export const mockTelegramTestSpaceType = (
           description: "description",
           image: "image",
           tags: [],
-          ctaText: "ctaText",
           createdAt: new Date(),
           lastUpdateAt: new Date(),
         },
@@ -28,6 +27,7 @@ export const mockTelegramTestSpaceType = (
           appId: "0xd21d9ab6eaf8bcc16eff8d9a76764eab",
         },
         templateConfig: {
+          step2CtaText: "ctaText",
           telegramGroupId: telegramGroupId,
           telegramInviteLink: "inviteLink",
         },

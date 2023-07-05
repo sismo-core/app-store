@@ -33,9 +33,9 @@ export type AppCommonType = {
   name: string; // 40 characters max
   slug: string;
   description: string; // 200 characters max
+  innerDescription?: string;
   image: string; // 550x390px can be an url or local file
   tags: string[];
-  ctaText: string;
   createdAt?: Date;
   lastUpdateAt?: Date;
   isFeatured?: boolean; // default false
@@ -51,6 +51,8 @@ export type AppCommonType = {
   endDate?: Date;
 
   disabled?: boolean; // default false
+  ctaText?: string;
+  appDescription?: string;
 };
 
 export type UserSelection = FirstComeFirstServed | Lottery;
@@ -76,12 +78,16 @@ export type ZkDropAppType = AppCommonType & {
   chainId: number;
   userSelection?: UserSelection; // default none
   contractAddress: string;
+  ctaText: string;
+  appDescription?: string;
 };
 
 export type ZkBadgeAppType = AppCommonType & {
   type: "zkbadge";
   chainId: number;
   collectionId: string;
+  ctaText: string;
+  appDescription?: string;
 };
 
 export type ZkFormAppType = AppCommonType & {
@@ -100,12 +106,16 @@ export type ZkFormAppType = AppCommonType & {
   userSelection?: UserSelection; // default none
   output: "google_sheet";
   spreadsheetId?: string;
+  ctaText: string;
+  appDescription?: string;
 };
 
 export type ZkTelegramBotAppType = AppCommonType & {
   type: "zkTelegramBot";
   telegramGroupId: string;
   telegramInviteLink: string;
+  ctaText: string;
+  appDescription?: string;
 };
 
 export type Field = ShortText | LongText | Select | Number | Social;

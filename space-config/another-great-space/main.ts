@@ -5,7 +5,7 @@ import { SpaceConfig } from "../types";
 //           UPDATE HERE ↓↓↓
 export const SashaSpace : SpaceConfig = {
   metadata: {
-    slug: "great-space", // UPDATE HERE
+    slug: "another-great-space", // UPDATE HERE
     name: "My second great Space", // UPDATE HERE
     description:
       "This is another test!", // UPDATE HERE

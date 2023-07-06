@@ -38,7 +38,6 @@ export const sismoConfigMain: SpaceConfig = {
           "Future of France is an invitation-only event during EthCC week in Paris, organized by French-based crypto startups. The number of tickets is limited. Exclusive for members of Sismo Community Level 3.",
         tags: ["Event", "Ticket"],
         image: "sismo_appstore_fof_tickets.png",
-
         createdAt: new Date("2023-07-03T18:00"),
       },
       sismoConnectRequest: {
@@ -187,5 +186,33 @@ export const sismoConfigMain: SpaceConfig = {
         isFeatured: true,
       },
     },
+    {
+      type: "zkBadge",
+      metadata: {
+        name: "ZK Badge test",
+        slug: "sismo-zk-badge-test",
+        description: "Zk badge test description",
+        tags: ["Badge"],
+        image: "sismo_badge_test.png",
+        createdAt: new Date("2023-07-03T18:00"),
+      },
+      sismoConnectRequest: {
+        appId: "0x3c125a4762c34cdef12e3fee6a57155c",
+        authRequests: [{ authType: AuthType.VAULT }],
+        claimRequests: [{ groupId: "0xe9ed316946d3d98dfcd829a53ec9822e" }],
+      },
+      templateConfig: {
+        step2CtaText: "Mint Badge",
+        tokenId: "40000001",
+        badgeMetadata: {
+          name: "Badge test",
+          description: "Badge test description",
+          image: "sismo_badge_test.png"
+        },
+        chains: [{
+          name: "gnosis"
+        }]
+      }
+    }
   ],
 };

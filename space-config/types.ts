@@ -87,14 +87,23 @@ export type ZkDropAppConfig = AppCommonConfig & {
   };
 };
 
+export type ZkBadgeChainName = "gnosis";
 export type ZkBadgeAppConfig = AppCommonConfig & {
-  type: "zkbadge";
+  type: "zkBadge";
   templateConfig: {
     step1CtaText?: string;
     step2CtaText: string;
     appDescription?: string;
-    chainId: number;
-    collectionId: string;
+    tokenId: string;
+    badgeMetadata: {
+      name: string;
+      description: string;
+      image: string;
+    };
+    chains: {
+      name: ZkBadgeChainName;
+      relayerEnabled?: boolean;
+    }[];
   };
 };
 
@@ -135,6 +144,7 @@ export type ZkTelegramBotAppConfig = AppCommonConfig & {
     telegramInviteLink: string;
   };
 };
+
 
 export type Field = ShortText | LongText | Select | Number | Social;
 

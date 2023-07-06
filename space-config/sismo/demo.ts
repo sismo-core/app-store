@@ -9,8 +9,7 @@ export const sismoConfigDemo: SpaceConfig = {
     name: "Sismo",
     description:
       "This Space presents Sismo Apps, offering exclusive benefits for our contributors and community members. Prove your level and unlock access to the apps. Learn more about the Sismo Community and check your level: https://community.sismo.io.",
-    profileImage: "space_sismo_pfp_400x400.png",
-    coverImage: "space_sismo_cover_1740x540.png",
+    image: "space_sismo_pfp_400x400.png",
     socialLinks: [
       {
         type: "link",
@@ -40,7 +39,6 @@ export const sismoConfigDemo: SpaceConfig = {
           "Join our private Telegram Group ‘Sismo Builders’ - available to all members of the Sismo Community.",
         image: "sismoapps_tg_zk_bot_1014x720.png",
         tags: ["Telegram"],
-        ctaText: "Join our Telegram Group",
         createdAt: new Date("2022-07-03T00:00:00.000Z"),
       },
       sismoConnectRequest: {
@@ -49,6 +47,7 @@ export const sismoConfigDemo: SpaceConfig = {
         impersonateAddresses: ["telegram:dhadrien:1234", "dhadrien.eth"],
       },
       templateConfig: {
+        step2CtaText: "Join our Telegram Group",
         telegramGroupId: "-1001658867707",
         telegramInviteLink: "https://t.me/+MJxmxpCwKg82M2I0",
       },
@@ -60,7 +59,6 @@ export const sismoConfigDemo: SpaceConfig = {
         slug: "newsletter",
         description: "Register your email address to receive the Sismo newsletter - open to all.",
         image: "sismoapps_newletter_1014x720.png",
-        ctaText: "Subscribe to the Newsletter",
         tags: ["Newsletter"],
         createdAt: new Date("2022-07-01T00:00:00.000Z"),
       },
@@ -73,6 +71,7 @@ export const sismoConfigDemo: SpaceConfig = {
         appId: "0xe083ec4268d2c75e41ec6e08b4373882",
       },
       templateConfig: {
+        step2CtaText: "Subscribe to the Newsletter",
         fields: [
           {
             type: "short-text",
@@ -101,7 +100,6 @@ export const sismoConfigDemo: SpaceConfig = {
           "Provide feedback to help us improve your Sismo Space experience and become a Sismo Contributor Level 1.",
         image: "sismoapps_feedback_1014x720.png",
         tags: ["Feedback"],
-        ctaText: "Give Feedback",
         createdAt: new Date("2022-07-01T00:00:00.000Z"),
       },
       sismoConnectRequest: {
@@ -117,6 +115,7 @@ export const sismoConfigDemo: SpaceConfig = {
         ],
       },
       templateConfig: {
+        step2CtaText: "Give Feedback",
         fields: [
           {
             type: "short-text",
@@ -169,7 +168,6 @@ export const sismoConfigDemo: SpaceConfig = {
           "Register to become a Sismo Alpha Tester - open to Ethereum Power Users & ENS Domains Holders.",
         image: "sismoapps_alpha_tester_1014x720.png",
         tags: ["Alpha"],
-        ctaText: "Become an Alpha Tester",
         createdAt: new Date("2022-07-01T00:00:00.000Z"),
       },
       sismoConnectRequest: {
@@ -189,6 +187,7 @@ export const sismoConfigDemo: SpaceConfig = {
         ],
       },
       templateConfig: {
+        step2CtaText: "Become an Alpha Tester",
         fields: [
           {
             type: "short-text",
@@ -217,7 +216,6 @@ export const sismoConfigDemo: SpaceConfig = {
           "Write a public message on the Sismo Contributors' Anon Wall - available to all members of the Sismo Community.",
         tags: ["Feedback"],
         image: "sismoapps_anon_wall_1014x720.png",
-        ctaText: "Publish on Contributors' Anon Wall",
         createdAt: new Date("2022-07-01T00:00:00.000Z"),
       },
       sismoConnectRequest: {
@@ -228,6 +226,7 @@ export const sismoConfigDemo: SpaceConfig = {
         impersonateAddresses: ["0x8ab1760889F26cBbf33A75FD2cF1696BFccDc9e6"],
       },
       templateConfig: {
+        step2CtaText: "Publish on Contributors' Anon Wall",
         fields: [
           {
             type: "short-text",
@@ -255,7 +254,6 @@ export const sismoConfigDemo: SpaceConfig = {
         description: "Pre-register to the future Sismo events - open to Sismo Contributors.",
         tags: ["Event"],
         image: "sismoapps_sismo_events_1014x720.png",
-        ctaText: "Pre-register to Sismo events",
         createdAt: new Date("2022-07-01T00:00:00.000Z"),
       },
       sismoConnectRequest: {
@@ -267,6 +265,7 @@ export const sismoConfigDemo: SpaceConfig = {
         impersonateAddresses: ["0x0b5c7dc2181fa147ec439fd5a158e3012f9449ea"],
       },
       templateConfig: {
+        step2CtaText: "Pre-register to Sismo events",
         userSelection: { type: "FCFS", maxNumberOfUsers: 100 },
         fields: [
           {
@@ -300,7 +299,6 @@ export const sismoConfigDemo: SpaceConfig = {
           "Register to have a chance to be one of 10 lucky winners to get Sismo swag - open to Sismo GitHub Contributors.",
         tags: ["Swag"],
         image: "sismoapps_swag_lotery_1014x720.png",
-        ctaText: "Participate in the Swag Lottery",
         createdAt: new Date("2022-07-01T00:00:00.000Z"),
       },
       sismoConnectRequest: {
@@ -310,6 +308,7 @@ export const sismoConfigDemo: SpaceConfig = {
         impersonateAddresses: ["github:Baoufa"],
       },
       templateConfig: {
+        step2CtaText: "Participate in the Swag Lottery",
         fields: [
           {
             type: "short-text",
@@ -342,7 +341,6 @@ export const sismoConfigDemo: SpaceConfig = {
           "Future of France is an invitation-only event during EthCC week in Paris, organized by French-based crypto startups. The number of tickets is limited. Exclusive for members of Sismo Community Level 3.",
         tags: ["Event", "Ticket"],
         image: "sismo_appstore_fof_tickets.png",
-        ctaText: "Register to get the Invite",
         createdAt: new Date("2023-07-03T18:00"),
       },
       sismoConnectRequest: {
@@ -352,6 +350,7 @@ export const sismoConfigDemo: SpaceConfig = {
         impersonateAddresses: ["0x8ab1760889F26cBbf33A75FD2cF1696BFccDc9e6"],
       },
       templateConfig: {
+        step2CtaText: "Register to get the Invite",
         fields: [
           {
             type: "short-text",
@@ -400,6 +399,75 @@ export const sismoConfigDemo: SpaceConfig = {
       },
       options: {
         endDate: new Date("2023-07-10T18:00"),
+      },
+    },
+    {
+      type: "zkForm",
+      metadata: {
+        name: "Future of France Lottery",
+        slug: "lottery-fof",
+        description:
+          "Enter the Lottery to get a chance to receive an Invite for Future of France, an invitation-only event during EthCC week in Paris, organized by French-based crypto startups.",
+        tags: ["Event", "Ticket"],
+        image: "sismo_appstore_fof_tickets.png",
+        createdAt: new Date("2023-07-03T18:00"),
+      },
+      sismoConnectRequest: {
+        appId: "0xd3448b2ad00929478df698a73ae98fe1",
+        authRequests: [{ authType: AuthType.VAULT }],
+        claimRequests: [{ groupId: "0x1cde61966decb8600dfd0749bd371f12", value: 15 }],
+        impersonateAddresses: ["0x8ab1760889F26cBbf33A75FD2cF1696BFccDc9e6"],
+      },
+      templateConfig: {
+        step2CtaText: "Enter the Lottery",
+        fields: [
+          {
+            type: "short-text",
+            label: "First Name",
+            isRequired: true,
+          },
+          {
+            type: "short-text",
+            label: "Last Name",
+            isRequired: true,
+          },
+          {
+            type: "short-text",
+            label: "Company (optional)",
+            isRequired: false,
+          },
+          {
+            type: "short-text",
+            label: "Email",
+            isRequired: true,
+          },
+          {
+            type: "short-text",
+            label: "Will you be in Paris on July 17, 7pm? Tickets are limited.",
+            isRequired: true,
+            placeholder: "Yes/No",
+          },
+        ],
+        congratulationsMessage: {
+          title: "Fingers crossed!",
+          description: "You will receive the ticket in a few days if you win! See you there 💜",
+        },
+        failedMessage: {
+          title: "Sorry, too late this time 😕",
+          description: "Stay in touch for the next one 💜",
+        },
+        output: {
+          destination: {
+            type: "google_sheet",
+            spreadsheetId: "1Ez5GohjjiudF461EHO-L0NpwUXpdvtUVpj16nGa03Ig",
+          },
+          saveAuths: true,
+        },
+        userSelection: { type: "Lottery", maxNumberOfEntries: 1000, numberOfWinners: 10 },
+      },
+      options: {
+        endDate: new Date("2023-07-07T18:00"),
+        isFeatured: true,
       },
     },
   ],

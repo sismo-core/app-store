@@ -4,7 +4,6 @@ const path = require('path');
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
-    appDir: true,
     serverComponentsExternalPackages: ["@sismo-core/sismo-connect-server"],
   },
 

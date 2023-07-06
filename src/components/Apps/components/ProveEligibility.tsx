@@ -1,13 +1,13 @@
 import env from "@/src/environments";
 import { SismoConnectButton } from "@sismo-core/sismo-connect-react";
-import React, { useEffect, useState } from "react";
 import { useMemo } from "react";
 import { styled } from "styled-components";
 import ReqList from "./ReqList";
-import { GroupMetadata } from "@/src/libs/group-provider";
+import { GroupSnapshotMetadata } from "@/src/libs/group-provider";
 import { LockSimpleOpen } from "phosphor-react";
 import { AppFront } from "@/src/utils/getSpaceConfigsFront";
 import { getImpersonateAddresses } from "@/src/utils/getImpersonateAddresses";
+import { usePathname } from "next/navigation";
 
 const Container = styled.div``;
 
@@ -33,37 +33,33 @@ const Eligibility = styled.div`
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
+  height: 53px;
 `;
 
 type Props = {
   app: AppFront;
-  groupMetadataList: GroupMetadata[];
+  groupSnapshotMetadataList: GroupSnapshotMetadata[];
   verifying?: boolean;
 };
 
 export default function ProveEligibility({
   app,
-  groupMetadataList,
+  groupSnapshotMetadataList,
   verifying,
 }: Props): JSX.Element {
-  const [isMounted, setIsMounted] = useState(false);
+  const pathname = usePathname();
   const config = useMemo(() => {
     const config = {
       appId: app.appId,
+      vaultBaseUrl: "http:localhost:3001",
       vault: env.isDemo
-        ? {
-            impersonate: getImpersonateAddresses(app),
-          }
-        : null,
+      ? {
+        impersonate: getImpersonateAddresses(app),
+      }
+      : null,
     };
     return config;
   }, [app]);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  if (!isMounted) return null;
 
   return (
     <>
@@ -73,7 +69,7 @@ export default function ProveEligibility({
           Requirements
         </RequirementTitle>
         <Eligibility style={{ marginBottom: 24 }}>
-          <ReqList app={app} groupMetadataList={groupMetadataList} />
+          <ReqList app={app} groupSnapshotMetadataList={groupSnapshotMetadataList} />
         </Eligibility>
         <ButtonContainer>
           {(app?.claimRequests || app?.authRequests) && (
@@ -83,7 +79,7 @@ export default function ProveEligibility({
               auths={app?.authRequests}
               verifying={verifying}
               text={verifying ? "Verifying..." : "Sign in with Sismo"}
-              callbackPath={window.location.pathname}
+              callbackPath={pathname}
             />
           )}
         </ButtonContainer>

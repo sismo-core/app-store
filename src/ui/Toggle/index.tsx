@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Main = styled.div<{ $isDisabled: boolean, $isPrimary: boolean }>`
+const Main = styled.div<{ $isDisabled: boolean; $isPrimary: boolean }>`
   position: relative;
   z-index: 1;
   display: flex;
@@ -9,11 +9,16 @@ const Main = styled.div<{ $isDisabled: boolean, $isPrimary: boolean }>`
   gap: 2px;
   padding: 4px;
   background-color: ${(props) => props.theme.colors.neutral11};
-  border: 1px solid ${({$isPrimary, theme}) => $isPrimary ? theme.colors.green2 : theme.colors.red};
+  border: 1px solid
+    ${({ $isPrimary, theme }) => ($isPrimary ? theme.colors.green2 : theme.colors.red)};
   border-radius: 30px;
   transition: all ${(props) => props.theme.animations.transition};
   cursor: pointer;
   user-select: none;
+
+  &:hover {
+    transform: translate(5px, 5px);
+  }
 `;
 
 const Container = styled.div`
@@ -27,14 +32,15 @@ const Container = styled.div`
   border: none;
 `;
 
-const Underline = styled.div<{$isPrimary: boolean}>`
+const Underline = styled.div<{ $isPrimary: boolean }>`
   position: absolute;
   z-index: 0;
   top: 5px;
   left: 5px;
   width: 100%;
   height: 100%;
-  border: 1px solid ${({$isPrimary, theme}) => $isPrimary ? theme.colors.red : theme.colors.green2};
+  border: 1px solid
+    ${({ $isPrimary, theme }) => ($isPrimary ? theme.colors.red : theme.colors.green2)};
   border-radius: 30px;
   transition: all ${(props) => props.theme.animations.transition};
 `;
@@ -50,9 +56,7 @@ const Item = styled.div<{ $isSelected: boolean }>`
   border-radius: 40px;
 
   color: ${(props) =>
-    props.$isSelected
-      ? props.theme.colors.neutral11
-      : props.theme.colors.neutral1};
+    props.$isSelected ? props.theme.colors.neutral11 : props.theme.colors.neutral1};
   font-size: 16px;
   font-family: ${(props) => props.theme.fonts.medium};
   line-height: 22px;
@@ -71,7 +75,7 @@ const Cartridge = styled.div<{ $selectedIndex: number }>`
     $selectedIndex > 0 ? theme.colors.red : theme.colors.green2};
   transform: ${({ $selectedIndex }) =>
     `translateX(calc(${$selectedIndex * 100}% + ${$selectedIndex * 2}px))`};
-    transition: all ${(props) => props.theme.animations.transition};
+  transition: all ${(props) => props.theme.animations.transition};
   z-index: 1;
 `;
 
@@ -89,19 +93,12 @@ type Props = {
   onChange: (value: string) => void;
 };
 
-export default function Toggle({
-  style,
-  className,
-  disabled,
-  onChange,
-  options,
-  selected,
-}: Props) {
+export default function Toggle({ style, className, disabled, onChange, options, selected }: Props) {
   const isPrimary = selected === options[0].value;
 
   return (
     <Container style={style} className={className}>
-      <Main $isDisabled={Boolean(disabled)} $isPrimary={isPrimary} >
+      <Main $isDisabled={Boolean(disabled)} $isPrimary={isPrimary}>
         {options.map((option) => (
           <Item
             key={option.value}
@@ -111,13 +108,9 @@ export default function Toggle({
             {option.label}
           </Item>
         ))}
-        <Cartridge
-          $selectedIndex={options.findIndex(
-            (option) => option.value === selected
-          )}
-        />
+        <Cartridge $selectedIndex={options.findIndex((option) => option.value === selected)} />
       </Main>
-      <Underline $isPrimary={isPrimary}/>
+      <Underline $isPrimary={isPrimary} />
     </Container>
   );
 }

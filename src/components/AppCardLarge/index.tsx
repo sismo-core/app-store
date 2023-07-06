@@ -7,12 +7,12 @@ import { ArrowSquareOut, Clock } from "phosphor-react";
 import { getHumanReadableRemainingTimeTag } from "@/src/utils/getHumanReadableTimeTag";
 import SpaceTag from "../SpaceTag";
 import { AppFront } from "@/src/utils/getSpaceConfigsFront";
-import { useRouter } from "next/navigation";
 import Default from "@/src/assets/default.svg";
 import colors from "@/src/themes/colors";
 import { ExternalAppType, Lottery, ZkDropAppType } from "@/src/libs/spaces";
+import Link from "next/link";
 
-const Container = styled.div<{ $isDisabled: boolean }>`
+const Container = styled(Link)<{ $isDisabled: boolean }>`
   display: flex;
   padding: 20px;
   align-items: flex-start;
@@ -26,6 +26,7 @@ const Container = styled.div<{ $isDisabled: boolean }>`
   transition: background-color ${({ theme }) => theme.animations.transition},
     border ${({ theme }) => theme.animations.transition};
   cursor: ${({ $isDisabled }) => ($isDisabled ? "default" : "pointer")};
+  pointer-events: ${({ $isDisabled }) => ($isDisabled ? "none" : "auto")};
 
   &:hover {
     border: 1px solid
@@ -198,7 +199,6 @@ type Props = {
 export default function AppCardLarge({ app }: Props): JSX.Element {
   const { remainingStartTime, remainingEndTime, hasStarted, hasEnded } =
     useRemainingTime({ startDate: app?.startDate, endDate: app?.endDate });
-  const router = useRouter();
 
   const isDisabled = hasEnded;
 
@@ -211,9 +211,7 @@ export default function AppCardLarge({ app }: Props): JSX.Element {
   if (app)
     return (
       <Container
-        onClick={() => {
-          !isDisabled && router.push(link);
-        }}
+        href={link}
         $isDisabled={isDisabled}
       >
         <ImageContainer $isDisabled={isDisabled}>

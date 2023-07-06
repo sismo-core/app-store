@@ -8,8 +8,7 @@ export const privacyIsNormalConfigDemo: SpaceConfig = {
     name: "Privacy Is Normal 🌼",
     description:
       "This Space celebrates privacy as a fundamental human right. By proving you are a Tornado Cash user in a privacy-preserving manner and with a Gitcoin Passport, you were able to participate in our Sybil-resistant lottery. 10 winners have been selected to receive a printed ‘Privacy Is Normal’ artwork.",
-    profileImage: "space_privacy_is_normal_pfp_400x400.png",
-    coverImage: "space_privacy_is_normal_cover_1740x540.png",
+    image: "space_privacy_is_normal_pfp_400x400.png",
     socialLinks: [
       {
         type: "link",
@@ -39,7 +38,6 @@ export const privacyIsNormalConfigDemo: SpaceConfig = {
           "Register to have a chance to be among 10 lucky winners to get a ‘Privacy Is Normal’ artwork'.",
         tags: ["Artwork"],
         image: "privacy_is_normal_apps_lotery_1014x720.png",
-        ctaText: "Participate in the Lottery",
         createdAt: new Date("2022-07-01T00:00:00.000Z"),
       },
       sismoConnectRequest: {
@@ -59,6 +57,7 @@ export const privacyIsNormalConfigDemo: SpaceConfig = {
         ],
       },
       templateConfig: {
+        step2CtaText: "Participate in the Lottery",
         congratulationsMessage: {
           title: "Fingers crossed!",
           description:
@@ -84,7 +83,6 @@ export const privacyIsNormalConfigDemo: SpaceConfig = {
           "[DEMO] Artwork Claiming App: you will impersonate ‘demo.eth’ that is the unique winner in the demo environment of the ‘Privacy Is Normal’ lottery.",
         tags: ["Artwork"],
         image: "privacy_is_normal_apps_print_1014x720.png",
-        ctaText: "Claim Your Artwork",
         createdAt: new Date("2022-07-01T00:00:00.000Z"),
       },
       sismoConnectRequest: {
@@ -98,6 +96,7 @@ export const privacyIsNormalConfigDemo: SpaceConfig = {
         ],
       },
       templateConfig: {
+        step2CtaText: "Claim Your Artwork",
         fields: [
           {
             type: "short-text",

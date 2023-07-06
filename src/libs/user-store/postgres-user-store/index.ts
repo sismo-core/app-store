@@ -2,7 +2,7 @@ import { UserStore } from "../store";
 import { User } from "../user";
 import { UserEntity } from "./Entities/user.entity";
 import { initAppDataSource } from "./initAppDataSource";
-import { DataSource } from "typeorm"
+import { DataSource } from "typeorm";
 import "reflect-metadata";
 
 export class PostgresUserStore extends UserStore {
@@ -19,6 +19,11 @@ export class PostgresUserStore extends UserStore {
 
     const userRepository = this.appDataSource.getRepository(UserEntity);
     return await userRepository.find({ where: queryUser });
+  }
+
+  public async exists(user: User): Promise<boolean> {
+    const users = await this.getUsers(user);
+    return users.length > 0;
   }
 
   public async add(user: User): Promise<void> {

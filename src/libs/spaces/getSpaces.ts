@@ -1,4 +1,4 @@
-import { spacesConfig } from "@/space-config";
+import ServiceFactory from "@/src/libs/service-factory/service-factory";
 import {
   ZkAppType,
   AppCommonType,
@@ -11,7 +11,7 @@ import { AuthType } from "@sismo-core/sismo-connect-server";
 
 export function getSpaces(): SpaceType[] {
   let spaces: SpaceType[] = [];
-  for (let spaceConfig of spacesConfig) {
+  for (let spaceConfig of ServiceFactory.getSpaceConfigs()) {
     let apps: ZkAppType[] = [];
     for (let appConfig of spaceConfig.apps) {
       const appCommon: AppCommonType = {
@@ -20,7 +20,6 @@ export function getSpaces(): SpaceType[] {
         description: appConfig.metadata.description,
         image: appConfig.metadata.image,
         tags: appConfig.metadata.tags,
-        ctaText: appConfig.metadata.ctaText,
         claimRequests: appConfig.sismoConnectRequest.claimRequests,
         authRequests: appConfig.sismoConnectRequest.authRequests,
         impersonateAddresses: appConfig.sismoConnectRequest.impersonateAddresses,
@@ -50,6 +49,8 @@ export function getSpaces(): SpaceType[] {
           userSelection: appConfig.templateConfig.userSelection,
           output: appConfig.templateConfig.output.destination.type,
           spreadsheetId: appConfig.templateConfig.output.destination.spreadsheetId,
+          ctaText: appConfig.templateConfig.step2CtaText,
+          appDescription: appConfig.templateConfig.appDescription,
         } as ZkFormAppType);
       } else if (appConfig.type === "zkTelegramBot") {
         apps.push({
@@ -58,6 +59,8 @@ export function getSpaces(): SpaceType[] {
           authRequests: appConfig.sismoConnectRequest.authRequests ?? [
             { authType: AuthType.TELEGRAM },
           ],
+          ctaText: appConfig.templateConfig.step2CtaText,
+          appDescription: appConfig.templateConfig.appDescription,
           telegramGroupId: appConfig.templateConfig.telegramGroupId,
           telegramInviteLink: appConfig.templateConfig.telegramInviteLink,
         } as ZkTelegramBotAppType);
@@ -67,8 +70,7 @@ export function getSpaces(): SpaceType[] {
       name: spaceConfig.metadata.name,
       slug: spaceConfig.metadata.slug,
       description: spaceConfig.metadata.description,
-      profileImage: spaceConfig.metadata.profileImage,
-      coverImage: spaceConfig.metadata.coverImage,
+      profileImage: spaceConfig.metadata.image,
       socialLinks: spaceConfig.metadata.socialLinks,
       hidden: spaceConfig.options?.hidden,
       apps: apps,

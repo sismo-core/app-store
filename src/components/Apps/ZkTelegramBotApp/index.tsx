@@ -6,15 +6,13 @@ import Button3D from "@/src/ui/Button3D";
 import ProveEligibility from "../components/ProveEligibility";
 import { SismoConnectResponse } from "@sismo-core/sismo-connect-server";
 import Section from "../components/Section";
-import { GroupMetadata } from "@/src/libs/group-provider";
-import useRemainingTime from "@/src/utils/useRemainingTime";
-import Timer from "../components/Timer";
+import { GroupSnapshotMetadata } from "@/src/libs/group-provider";
 import { AppFront } from "@/src/utils/getSpaceConfigsFront";
 import { ZkTelegramBotAppType } from "@/src/libs/spaces";
 import env from "@/src/environments";
 import { getImpersonateAddresses } from "@/src/utils/getImpersonateAddresses";
 import { useSismoConnect } from "@sismo-core/sismo-connect-react";
-import { useSearchParams } from "next/navigation";
+import Error from "@/src/ui/Error";
 
 const Content = styled.div`
   width: 580px;
@@ -24,7 +22,7 @@ const Content = styled.div`
   }
 `;
 
-const Bottom = styled.div`
+const ErrorContainer = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 32px;
@@ -34,46 +32,33 @@ const Bottom = styled.div`
   align-items: center;
 `;
 
-const Loading = styled.div`
-  font-family: ${(props) => props.theme.fonts.regular};
-  color: ${(props) => props.theme.colors.neutral1};
-  font-size: 16px;
-`;
-
-const ErrorMsg = styled.div`
-  color: ${(props) => props.theme.colors.error};
-  font-family: ${(props) => props.theme.fonts.regular};
-  position: absolute;
-  bottom: -25px;
-  font-size: 12px;
-`;
-
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
 `;
 
 type Props = {
-  groupMetadataList: GroupMetadata[];
+  groupSnapshotMetadataList: GroupSnapshotMetadata[];
   app: AppFront;
 };
 
-export default function ZkTelegramBotApp({ app, groupMetadataList }: Props): JSX.Element {
+export default function ZkTelegramBotApp({ app, groupSnapshotMetadataList }: Props): JSX.Element {
   const [error, setError] = useState(null);
   const [approved, setApproved] = useState(false);
   const [verifying, setVerifying] = useState<boolean>(false);
   const config = useMemo(() => {
     const config = {
       appId: app.appId,
-      vault: env.isDemo ? {
-        impersonate: getImpersonateAddresses(app)
-      } : null
+      vault: env.isDemo
+        ? {
+            impersonate: getImpersonateAddresses(app),
+          }
+        : null,
     };
     return config;
   }, [app]);
 
-  const { response } = useSismoConnect({config})
-  const { hasStarted } = useRemainingTime({ startDate: app?.startDate });
+  const { response } = useSismoConnect({ config });
 
   const verify = async (response: SismoConnectResponse) => {
     const body = {
@@ -111,13 +96,6 @@ export default function ZkTelegramBotApp({ app, groupMetadataList }: Props): JSX
     window.open(inviteLink, "_blank");
   };
 
-  if (!hasStarted)
-    return (
-      <Content>
-        <Timer app={app} />
-      </Content>
-    );
-
   return (
     <Content>
       {
@@ -129,16 +107,16 @@ export default function ZkTelegramBotApp({ app, groupMetadataList }: Props): JSX
             style={{ marginBottom: 16 }}
             success={approved}
           >
+            {error && (
+              <ErrorContainer>
+                <Error>{error}</Error>
+              </ErrorContainer>
+            )}
             <ProveEligibility
               app={app}
               verifying={verifying}
-              groupMetadataList={groupMetadataList}
+              groupSnapshotMetadataList={groupSnapshotMetadataList}
             />
-            {error && (
-              <Bottom>
-                <ErrorMsg>{error}</ErrorMsg>
-              </Bottom>
-            )}
           </Section>
           <Section number={2} isOpen={approved} title={app?.ctaText} success={false}>
             <ButtonContainer>

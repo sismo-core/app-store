@@ -1,17 +1,15 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { Info } from "phosphor-react";
 import colors from "@/src/themes/colors";
 import UserTag from "../../UserTag";
 import { AuthType, ClaimRequest } from "@sismo-core/sismo-connect-react";
-import ShardTag from "../../ShardTag";
 import HoverTooltip from "@/src/ui/HoverTooltip";
-import { GroupMetadata } from "@/src/libs/group-provider";
-import EligibilityModal from "../../EligibilityModal";
-import { useModals } from "@/src/state/ModalState";
+import { GroupSnapshotMetadata } from "@/src/libs/group-provider";
 import { AppFront } from "@/src/utils/getSpaceConfigsFront";
+import ReqItem from "./ReqItem";
 
 const Container = styled.div`
   display: flex;
@@ -33,7 +31,7 @@ const OptionalList = styled(RequiredList)`
 `;
 
 const OptionalTitle = styled.div`
-align-self: flex-start;
+  align-self: flex-start;
   color: ${(props) => props.theme.colors.neutral6};
   text-align: center;
   font-size: 14px;
@@ -42,7 +40,7 @@ align-self: flex-start;
   margin-top: 8px;
 `;
 
-const ReqItem = styled.div`
+const AuthItem = styled.div`
   display: flex;
   align-items: center;
   font-size: 14px;
@@ -51,14 +49,11 @@ const ReqItem = styled.div`
   gap: 8px;
   white-space: nowrap;
   width: 334px;
+  padding-right: 22px;
 
   @media (max-width: 900px) {
     width: 100%;
   }
-`;
-
-const AuthItem = styled(ReqItem)`
-  padding-right: 22px;
 `;
 
 const Bold = styled.span`
@@ -67,20 +62,17 @@ const Bold = styled.span`
 
 type Props = {
   app: AppFront;
-  groupMetadataList: GroupMetadata[];
+  groupSnapshotMetadataList: GroupSnapshotMetadata[];
   style?: React.CSSProperties;
   fullWidth?: boolean;
 };
 
 export default function ReqList({
   app,
-  groupMetadataList,
+  groupSnapshotMetadataList,
   style,
   fullWidth,
 }: Props): JSX.Element {
-  const { requirementsIsOpen, setRequirementsIsOpen } = useModals();
-  const [groupMetadata, setGroupMetadata] = useState(null);
-
   const requiredAuth = [];
   const requiredClaim = [];
   const optionalAuth = [];
@@ -107,19 +99,49 @@ export default function ReqList({
   }
 
   return (
-    <>
-      <EligibilityModal
-        groupMetadata={groupMetadata}
-        isOpen={requirementsIsOpen}
-        onClose={() => {
-          setGroupMetadata(null);
-          setRequirementsIsOpen(false);
-        }}
-      />
-      <Container style={style}>
-        <RequiredList>
-          {requiredAuth.length > 0 &&
-            requiredAuth?.map((authRequest, index) => (
+    <Container style={style}>
+      <RequiredList>
+        {requiredAuth.length > 0 &&
+          requiredAuth?.map((authRequest, index) => (
+            <AuthItem key={authRequest?.authType + index}>
+              {authRequest?.authType === AuthType.VAULT ? (
+                <>
+                  <Bold>VaultId</Bold>
+                  <HoverTooltip
+                    text={
+                      "The vaultId is an anonymous identifier of your vault for this specific app. Sharing your vaultId only reveals that you are a unique user and authenticates that you own a Data Vault."
+                    }
+                    width={300}
+                    style={{ marginLeft: -4 }}
+                  >
+                    <Info size={18} color={colors.neutral1} />
+                  </HoverTooltip>
+                </>
+              ) : (
+                <UserTag authType={authRequest?.authType} fullWidth={fullWidth} />
+              )}
+            </AuthItem>
+          ))}
+        {requiredClaim?.length > 0 &&
+          requiredClaim?.map((claimRequest: ClaimRequest, index) => {
+            const groupSnapshotMetadata = groupSnapshotMetadataList?.find(
+              (el) => el.id === claimRequest.groupId
+            );
+            return (
+              <ReqItem
+                key={"required/" + claimRequest?.groupId + index}
+                claimRequest={claimRequest}
+                groupSnapshotMetadata={groupSnapshotMetadata}
+                fullWidth={fullWidth}
+              />
+            );
+          })}
+      </RequiredList>
+      {(optionalAuth?.length > 0 || optionalClaim?.length > 0) && (
+        <OptionalList>
+          <OptionalTitle>Optional</OptionalTitle>
+          {optionalAuth.length > 0 &&
+            optionalAuth?.map((authRequest, index) => (
               <AuthItem key={authRequest?.authType + index}>
                 {authRequest?.authType === AuthType.VAULT ? (
                   <>
@@ -135,83 +157,26 @@ export default function ReqList({
                     </HoverTooltip>
                   </>
                 ) : (
-                  <UserTag
-                    authType={authRequest?.authType}
-                    fullWidth={fullWidth}
-                  />
+                  <UserTag authType={authRequest?.authType} fullWidth={fullWidth} />
                 )}
               </AuthItem>
             ))}
-          {requiredClaim?.length > 0 &&
-            requiredClaim?.map((claimRequest: ClaimRequest, index) => {
-              const groupMetadata = groupMetadataList?.find(
+          {optionalClaim?.length > 0 &&
+            optionalClaim?.map((claimRequest: ClaimRequest, index) => {
+              const groupSnapshotMetadata = groupSnapshotMetadataList?.find(
                 (el) => el.id === claimRequest.groupId
               );
               return (
-                <ReqItem key={claimRequest?.groupId + index}>
-                  <ShardTag
-                    onModal={() => {
-                      setGroupMetadata(groupMetadata);
-                      setRequirementsIsOpen(true);
-                    }}
-                    fullWidth={fullWidth}
-                    claimRequest={claimRequest}
-                    groupMetadata={groupMetadata}
-                  />
-                </ReqItem>
+                <ReqItem
+                  key={"optional/" + claimRequest?.groupId + index}
+                  claimRequest={claimRequest}
+                  groupSnapshotMetadata={groupSnapshotMetadata}
+                  fullWidth={fullWidth}
+                />
               );
             })}
-        </RequiredList>
-        {(optionalAuth?.length > 0 ||
-          optionalClaim?.length > 0) && (
-            <OptionalList>
-              <OptionalTitle>Optional</OptionalTitle>
-              {optionalAuth.length > 0 &&
-                optionalAuth?.map((authRequest, index) => (
-                  <AuthItem key={authRequest?.authType + index}>
-                    {authRequest?.authType === AuthType.VAULT ? (
-                      <>
-                        <Bold>User Id</Bold>
-                        <HoverTooltip
-                          text={
-                            "User Id is an anonymous identifier that indicates a unique user on a specific app. Sharing your User Id only reveals that you are a unique user and authenticates that you own a Data Vault."
-                          }
-                          width={300}
-                          style={{ marginLeft: -4 }}
-                        >
-                          <Info size={18} color={colors.neutral1} />
-                        </HoverTooltip>
-                      </>
-                    ) : (
-                      <UserTag
-                        authType={authRequest?.authType}
-                        fullWidth={fullWidth}
-                      />
-                    )}
-                  </AuthItem>
-                ))}
-              {optionalClaim?.length > 0 &&
-                optionalClaim?.map((claimRequest: ClaimRequest, index) => {
-                  const groupMetadata = groupMetadataList?.find(
-                    (el) => el.id === claimRequest.groupId
-                  );
-                  return (
-                    <ReqItem key={claimRequest?.groupId + index}>
-                      <ShardTag
-                        onModal={() => {
-                          setGroupMetadata(groupMetadata);
-                          setRequirementsIsOpen(true);
-                        }}
-                        fullWidth={fullWidth}
-                        claimRequest={claimRequest}
-                        groupMetadata={groupMetadata}
-                      />
-                    </ReqItem>
-                  );
-                })}
-            </OptionalList>
-          )}
-      </Container>
-    </>
+        </OptionalList>
+      )}
+    </Container>
   );
 }

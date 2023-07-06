@@ -9,7 +9,7 @@ export const CoolNewSpace : SpaceConfig = {
     name: "Sasha's Cool New Space", // UPDATE HERE
     description:
       "This Space is very cool. https://sismo.mirror.xyz/z-hka-hlI3wiJE8zmr2E3KviwYGh6QymzHiBH5BMOwM", // UPDATE HERE
-    profileImage: "my_new_space_picture_400x400.png", // UPDATE HERE
+    image: "my_new_space_picture_400x400.png", // UPDATE HERE
     socialLinks: [
       {
         type: "link",
@@ -18,6 +18,7 @@ export const CoolNewSpace : SpaceConfig = {
     ],
   }, 
   apps: [
+	  {
     // Type: We use zkForm template here to get a gated form app.
   type: "zkForm",
 	// metadata contains information about your app

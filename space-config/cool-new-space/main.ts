@@ -53,9 +53,9 @@ export const CoolNewSpace : SpaceConfig = {
       // We will cover this in Tutorial 2.1 Step 2
       templateConfig: {
         // Text that will be shown in the Button for the 2nd Step (on submitting the form).
-        step2CtaText: "Submit your feedback",
+        // step2CtaText: "Submit your feedback",
         // App Description that will be shown in the Sismo App Store
-        appDescription: "Anyone who tested my app can provide feedback and share the wallet with me without linking it to your twitter that was used for testing. I will send you test tokens. ",
+        // appDescription: "Anyone who tested my app can provide feedback and share the wallet with me without linking it to your twitter that was used for testing. I will send you test tokens. ",
         // List of Form field for zkForm
         fields: [
           {

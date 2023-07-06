@@ -34,7 +34,7 @@ export const CoolNewSpace : SpaceConfig = {
         // Add one or two tags to your App
         tags: ["Feedback"],
         // Image for you App, to be placed in the image folder of your Space
-        image: "your_app_image_500x500.png",
+        image: "your_app_image_500x500.png.png",
         // Edit date here to today
         createdAt: new Date("2023-07-06T09:00"),
       },

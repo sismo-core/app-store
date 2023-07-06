@@ -1,0 +1,15 @@
+export enum Network {
+    Test = "test",
+    Local = "local",
+    Goerli = "goerli",
+    Sepolia = "sepolia",
+    Mainnet = "mainnet",
+    Gnosis = "gnosis",
+    Polygon = "polygon",
+    Mumbai = "mumbai",
+    Optimism = "optimism",
+    OptimismGoerli = "optimism-goerli",
+    ArbitrumOne = "arbitrum-one",
+    ArbitrumGoerli = "arbitrum-goerli",
+    ScrollTestnet = "scroll-testnet",
+  }

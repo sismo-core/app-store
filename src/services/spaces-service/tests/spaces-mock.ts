@@ -1,5 +1,6 @@
 // add an images folder in your space folder if you would like Sismo to host your images
 import { SpaceConfig } from "@/space-config/types";
+import { Network } from "@/src/libs/contracts/networks";
 import { AuthType } from "@sismo-core/sismo-connect-server"
 
 export const spaceMock1: SpaceConfig = {
@@ -142,7 +143,7 @@ export const spaceMock1: SpaceConfig = {
           image: "image.png"
         },
         chains: [{
-          name: "gnosis"
+          name: Network.Gnosis
         }]
       }
     }
@@ -290,7 +291,7 @@ export const spaceMock2: SpaceConfig = {
             image: "image2.png"
           },
           chains: [{
-            name: "gnosis"
+            name: Network.Gnosis
           }]
         }
       }

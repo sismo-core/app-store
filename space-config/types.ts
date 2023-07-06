@@ -1,3 +1,4 @@
+import { Network } from "@/src/libs/contracts/networks";
 import { AuthRequest, ClaimRequest } from "@sismo-core/sismo-connect-react";
 
 export type SpaceConfig = {
@@ -85,7 +86,7 @@ export type ZkDropAppConfig = AppCommonConfig & {
   };
 };
 
-export type ZkBadgeChainName = "gnosis";
+export type ZkBadgeChainName = Network.Gnosis | Network.Mumbai;
 export type ZkBadgeAppConfig = AppCommonConfig & {
   type: "zkBadge";
   templateConfig: {

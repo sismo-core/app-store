@@ -14,6 +14,7 @@ import { useSismoConnect } from "@sismo-core/sismo-connect-react";
 import { getImpersonateAddresses } from "@/src/utils/getImpersonateAddresses";
 import env from "@/src/environments";
 import Error from "@/src/ui/Error";
+import Requirements from "../components/Requirements";
 
 const Content = styled.div`
   width: 580px;
@@ -121,7 +122,8 @@ export default function ZkFormApp({ app, groupSnapshotMetadataList }: Props): JS
             style={{ marginBottom: 16 }}
             success={hasResponse}
           >
-            <ProveEligibility app={app} groupSnapshotMetadataList={groupSnapshotMetadataList} />
+            <Requirements app={app} groupSnapshotMetadataList={groupSnapshotMetadataList}/>
+            <ProveEligibility app={app} />
           </Section>
           <Section
             number={2}

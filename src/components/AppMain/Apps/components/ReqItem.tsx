@@ -1,7 +1,7 @@
 import { GroupMetadata, GroupProvider, GroupSnapshotMetadata } from "@/src/libs/group-provider";
 import styled from "styled-components";
-import ShardTag from "../../ShardTag";
-import EligibilityModal from "../../EligibilityModal";
+import ShardTag from "../../../ShardTag";
+import EligibilityModal from "../../../EligibilityModal";
 import { useEffect, useState } from "react";
 import { ClaimRequest } from "@sismo-core/sismo-connect-react";
 import env from "@/src/environments";

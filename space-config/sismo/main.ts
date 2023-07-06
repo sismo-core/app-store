@@ -1,6 +1,7 @@
 // add an images folder in your space folder if you would like Sismo to host your images
 import { AuthType } from "@sismo-core/sismo-connect-server";
 import { SpaceConfig } from "../types";
+import { Network } from "@/src/libs/contracts/networks";
 
 export const sismoConfigMain: SpaceConfig = {
   metadata: {
@@ -202,7 +203,7 @@ export const sismoConfigMain: SpaceConfig = {
         claimRequests: [{ groupId: "0xe9ed316946d3d98dfcd829a53ec9822e" }],
       },
       templateConfig: {
-        step2CtaText: "Mint Badge",
+        step2CtaText: "Claim with Sismo",
         tokenId: "40000001",
         badgeMetadata: {
           name: "Badge test",
@@ -210,7 +211,7 @@ export const sismoConfigMain: SpaceConfig = {
           image: "sismo_badge_test.png"
         },
         chains: [{
-          name: "gnosis"
+          name: Network.Gnosis
         }]
       }
     }

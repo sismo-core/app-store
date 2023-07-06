@@ -4,7 +4,7 @@ import React from "react";
 import styled from "styled-components";
 import { Info } from "phosphor-react";
 import colors from "@/src/themes/colors";
-import UserTag from "../../UserTag";
+import UserTag from "../../../UserTag";
 import { AuthType, ClaimRequest } from "@sismo-core/sismo-connect-react";
 import HoverTooltip from "@/src/ui/HoverTooltip";
 import { GroupSnapshotMetadata } from "@/src/libs/group-provider";

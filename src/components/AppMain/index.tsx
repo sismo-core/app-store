@@ -1,16 +1,17 @@
 "use client";
 
 import styled from "styled-components";
-import ZkFormApp from "../Apps/ZkFormApp";
+import ZkFormApp from "./Apps/ZkFormApp";
 import { GroupSnapshotMetadata } from "@/src/libs/group-provider";
 import Image from "next/image";
 import SpaceTag from "../SpaceTag";
 import Default from "@/src/assets/default.svg";
-import ZkBotApp from "@/src/components/Apps/ZkTelegramBotApp";
+import ZkBotApp from "@/src/components/AppMain/Apps/ZkTelegramBotApp";
 import useRemainingTime from "@/src/utils/useRemainingTime";
 import { redirect } from "next/navigation";
-import Timer from "../Apps/components/Timer";
+import Timer from "./Apps/components/Timer";
 import { ZkAppType } from "@/src/services/spaces-service";
+import ZkBadgeApp from "./Apps/ZkBadgeApp";
 
 const Container = styled.div`
   flex-grow: 1;
@@ -202,6 +203,9 @@ export default function AppMain({ app, groupSnapshotMetadataList }: Props) {
             )}
             {app?.type == "zkTelegramBot" && (
               <ZkBotApp app={app} groupSnapshotMetadataList={groupSnapshotMetadataList} />
+            )}
+            {app?.type == "zkBadge" && (
+              <ZkBadgeApp app={app} groupSnapshotMetadataList={groupSnapshotMetadataList} />
             )}
           </>
         )}

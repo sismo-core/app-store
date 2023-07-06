@@ -12,6 +12,7 @@ import env from "@/src/environments";
 import { getImpersonateAddresses } from "@/src/utils/getImpersonateAddresses";
 import { useSismoConnect } from "@sismo-core/sismo-connect-react";
 import Error from "@/src/ui/Error";
+import Requirements from "../components/Requirements";
 
 const Content = styled.div`
   width: 580px;
@@ -111,10 +112,10 @@ export default function ZkTelegramBotApp({ app, groupSnapshotMetadataList }: Pro
                 <Error>{error}</Error>
               </ErrorContainer>
             )}
+            <Requirements app={app} groupSnapshotMetadataList={groupSnapshotMetadataList}/>
             <ProveEligibility
               app={app}
               verifying={verifying}
-              groupSnapshotMetadataList={groupSnapshotMetadataList}
             />
           </Section>
           <Section number={2} isOpen={approved} title={app?.step2CtaText} success={false}>

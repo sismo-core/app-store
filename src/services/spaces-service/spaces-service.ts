@@ -153,7 +153,7 @@ export class SpacesService {
             apps.push({
               type: appConfig.type,
               ...appCommon,
-              step1CtaText: appConfig.templateConfig.step1CtaText,
+              step1CtaText: appConfig.templateConfig.step1CtaText ?? "Sign in with Sismo",
               step2CtaText: appConfig.templateConfig.step2CtaText,
               appDescription: appConfig.templateConfig.appDescription,
               tokenId: appConfig.templateConfig.tokenId,

@@ -1,9 +1,7 @@
-import { getSpaces } from "../../libs/spaces/getSpaces";
-import { SpaceType } from "../../libs/spaces";
-import getSpaceFront, { AppFront, SpaceConfigFront } from "@/src/utils/getSpaceConfigsFront";
+import { getApps, getSpaces } from "../../libs/spaces/spaces";
+import { SpaceType, ZkAppType } from "../../libs/spaces";
 import HomeMain from "@/src/components/HomeMain";
 import env from "@/src/environments";
-import { notFound } from "next/navigation";
 
 export type SpaceImportedImage = {
   config: SpaceType;
@@ -40,25 +38,9 @@ export async function generateMetadata() {
 }
 
 export default async function HomePage() {
-  const apps: AppFront[] = [];
-  let spacesFront: SpaceConfigFront[] = [];
+  const spaces: SpaceType[] = await getSpaces();
+  const apps: ZkAppType[] = await getApps({ sortedBy: "createdAt" });
 
-  try {
-    const spaces = getSpaces();
-    spacesFront = await getSpaceFront(spaces);
 
-    for (const config of spacesFront) {
-      for (const app of config.apps) {
-        apps.push(app);
-      }
-    }
-
-    apps.sort((a, b) => {
-      return b.createdAt.getTime() - a.createdAt.getTime();
-    });
-  } catch (e) {
-    notFound();
-  }
-
-  return <>{spacesFront && <HomeMain configs={spacesFront} apps={apps} />}</>;
+  return <>{spaces && <HomeMain spaces={spaces} apps={apps}/>}</>;
 }

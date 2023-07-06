@@ -1,4 +1,4 @@
-import { Column, Row, Table, TableStore } from "@/src/libs/table-store";
+import { Column, Row, Table, TableStore } from "@/src/services/table-store";
 
 export class MemoryTableStore implements TableStore {
   private tables: { [key: string]: Table } = {};

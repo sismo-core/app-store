@@ -1,13 +1,13 @@
 // add an images folder in your space folder if you would like Sismo to host your images
-import { AuthType, ClaimType } from "@sismo-core/sismo-connect-server";
+import { AuthType } from "@sismo-core/sismo-connect-server";
 import { SpaceConfig } from "../types";
 
 export const cowSwapConfigMain: SpaceConfig = {
   metadata: {
     slug: "cow-swap",
-    name: "Cow Swap",
+    name: "CoW Swap",
     description:
-      "This Space is dedicated to Cow Swap, a DEX aggregator. Cow Traders and Holders will get access to gifts and premium features.",
+      "Welcome to the CoW Swap Sismo Space. CoW Swap is a decentralized exchange aggregator that protects users from MEV. CoW community, traders and holders can find here exclusive events, swags and premium features.",
     image: "space_cow_swap_pfp_500x500.png",
     socialLinks: [
       {
@@ -33,9 +33,9 @@ export const cowSwapConfigMain: SpaceConfig = {
       type: "zkForm",
       metadata: {
         slug: "swag",
-        name: "Cow Swag Claim",
+        name: "CoW Swag Claim",
         description:
-          "Prove you are a Cow Trader or Holder to claim your Cow Swag, during EthCC week in Paris. Exclusive for Level 2 (Water Flask) and Level 3 (Water Flask + Backpack).",
+          "Prove you are a CoW trader or holder to claim your CoW Swag. You can find us in our booth during EthCC week in Paris. Exclusive items are reserved for Level 2 (Water Flask) and Level 3 (Backpack).",
         tags: ["Swag"],
         image: "cowswap_app_store_cow_swag_400x400.png",
         createdAt: new Date("2023-07-04T18:00"),
@@ -91,9 +91,9 @@ export const cowSwapConfigMain: SpaceConfig = {
       type: "zkForm",
       metadata: {
         slug: "event",
-        name: "Cow Event Invitation",
+        name: "CoW Event Invitation",
         description:
-          "Prove you are a Cow Trader or Holder to register to an invitation-only event organized by Cow Swap, during EthCC week in Paris.",
+          "Prove you are a CoW trader or holder to register to an invitation-only event organized by CoW Swap, during EthCC week in Paris.",
         tags: ["Event", "Ticket"],
         image: "cowswap_app_store_cow_event_400x400.png",
         createdAt: new Date("2023-07-04T18:00"),
@@ -110,7 +110,7 @@ export const cowSwapConfigMain: SpaceConfig = {
       },
       templateConfig: {
         step2CtaText
-        : "Register to get your Ticket",
+        : "Register to get your ticket",
         fields: [
           {
             type: "short-text",

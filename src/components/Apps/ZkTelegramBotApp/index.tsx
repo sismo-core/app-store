@@ -7,7 +7,6 @@ import ProveEligibility from "../components/ProveEligibility";
 import { SismoConnectResponse } from "@sismo-core/sismo-connect-server";
 import Section from "../components/Section";
 import { GroupSnapshotMetadata } from "@/src/libs/group-provider";
-import { AppFront } from "@/src/utils/getSpaceConfigsFront";
 import { ZkTelegramBotAppType } from "@/src/libs/spaces";
 import env from "@/src/environments";
 import { getImpersonateAddresses } from "@/src/utils/getImpersonateAddresses";
@@ -39,7 +38,7 @@ const ButtonContainer = styled.div`
 
 type Props = {
   groupSnapshotMetadataList: GroupSnapshotMetadata[];
-  app: AppFront;
+  app: ZkTelegramBotAppType;
 };
 
 export default function ZkTelegramBotApp({ app, groupSnapshotMetadataList }: Props): JSX.Element {
@@ -64,7 +63,7 @@ export default function ZkTelegramBotApp({ app, groupSnapshotMetadataList }: Pro
     const body = {
       response: response,
       appSlug: app.slug,
-      spaceSlug: app.spaceSlug,
+      spaceSlug: app.space.slug,
     };
     setError(null);
     setVerifying(true);
@@ -103,7 +102,7 @@ export default function ZkTelegramBotApp({ app, groupSnapshotMetadataList }: Pro
           <Section
             number={1}
             isOpen={!approved}
-            title="Prove Eligibility"
+            title={app?.step1CtaText}
             style={{ marginBottom: 16 }}
             success={approved}
           >
@@ -118,7 +117,7 @@ export default function ZkTelegramBotApp({ app, groupSnapshotMetadataList }: Pro
               groupSnapshotMetadataList={groupSnapshotMetadataList}
             />
           </Section>
-          <Section number={2} isOpen={approved} title={app?.ctaText} success={false}>
+          <Section number={2} isOpen={approved} title={app?.step2CtaText} success={false}>
             <ButtonContainer>
               <Button3D
                 style={{ marginTop: 25, marginBottom: 15 }}

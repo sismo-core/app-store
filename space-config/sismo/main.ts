@@ -101,7 +101,7 @@ export const sismoConfigMain: SpaceConfig = {
     {
       type: "zkTelegramBot",
       metadata: {
-        name: "Join Citadel",
+        name: "Join Citadel Telegram Chat",
         slug: "join-citadel",
         description:
           "Sismo Citadel telegram chat was created specifically for our most active builders and closest friends. It is gated to Sismo Community level 3. Learn more about community levels: https://community.sismo.io.",

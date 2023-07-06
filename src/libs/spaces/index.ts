@@ -1,2 +1,2 @@
-export * from "./getSpaces";
+export * from "./spaces";
 export * from "./types";

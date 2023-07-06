@@ -1,4 +1,4 @@
-import { JoinRequest, Message } from "@/src/libs/telegram-bot-service/types";
+import { JoinRequest, Message } from "@/src/services/telegram-bot-service/types";
 
 export interface TelegramBotInterface {
   sendMessage(message: Message): Promise<void>;

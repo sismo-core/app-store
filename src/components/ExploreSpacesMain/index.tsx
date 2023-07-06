@@ -7,7 +7,7 @@ import Select, { SelectOption } from "@/src/ui/Select";
 import capitalizeFirstLetter from "@/src/utils/capitalizeFirstLetter";
 import { searchInSpaceConfigs } from "@/src/utils/searchInSpaceConfigs";
 import SpaceCard from "../SpaceCard";
-import { SpaceConfigFront } from "@/src/utils/getSpaceConfigsFront";
+import { SpaceType } from "@/src/libs/spaces";
 
 const Container = styled.div`
   flex-grow: 1;
@@ -87,28 +87,28 @@ const StyledCaretDown = styled(CaretDown)<{ $isHovered: boolean }>`
 `;
 
 type Props = {
-  configs: SpaceConfigFront[];
+  spaces: SpaceType[];
 };
 
-export default function ExploreSpacesMain({ configs }: Props): JSX.Element {
+export default function ExploreSpacesMain({ spaces }: Props): JSX.Element {
   const BATCH = 20;
 
   const [loadMoreHovered, setLoadMoreHovered] = useState<boolean>(false);
   const tagOptions: SelectOption[] = [{ label: "All", value: "" }];
   const [searchInput, setSearchInput] = useState("");
   const [selectedFromTagsSpaces, setSelectedFromTagsSpaces] =
-    useState<SpaceConfigFront[]>(configs);
+    useState<SpaceType[]>(spaces);
   const [filteredSpaces, setFilteredSpaces] =
-    useState<SpaceConfigFront[]>(configs);
+    useState<SpaceType[]>(spaces);
   const [selectedTag, setSelectedTag] = useState<string>("");
-  const [displayedSpaces, setDisplayedSpaces] = useState<SpaceConfigFront[]>(
-    configs.slice(0, BATCH)
+  const [displayedSpaces, setDisplayedSpaces] = useState<SpaceType[]>(
+    spaces.slice(0, BATCH)
   );
   const [loadMore, setLoadMore] = useState<number>(0);
 
-  for (const config of configs) {
-    if (!config?.tags) continue;
-    for (const tag of config?.tags) {
+  for (const space of spaces) {
+    if (!space?.tags) continue;
+    for (const tag of space?.tags) {
       if (
         !tagOptions.find(
           (option) => option.value?.toLowerCase() === tag.toLowerCase()
@@ -124,7 +124,7 @@ export default function ExploreSpacesMain({ configs }: Props): JSX.Element {
 
   function onSelectTag(tag: string) {
     setSelectedTag(tag);
-    const _filteredSpaces = configs.filter((app) => {
+    const _filteredSpaces = spaces.filter((app) => {
       if (tag === "") {
         return true;
       }
@@ -172,8 +172,8 @@ export default function ExploreSpacesMain({ configs }: Props): JSX.Element {
 
       {displayedSpaces.length > 0 && (
         <Flex>
-          {displayedSpaces.map((config, index) => (
-            <StyledSpaceCard key={config.slug + index} config={config} />
+          {displayedSpaces.map((space, index) => (
+            <StyledSpaceCard key={space.slug + index} space={space} />
           ))}
         </Flex>
       )}

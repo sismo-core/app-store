@@ -1,3 +1,4 @@
+import { ImportedNextImage } from "@/src/utils/getImgSrcFromConfig";
 import { AuthRequest, ClaimRequest } from "@sismo-core/sismo-connect-react";
 
 export type SpaceType = {
@@ -5,8 +6,7 @@ export type SpaceType = {
   slug: string; // spaces.sismo.io/[slug]
   description: string; // 300 characters max
 
-  profileImage?: string; // 160x160px can be an url or local file
-  coverImage?: string; // 1440x340px can be an url or local file
+  profileImage?: string | ImportedNextImage; // 160x160px can be an url or local file
   tags?: string[];
 
   socialLinks?: {
@@ -34,7 +34,7 @@ export type AppCommonType = {
   slug: string;
   description: string; // 200 characters max
   innerDescription?: string;
-  image: string; // 550x390px can be an url or local file
+  image: string | ImportedNextImage; // 550x390px can be an url or local file
   tags: string[];
   createdAt?: Date;
   lastUpdateAt?: Date;
@@ -51,8 +51,13 @@ export type AppCommonType = {
   endDate?: Date;
 
   disabled?: boolean; // default false
-  ctaText?: string;
   appDescription?: string;
+
+  space: {
+    slug: string,
+    name: string,
+    profileImage: string | ImportedNextImage
+  }
 };
 
 export type UserSelection = FirstComeFirstServed | Lottery;
@@ -78,7 +83,8 @@ export type ZkDropAppType = AppCommonType & {
   chainId: number;
   userSelection?: UserSelection; // default none
   contractAddress: string;
-  ctaText: string;
+  step1CtaText: string;
+  step2CtaText: string;
   appDescription?: string;
 };
 
@@ -86,7 +92,8 @@ export type ZkBadgeAppType = AppCommonType & {
   type: "zkbadge";
   chainId: number;
   collectionId: string;
-  ctaText: string;
+  step1CtaText: string;
+  step2CtaText: string;
   appDescription?: string;
 };
 
@@ -106,7 +113,8 @@ export type ZkFormAppType = AppCommonType & {
   userSelection?: UserSelection; // default none
   output: "google_sheet";
   spreadsheetId?: string;
-  ctaText: string;
+  step1CtaText: string;
+  step2CtaText: string;
   appDescription?: string;
 };
 
@@ -114,7 +122,8 @@ export type ZkTelegramBotAppType = AppCommonType & {
   type: "zkTelegramBot";
   telegramGroupId: string;
   telegramInviteLink: string;
-  ctaText: string;
+  step1CtaText: string;
+  step2CtaText: string;
   appDescription?: string;
 };
 

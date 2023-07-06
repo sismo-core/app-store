@@ -1,11 +1,10 @@
-import App from "next/app";
 import { deepSearch } from "./deepSearch";
-import { AppFront } from "./getSpaceConfigsFront";
+import { ZkAppType } from "../libs/spaces";
 
 export const searchInApps = ({apps, searchString}:
  { apps: any,
   searchString: string}
-): AppFront[] => {
+): ZkAppType[] => {
   if (!searchString) {
     return apps;
   }

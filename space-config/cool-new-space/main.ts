@@ -91,5 +91,46 @@ export const CoolNewSpace : SpaceConfig = {
         },
       },
     },
+    {
+    	// Type: We use zkTelegramBot template for a gated Telegram Group. Don't change the type!
+      type: "zkTelegramBot",
+      metadata: {
+    		// Your app Name
+        name: "Join Sasha's freinds chat",
+    		// Your app name in form of a slug. It will be the last part in the URL. No Spaces allowed 
+        slug: "sashas-tg-chat",
+    		// The description is used for SEO and social media preview of your app
+        description:
+          "Prove my that you're Sismo contributor and we can be freinds.",
+        // Add one or two tags to your app
+    		tags: ["Telegram", "Chat"],
+    		// Image for you app, to be placed in the image folder of your Space
+    		image: "your_app_image1_500x500.png",
+    		// Edit the date here to today's date YYYY-MM-DD
+        createdAt: new Date("2023-07-06T18:00"),
+      },
+    	// Customise your request. See tutorial "Customise your Sismo Connect Request"
+      sismoConnectRequest: {
+        appId: "0xbd7ba29c79f672c86f8d0ef333970a90",
+        authRequests: [{ authType: AuthType.VAULT }],
+        claimRequests: [
+          { 
+            groupId: "0xd630aa769278cacde879c5c0fe5d203c",
+            claimType: ClaimType.GTE,
+            value: 1,
+          },
+        ],
+      },
+    	// We will cover this in Tutorial 2.2 Step 2
+      templateConfig: {
+    		// Text that will be shown in the Button for the 2nd Step (on opening the link to join).
+    		step2CtaText: "Join my chat",
+    		// App description that will be shown in the Sismo App Store
+    		appDescription: "Have you contributed to Sismo? Let's be freinds and connect.",
+        // This will be covered in the Tutorial Part 2.2 Step 3.
+    		telegramGroupId: "1001906796774",
+        telegramInviteLink: "https://t.me/+IcDujN3vvr0yODMy",
+      },
+    },
   ]
 };

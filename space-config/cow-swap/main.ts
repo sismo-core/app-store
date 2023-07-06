@@ -93,7 +93,7 @@ export const cowSwapConfigMain: SpaceConfig = {
         slug: "event",
         name: "CoW Event Invitation",
         description:
-          "Prove you are a CoW trader or holder to register to an invitation-only event organized by CoW Swap, during EthCC week in Paris. Event details are available on the [event page](https://www.eventbrite.pt/e/cow-swap-cheese-fusion-festival-a-cow-tastic-exchange-tickets-667483981557)",
+          "Prove you are a CoW trader or holder to register to an invitation-only event organized by CoW Swap, during EthCC week in Paris.",
         tags: ["Event", "Ticket"],
         image: "cowswap_app_store_cow_event_400x400.png",
         createdAt: new Date("2023-07-04T18:00"),
@@ -126,7 +126,7 @@ export const cowSwapConfigMain: SpaceConfig = {
         congratulationsMessage: {
           title: "Congratulations!",
           description:
-            "Tickets are processed on a first come first serve basis. You will receive an email update in a few days! Event details are available on the [event page](https://www.eventbrite.pt/e/cow-swap-cheese-fusion-festival-a-cow-tastic-exchange-tickets-667483981557). See you there 💜",
+            "Tickets are processed on a first come first serve basis. You will receive an email update in a few days! See you there 💜",
         },
         output: {
           destination: {

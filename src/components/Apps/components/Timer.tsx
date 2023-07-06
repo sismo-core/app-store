@@ -3,8 +3,8 @@
 import React from "react";
 import { styled } from "styled-components";
 import useRemainingTime from "@/src/utils/useRemainingTime";
-import { AppFront } from "@/src/utils/getSpaceConfigsFront";
 import { DateTime } from "luxon";
+import { ZkAppType } from "@/src/libs/spaces";
 
 const Content = styled.div`
   max-width: 580px;
@@ -71,7 +71,7 @@ const FullDate = styled.div`
 `;
 
 type Props = {
-  app: AppFront;
+  app: ZkAppType;
 };
 
 export default function Timer({ app }: Props): JSX.Element {

@@ -2,27 +2,25 @@ import 'server-only';
 import env from "@/src/environments";
 import { ClaimRequest } from "@sismo-core/sismo-connect-server";
 import { notFound } from "next/navigation";
-import { ZkAppType, getSpaces } from "@/src/libs/spaces";
-import getAppFront from "@/src/utils/getAppFront";
+import { ZkAppType, getApps, getSpaces } from "@/src/libs/spaces";
 import { GroupProvider, GroupSnapshotMetadata } from "@/src/libs/group-provider";
 import AppMain from "@/src/components/AppMain";
-import { AppFront } from "@/src/utils/getSpaceConfigsFront";
 
 // This function runs at build time on the server it generates the static paths for each page
 export async function generateStaticParams() {
-  const configs = getSpaces();
+  const spaces = await getSpaces();
   type ZkAppTypeWithSpaceSlug = ZkAppType & {
     spaceSlug: string;
   };
   const apps: ZkAppTypeWithSpaceSlug[] = [];
   const claimRequests = [];
 
-  for (const config of configs) {
-    if(!config?.apps) continue;
-    for (const app of config.apps) {
+  for (const space of spaces) {
+    if(!space?.apps) continue;
+    for (const app of space.apps) {
       const _app = {
         ...app,
-        spaceSlug: config.slug,
+        spaceSlug: space.slug,
       };
       apps.push(_app);
       if (app?.claimRequests?.length > 0) {
@@ -39,11 +37,13 @@ export async function generateStaticParams() {
 
 // This function runs at build time on the server it generates the HTML metadata for each page
 export async function generateMetadata({ params }: { params: { app: [string, string] } }) {
-  let app: AppFront;
+  let app: ZkAppType;
   let appImage;
   try {
     const { app: slug } = params;
-    app = await getAppFront({ spaceSlug: slug[0], appSlug: slug[1] });
+    const apps = await getApps({ where: { spaceSlug: slug[0], appSlug: slug[1] } });
+    if (apps.length !== 1) return notFound();
+    app = apps[0];
 
     appImage = app.image;
     if (typeof appImage === "string") {
@@ -51,7 +51,6 @@ export async function generateMetadata({ params }: { params: { app: [string, str
     } else {
       appImage = appImage.src;
     }
-    if (!app) return notFound();
   } catch (e) {
     console.log(e);
     notFound();
@@ -78,9 +77,13 @@ export async function generateMetadata({ params }: { params: { app: [string, str
 }
 
 // This function runs at build time on the server it generates the HTML for each page
-export default async function SpacePage({ params }: { params: { app: [string, string] } }) {
+export default async function AppPage({ params }: { params: { app: [string, string] } }) {
   const { app: slug } = params;
-  const app = await getAppFront({ spaceSlug: slug[0], appSlug: slug[1] });
+  
+  const apps = await getApps({ where: { spaceSlug: slug[0], appSlug: slug[1] } });
+  if (apps.length !== 1) return notFound();
+  const app = apps[0];
+
   const groupProvider = new GroupProvider({
     hubApiUrl: env.hubApiUrl,
   });

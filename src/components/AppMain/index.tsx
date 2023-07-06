@@ -1,6 +1,5 @@
 "use client";
 
-import { AppFront } from "@/src/utils/getSpaceConfigsFront";
 import styled from "styled-components";
 import ZkFormApp from "../Apps/ZkFormApp";
 import { GroupSnapshotMetadata } from "@/src/libs/group-provider";
@@ -11,7 +10,7 @@ import ZkBotApp from "@/src/components/Apps/ZkTelegramBotApp";
 import useRemainingTime from "@/src/utils/useRemainingTime";
 import { redirect } from "next/navigation";
 import Timer from "../Apps/components/Timer";
-import { useEffect } from "react";
+import { ZkAppType } from "@/src/libs/spaces";
 
 const Container = styled.div`
   flex-grow: 1;
@@ -153,7 +152,7 @@ const Separator = styled.div`
 `;
 
 type Props = {
-  app: AppFront;
+  app: ZkAppType;
   groupSnapshotMetadataList: GroupSnapshotMetadata[];
 };
 
@@ -184,7 +183,7 @@ export default function AppMain({ app, groupSnapshotMetadataList }: Props) {
 
         <TitleAndDescription>
           {app.name && <AppTitle>{app.name}</AppTitle>}
-          {app.configImage && app.space && <SpaceTag app={app} />}
+          {app.space && <SpaceTag app={app} />}
           {app.description && <Description>{app.description}</Description>}
         </TitleAndDescription>
       </Top>

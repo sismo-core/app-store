@@ -2,9 +2,9 @@
  * @jest-environment node
  */
 import { POST } from "./route";
-import { MemoryUserStore } from "@/src/libs/user-store/memory-user-store";
-import { UserStore } from "@/src/libs/user-store/store";
-import ServiceFactory from "@/src/libs/service-factory/service-factory";
+import { MemoryUserStore } from "@/src/services/user-store/memory-user-store";
+import { UserStore } from "@/src/services/user-store/store";
+import ServiceFactory from "@/src/services/service-factory/service-factory";
 import { MockedRequest } from "@/src/libs/helper";
 
 describe("POST /api/zk-telegram-bot/verify", () => {

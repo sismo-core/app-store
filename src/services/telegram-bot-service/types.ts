@@ -1,4 +1,4 @@
-import { LoggerService } from "@/src/libs/logger-service/logger-service";
+import { LoggerService } from "@/src/services/logger-service/logger-service";
 
 export type TelegramBotServiceConstructor = {
   telegramBotToken: string;

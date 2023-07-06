@@ -8,8 +8,8 @@ import UserTag from "../../UserTag";
 import { AuthType, ClaimRequest } from "@sismo-core/sismo-connect-react";
 import HoverTooltip from "@/src/ui/HoverTooltip";
 import { GroupSnapshotMetadata } from "@/src/libs/group-provider";
-import { AppFront } from "@/src/utils/getSpaceConfigsFront";
 import ReqItem from "./ReqItem";
+import { ZkAppType } from "@/src/libs/spaces";
 
 const Container = styled.div`
   display: flex;
@@ -61,7 +61,7 @@ const Bold = styled.span`
 `;
 
 type Props = {
-  app: AppFront;
+  app: ZkAppType;
   groupSnapshotMetadataList: GroupSnapshotMetadata[];
   style?: React.CSSProperties;
   fullWidth?: boolean;

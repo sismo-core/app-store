@@ -1,11 +1,11 @@
 /**
  * @jest-environment node
  */
-import { MockedTelegramBotService } from "@/src/libs/telegram-bot-service/mocked-telegram-bot-service";
+import { MockedTelegramBotService } from "@/src/services/telegram-bot-service/mocked-telegram-bot-service";
 import { POST } from "./route";
 import { mockGroupIdCommand, mockJoinRequest, mockMessageWithoutText } from "../mocks";
-import { UserStore } from "../../../../libs/user-store/store";
-import ServiceFactory from "@/src/libs/service-factory/service-factory";
+import { UserStore } from "../../../../services/user-store/store";
+import ServiceFactory from "@/src/services/service-factory/service-factory";
 import { MockedRequest } from "@/src/libs/helper";
 
 describe("POST /api/zk-telegram-bot/webhook", () => {

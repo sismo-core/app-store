@@ -1,12 +1,11 @@
 import getImgSrcFromConfig, { ImportedNextImage } from "@/src/utils/getImgSrcFromConfig";
 import { notFound } from "next/navigation";
-import getSpaceFront, { SpaceConfigFront } from "@/src/utils/getSpaceConfigsFront";
 import SpacesMain from "@/src/components/SpacesMain";
 import { SpaceType, ZkAppType, getSpace, getSpaces } from "@/src/libs/spaces";
 
 // This function runs at build time on the server it generates the static paths for each page
 export async function generateStaticParams() {
-  const spaces = getSpaces();
+  const spaces = await getSpaces();
   return spaces?.map((space: SpaceType) => {
     return {
       space: space.slug,
@@ -17,19 +16,24 @@ export async function generateStaticParams() {
 // This function runs at build time on the server it generates the HTML metadata for each page
 export async function generateMetadata({ params }: { params: { space: string } }) {
   let space: SpaceType;
-  let coverImageUrl: string;
+  let imageMetadata: string;
   try {
     const { space: slug } = params;
-    space = getSpace({ slug: slug });
-    const coverImageElement = await getImgSrcFromConfig({
-      configSlug: space?.slug,
-      fileName: space?.coverImage,
-    });
-
-    if (typeof coverImageElement === "string") {
-      coverImageUrl = coverImageElement;
+    space = await getSpace({ slug: slug });
+    let pfpImage;
+    if (typeof space?.profileImage === "string") {
+      pfpImage = await getImgSrcFromConfig({
+        configSlug: space?.slug,
+        fileName: space?.profileImage,
+      }); 
     } else {
-      coverImageUrl = coverImageElement.src;
+      pfpImage = space?.profileImage
+    }
+
+    if (typeof pfpImage === "string") {
+      imageMetadata = pfpImage;
+    } else {
+      imageMetadata = pfpImage.src;
     }
 
     if (!space) return notFound();
@@ -45,12 +49,12 @@ export async function generateMetadata({ params }: { params: { space: string } }
       title: space?.name,
       description: space.description,
       creator: "@sismo_eth",
-      images: [coverImageUrl],
+      images: [imageMetadata],
     },
     openGraph: {
       title: space.name,
       description: space.description,
-      images: [coverImageUrl],
+      images: [imageMetadata],
       locale: "en-US",
       type: "website",
     },
@@ -64,15 +68,13 @@ export type ImportedImage = {
 
 // This function runs at build time on the server it generates the HTML for each page
 export default async function SpacePage({ params }: { params: { space: string } }) {
-  let spaceFront: SpaceConfigFront;
+  let space: SpaceType;
   try {
     const { space: slug } = params;
-    const _space = getSpace({ slug: slug });
-    const spaceConfigFront: SpaceConfigFront[] = await getSpaceFront([_space]);
-    spaceFront = spaceConfigFront[0];
+    const _space = await getSpace({ slug: slug });
+    space = _space;
   } catch (e) {
     notFound();
   }
-
-  return <SpacesMain config={spaceFront} />;
+  return <SpacesMain space={space} />;
 }

@@ -3,7 +3,6 @@ import { getDefenderRelayerSigner } from "@/src/libs/contracts/signers";
 import { ZkBadgeMinterContract } from "@/src/libs/contracts/zk-badge-minter";
 import { NextResponse } from "next/server";
 
-
 export async function POST(req: Request) {
     const { responseBytes, destination, tokenId } = await req.json();
 

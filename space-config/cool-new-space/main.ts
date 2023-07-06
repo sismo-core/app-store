@@ -83,7 +83,7 @@ export const CoolNewSpace : SpaceConfig = {
 			// Contains information on where to store the submitted Form data
       destination: {
         type: "google_sheet",
-        spreadsheetId: "",
+        spreadsheetId: "1T2wYDvJZa8BdwIOE9SNvzIotfHgLpLYSV15pIF8vp7M",
       },
     },
   },

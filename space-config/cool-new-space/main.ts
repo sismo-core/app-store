@@ -40,10 +40,12 @@ export const CoolNewSpace : SpaceConfig = {
 	// Customise your request. See tutorial "Customise your Sismo Connect Request"
   sismoConnectRequest: {
     appId: "0xd4fa88e79072e6e54f6a5a3c9ceb6bb3",
-    authRequests: [{ authType: AuthType.VAULT }],
+    authRequests: [{ authType: AuthType.TWITTER }],
     claimRequests: [
       {
-        groupId: "0xf0285dcfe412b24a6ac9a1c365b7b35d",
+	groupId: "0x1cde61966decb8600dfd0749bd371f12",  
+        claimType: ClaimType.GTE, // a member of the group with the value greater or equal to 15
+        value: 15,
       },
     ],
   },
@@ -52,7 +54,7 @@ export const CoolNewSpace : SpaceConfig = {
 		// Text that will be shown in the Button for the 2nd Step (on submitting the form).
 		step2CtaText: "Submit your feedback",
 		// App Description that will be shown in the Sismo App Store
-		appDescription: "Anyone who tested my app, can provide your feedback and share your wallet with me without linking it to your email that was used for testing. I will send you test tokens. ",
+		appDescription: "Anyone who tested my app can provide feedback and share the wallet with me without linking it to your twitter that was used for testing. I will send you test tokens. ",
     // List of Form field for zkForm
 		fields: [
       {

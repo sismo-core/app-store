@@ -5,9 +5,9 @@ import { styled } from "styled-components";
 import ReqList from "./ReqList";
 import { GroupSnapshotMetadata } from "@/src/libs/group-provider";
 import { LockSimpleOpen } from "phosphor-react";
-import { AppFront } from "@/src/utils/getSpaceConfigsFront";
 import { getImpersonateAddresses } from "@/src/utils/getImpersonateAddresses";
 import { usePathname } from "next/navigation";
+import { ZkAppType } from "@/src/libs/spaces";
 
 const Container = styled.div``;
 
@@ -37,7 +37,7 @@ const ButtonContainer = styled.div`
 `;
 
 type Props = {
-  app: AppFront;
+  app: ZkAppType;
   groupSnapshotMetadataList: GroupSnapshotMetadata[];
   verifying?: boolean;
 };

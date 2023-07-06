@@ -78,6 +78,7 @@ export type FirstComeFirstServed = {
 export type ZkDropAppConfig = AppCommonConfig & {
   type: "zkdrop";
   templateConfig: {
+    step1CtaText?: string;
     step2CtaText: string;
     appDescription?: string;
     chainId: number;
@@ -89,6 +90,7 @@ export type ZkDropAppConfig = AppCommonConfig & {
 export type ZkBadgeAppConfig = AppCommonConfig & {
   type: "zkbadge";
   templateConfig: {
+    step1CtaText?: string;
     step2CtaText: string;
     appDescription?: string;
     chainId: number;
@@ -99,6 +101,7 @@ export type ZkBadgeAppConfig = AppCommonConfig & {
 export type ZkFormAppConfig = AppCommonConfig & {
   type: "zkForm";
   templateConfig: {
+    step1CtaText?: string;
     step2CtaText: string;
     appDescription?: string;
     fields?: Field[];
@@ -125,6 +128,7 @@ export type ZkFormAppConfig = AppCommonConfig & {
 export type ZkTelegramBotAppConfig = AppCommonConfig & {
   type: "zkTelegramBot";
   templateConfig: {
+    step1CtaText?: string;
     step2CtaText: string;
     appDescription?: string;
     telegramGroupId: string;

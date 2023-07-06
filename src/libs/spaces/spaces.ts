@@ -1,4 +1,4 @@
-import ServiceFactory from "@/src/libs/service-factory/service-factory";
+import ServiceFactory from "@/src/services/service-factory/service-factory";
 import {
   ZkAppType,
   AppCommonType,
@@ -8,17 +8,26 @@ import {
   ZkTelegramBotAppType,
 } from "./types";
 import { AuthType } from "@sismo-core/sismo-connect-server";
+import getImgSrcFromConfig from "@/src/utils/getImgSrcFromConfig";
 
-export function getSpaces(): SpaceType[] {
+export async function getSpaces(): Promise<SpaceType[]> {
   let spaces: SpaceType[] = [];
   for (let spaceConfig of ServiceFactory.getSpaceConfigs()) {
     let apps: ZkAppType[] = [];
+    const spaceProfileImage = await getImgSrcFromConfig({
+      configSlug: spaceConfig.metadata.slug,
+      fileName: spaceConfig.metadata.image,
+    })
     for (let appConfig of spaceConfig.apps) {
+      const appImage = await getImgSrcFromConfig({
+        configSlug: spaceConfig.metadata.slug,
+        fileName: appConfig.metadata.image,
+      })
       const appCommon: AppCommonType = {
         name: appConfig.metadata.name,
         slug: appConfig.metadata.slug,
         description: appConfig.metadata.description,
-        image: appConfig.metadata.image,
+        image: appImage,
         tags: appConfig.metadata.tags,
         claimRequests: appConfig.sismoConnectRequest.claimRequests,
         authRequests: appConfig.sismoConnectRequest.authRequests,
@@ -30,6 +39,11 @@ export function getSpaces(): SpaceType[] {
         createdAt: appConfig.metadata.createdAt,
         lastUpdateAt: appConfig.metadata?.lastUpdateAt,
         isFeatured: appConfig.options?.isFeatured,
+        space: {
+          slug: spaceConfig.metadata.slug,
+          name: spaceConfig.metadata.name,
+          profileImage: spaceProfileImage
+        }
       };
       if (appConfig.type === "external") {
         apps.push({
@@ -49,7 +63,8 @@ export function getSpaces(): SpaceType[] {
           userSelection: appConfig.templateConfig.userSelection,
           output: appConfig.templateConfig.output.destination.type,
           spreadsheetId: appConfig.templateConfig.output.destination.spreadsheetId,
-          ctaText: appConfig.templateConfig.step2CtaText,
+          step1CtaText: appConfig.templateConfig.step1CtaText ?? "Sign in with Sismo",
+          step2CtaText: appConfig.templateConfig.step2CtaText,
           appDescription: appConfig.templateConfig.appDescription,
         } as ZkFormAppType);
       } else if (appConfig.type === "zkTelegramBot") {
@@ -59,7 +74,8 @@ export function getSpaces(): SpaceType[] {
           authRequests: appConfig.sismoConnectRequest.authRequests ?? [
             { authType: AuthType.TELEGRAM },
           ],
-          ctaText: appConfig.templateConfig.step2CtaText,
+          step1CtaText: appConfig.templateConfig.step1CtaText ?? "Sign in with Sismo",
+          step2CtaText: appConfig.templateConfig.step2CtaText,
           appDescription: appConfig.templateConfig.appDescription,
           telegramGroupId: appConfig.templateConfig.telegramGroupId,
           telegramInviteLink: appConfig.templateConfig.telegramInviteLink,
@@ -70,7 +86,7 @@ export function getSpaces(): SpaceType[] {
       name: spaceConfig.metadata.name,
       slug: spaceConfig.metadata.slug,
       description: spaceConfig.metadata.description,
-      profileImage: spaceConfig.metadata.image,
+      profileImage: spaceProfileImage,
       socialLinks: spaceConfig.metadata.socialLinks,
       hidden: spaceConfig.options?.hidden,
       apps: apps,
@@ -81,25 +97,45 @@ export function getSpaces(): SpaceType[] {
   return spaces;
 }
 
-export function getSpace({ slug }: { slug?: string } = {}): SpaceType {
-  const spaces = getSpaces();
+export type GetAppsOptions = { 
+  sortedBy?: "createdAt", 
+  where?: { 
+    spaceSlug?: string;
+    appSlug?: string;
+  }
+}
+
+export async function getApps(options?: GetAppsOptions) {
+  const spaces = await getSpaces();
+  let apps: ZkAppType[] = [];
+
+  for (const space of spaces) {
+    for (const app of space.apps) {
+      apps.push(app);
+    }
+  }
+
+  if (options?.sortedBy === "createdAt") {
+    apps.sort((a, b) => {
+      return b.createdAt.getTime() - a.createdAt.getTime();
+    });
+  }
+
+  if (options?.where?.appSlug) {
+    apps = apps.filter(app => app.slug === options?.where?.appSlug);
+  }
+
+  if (options?.where?.spaceSlug) {
+    apps = apps.filter(app => app.space.slug === options?.where?.spaceSlug);
+  }
+
+  return apps;
+}
+
+export async function getSpace({ slug }: { slug?: string } = {}): Promise<SpaceType> {
+  const spaces = await getSpaces();
   const selectedSpace = spaces.find((space) => {
     return space.slug === slug;
   });
-
   return selectedSpace;
-}
-
-export function getApp({
-  appSlug,
-  spaceSlug,
-}: { appSlug?: string; spaceSlug?: string } = {}): ZkAppType {
-  const spaces = getSpaces();
-  const selectedSpace = spaces.find((space) => {
-    return space.slug === spaceSlug;
-  });
-  const selectedApp = selectedSpace?.apps.find((app) => {
-    return app.slug === appSlug;
-  });
-  return selectedApp;
 }

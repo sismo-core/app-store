@@ -6,7 +6,6 @@ import Button3D from "@/src/ui/Button3D";
 import Register, { FieldValue } from "./components/Register";
 import Congratulations from "./components/Congratulations";
 import { GroupSnapshotMetadata } from "@/src/libs/group-provider";
-import { AppFront } from "@/src/utils/getSpaceConfigsFront";
 import Section from "../components/Section";
 import ProveEligibility from "../components/ProveEligibility";
 import { ZkFormAppType } from "@/src/libs/spaces";
@@ -34,14 +33,6 @@ const Bottom = styled.div`
   align-items: center;
 `;
 
-const ErrorMsg = styled.div`
-  color: ${(props) => props.theme.colors.error};
-  font-family: ${(props) => props.theme.fonts.regular};
-  position: absolute;
-  bottom: -25px;
-  font-size: 12px;
-`;
-
 const AlreadyRegistered = styled.div`
   color: ${(props) => props.theme.colors.neutral1};
   font-family: ${(props) => props.theme.fonts.regular};
@@ -57,7 +48,7 @@ const AlreadyRegistered = styled.div`
 
 type Props = {
   groupSnapshotMetadataList: GroupSnapshotMetadata[];
-  app: AppFront;
+  app: ZkFormAppType;
 };
 
 export default function ZkFormApp({ app, groupSnapshotMetadataList }: Props): JSX.Element {
@@ -87,7 +78,7 @@ export default function ZkFormApp({ app, groupSnapshotMetadataList }: Props): JS
       fields,
       response: response,
       appSlug: app.slug,
-      spaceSlug: app.spaceSlug,
+      spaceSlug: app.space.slug,
     };
     setError(null);
     setVerifying(true);
@@ -126,7 +117,7 @@ export default function ZkFormApp({ app, groupSnapshotMetadataList }: Props): JS
           <Section
             number={1}
             isOpen={!hasResponse}
-            title="Sign in with Sismo"
+            title={app?.step1CtaText}
             style={{ marginBottom: 16 }}
             success={hasResponse}
           >
@@ -135,7 +126,7 @@ export default function ZkFormApp({ app, groupSnapshotMetadataList }: Props): JS
           <Section
             number={2}
             isOpen={Boolean(response)}
-            title={app?.ctaText}
+            title={app?.step2CtaText}
             success={alreadySubscribed || (fields && fields.length === 0)}
           >
             {alreadySubscribed ? (

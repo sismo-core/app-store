@@ -1,8 +1,6 @@
 import { SpaceConfig } from "@/space-config/types";
 import ExploreSpacesMain from "@/src/components/ExploreSpacesMain";
-import { getSpaces } from "@/src/libs/spaces";
-import getSpaceFront, { SpaceConfigFront } from "@/src/utils/getSpaceConfigsFront";
-import { notFound } from "next/navigation";
+import { SpaceType, getSpaces } from "@/src/libs/spaces";
 
 export type SpaceImportedImage = {
   config: SpaceConfig;
@@ -10,15 +8,9 @@ export type SpaceImportedImage = {
 };
 
 export default async function ExplorePage() {
-  let spacesFront: SpaceConfigFront[] = [];
-  try{
-    const spaces = getSpaces();
-     spacesFront = await getSpaceFront(spaces)
+  const spaces: SpaceType[] = await getSpaces();
 
-  } catch (e) {
-    notFound();
-  }
   return (
-      <ExploreSpacesMain configs={spacesFront} />
+      <ExploreSpacesMain spaces={spaces} />
   );
 }

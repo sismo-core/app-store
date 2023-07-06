@@ -1,13 +1,13 @@
-import { LoggerService } from "@/src/libs/logger-service/logger-service";
+import { LoggerService } from "@/src/services/logger-service/logger-service";
 import {
   TelegramBotInterface,
   TelegramBotService,
-} from "@/src/libs/telegram-bot-service/telegram-bot-service";
+} from "@/src/services/telegram-bot-service/telegram-bot-service";
 import {
   JoinRequest,
   Message,
   TelegramBotServiceConstructor,
-} from "@/src/libs/telegram-bot-service/types";
+} from "@/src/services/telegram-bot-service/types";
 import axios from "axios";
 
 export class TelegramAPIBotService extends TelegramBotService implements TelegramBotInterface {

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { ZkTelegramBotAppType, getSpaces } from "@/src/libs/spaces";
 import env from "@/src/environments";
-import ServiceFactory from "@/src/libs/service-factory/service-factory";
+import ServiceFactory from "@/src/services/service-factory/service-factory";
 
 const groupIdCommand = "/groupid";
 
@@ -31,7 +31,7 @@ export async function POST(request: Request) {
       `${joinRequest.username} (${joinRequest.userId}) joinRequests to join ${joinRequest.groupTitle} (${joinRequest.groupId})`
     );
 
-    const app = findApp(joinRequest.groupId);
+    const app = await findApp(joinRequest.groupId);
     if (!app) {
       return errorResponse("Failed to find a matching app for the group");
     }
@@ -55,8 +55,8 @@ export async function POST(request: Request) {
   return NextResponse.json({ status: "ignored" });
 }
 
-const findApp = (groupId: string): ZkTelegramBotAppType | undefined => {
-  const spaces = getSpaces();
+const findApp = async (groupId: string): Promise<ZkTelegramBotAppType | undefined> => {
+  const spaces = await getSpaces();
   for (let space of spaces) {
     for (let app of space.apps) {
       if (app.type === "zkTelegramBot") {

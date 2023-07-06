@@ -1,8 +1,8 @@
 import {
   TelegramBotInterface,
   TelegramBotService,
-} from "@/src/libs/telegram-bot-service/telegram-bot-service";
-import { JoinRequest, Message } from "@/src/libs/telegram-bot-service/types";
+} from "@/src/services/telegram-bot-service/telegram-bot-service";
+import { JoinRequest, Message } from "@/src/services/telegram-bot-service/types";
 
 export class MockedTelegramBotService extends TelegramBotService implements TelegramBotInterface {
   private _messageSent: Message[] = [];

@@ -7,10 +7,9 @@ import { ArrowSquareOut, Clock } from "phosphor-react";
 import { getHumanReadableRemainingTimeTag } from "@/src/utils/getHumanReadableTimeTag";
 import SpaceTag from "../SpaceTag";
 import { useState } from "react";
-import { AppFront } from "@/src/utils/getSpaceConfigsFront";
 import Default from "@/src/assets/default.svg";
 import colors from "@/src/themes/colors";
-import { ExternalAppType, ZkDropAppType, Lottery } from "@/src/libs/spaces";
+import { ExternalAppType, ZkDropAppType, Lottery, ZkAppType } from "@/src/libs/spaces";
 import Link from "next/link";
 
 const CardContainer = styled.div<{ $isSeparator: boolean }>`
@@ -249,7 +248,7 @@ const StyledAppTag = styled(AppTag)<{ $isHovered: boolean }>`
 `;
 
 type Props = {
-  app: AppFront;
+  app: ZkAppType;
   className?: string;
   isSeparator?: boolean;
 };
@@ -272,7 +271,7 @@ export default function AppCardLarge({ app, className, isSeparator }: Props): JS
   const link =
     app?.type === "external"
       ? (app as unknown as ExternalAppType)?.link
-      : `/${app.spaceSlug}/${app.slug}`;
+      : `/${app.space.slug}/${app.slug}`;
 
   if (app)
     return (
@@ -324,7 +323,7 @@ export default function AppCardLarge({ app, className, isSeparator }: Props): JS
                       )}
                     </AppTitle>
                   )}
-                  {app.configImage && app.space && <SpaceTag app={app} isDisabled={isDisabled} />}
+                  {app.space && app.space.profileImage && <SpaceTag app={app} isDisabled={isDisabled} />}
                   {app.description && (
                     <Description $isDisabled={isDisabled}>{app.description}</Description>
                   )}

@@ -1,5 +1,5 @@
 // add an images folder in your space folder if you would like Sismo to host your images
-import { AuthType, ClaimType } from "@sismo-core/sismo-connect-server";
+import { AuthType } from "@sismo-core/sismo-connect-server";
 import { SpaceConfig } from "../types";
 
 export const cowSwapConfigDemo: SpaceConfig = {

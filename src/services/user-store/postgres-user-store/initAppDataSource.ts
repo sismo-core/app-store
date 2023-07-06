@@ -20,9 +20,6 @@ const AppDataSource = new DataSource({
 let initialize = null;
 
 export const initAppDataSource = async () => {
-  if (!initialize) {
-    initialize = AppDataSource.initialize();
-    return initialize;
-  }
+  if (!initialize) initialize = AppDataSource.initialize();
   return initialize;
 };

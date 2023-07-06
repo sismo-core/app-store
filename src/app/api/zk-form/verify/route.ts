@@ -1,20 +1,19 @@
 import env from "@/src/environments";
-import { TableStore } from "@/src/libs/table-store";
+import { TableStore } from "@/src/services/table-store";
 import {
   AuthType,
   SismoConnect,
   SismoConnectResponse,
   SismoConnectConfig,
   SismoConnectVerifiedResult,
-  ClaimType,
   SismoConnectServerOptions,
 } from "@sismo-core/sismo-connect-server";
 import { NextResponse } from "next/server";
 import { mapAuthTypeToSheetColumnName } from "@/src/utils/mapAuthTypeToSheetColumnName";
-import { getApp } from "@/src/libs/spaces";
+import { getApps } from "@/src/libs/spaces";
 import { getImpersonateAddresses } from "@/src/utils/getImpersonateAddresses";
 import { ZkAppType, ZkFormAppType } from "@/src/libs/spaces/types";
-import ServiceFactory from "@/src/libs/service-factory/service-factory";
+import ServiceFactory from "@/src/services/service-factory/service-factory";
 import { errorResponse } from "@/src/libs/helper/api";
 import { isClaimEquals } from "@/src/app/api/zk-form/verify/helper";
 import { JsonRpcProviderMock } from "@/src/libs/helper/json-rpc-provider-mock";
@@ -27,11 +26,12 @@ export type Field = {
 export async function POST(req: Request) {
   const { fields, response, spaceSlug, appSlug } = await req.json();
   const store = ServiceFactory.getZkFormTableStore();
-  const app = getApp({ appSlug: appSlug, spaceSlug: spaceSlug });
+  const apps = await getApps({ where: { appSlug: appSlug, spaceSlug: spaceSlug }});
 
-  if (!app || app.type !== "zkForm") {
+  if (!apps || apps.length !== 1 || apps[0].type !== "zkForm") {
     return errorResponse(`App ${appSlug} not found or not a zkForm app`);
   }
+  const app = apps[0];
 
   const headers = computeHeaders(app);
   const row = [];

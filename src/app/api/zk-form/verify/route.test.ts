@@ -2,14 +2,14 @@
  * @jest-environment node
  */
 import { POST, Field } from "./route";
-import ServiceFactory from "@/src/libs/service-factory/service-factory";
+import ServiceFactory from "@/src/services/service-factory/service-factory";
 import {
   mockResponseUser1,
   mockResponseUser2,
   mockZkFormTestAppRequest,
   mockZkFormTestAppRequest2,
 } from "@/src/app/api/zk-form/mocks";
-import { MemoryTableStore } from "@/src/libs/table-store";
+import { MemoryTableStore } from "@/src/services/table-store";
 
 describe("POST /api/zk-form/verify", () => {
   let memoryTableStore: MemoryTableStore;

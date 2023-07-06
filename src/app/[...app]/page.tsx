@@ -2,13 +2,16 @@ import 'server-only';
 import env from "@/src/environments";
 import { ClaimRequest } from "@sismo-core/sismo-connect-server";
 import { notFound } from "next/navigation";
-import { ZkAppType, getApps, getSpaces } from "@/src/libs/spaces";
+import { ZkAppType } from "@/src/services/spaces-service";
 import { GroupProvider, GroupSnapshotMetadata } from "@/src/libs/group-provider";
 import AppMain from "@/src/components/AppMain";
+import ServiceFactory from '@/src/services/service-factory/service-factory';
 
 // This function runs at build time on the server it generates the static paths for each page
 export async function generateStaticParams() {
-  const spaces = await getSpaces();
+  const spacesService = ServiceFactory.getSpacesService();
+
+  const spaces = await spacesService.getSpaces();
   type ZkAppTypeWithSpaceSlug = ZkAppType & {
     spaceSlug: string;
   };
@@ -37,11 +40,13 @@ export async function generateStaticParams() {
 
 // This function runs at build time on the server it generates the HTML metadata for each page
 export async function generateMetadata({ params }: { params: { app: [string, string] } }) {
+  const spacesService = ServiceFactory.getSpacesService();
+
   let app: ZkAppType;
   let appImage;
   try {
     const { app: slug } = params;
-    const apps = await getApps({ where: { spaceSlug: slug[0], appSlug: slug[1] } });
+    const apps = await spacesService.getApps({ where: { spaceSlug: slug[0], appSlug: slug[1] } });
     if (apps.length !== 1) return notFound();
     app = apps[0];
 
@@ -78,9 +83,11 @@ export async function generateMetadata({ params }: { params: { app: [string, str
 
 // This function runs at build time on the server it generates the HTML for each page
 export default async function AppPage({ params }: { params: { app: [string, string] } }) {
+  const spacesService = ServiceFactory.getSpacesService();
+
   const { app: slug } = params;
   
-  const apps = await getApps({ where: { spaceSlug: slug[0], appSlug: slug[1] } });
+  const apps = await spacesService.getApps({ where: { spaceSlug: slug[0], appSlug: slug[1] } });
   if (apps.length !== 1) return notFound();
   const app = apps[0];
 

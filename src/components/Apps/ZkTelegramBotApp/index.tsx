@@ -7,7 +7,7 @@ import ProveEligibility from "../components/ProveEligibility";
 import { SismoConnectResponse } from "@sismo-core/sismo-connect-server";
 import Section from "../components/Section";
 import { GroupSnapshotMetadata } from "@/src/libs/group-provider";
-import { ZkTelegramBotAppType } from "@/src/libs/spaces";
+import { ZkTelegramBotAppType } from "@/src/services/spaces-service";
 import env from "@/src/environments";
 import { getImpersonateAddresses } from "@/src/utils/getImpersonateAddresses";
 import { useSismoConnect } from "@sismo-core/sismo-connect-react";

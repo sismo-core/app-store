@@ -10,7 +10,7 @@ import ZkBotApp from "@/src/components/Apps/ZkTelegramBotApp";
 import useRemainingTime from "@/src/utils/useRemainingTime";
 import { redirect } from "next/navigation";
 import Timer from "../Apps/components/Timer";
-import { ZkAppType } from "@/src/libs/spaces";
+import { ZkAppType } from "@/src/services/spaces-service";
 
 const Container = styled.div`
   flex-grow: 1;

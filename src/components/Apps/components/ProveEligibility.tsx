@@ -7,7 +7,7 @@ import { GroupSnapshotMetadata } from "@/src/libs/group-provider";
 import { LockSimpleOpen } from "phosphor-react";
 import { getImpersonateAddresses } from "@/src/utils/getImpersonateAddresses";
 import { usePathname } from "next/navigation";
-import { ZkAppType } from "@/src/libs/spaces";
+import { ZkAppType } from "@/src/services/spaces-service";
 
 const Container = styled.div``;
 

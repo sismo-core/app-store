@@ -3,7 +3,7 @@ import Image from "next/image";
 import { textShorten } from "@/src/utils/textShorten";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { ZkAppType } from "@/src/libs/spaces";
+import { ZkAppType } from "@/src/services/spaces-service";
 
 const SpaceLine = styled.div`
   display: inline-flex;

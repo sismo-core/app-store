@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { ZkTelegramBotAppType, getSpaces } from "@/src/libs/spaces";
+import { ZkTelegramBotAppType } from "@/src/services/spaces-service";
 import env from "@/src/environments";
 import ServiceFactory from "@/src/services/service-factory/service-factory";
 
@@ -56,7 +56,8 @@ export async function POST(request: Request) {
 }
 
 const findApp = async (groupId: string): Promise<ZkTelegramBotAppType | undefined> => {
-  const spaces = await getSpaces();
+  const spacesService = ServiceFactory.getSpacesService();
+  const spaces = await spacesService.getSpaces();
   for (let space of spaces) {
     for (let app of space.apps) {
       if (app.type === "zkTelegramBot") {

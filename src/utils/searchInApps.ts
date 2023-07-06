@@ -1,5 +1,5 @@
 import { deepSearch } from "./deepSearch";
-import { ZkAppType } from "../libs/spaces";
+import { ZkAppType } from "../services/spaces-service";
 
 export const searchInApps = ({apps, searchString}:
  { apps: any,

@@ -1,6 +1,6 @@
 "use client";
 
-import { ZkFormAppType } from "@/src/libs/spaces/types";
+import { ZkFormAppType } from "@/src/services/spaces-service/types";
 import Button3D from "@/src/ui/Button3D";
 import React from "react";
 import { styled } from "styled-components";

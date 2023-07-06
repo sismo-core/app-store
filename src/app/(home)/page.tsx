@@ -1,7 +1,8 @@
-import { getApps, getSpaces } from "../../libs/spaces/spaces";
-import { SpaceType, ZkAppType } from "../../libs/spaces";
+
+import { SpaceType, ZkAppType } from "../../services/spaces-service";
 import HomeMain from "@/src/components/HomeMain";
 import env from "@/src/environments";
+import ServiceFactory from "@/src/services/service-factory/service-factory";
 
 export type SpaceImportedImage = {
   config: SpaceType;
@@ -38,9 +39,10 @@ export async function generateMetadata() {
 }
 
 export default async function HomePage() {
-  const spaces: SpaceType[] = await getSpaces();
-  const apps: ZkAppType[] = await getApps({ sortedBy: "createdAt" });
+  const spacesService = ServiceFactory.getSpacesService();
 
+  const spaces: SpaceType[] = await spacesService.getSpaces();
+  const apps: ZkAppType[] = await spacesService.getApps({ sortedBy: "createdAt" });
 
   return <>{spaces && <HomeMain spaces={spaces} apps={apps}/>}</>;
 }

@@ -8,7 +8,7 @@ import Congratulations from "./components/Congratulations";
 import { GroupSnapshotMetadata } from "@/src/libs/group-provider";
 import Section from "../components/Section";
 import ProveEligibility from "../components/ProveEligibility";
-import { ZkFormAppType } from "@/src/libs/spaces";
+import { ZkFormAppType } from "@/src/services/spaces-service";
 import { useRouter } from "next/navigation";
 import { useSismoConnect } from "@sismo-core/sismo-connect-react";
 import { getImpersonateAddresses } from "@/src/utils/getImpersonateAddresses";

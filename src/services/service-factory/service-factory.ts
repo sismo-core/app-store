@@ -14,11 +14,13 @@ import { DemoUserStore } from "@/src/services/user-store/demo-user-store";
 import { MemoryUserStore } from "@/src/services/user-store/memory-user-store";
 import { PostgresUserStore } from "@/src/services/user-store/postgres-user-store";
 import { UserStore } from "@/src/services/user-store/store";
+import { SpacesService } from "../spaces-service";
 
 let zkTelegramBotUserStore: UserStore;
 let zkFormTableStore: TableStore;
 let telegramBotService: TelegramBotInterface;
 let configService: SpaceConfig[];
+let spacesService: SpacesService;
 let loggerService: LoggerService;
 
 const ServiceFactory = {
@@ -72,20 +74,23 @@ const ServiceFactory = {
     }
     return telegramBotService;
   },
-  getSpaceConfigs: (customConfigService?: SpaceConfig[]): SpaceConfig[] => {
-    if (customConfigService) {
-      configService = customConfigService;
-    }
-    if (!configService) {
-      if (env.isDemo) {
-        configService = configsDemo;
-      } else if (env.isMain) {
-        configService = configsMain;
-      } else if (env.isTest) {
-        configService = [mockTelegramTestSpaceType(), mockZkFormTestSpaceType()];
+  getSpacesService: (customSpaceConfigs?: SpaceConfig[]): SpacesService => {
+    if (!spacesService) {
+      let spaceConfigs: SpaceConfig[];
+      if (customSpaceConfigs) {
+        spaceConfigs = customSpaceConfigs;
+      } else {
+        if (env.isDemo) {
+          spaceConfigs = configsDemo;
+        } else if (env.isMain) {
+          spaceConfigs = configsMain;
+        } else if (env.isTest) {
+          spaceConfigs = [mockTelegramTestSpaceType(), mockZkFormTestSpaceType()];
+        }
       }
+      spacesService = new SpacesService({ spaceConfigs })
     }
-    return configService;
+    return spacesService;
   },
   reset: (): void => {
     configService = null;

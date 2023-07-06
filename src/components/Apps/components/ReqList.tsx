@@ -9,7 +9,7 @@ import { AuthType, ClaimRequest } from "@sismo-core/sismo-connect-react";
 import HoverTooltip from "@/src/ui/HoverTooltip";
 import { GroupSnapshotMetadata } from "@/src/libs/group-provider";
 import ReqItem from "./ReqItem";
-import { ZkAppType } from "@/src/libs/spaces";
+import { ZkAppType } from "@/src/services/spaces-service";
 
 const Container = styled.div`
   display: flex;

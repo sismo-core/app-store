@@ -4,7 +4,7 @@ import React from "react";
 import { styled } from "styled-components";
 import useRemainingTime from "@/src/utils/useRemainingTime";
 import { DateTime } from "luxon";
-import { ZkAppType } from "@/src/libs/spaces";
+import { ZkAppType } from "@/src/services/spaces-service";
 
 const Content = styled.div`
   max-width: 580px;

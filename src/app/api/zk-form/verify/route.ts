@@ -10,9 +10,8 @@ import {
 } from "@sismo-core/sismo-connect-server";
 import { NextResponse } from "next/server";
 import { mapAuthTypeToSheetColumnName } from "@/src/utils/mapAuthTypeToSheetColumnName";
-import { getApps } from "@/src/libs/spaces";
 import { getImpersonateAddresses } from "@/src/utils/getImpersonateAddresses";
-import { ZkAppType, ZkFormAppType } from "@/src/libs/spaces/types";
+import { ZkAppType, ZkFormAppType } from "@/src/services/spaces-service/types";
 import ServiceFactory from "@/src/services/service-factory/service-factory";
 import { errorResponse } from "@/src/libs/helper/api";
 import { isClaimEquals } from "@/src/app/api/zk-form/verify/helper";
@@ -26,7 +25,9 @@ export type Field = {
 export async function POST(req: Request) {
   const { fields, response, spaceSlug, appSlug } = await req.json();
   const store = ServiceFactory.getZkFormTableStore();
-  const apps = await getApps({ where: { appSlug: appSlug, spaceSlug: spaceSlug }});
+  const spacesService = ServiceFactory.getSpacesService();
+
+  const apps = await spacesService.getApps({ where: { appSlug: appSlug, spaceSlug: spaceSlug }});
 
   if (!apps || apps.length !== 1 || apps[0].type !== "zkForm") {
     return errorResponse(`App ${appSlug} not found or not a zkForm app`);

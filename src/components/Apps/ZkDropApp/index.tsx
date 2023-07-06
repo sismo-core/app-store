@@ -1,6 +1,6 @@
 'use client'
 
-import { ZkDropAppType } from "@/src/libs/spaces";
+import { ZkDropAppType } from "@/src/services/spaces-service";
 import Modal from "@/src/ui/Modal";
 import React from "react";
 import { styled } from "styled-components";

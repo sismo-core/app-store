@@ -53,13 +53,11 @@ type AppCommonConfig = {
   };
 };
 
-
-export type ExternalAppTemplateConfig = {
-  link: string;
-};
 export type ExternalAppConfig = AppCommonConfig & {
   type: "external";
-  templateConfig: ExternalAppTemplateConfig;
+  templateConfig: {
+    link: string;
+  }
 };
 
 export type UserSelection = FirstComeFirstServed | Lottery;

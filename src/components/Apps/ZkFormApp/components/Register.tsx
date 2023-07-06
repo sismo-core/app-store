@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import ShortTextField from "./ShortTextField";
-import { ZkFormAppType } from "@/src/libs/spaces";
+import { ZkFormAppType } from "@/src/services/spaces-service";
 
 const Container = styled.div``;
 

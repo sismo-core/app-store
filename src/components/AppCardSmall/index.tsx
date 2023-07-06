@@ -9,7 +9,7 @@ import SpaceTag from "../SpaceTag";
 import { useState } from "react";
 import Default from "@/src/assets/default.svg";
 import colors from "@/src/themes/colors";
-import { ExternalAppType, ZkDropAppType, Lottery, ZkAppType } from "@/src/libs/spaces";
+import { ExternalAppType, ZkDropAppType, Lottery, ZkAppType } from "@/src/services/spaces-service";
 import Link from "next/link";
 
 const CardContainer = styled.div<{ $isSeparator: boolean }>`

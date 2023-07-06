@@ -1,3 +1,4 @@
+import { ZkBadgeChainName } from "@/space-config/types";
 import { ImportedNextImage } from "@/src/utils/getImgSrcFromConfig";
 import { AuthRequest, ClaimRequest } from "@sismo-core/sismo-connect-react";
 
@@ -89,12 +90,20 @@ export type ZkDropAppType = AppCommonType & {
 };
 
 export type ZkBadgeAppType = AppCommonType & {
-  type: "zkbadge";
-  chainId: number;
-  collectionId: string;
-  step1CtaText: string;
+  type: "zkBadge";
+  step1CtaText?: string;
   step2CtaText: string;
   appDescription?: string;
+  tokenId: string;
+  badgeMetadata: {
+    name: string;
+    description: string;
+    image: string;
+  };
+  chains: {
+    name: ZkBadgeChainName;
+    relayerEnabled?: boolean;
+  }[];
 };
 
 export type ZkFormAppType = AppCommonType & {

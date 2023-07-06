@@ -8,7 +8,7 @@ import { getHumanReadableRemainingTimeTag } from "@/src/utils/getHumanReadableTi
 import SpaceTag from "../SpaceTag";
 import Default from "@/src/assets/default.svg";
 import colors from "@/src/themes/colors";
-import { ExternalAppType, Lottery, ZkAppType, ZkDropAppType } from "@/src/libs/spaces";
+import { ExternalAppType, Lottery, ZkAppType, ZkDropAppType } from "@/src/services/spaces-service";
 import Link from "next/link";
 
 const Container = styled(Link)<{ $isDisabled: boolean }>`

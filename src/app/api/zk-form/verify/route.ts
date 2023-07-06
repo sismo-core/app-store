@@ -17,6 +17,7 @@ import { ZkAppType, ZkFormAppType } from "@/src/libs/spaces/types";
 import ServiceFactory from "@/src/libs/service-factory/service-factory";
 import { errorResponse } from "@/src/libs/helper/api";
 import { isClaimEquals } from "@/src/app/api/zk-form/verify/helper";
+import { JsonRpcProviderMock } from "@/src/libs/helper/json-rpc-provider-mock";
 
 export type Field = {
   name: string;
@@ -138,12 +139,16 @@ const verifyResponse = async (
       impersonate: getImpersonateAddresses(app as ZkAppType),
     };
   }
-  let options: SismoConnectServerOptions = {};
+
   // todo should be handled in a better way (code should not be aware of env)
-  // if (env.isTest) {
-  //   options.verifier.hydraS3.registryRoot =
-  //     "0x08f621c0e87bb0b37e0e66b8b9e7620d11aa0f15e9f5a60b986364b2db59dbed";
-  // }
+  let options: SismoConnectServerOptions = {
+    ...(env.isTest
+      ? {
+          // mocked provider to avoid checking the route on chain
+          provider: new JsonRpcProviderMock(),
+        }
+      : {}),
+  };
 
   const sismoConnect = SismoConnect({ config, options });
   return await sismoConnect.verify(response, {

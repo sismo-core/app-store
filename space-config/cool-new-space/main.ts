@@ -39,7 +39,7 @@ export const CoolNewSpace : SpaceConfig = {
   },
 	// Customise your request. See tutorial "Customise your Sismo Connect Request"
   sismoConnectRequest: {
-    appId: "0x02bcb449a6bd1062017cf0315375afdf",
+    appId: "0xd4fa88e79072e6e54f6a5a3c9ceb6bb3",
     authRequests: [{ authType: AuthType.VAULT }],
     claimRequests: [
       {

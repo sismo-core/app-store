@@ -17,16 +17,20 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Make changes
-        run: echo "This is a test." >> test.txt
+      - name: Create Sismo Connect App on the factory
+        run: yarn sync-apps-factory
+        env:
+          SISMO_FACTORY_URL: https://factory-api.staging.zikies.io
+          SISMO_FACTORY_TOKEN: ${{ secrets.SISMO_FACTORY_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Commit and push
+      - name: Commit and push filled appId
         run: |
           git config --global user.email "robot@sismo.com"
           git config --global user.name "Sismo Robot"
           git add -A
           git commit -m "feat: create and fill appId" || exit 0
-          git push
+          git push origin HEAD:${{ github.head_ref }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

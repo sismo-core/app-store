@@ -40,6 +40,7 @@
     "server-only": "^0.0.1",
     "sharp": "^0.32.1",
     "styled-components": "^6.0.0-beta.15",
+    "text-encoding": "^0.7.0",
     "typeorm": "^0.3.17",
     "typescript": "5.0.4",
     "utf-8-validate": "^6.0.3",

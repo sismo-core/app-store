@@ -64,6 +64,10 @@ export class SpacesService {
     return apps;
   }
 
+  public async updateConfig(spaceConfigs: SpaceConfig[]) {
+    this._spaceConfigs = spaceConfigs;
+  }
+
   private async _getAllSpaces() {
     let spaces: SpaceType[] = [];
     for (let spaceConfig of this._spaceConfigs) {

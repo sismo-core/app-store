@@ -74,20 +74,24 @@ const ServiceFactory = {
     }
     return telegramBotService;
   },
-  getSpacesService: (customSpaceConfigs?: SpaceConfig[]): SpacesService => {
-    if (!spacesService) {
-      let spaceConfigs: SpaceConfig[];
-      if (customSpaceConfigs) {
-        spaceConfigs = customSpaceConfigs;
-      } else {
-        if (env.isDemo) {
-          spaceConfigs = configsDemo;
-        } else if (env.isMain) {
-          spaceConfigs = configsMain;
-        } else if (env.isTest) {
-          spaceConfigs = [mockTelegramTestSpaceType(), mockZkFormTestSpaceType()];
-        }
+  getSpaceConfigs: (customConfigService?: SpaceConfig[]): SpaceConfig[] => {
+    if (customConfigService) {
+      configService = customConfigService;
+    }
+    if (!configService) {
+      if (env.isDemo) {
+        configService = configsDemo;
+      } else if (env.isMain) {
+        configService = configsMain;
+      } else if (env.isTest) {
+        configService = [mockTelegramTestSpaceType(), mockZkFormTestSpaceType()];
       }
+    }
+    return configService;
+  },
+  getSpacesService: (): SpacesService => {
+    if (!spacesService) {
+      const spaceConfigs = ServiceFactory.getSpaceConfigs();
       spacesService = new SpacesService({ spaceConfigs })
     }
     return spacesService;

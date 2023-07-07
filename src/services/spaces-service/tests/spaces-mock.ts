@@ -284,7 +284,7 @@ export const spaceMock2: SpaceConfig = {
         },
         templateConfig: {
           step2CtaText: "zkBadge step2CtaText2",
-          tokenId: "40000001",
+          tokenId: "40000002",
           badgeMetadata: {
             name: "Badge name2",
             description: "Badge description2",

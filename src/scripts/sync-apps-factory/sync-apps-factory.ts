@@ -4,7 +4,6 @@ import fs from "fs";
 
 const APP_REPLACE_PATTERN = /appId: "{{ auto-fill }}"/;
 
-//`${__dirname}/../../space-configs/${getEnvName()}
 export const syncAppsFactory = async (directoryLocation: string, save: boolean = false) => {
   const sismoFactory = ServiceFactory.getSismoFactoryService();
   const loggerService = ServiceFactory.getLoggerService();

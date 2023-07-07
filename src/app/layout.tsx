@@ -7,6 +7,7 @@ import { PageContent } from "../components/Layouts/PageContent";
 import PageContainer from "../components/Layouts/PageContainer";
 import PlausibleProvider from "next-plausible";
 import env from "../environments";
+import AppProviders from "../components/AppProviders";
 
 export const metadata = {
   title: env.isDemo
@@ -28,11 +29,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <PlausibleProvider domain={env.isDemo ? "demo.apps.sismo.io" : "apps.sismo.io"}>
           <StyledComponentsRegistry>
               <Theme>
-                <PageContainer>
-                  <Navbar />
-                  <PageContent>{children}</PageContent>
-                  <Footer />
-                </PageContainer>
+                <AppProviders>
+                  <PageContainer>
+                    <Navbar />
+                    <PageContent>{children}</PageContent>
+                    <Footer />
+                  </PageContainer>
+                </AppProviders>
               </Theme>
           </StyledComponentsRegistry>
         </PlausibleProvider>

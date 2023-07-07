@@ -12,14 +12,14 @@ jest.mock("../../../../libs/contracts/signers", () => {
     };
 });
 
-jest.mock('../../../../libs/contracts/zk-badge-minter', () => {
-    // Use the 'mockImplementation' method to mock the 'ZkBadgeMinterContract' class
-    const originalModule = jest.requireActual("../../../../libs/contracts/zk-badge-minter");
+jest.mock('../../../../libs/contracts/zk-badge', () => {
+    // Use the 'mockImplementation' method to mock the 'ZkBadgeContract' class
+    const originalModule = jest.requireActual("../../../../libs/contracts/zk-badge");
 
     return {
         __esModule: true,
         ...originalModule,
-        ZkBadgeMinterContract: jest.fn().mockImplementation(() => {
+        ZkBadgeContract: jest.fn().mockImplementation(() => {
             return {
                 mint: mockMint,
             };

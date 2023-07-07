@@ -5,20 +5,25 @@ import { styled } from "styled-components";
 import Button3D from "@/src/ui/Button3D";
 import { GroupSnapshotMetadata } from "@/src/libs/group-provider";
 import Section from "../components/Section";
-import { ZkBadgeAppType, ZkFormAppType } from "@/src/services/spaces-service";
+import { ZkBadgeAppType } from "@/src/services/spaces-service";
 import { usePathname, useRouter } from "next/navigation";
-import { SismoConnectButton, useSismoConnect } from "@sismo-core/sismo-connect-react";
+import { AuthType, SismoConnectButton } from "@sismo-core/sismo-connect-react";
 import { getImpersonateAddresses } from "@/src/utils/getImpersonateAddresses";
 import env from "@/src/environments";
 import SelectDestination from "./components/SelectDestination";
 import Requirements from "./components/Requirements";
 import { getProvider } from "@/src/libs/contracts/providers";
-import { Network } from "@/src/libs/contracts/networks";
+import { Network, getErc1155Explorer, getTxExplorer, networkChainIds } from "@/src/libs/contracts/networks";
 import { getMessageSignature } from "./utils/getMessageSignature";
 import Error from "@/src/ui/Error";
 import Congratulations from "./components/Congratulations";
 import { getMinimalHash } from "@/src/utils/getMinimalHash";
 import { ArrowSquareOut } from "phosphor-react";
+import { useAccount, useContractRead, useContractWrite, usePrepareContractWrite } from "wagmi";
+import { waitForTransaction, writeContract } from '@wagmi/core'
+import { ZK_BADGE_ADDRESSES } from "@/src/libs/contracts/zk-badge/constants";
+import { ZK_BADGE_ABI } from "@/src/libs/contracts/zk-badge";
+import { useConnectModal } from "@rainbow-me/rainbowkit";
 
 const Content = styled.div`
   width: 580px;
@@ -50,6 +55,7 @@ const AlreadyRegistered = styled.div`
   justify-content: center;
   border-radius: 4px;
   margin-top: 16px;
+  cursor: pointer;
 `;
 
 const SismoButtonContainer = styled.div<{disabled: boolean}>`
@@ -106,6 +112,9 @@ type Props = {
 export default function ZkBadgeApp({ app, groupSnapshotMetadataList }: Props): JSX.Element {
   const pathname = usePathname();
   const router = useRouter();
+  
+  const { openConnectModal, connectModalOpen } = useConnectModal();
+  const { isConnected } = useAccount();
 
   const [error, setError] = useState(null);
   const [alreadyMinted, setAlreadyMinted] = useState(false);
@@ -114,10 +123,47 @@ export default function ZkBadgeApp({ app, groupSnapshotMetadataList }: Props): J
   const [responseBytes, setResponseBytes] = useState(null);
   const [minting, setMinting] = useState(null);
   const [hash, setHash] = useState(null);
+  const [vaultId, setVaultId] = useState(null);
+  const hasResponse = Boolean(responseBytes);
 
   const chain = app.chains[0].name;
+  const isRelayed = app.chains[0].relayerEnabled;
 
-  const config = useMemo(() => {
+  useContractRead({
+    address: ZK_BADGE_ADDRESSES[chain],
+    abi: ZK_BADGE_ABI,
+    functionName: 'balanceOfVaultId',
+    args: [app.tokenId, vaultId],
+    enabled: Boolean(vaultId) && Boolean(app.tokenId),
+    chainId: networkChainIds[chain],
+    onSuccess: (data: BigInt) => {
+      if (typeof data === "bigint" && data > 0) {
+        setAlreadyMinted(true);
+      } 
+    }
+  });
+
+  const { config } = usePrepareContractWrite({
+    address: ZK_BADGE_ADDRESSES[chain],
+    abi: ZK_BADGE_ABI,
+    functionName: 'claimWithSismoConnect',
+    args: [responseBytes, destination, app.tokenId],
+    chainId: networkChainIds[chain],
+    enabled: Boolean(responseBytes) && Boolean(destination) && Boolean(app.tokenId)
+  })
+
+  console.log({
+    address: ZK_BADGE_ADDRESSES[chain],
+    abi: ZK_BADGE_ABI,
+    functionName: 'claimWithSismoConnect',
+    args: [responseBytes, destination, app.tokenId],
+    chainId: networkChainIds[chain],
+    enabled: Boolean(responseBytes) && Boolean(destination) && Boolean(app.tokenId)
+  })
+
+  const { writeAsync } = useContractWrite(config);
+
+  const sismoConnectConfig = useMemo(() => {
     const config = {
       appId: app.appId,
       vault: env.isDemo
@@ -128,8 +174,6 @@ export default function ZkBadgeApp({ app, groupSnapshotMetadataList }: Props): J
     };
     return config;
   }, [app]);
-  const { response } = useSismoConnect({ config });
-  const hasResponse = Boolean(response);
 
   useEffect(() => {
     if (destination) {
@@ -138,14 +182,42 @@ export default function ZkBadgeApp({ app, groupSnapshotMetadataList }: Props): J
   }, [destination])
 
   const mint = async () => {
-    const body = {
-      responseBytes: responseBytes,
-      destination: destination,
-      tokenId: app.tokenId
-    };
+    if (!isRelayed && !isConnected) {
+      openConnectModal();
+      return;
+    }
     setHash(null);
     setError(null);
     setMinting(true);
+    if (!isRelayed) await mintNotRelayed();
+    if (isRelayed)await  mintRelayed();
+    setMinting(false);
+  };
+
+  const mintNotRelayed = async () => {
+    try {
+      console.log("mintNotRelayed");
+      const tx = await writeAsync();
+      console.log("tx", tx.hash)
+      setHash(tx.hash);
+      await waitForTransaction({
+        hash: tx.hash,
+      })
+      setHash(null);
+      setMinted(true);
+    } catch (e) {
+      console.error(e);
+      setError("Minting error. Please contact us or retry later.");
+    }
+  }
+
+  const mintRelayed = async () => {
+    const body = {
+      responseBytes: responseBytes,
+      destination: destination,
+      tokenId: app.tokenId,
+      chain
+    };
     const res = await fetch("/api/zk-badge/relay-tx", {
       method: "POST",
       body: JSON.stringify(body),
@@ -171,8 +243,15 @@ export default function ZkBadgeApp({ app, groupSnapshotMetadataList }: Props): J
         setError("Minting error. Please contact us or retry later.")
       }
     }
-    setMinting(false);
-  };
+  }
+
+  useEffect(() => {
+    if (!responseBytes || !destination || !app.tokenId) return;
+    const isAlreadyMinted = (destination: string) => {
+      
+    }
+    isAlreadyMinted(destination);
+  }, [responseBytes, destination, app.tokenId])
 
   return <Content>
       {minted ? (
@@ -199,7 +278,7 @@ export default function ZkBadgeApp({ app, groupSnapshotMetadataList }: Props): J
                 !destination && <DisabledButton/>
               }
               <SismoConnectButton
-                config={config}
+                config={sismoConnectConfig}
                 claims={app?.claimRequests}
                 auths={app?.authRequests}
                 signature={{ message: getMessageSignature({ destination, tokenId: app.tokenId }) }}
@@ -209,18 +288,30 @@ export default function ZkBadgeApp({ app, groupSnapshotMetadataList }: Props): J
                   setResponseBytes(response);
                   setDestination(window.localStorage.getItem("destination"));
                 }}
+                onResponse={(response) => {
+                  const vaultId = response.proofs.find(proof => {
+                    if (!proof.auths) return false;
+                    if (proof.auths[0].authType === AuthType.VAULT) {
+                      return true;
+                    }
+                  })?.auths[0]?.userId;
+                  setVaultId(vaultId);
+                }}
               />
             </SismoButtonContainer>
           </Section>
           <Section
             number={2}
-            isOpen={Boolean(response) && Boolean(destination)}
+            isOpen={hasResponse && Boolean(destination)}
             title={app?.step2CtaText}
             success={alreadyMinted}
           >
             { alreadyMinted ? 
-              <AlreadyRegistered>
-                Badge Already minted
+              <AlreadyRegistered onClick={() => {
+                const explorer = getErc1155Explorer({contractAddress: ZK_BADGE_ADDRESSES[chain],tokenId: app.tokenId,network: chain});
+                window.open(explorer, "_blank");
+              }}>
+                Badge Already minted <ArrowSquareOut style={{ marginTop: -8, marginLeft: 4 }} size={18}/>
               </AlreadyRegistered>
               :
               <MintContainer>
@@ -229,22 +320,21 @@ export default function ZkBadgeApp({ app, groupSnapshotMetadataList }: Props): J
                   secondary
                   loading={minting}
                 >
-                  {minting ? "Minting..." : "Mint Badge"}
+                  {
+                    connectModalOpen ? 
+                    "Connecting wallet..."
+                    :
+                    <>
+                      {minting ? "Minting..." : "Mint Badge"}
+                    </>
+                  }
                 </Button3D>
                 <TransactionLink style={{marginTop: 20 }}>
                   {hash ? (
                     <Inline
                       style={{ cursor: "pointer" }}
                       onClick={() => {
-                        if (chain === Network.Mumbai) {
-                          window.open(`https://mumbai.polygonscan.com/tx/${hash}`, "_blank");
-                        }
-                        if (chain === Network.Gnosis) {
-                          window.open(
-                            `https://gnosisscan.io/tx/${hash}`,
-                            "_blank"
-                          );
-                        }
+                        window.open(getTxExplorer({ txHash:hash, network: chain}), "_blank");
                       }}
                     >
                       Transaction hash: {getMinimalHash(hash)}

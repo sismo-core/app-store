@@ -86,7 +86,7 @@ export type ZkDropAppConfig = AppCommonConfig & {
   };
 };
 
-export type ZkBadgeChainName = Network.Gnosis | Network.Mumbai;
+export type ZkBadgeChainName = Network.Gnosis | Network.Mumbai | Network.Sepolia;
 export type ZkBadgeAppConfig = AppCommonConfig & {
   type: "zkBadge";
   templateConfig: {
@@ -99,10 +99,10 @@ export type ZkBadgeAppConfig = AppCommonConfig & {
       description: string;
       image: string;
     };
-    chains: {
+    chains: [{
       name: ZkBadgeChainName;
       relayerEnabled?: boolean;
-    }[];
+    }];
   };
 };
 

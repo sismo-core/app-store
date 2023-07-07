@@ -144,11 +144,6 @@ export class SpacesService {
             break;
           case "zkBadge":
             const chains = appConfig.templateConfig.chains.map(chain => {
-              if (chain.relayerEnabled === undefined) {
-                if (chain.name === "gnosis") {
-                  chain.relayerEnabled = true;
-                }
-              }
               return {
                 name: chain.name,
                 relayerEnabled: chain.relayerEnabled

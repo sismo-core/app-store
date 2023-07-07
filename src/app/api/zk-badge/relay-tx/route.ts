@@ -1,13 +1,13 @@
 import { Network } from "@/src/libs/contracts/networks";
 import { getDefenderRelayerSigner } from "@/src/libs/contracts/signers";
-import { ZkBadgeMinterContract } from "@/src/libs/contracts/zk-badge-minter";
+import { ZkBadgeContract } from "@/src/libs/contracts/zk-badge";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
-    const { responseBytes, destination, tokenId } = await req.json();
+    const { responseBytes, destination, tokenId, chain } = await req.json();
 
     const signer = getDefenderRelayerSigner(Network.Mumbai);
-    const zkMinterContract = new ZkBadgeMinterContract({ network: Network.Mumbai, signer });
+    const zkMinterContract = new ZkBadgeContract({ network: chain, signer });
 
     try {
         const tx = await zkMinterContract.mint({ 
@@ -21,6 +21,7 @@ export async function POST(req: Request) {
           txHash: tx.hash
         });
     } catch (e) {
+        console.error(e);
         return NextResponse.json({ 
             code: "minting-error" 
         })

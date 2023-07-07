@@ -119,7 +119,7 @@ export const SashaSpace : SpaceConfig = {
               value: 10,
             },
           ]}
-      }
+      },
     	// We will cover this in Tutorial 2.2 Step 2
       templateConfig: {
     		// Text that will be shown in the Button for the 2nd Step (on opening the link to join).

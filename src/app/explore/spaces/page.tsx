@@ -1,4 +1,4 @@
-import { SpaceConfig } from "@/space-config/types";
+import { SpaceConfig } from "@/space-configs/types";
 import ExploreSpacesMain from "@/src/components/ExploreSpacesMain";
 import { SpaceType, getSpaces } from "@/src/libs/spaces";
 

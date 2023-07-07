@@ -1,4 +1,4 @@
-import { AppConfig, SpaceConfig } from "@/space-config/types";
+import { AppConfig, SpaceConfig } from "@/space-configs/types";
 import { Field } from "@/src/app/api/zk-form/verify/route";
 import { MockedRequest } from "@/src/libs/helper";
 import { AuthType, ClaimType, SismoConnectResponse } from "@sismo-core/sismo-connect-server";

@@ -3,7 +3,7 @@
 import { AuthType } from "@sismo-core/sismo-connect-client";
 import { SpaceConfig } from "../types";
 
-export const theMergeContributorsConfigDemo: SpaceConfig = {
+export default {
   metadata: {
     name: "The Merge Contributors",
     slug: "the-merge-contributors",
@@ -19,7 +19,7 @@ export const theMergeContributorsConfigDemo: SpaceConfig = {
         description:
           "Register your email address to receive exclusive tickets for web3 events - open to contributors to The Merge.",
         tags: ["Event"],
-        image: "EthCCtickets_1014x720px.png",  
+        image: "EthCCtickets_1014x720px.png",
         createdAt: new Date("2022-07-01T00:00:00.000Z"),
       },
       sismoConnectRequest: {
@@ -60,7 +60,7 @@ export const theMergeContributorsConfigDemo: SpaceConfig = {
       },
       options: {
         isFeatured: true,
-      }
+      },
     },
   ],
-};
+} as SpaceConfig;

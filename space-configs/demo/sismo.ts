@@ -2,7 +2,7 @@
 import { AuthType } from "@sismo-core/sismo-connect-server";
 import { SpaceConfig } from "../types";
 
-export const sismoConfigDemo: SpaceConfig = {
+export default {
   metadata: {
     slug: "sismo",
     name: "Sismo",
@@ -470,4 +470,4 @@ export const sismoConfigDemo: SpaceConfig = {
       },
     },
   ],
-};
+} as SpaceConfig;

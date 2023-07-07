@@ -2,7 +2,7 @@
 import { AuthType } from "@sismo-core/sismo-connect-server";
 import { SpaceConfig } from "../types";
 
-export const cowSwapConfigDemo: SpaceConfig = {
+export default {
   metadata: {
     slug: "cow-swap",
     name: "Cow Swap",
@@ -54,9 +54,7 @@ export const cowSwapConfigDemo: SpaceConfig = {
             value: 3,
           },
         ],
-        impersonateAddresses: [
-          "0xb18e3bf33365fd2466c2e99b181e527a165c210c"
-        ],
+        impersonateAddresses: ["0xb18e3bf33365fd2466c2e99b181e527a165c210c"],
       },
       templateConfig: {
         step2CtaText: "Claim your Swag",
@@ -74,7 +72,8 @@ export const cowSwapConfigDemo: SpaceConfig = {
         ],
         congratulationsMessage: {
           title: "Congratulations!",
-          description: "Swags are given on a first come first serve basis. Come to our booth and tell us your name/pseudonym to claim your Swag 🎒",
+          description:
+            "Swags are given on a first come first serve basis. Come to our booth and tell us your name/pseudonym to claim your Swag 🎒",
         },
         output: {
           destination: {
@@ -109,9 +108,7 @@ export const cowSwapConfigDemo: SpaceConfig = {
             value: 1,
           },
         ],
-        impersonateAddresses: [
-          "0xb18e3bf33365fd2466c2e99b181e527a165c210c"
-        ],
+        impersonateAddresses: ["0xb18e3bf33365fd2466c2e99b181e527a165c210c"],
       },
       templateConfig: {
         step2CtaText: "Register to get your Ticket",
@@ -129,7 +126,8 @@ export const cowSwapConfigDemo: SpaceConfig = {
         ],
         congratulationsMessage: {
           title: "Congratulations!",
-          description: "Tickets are processed on a first come first serve basis. You will receive an email update in a few days! See you there 💜",
+          description:
+            "Tickets are processed on a first come first serve basis. You will receive an email update in a few days! See you there 💜",
         },
         output: {
           destination: {
@@ -145,4 +143,4 @@ export const cowSwapConfigDemo: SpaceConfig = {
       },
     },
   ],
-};
+} as SpaceConfig;

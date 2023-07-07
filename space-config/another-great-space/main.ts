@@ -85,5 +85,39 @@ export const SashaSpace : SpaceConfig = {
         },
       },
     },
+    {
+    	// Type: We use zkTelegramBot template for a gated Telegram Group. Don't change the type!
+      type: "zkTelegramBot",
+      metadata: {
+    		// Your app Name
+        name: "Join anon chat",
+    		// Your app name in form of a slug. It will be the last part in the URL. No Spaces allowed 
+        slug: "anon-tg-chat",
+    		// The description is used for SEO and social media preview of your app
+        description:
+          "Random chat for test.",
+        // Add one or two tags to your app
+    		tags: ["Telegram", "Chat"],
+    		// Image for you app, to be placed in the image folder of your Space
+    		image: "your_app_image1_500x500.png",
+    		// Edit the date here to today's date YYYY-MM-DD
+        createdAt: new Date("2023-07-07T18:00"),
+      },
+    	// Customise your request. See tutorial "Customise your Sismo Connect Request"
+      sismoConnectRequest: {
+        appId: "0xa83b7b0d5e268fb4aa3d3582e11700fa",
+        claimRequests: [{ groupId: "0xd630aa769278cacde879c5c0fe5d203c", value: 3 }],
+      },
+    	// We will cover this in Tutorial 2.2 Step 2
+      templateConfig: {
+    		// Text that will be shown in the Button for the 2nd Step (on opening the link to join).
+    		step2CtaText: "Enter the chat",
+    		// App description that will be shown in the Sismo App Store
+    		appDescription: "Group of anons",
+        // This will be covered in the Tutorial Part 2.2 Step 3.
+    		telegramGroupId: "-1001689757210",
+        telegramInviteLink: "https://t.me/+wUMNNKKfE_U2Mzdi",
+      },
+    },
   ]
 };

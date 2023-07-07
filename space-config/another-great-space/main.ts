@@ -92,7 +92,7 @@ export const SashaSpace : SpaceConfig = {
     		// Your app Name
         name: "Join anon chat",
     		// Your app name in form of a slug. It will be the last part in the URL. No Spaces allowed 
-        slug: "anon-tg-chat",
+        slug: "join-anon-chat",
     		// The description is used for SEO and social media preview of your app
         description:
           "Random chat for test.",

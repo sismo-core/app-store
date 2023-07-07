@@ -18,7 +18,7 @@ export const syncAppsFactory = async (directoryLocation: string, save: boolean =
     let spaceFileContent = fs.readFileSync(filename, "utf8");
     let fileNeedsUpdate = false;
     for (const app of apps) {
-      const appIdToFill = app.appId.includes("{{ auto-fill }}");
+      const appIdToFill = app?.appId?.includes("{{ auto-fill }}");
       if (appIdToFill) {
         const imageContent = fs.readFileSync(
           `${__dirname}/../../../space-configs/images/${app.imageFilename}`

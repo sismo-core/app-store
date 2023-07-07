@@ -9,6 +9,7 @@ for (const env of ["main", "demo"]) {
     configs.push(config);
   });
 
+  fs.mkdirSync(`${__dirname}/../../../.space-configs`, { recursive: true });
   fs.writeFileSync(
     `${__dirname}/../../../.space-configs/${env}.json`,
     JSON.stringify(configs, null, 2)

@@ -14,14 +14,15 @@ import { toKebabCase } from "@/src/utils/toKebabCase";
 export async function getSpaces(): Promise<SpaceType[]> {
   let spaces: SpaceType[] = [];
   for (let spaceConfig of ServiceFactory.getSpaceConfigs()) {
+    const spaceSlug = spaceConfig.metadata.slug ?? toKebabCase(spaceConfig.metadata.name);
     let apps: ZkAppType[] = [];
     const spaceProfileImage = await getImgSrcFromConfig({
-      configSlug: spaceConfig.metadata.slug,
+      configSlug: spaceSlug,
       fileName: spaceConfig.metadata.image,
     });
     for (let appConfig of spaceConfig.apps) {
       const appImage = await getImgSrcFromConfig({
-        configSlug: spaceConfig.metadata.slug,
+        configSlug: spaceSlug,
         fileName: appConfig.metadata.image,
       });
       const appSlug = appConfig.metadata.slug ?? toKebabCase(appConfig.metadata.name);
@@ -42,7 +43,7 @@ export async function getSpaces(): Promise<SpaceType[]> {
         lastUpdateAt: appConfig.metadata?.lastUpdateAt,
         isFeatured: appConfig.options?.isFeatured,
         space: {
-          slug: spaceConfig.metadata.slug,
+          slug: spaceSlug,
           name: spaceConfig.metadata.name,
           profileImage: spaceProfileImage,
         },
@@ -84,7 +85,6 @@ export async function getSpaces(): Promise<SpaceType[]> {
         } as ZkTelegramBotAppType);
       }
     }
-    const spaceSlug = spaceConfig.metadata.slug ?? toKebabCase(spaceConfig.metadata.name);
     const space: SpaceType = {
       name: spaceConfig.metadata.name,
       slug: spaceSlug,

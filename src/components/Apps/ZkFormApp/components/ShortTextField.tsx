@@ -1,6 +1,6 @@
 "use client";
 
-import { ShortText } from "@/space-config/types";
+import { ShortText } from "@/space-configs/types";
 import TextInput from "@/src/ui/TextInput";
 import React from "react";
 import { styled } from "styled-components";

@@ -1,4 +1,4 @@
-import { SpaceConfig } from "@/space-config/types";
+import { SpaceConfig } from "@/space-configs/types";
 import ExploreAppsMain from "@/src/components/ExploreAppsMain";
 import { ZkAppType, getApps } from "@/src/libs/spaces";
 

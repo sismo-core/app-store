@@ -15,17 +15,23 @@ Available templates include:
 
 ### Configuration
 
-All configurations for templates are located in the [space-config](./space-config/) folder.
+All configurations for templates are located in the [space-configs](./space-configs/) folder.
 
-For example, the [configuration](./space-config/aave-chan-initiative/demo.ts) for the [aave-chan-initiative](https://demo.apps.sismo.io/aave-chan-initiative/aci-swag) the configuration is setup in this files tree.
+For example, the [configuration](./space-configs/demo/aave-chan-initiative.ts) for the [aave-chan-initiative](https://demo.apps.sismo.io/aave-chan-initiative/aci-swag) the configuration is setup in this files tree.
 ```bash
-space-config/
-├── aave-chan-initiative
-│   ├── demo.ts
-│   ├── main.ts
-│   └── images
-│       ├── aave_chan_initiative_apps_swag_1014x720.png
-│       ├── ...
+space-configs/
+├── main
+│   ├── aave-chan-initiative.ts
+│   ├── cow-swap.ts
+│   ├── ...
+├── demo
+│   ├── aave-chan-initiative.ts
+│   ├── cow-swap.ts
+│   ├── ...
+├── images
+│   ├── aave_chan_initiative_apps_swag_1014x720.png
+│   ├── aave_chan_initiative_apps_swag_400x400.png
+│   └── ...
 ├── index.ts
 └── types.ts
 ```

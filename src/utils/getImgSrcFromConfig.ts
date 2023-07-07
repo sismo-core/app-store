@@ -20,7 +20,7 @@ export default async function getImgSrcFromConfig({
     if (fileName?.startsWith("http")) {
       return fileName;
     } else {
-      const importedImg = await import(`@/space-config/${configSlug}/images/${fileName}`);
+      const importedImg = await import(`@/space-configs/images/${fileName}`);
       return importedImg.default;
     }
   } catch (e) {

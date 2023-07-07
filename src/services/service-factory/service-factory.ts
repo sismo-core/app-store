@@ -1,5 +1,5 @@
-import { configsDemo, configsMain } from "@/space-config";
-import { SpaceConfig } from "@/space-config/types";
+import { configsDemo, configsMain } from "@/space-configs";
+import { SpaceConfig } from "@/space-configs/types";
 import { mockZkFormTestSpaceType } from "@/src/app/api/zk-form/mocks";
 import { mockTelegramTestSpaceType } from "@/src/app/api/zk-telegram-bot/mocks";
 import env from "@/src/environments";

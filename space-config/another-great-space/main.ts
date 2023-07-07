@@ -104,21 +104,9 @@ export const SashaSpace : SpaceConfig = {
         createdAt: new Date("2023-07-07T18:00"),
       },
       sismoConnectRequest: {
-      	// 	// Add your appId here
       	appId: "0xe9ba1138acf7acc8dfe6ff023060ff06",
-      	auths={[
-            // request users to share an ethereum wallet
-            { authType: AuthType.VAULT }, 
-            // propose users to share their evm account
-            { authType: AuthType.EVM_ACCOUNT, isOptional: true }, // delete if not needed
-          ]}
-          claims={[
-            {
-              groupId: "0x1cde61966decb8600dfd0749bd371f12",  // replace with your groupId
-              claimType: ClaimType.GTE, // a member of the group with the value greater or equal to 15
-              value: 10,
-            },
-          ]}
+        authRequests: [{ authType: AuthType.VAULT }],
+        claimRequests: [{ groupId: "0x1cde61966decb8600dfd0749bd371f12", value: 15 }],
       },
     	// We will cover this in Tutorial 2.2 Step 2
       templateConfig: {

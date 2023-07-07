@@ -5,7 +5,6 @@ import { SpaceConfig } from "../types";
 
 export const sismoConfigDemo: SpaceConfig = {
   metadata: {
-    slug: "sismo",
     name: "Sismo",
     description:
       "This Space presents Sismo Apps, offering exclusive benefits for our contributors and community members. Prove your level and unlock access to the apps. Learn more about the Sismo Community and check your level: https://community.sismo.io.",
@@ -34,7 +33,6 @@ export const sismoConfigDemo: SpaceConfig = {
       type: "zkTelegramBot",
       metadata: {
         name: "Join Demo Sismo Builders Group",
-        slug: "join-demo-sismo-builders-group",
         description:
           "Join our private Telegram Group ‘Sismo Builders’ - available to all members of the Sismo Community.",
         image: "sismoapps_tg_zk_bot_1014x720.png",

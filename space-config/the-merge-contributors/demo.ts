@@ -6,7 +6,6 @@ import { SpaceConfig } from "../types";
 export const theMergeContributorsConfigDemo: SpaceConfig = {
   metadata: {
     name: "The Merge Contributors",
-    slug: "the-merge-contributors",
     description: "Tribute to contributors to the Ethereum Merge.",
     image: "pfp_Space_TheMergeContributors_400x400.png",
   },

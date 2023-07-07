@@ -4,7 +4,6 @@ import { SpaceConfig } from "../types";
 
 export const cowSwapConfigDemo: SpaceConfig = {
   metadata: {
-    slug: "cow-swap",
     name: "Cow Swap",
     description:
       "This Space is dedicated to Cow Swap, a DEX aggregator. Cow Traders and Holders will get access to gifts and premium features.",

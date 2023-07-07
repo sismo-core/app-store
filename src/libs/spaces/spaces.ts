@@ -9,6 +9,7 @@ import {
 } from "./types";
 import { AuthType } from "@sismo-core/sismo-connect-server";
 import getImgSrcFromConfig from "@/src/utils/getImgSrcFromConfig";
+import { toKebabCase } from "@/src/utils/toKebabCase";
 
 export async function getSpaces(): Promise<SpaceType[]> {
   let spaces: SpaceType[] = [];
@@ -17,15 +18,16 @@ export async function getSpaces(): Promise<SpaceType[]> {
     const spaceProfileImage = await getImgSrcFromConfig({
       configSlug: spaceConfig.metadata.slug,
       fileName: spaceConfig.metadata.image,
-    })
+    });
     for (let appConfig of spaceConfig.apps) {
       const appImage = await getImgSrcFromConfig({
         configSlug: spaceConfig.metadata.slug,
         fileName: appConfig.metadata.image,
-      })
+      });
+      const appSlug = appConfig.metadata.slug ?? toKebabCase(appConfig.metadata.name);
       const appCommon: AppCommonType = {
         name: appConfig.metadata.name,
-        slug: appConfig.metadata.slug,
+        slug: appSlug,
         description: appConfig.metadata.description,
         image: appImage,
         tags: appConfig.metadata.tags,
@@ -42,8 +44,8 @@ export async function getSpaces(): Promise<SpaceType[]> {
         space: {
           slug: spaceConfig.metadata.slug,
           name: spaceConfig.metadata.name,
-          profileImage: spaceProfileImage
-        }
+          profileImage: spaceProfileImage,
+        },
       };
       if (appConfig.type === "external") {
         apps.push({
@@ -82,9 +84,10 @@ export async function getSpaces(): Promise<SpaceType[]> {
         } as ZkTelegramBotAppType);
       }
     }
+    const spaceSlug = spaceConfig.metadata.slug ?? toKebabCase(spaceConfig.metadata.name);
     const space: SpaceType = {
       name: spaceConfig.metadata.name,
-      slug: spaceConfig.metadata.slug,
+      slug: spaceSlug,
       description: spaceConfig.metadata.description,
       profileImage: spaceProfileImage,
       socialLinks: spaceConfig.metadata.socialLinks,
@@ -97,13 +100,13 @@ export async function getSpaces(): Promise<SpaceType[]> {
   return spaces;
 }
 
-export type GetAppsOptions = { 
-  sortedBy?: "createdAt", 
-  where?: { 
+export type GetAppsOptions = {
+  sortedBy?: "createdAt";
+  where?: {
     spaceSlug?: string;
     appSlug?: string;
-  }
-}
+  };
+};
 
 export async function getApps(options?: GetAppsOptions) {
   const spaces = await getSpaces();
@@ -122,11 +125,11 @@ export async function getApps(options?: GetAppsOptions) {
   }
 
   if (options?.where?.appSlug) {
-    apps = apps.filter(app => app.slug === options?.where?.appSlug);
+    apps = apps.filter((app) => app.slug === options?.where?.appSlug);
   }
 
   if (options?.where?.spaceSlug) {
-    apps = apps.filter(app => app.space.slug === options?.where?.spaceSlug);
+    apps = apps.filter((app) => app.space.slug === options?.where?.spaceSlug);
   }
 
   return apps;

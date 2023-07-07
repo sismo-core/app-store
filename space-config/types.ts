@@ -3,7 +3,7 @@ import { AuthRequest, ClaimRequest } from "@sismo-core/sismo-connect-react";
 export type SpaceConfig = {
   metadata: {
     name: string; // 80 characters max
-    slug: string; // spaces.sismo.io/[slug]
+    slug?: string; // spaces.sismo.io/[slug]
     description: string; // 300 characters max
     image?: string; // 160x160px can be an url or local file
     socialLinks?: {
@@ -32,7 +32,7 @@ type SocialType = "twitter" | "discord" | "link" | "github" | "telegram";
 type AppCommonConfig = {
   metadata: {
     name: string; // 40 characters max
-    slug: string;
+    slug?: string;
     description: string; // 200 characters max
     image: string; // 550x390px can be an url or local file
     tags: string[];
@@ -52,7 +52,6 @@ type AppCommonConfig = {
     isFeatured?: boolean; // default false
   };
 };
-
 
 export type ExternalAppTemplateConfig = {
   link: string;

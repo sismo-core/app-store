@@ -103,11 +103,23 @@ export const SashaSpace : SpaceConfig = {
     		// Edit the date here to today's date YYYY-MM-DD
         createdAt: new Date("2023-07-07T18:00"),
       },
-    	// Customise your request. See tutorial "Customise your Sismo Connect Request"
       sismoConnectRequest: {
-        appId: "0xa83b7b0d5e268fb4aa3d3582e11700fa",
-        claimRequests: [{ groupId: "0xd630aa769278cacde879c5c0fe5d203c", value: 3 }],
-      },
+      	// 	// Add your appId here
+      	appId: "0xe9ba1138acf7acc8dfe6ff023060ff06",
+      	auths={[
+            // request users to share an ethereum wallet
+            { authType: AuthType.VAULT }, 
+            // propose users to share their evm account
+            { authType: AuthType.EVM_ACCOUNT, isOptional: true }, // delete if not needed
+          ]}
+          claims={[
+            {
+              groupId: "0x1cde61966decb8600dfd0749bd371f12",  // replace with your groupId
+              claimType: ClaimType.GTE, // a member of the group with the value greater or equal to 15
+              value: 10,
+            },
+          ]}
+      }
     	// We will cover this in Tutorial 2.2 Step 2
       templateConfig: {
     		// Text that will be shown in the Button for the 2nd Step (on opening the link to join).

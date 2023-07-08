@@ -7,6 +7,7 @@ on:
 jobs:
   create-app:
     runs-on: ubuntu-latest
+    if: contains(github.event.comment.body, '/create-app') && (github.event.comment.author_association == 'MEMBER' || github.event.comment.author_association == 'OWNER')
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -34,6 +35,3 @@ jobs:
           git config --global user.name "Sismo Bot"
           git commit -a -m "feat: create Sismo Connect App and auto-fill appId" || exit 0
           git push
-
-#  && (github.event.comment.author_association == 'MEMBER' || github.event.comment.author_association == 'OWNER')
-# if: contains(github.event.comment.body, '/create-app')

@@ -4,7 +4,6 @@ import { SpaceConfig } from "../types";
 
 export default {
   metadata: {
-    slug: "leo",
     name: "Leo test",
     description: "Leo test",
     image: "leo.png",
@@ -15,7 +14,7 @@ export default {
       type: "zkForm",
       metadata: {
         slug: "leo-swag",
-        name: "Leo Super Swag Claim",
+        name: "Leo Super Swag Claim 3",
         description: "description",
         tags: ["Swag"],
         image: "leo.png",

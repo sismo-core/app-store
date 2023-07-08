@@ -1,3 +1,5 @@
+import configsDemo from "@/.space-configs/demo.json";
+import configsMain from "@/.space-configs/main.json";
 import { SpaceConfig } from "@/space-configs/types";
 import { mockZkFormTestSpaceType } from "@/src/app/api/zk-form/mocks";
 import { mockTelegramTestSpaceType } from "@/src/app/api/zk-telegram-bot/mocks";
@@ -18,8 +20,6 @@ import { DemoUserStore } from "@/src/services/user-store/demo-user-store";
 import { MemoryUserStore } from "@/src/services/user-store/memory-user-store";
 import { PostgresUserStore } from "@/src/services/user-store/postgres-user-store";
 import { UserStore } from "@/src/services/user-store/store";
-import configsDemo from "@/.space-configs/demo.json";
-import configsMain from "@/.space-configs/main.json";
 
 let zkTelegramBotUserStore: UserStore;
 let zkFormTableStore: TableStore;

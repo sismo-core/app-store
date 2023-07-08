@@ -2,9 +2,8 @@
 import { AuthType } from "@sismo-core/sismo-connect-server";
 import { SpaceConfig } from "../types";
 
-export const cowSwapConfigMain: SpaceConfig = {
+export default {
   metadata: {
-    slug: "cow-swap",
     name: "CoW Swap",
     description:
       "Welcome to the CoW Swap Sismo Space. CoW Swap is a decentralized exchange aggregator that protects users from MEV. CoW community, traders and holders can find here exclusive events, swags and premium features.",
@@ -109,8 +108,7 @@ export const cowSwapConfigMain: SpaceConfig = {
         ],
       },
       templateConfig: {
-        step2CtaText
-        : "Register to get your ticket",
+        step2CtaText: "Register to get your ticket",
         fields: [
           {
             type: "short-text",
@@ -142,4 +140,4 @@ export const cowSwapConfigMain: SpaceConfig = {
       },
     },
   ],
-};
+} as SpaceConfig;

@@ -32,7 +32,6 @@ space-configs/
 │   ├── aave_chan_initiative_apps_swag_1014x720.png
 │   ├── aave_chan_initiative_apps_swag_400x400.png
 │   └── ...
-├── index.ts
 └── types.ts
 ```
 

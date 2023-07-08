@@ -65,14 +65,49 @@ export default {
       type: "zkForm",
       metadata: {
         slug: "leo-swag",
-        name: "Leo Super Swag Claim 5",
+        name: "Leo Super Swag Claim 6",
         description: "description",
         tags: ["Swag"],
         image: "leo.png",
         createdAt: new Date("2022-07-01T00:00:00.000Z"),
       },
       sismoConnectRequest: {
-        appId: "0x5aec5186e30fec5130fd4fa7a110a280",
+        appId: "{{ auto-fill }}",
+        authRequests: [{ authType: AuthType.VAULT }],
+        impersonateAddresses: ["leo21.eth"],
+      },
+      templateConfig: {
+        step2CtaText: "Claim your Swag",
+        fields: [],
+        congratulationsMessage: {
+          title: "Congratulations!",
+          description: "You will receive your exclusive ACI Chads Swag soon 💜",
+        },
+        output: {
+          destination: {
+            type: "google_sheet",
+            spreadsheetId: "random",
+          },
+          saveAuths: true,
+          saveClaims: true,
+        },
+      },
+      options: {
+        isFeatured: true,
+      },
+    },
+    {
+      type: "zkForm",
+      metadata: {
+        slug: "leo-swag",
+        name: "Leo Super Swag Claim 7",
+        description: "description",
+        tags: ["Swag"],
+        image: "leo.png",
+        createdAt: new Date("2022-07-01T00:00:00.000Z"),
+      },
+      sismoConnectRequest: {
+        appId: "{{ auto-fill }}",
         authRequests: [{ authType: AuthType.VAULT }],
         impersonateAddresses: ["leo21.eth"],
       },

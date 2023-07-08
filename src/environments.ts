@@ -11,7 +11,11 @@ type Environment = {
 type EnvNames = "demo" | "dev" | "main" | "test";
 
 export const isEnv = (envName: EnvNames) => {
-  return process.env.NEXT_PUBLIC_NODE_ENV === envName;
+  return getEnvName() === envName;
+};
+
+export const getEnvName = () => {
+  return process.env.NEXT_PUBLIC_NODE_ENV;
 };
 
 const env: Environment = {

@@ -2,7 +2,7 @@
 import { AuthType } from "@sismo-core/sismo-connect-server";
 import { SpaceConfig } from "../types";
 
-export const cowSwapConfigMain: SpaceConfig = {
+export default {
   metadata: {
     slug: "cow-swap",
     name: "CoW Swap",
@@ -109,8 +109,7 @@ export const cowSwapConfigMain: SpaceConfig = {
         ],
       },
       templateConfig: {
-        step2CtaText
-        : "Register to get your ticket",
+        step2CtaText: "Register to get your ticket",
         fields: [
           {
             type: "short-text",
@@ -142,4 +141,4 @@ export const cowSwapConfigMain: SpaceConfig = {
       },
     },
   ],
-};
+} as SpaceConfig;

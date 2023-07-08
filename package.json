@@ -3,11 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "yarn build-config && next dev",
+    "build": "yarn build-config && next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "yarn jest --coverage",
+    "test": "yarn build-config && yarn jest --coverage",
+    "prebuild": "yarn run build-config",
+    "build-config": "tsx ./src/scripts/configs-to-json/configs-to-json.script.ts",
+    "sync-all-apps-factory": "NEXT_PUBLIC_NODE_ENV=main yarn sync-apps-factory && NEXT_PUBLIC_NODE_ENV=demo yarn sync-apps-factory",
+    "sync-apps-factory": "yarn run build-config && tsx -r ./svgMock.js ./src/scripts/sync-apps-factory/sync-apps-factory.script.ts",
     "prettier": "prettier --write 'src/**/*.ts' '.github' 'README.md'"
   },
   "dependencies": {
@@ -54,6 +58,7 @@
     "jest-environment-jsdom": "29.5.0",
     "sass": "^1.62.1",
     "ts-jest": "^29.1.0",
-    "ts-node": "^10.9.1"
+    "ts-node": "^10.9.1",
+    "tsx": "^3.12.7"
   }
 }

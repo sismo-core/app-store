@@ -2,7 +2,7 @@
 import { AuthType, ClaimType } from "@sismo-core/sismo-connect-server";
 import { SpaceConfig } from "../types";
 
-export const aaveChanInitiativeConfigMain: SpaceConfig = {
+export default {
   metadata: {
     slug: "aave-chan-initiative",
     name: "Aave-Chan Initiative",
@@ -112,7 +112,7 @@ export const aaveChanInitiativeConfigMain: SpaceConfig = {
       },
       options: {
         isFeatured: true,
-      }
+      },
     },
   ],
-};
+} as SpaceConfig;

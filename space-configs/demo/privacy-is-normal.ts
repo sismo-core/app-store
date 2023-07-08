@@ -2,7 +2,7 @@
 import { AuthType, ClaimType } from "@sismo-core/sismo-connect-server";
 import { SpaceConfig } from "../types";
 
-export const privacyIsNormalConfigDemo: SpaceConfig = {
+export default {
   metadata: {
     slug: "privacy-is-normal",
     name: "Privacy Is Normal 🌼",
@@ -157,4 +157,4 @@ export const privacyIsNormalConfigDemo: SpaceConfig = {
       },
     },
   ],
-};
+} as SpaceConfig;

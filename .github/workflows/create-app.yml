@@ -26,7 +26,7 @@ jobs:
 
       - name: Commit and push filled appId
         run: |
-          git config --global user.email "sismobot@sismo.com"
+          git config --global user.email "robot@sismo.io"
           git config --global user.name "Sismo Bot"
           git add -A
           git commit -m "feat: create Sismo Connect App and auto-fill appId" || exit 0

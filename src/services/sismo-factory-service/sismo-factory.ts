@@ -22,7 +22,7 @@ export type SismoConnectApp = SismoConnectAppInput & {
 
 export abstract class SismoFactoryService {
   protected _commonParams: SismoConnectAppCommon = {
-    authorizedDomains: ["*.sismo.io"], // always sismo.io
+    authorizedDomains: ["*.sismo.io", "*sismo.vercel.app"], // vercel is used to test preview deployment
     creatorId: "0x5151110000000000000000000000000000000001", // service account used by the sismo app store
   };
 

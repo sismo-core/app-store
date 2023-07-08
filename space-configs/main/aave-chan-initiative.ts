@@ -2,9 +2,8 @@
 import { AuthType, ClaimType } from "@sismo-core/sismo-connect-server";
 import { SpaceConfig } from "../types";
 
-export const aaveChanInitiativeConfigMain: SpaceConfig = {
+export default {
   metadata: {
-    slug: "aave-chan-initiative",
     name: "Aave-Chan Initiative",
     description:
       "This Space is dedicated to the Aave-Chan Initiative (ACI - Aavechan.eth), a delegate platform. Aave users that delegated their governance power to ACI will get access to gifts and premium features.",
@@ -112,7 +111,7 @@ export const aaveChanInitiativeConfigMain: SpaceConfig = {
       },
       options: {
         isFeatured: true,
-      }
+      },
     },
   ],
-};
+} as SpaceConfig;

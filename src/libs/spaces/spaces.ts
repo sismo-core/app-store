@@ -17,33 +17,34 @@ export async function getSpaces(): Promise<SpaceType[]> {
     const spaceProfileImage = await getImgSrcFromConfig({
       configSlug: spaceConfig.metadata.slug,
       fileName: spaceConfig.metadata.image,
-    })
+    });
     for (let appConfig of spaceConfig.apps) {
       const appImage = await getImgSrcFromConfig({
         configSlug: spaceConfig.metadata.slug,
         fileName: appConfig.metadata.image,
-      })
+      });
       const appCommon: AppCommonType = {
         name: appConfig.metadata.name,
         slug: appConfig.metadata.slug,
         description: appConfig.metadata.description,
         image: appImage,
+        imageFilename: appConfig.metadata.image,
         tags: appConfig.metadata.tags,
         claimRequests: appConfig.sismoConnectRequest.claimRequests,
         authRequests: appConfig.sismoConnectRequest.authRequests,
         impersonateAddresses: appConfig.sismoConnectRequest.impersonateAddresses,
         appId: appConfig.sismoConnectRequest.appId,
-        startDate: appConfig.options?.startDate,
-        endDate: appConfig.options?.endDate,
+        startDate: new Date(appConfig.options?.startDate),
+        endDate: new Date(appConfig.options?.endDate),
         disabled: appConfig.options?.disabled,
-        createdAt: appConfig.metadata.createdAt,
-        lastUpdateAt: appConfig.metadata?.lastUpdateAt,
+        createdAt: new Date(appConfig.metadata.createdAt),
+        lastUpdateAt: new Date(appConfig.metadata?.lastUpdateAt),
         isFeatured: appConfig.options?.isFeatured,
         space: {
           slug: spaceConfig.metadata.slug,
           name: spaceConfig.metadata.name,
-          profileImage: spaceProfileImage
-        }
+          profileImage: spaceProfileImage,
+        },
       };
       if (appConfig.type === "external") {
         apps.push({
@@ -97,13 +98,13 @@ export async function getSpaces(): Promise<SpaceType[]> {
   return spaces;
 }
 
-export type GetAppsOptions = { 
-  sortedBy?: "createdAt", 
-  where?: { 
+export type GetAppsOptions = {
+  sortedBy?: "createdAt";
+  where?: {
     spaceSlug?: string;
     appSlug?: string;
-  }
-}
+  };
+};
 
 export async function getApps(options?: GetAppsOptions) {
   const spaces = await getSpaces();
@@ -122,11 +123,11 @@ export async function getApps(options?: GetAppsOptions) {
   }
 
   if (options?.where?.appSlug) {
-    apps = apps.filter(app => app.slug === options?.where?.appSlug);
+    apps = apps.filter((app) => app.slug === options?.where?.appSlug);
   }
 
   if (options?.where?.spaceSlug) {
-    apps = apps.filter(app => app.space.slug === options?.where?.spaceSlug);
+    apps = apps.filter((app) => app.space.slug === options?.where?.spaceSlug);
   }
 
   return apps;

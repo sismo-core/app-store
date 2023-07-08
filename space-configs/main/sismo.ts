@@ -2,9 +2,8 @@
 import { AuthType } from "@sismo-core/sismo-connect-server";
 import { SpaceConfig } from "../types";
 
-export const sismoConfigMain: SpaceConfig = {
+export default {
   metadata: {
-    slug: "sismo",
     name: "Sismo",
     description:
       "This Space presents Sismo Apps, offering exclusive benefits for our contributors and community members. Prove your level and unlock access to the apps. Learn more about the Sismo Community and check your level: https://community.sismo.io.",
@@ -188,4 +187,4 @@ export const sismoConfigMain: SpaceConfig = {
       },
     },
   ],
-};
+} as SpaceConfig;

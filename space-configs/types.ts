@@ -3,7 +3,6 @@ import { AuthRequest, ClaimRequest } from "@sismo-core/sismo-connect-react";
 export type SpaceConfig = {
   metadata: {
     name: string; // 80 characters max
-    slug: string; // spaces.sismo.io/[slug]
     description: string; // 300 characters max
     image?: string; // 160x160px can be an url or local file
     socialLinks?: {
@@ -11,6 +10,7 @@ export type SpaceConfig = {
       link: string;
     }[];
     tags?: string[];
+    slug?: string; // spaces.sismo.io/[slug] - auto-generated with the filename
   };
   apps?: AppConfig[];
   options?: {
@@ -52,7 +52,6 @@ type AppCommonConfig = {
     isFeatured?: boolean; // default false
   };
 };
-
 
 export type ExternalAppTemplateConfig = {
   link: string;

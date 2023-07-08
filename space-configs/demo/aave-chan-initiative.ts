@@ -1,10 +1,9 @@
 // add an images folder in your space folder if you would like Sismo to host your images
-import { AuthType, ClaimType } from "@sismo-core/sismo-connect-server";
+import { AuthType } from "@sismo-core/sismo-connect-server";
 import { SpaceConfig } from "../types";
 
-export const aaveChanInitiativeConfigDemo: SpaceConfig = {
+export default {
   metadata: {
-    slug: "aave-chan-initiative",
     name: "Aave-Chan Initiative",
     description:
       "This Space is dedicated to the Aave-Chan Initiative (ACI - Aavechan.eth), a delegate platform. Aave users that delegated their governance power to ACI will get access to gifts and premium features.",
@@ -47,9 +46,7 @@ export const aaveChanInitiativeConfigDemo: SpaceConfig = {
             value: 1000,
           },
         ],
-        impersonateAddresses: [
-          "0x5af25164a0f1207db70727a2c447d6a7b44b89d0"
-        ],
+        impersonateAddresses: ["0x5af25164a0f1207db70727a2c447d6a7b44b89d0"],
       },
       templateConfig: {
         step2CtaText: "Claim your Swag",
@@ -118,4 +115,4 @@ export const aaveChanInitiativeConfigDemo: SpaceConfig = {
       },
     },
   ],
-};
+} as SpaceConfig;

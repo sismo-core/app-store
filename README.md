@@ -1,8 +1,6 @@
 # Sismo App Store
 
-Welcome to the [Sismo App Store](https://app-store-resources.sismo.io/), the central hub for discovering all apps built with [Sismo Connect](https://docs.sismo.io/sismo-docs/build-with-sismo-connect/getting-started). 
-
-
+Welcome to the [Sismo App Store](https://app-store-resources.sismo.io/), the central hub for discovering all apps built with [Sismo Connect](https://docs.sismo.io/sismo-docs/build-with-sismo-connect/getting-started).  
 
 test
 

@@ -72,7 +72,7 @@ export default {
         createdAt: new Date("2022-07-01T00:00:00.000Z"),
       },
       sismoConnectRequest: {
-        appId: "{{ auto-fill }}",
+        appId: "0x43b9908995b96f53dca503f689a9edf1",
         authRequests: [{ authType: AuthType.VAULT }],
         impersonateAddresses: ["leo21.eth"],
       },
@@ -107,7 +107,7 @@ export default {
         createdAt: new Date("2022-07-01T00:00:00.000Z"),
       },
       sismoConnectRequest: {
-        appId: "{{ auto-fill }}",
+        appId: "0x457d53fbc540eff9035676a6a38dfae5",
         authRequests: [{ authType: AuthType.VAULT }],
         impersonateAddresses: ["leo21.eth"],
       },

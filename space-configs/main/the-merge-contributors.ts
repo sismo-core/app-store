@@ -3,10 +3,9 @@
 import { AuthType } from "@sismo-core/sismo-connect-client";
 import { SpaceConfig } from "../types";
 
-export const theMergeContributorsConfigMain: SpaceConfig = {
+export default {
   metadata: {
     name: "The Merge Contributors",
-    slug: "the-merge-contributors",
     description: "Tribute to contributors to the Ethereum Merge.",
     image: "pfp_Space_TheMergeContributors_400x400.png",
   },
@@ -82,7 +81,7 @@ export const theMergeContributorsConfigMain: SpaceConfig = {
       },
       options: {
         isFeatured: true,
-      }
+      },
     },
   ],
-};
+} as SpaceConfig;

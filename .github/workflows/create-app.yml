@@ -9,31 +9,28 @@ jobs:
     runs-on: ubuntu-latest
     if: contains(github.event.comment.body, '/create-app')
     steps:
-      - name: Check if the author is from the organization
-        id: is_from_org
-        uses: actions/github-script@v5
+      - name: Check if organization member
+        id: is_organization_member
+        uses: jamessingleton/is-organization-member@1.0.1
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const commentAuthor = '${{ github.event.comment.user.login }}'
-            const orgMembers = await github.orgs.listMembers({
-              org: 'sismo-core',
-            })
-            const isFromOrg = orgMembers.data.some(member => member.login === commentAuthor)
-            return isFromOrg
+          organization: sismo-core
+          username: ${{ github.event.comment.user.login }}
+          token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Run if the comment is from an org member
-        if: steps.is_from_org.outputs.result == 'true'
-        run: echo "This comment is from an organization member"
+      - if: steps.is_organization_member.outputs.result == false
+        run: |
+          echo "${{ github.actor }} does not belong to sismo-core"
+          exit 1
+
       - name: Checkout code
         uses: actions/checkout@v3
         with:
-          token: ${{secrets.GITHUB_TOKEN}}
+          token: ${{secrets.SISMOBOT_TOKEN}}
 
       - name: Checkout Pull Request
         run: hub pr checkout ${{ github.event.issue.number }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.SISMOBOT_TOKEN }}
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
@@ -43,7 +40,6 @@ jobs:
         env:
           SISMO_FACTORY_URL: https://factory-api.sismo.io
           SISMO_FACTORY_TOKEN: ${{ secrets.SISMO_FACTORY_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Commit and push filled appId
         run: |

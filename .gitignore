@@ -39,3 +39,6 @@ next-env.d.ts
 
 .yarn
 .yarn.lock
+
+.space-configs/
+.space-configs/*

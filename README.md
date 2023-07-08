@@ -1,7 +1,8 @@
 # Sismo App Store
 
-Welcome to the [Sismo App Store](https://app-store-resources.sismo.io/), the central hub for discovering all apps built with [Sismo Connect](https://docs.sismo.io/sismo-docs/build-with-sismo-connect/getting-started). 
+Welcome to the [Sismo App Store](https://app-store-resources.sismo.io/), the central hub for discovering all apps built with [Sismo Connect](https://docs.sismo.io/sismo-docs/build-with-sismo-connect/getting-started).  
 
+test
 
 ## Building Applications with Sismo Connect
 
@@ -32,7 +33,6 @@ space-configs/
 │   ├── aave_chan_initiative_apps_swag_1014x720.png
 │   ├── aave_chan_initiative_apps_swag_400x400.png
 │   └── ...
-├── index.ts
 └── types.ts
 ```
 

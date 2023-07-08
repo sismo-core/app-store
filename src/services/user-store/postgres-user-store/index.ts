@@ -1,9 +1,9 @@
+import "reflect-metadata";
 import { UserStore } from "../store";
 import { User } from "../user";
 import { UserEntity } from "./Entities/user.entity";
 import { initAppDataSource } from "./initAppDataSource";
 import { DataSource } from "typeorm";
-import "reflect-metadata";
 
 export class PostgresUserStore extends UserStore {
   private appDataSource: DataSource;

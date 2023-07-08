@@ -2,9 +2,8 @@
 import { AuthType, ClaimType } from "@sismo-core/sismo-connect-server";
 import { SpaceConfig } from "../types";
 
-export const privacyIsNormalConfigMain: SpaceConfig = {
+export default {
   metadata: {
-    slug: "privacy-is-normal",
     name: "Privacy Is Normal 🌼",
     description:
       "This Space celebrates privacy as a fundamental human right. By proving you are a Tornado Cash user in a privacy-preserving manner and with a Gitcoin Passport, you were able to participate in our Sybil-resistant lottery. 10 winners have been selected to receive a printed ‘Privacy Is Normal’ artwork.",
@@ -155,4 +154,4 @@ export const privacyIsNormalConfigMain: SpaceConfig = {
       },
     },
   ],
-};
+} as SpaceConfig;

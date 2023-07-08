@@ -4,10 +4,11 @@ on:
   issue_comment:
     types: [created]
 
+#  && (github.event.comment.author_association == 'MEMBER' || github.event.comment.author_association == 'OWNER')
 jobs:
   create-app:
     runs-on: ubuntu-latest
-    if: contains(github.event.comment.body, '/create-app') && (github.event.comment.author_association == 'MEMBER' || github.event.comment.author_association == 'OWNER')
+    if: contains(github.event.comment.body, '/create-app')
     steps:
       - name: Checkout code
         uses: actions/checkout@v3

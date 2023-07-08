@@ -1,7 +1,7 @@
 name: Create Sismo Connect App
 
 on:
-  pull_request_review_comment:
+  issue_comment:
     types: [created]
 
 jobs:
@@ -24,12 +24,21 @@ jobs:
           SISMO_FACTORY_TOKEN: ${{ secrets.SISMO_FACTORY_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Get PR Details
+        id: pr_details
+        run: |
+          PR_JSON=$(gh pr view https://github.com/${{ github.repository }}/pull/${{ github.event.issue.number }} --json base)
+          echo "$PR_JSON"
+          echo "::set-output name=branch::$(echo $PR_JSON | jq -r '.base.ref')"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Commit and push filled appId
         run: |
           git config --global user.email "robot@sismo.io"
           git config --global user.name "Sismo Bot"
           git add -A
           git commit -m "feat: create Sismo Connect App and auto-fill appId" || exit 0
-          git push origin HEAD:${{ github.event.pull_request.head.ref }}
+          git push origin HEAD:${{ steps.pr_details.outputs.branch }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

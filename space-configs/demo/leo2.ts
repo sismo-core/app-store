@@ -21,7 +21,7 @@ export default {
         createdAt: new Date("2022-07-01T00:00:00.000Z"),
       },
       sismoConnectRequest: {
-        appId: "0x5aec5186e30fec5130fd4fa7a110a280",
+        appId: "{{ auto-fill }}",
         authRequests: [{ authType: AuthType.VAULT }],
         claimRequests: [
           {

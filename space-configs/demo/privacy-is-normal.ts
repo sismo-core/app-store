@@ -31,7 +31,7 @@ export default {
     {
       type: "zkForm",
       metadata: {
-        name: "Lottery Registration",
+        name: "Test1",
         slug: "artwork-lottery",
         description:
           "Register to have a chance to be among 10 lucky winners to get a ‘Privacy Is Normal’ artwork'.",
@@ -40,7 +40,7 @@ export default {
         createdAt: new Date("2022-07-01T00:00:00.000Z"),
       },
       sismoConnectRequest: {
-        appId: "0x5749773b034573e615026216c628be4d",
+        appId: "{{ auto-fill }}",
         authRequests: [{ authType: AuthType.VAULT }],
         claimRequests: [
           { groupId: "0x433ae0c1cb3793f0971f3bf2bbcff10e" },

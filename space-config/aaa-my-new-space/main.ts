@@ -6,7 +6,7 @@ import { SpaceConfig } from "../types";
 export const myNewSpaceConfigMain : SpaceConfig = {
   metadata: {
     slug: "aaa-my-new-space", // /!!!!!\ MUST MATCH YOUR SPACE FOLDER NAME
-    name: "My New Space", // UPDATE HERE 
+    name: "My New dfgdfgdfg lro", // UPDATE HERE 
     description:
       "This Space is dedicated to my new project. It's a great project, you should check it out!", // UPDATE HERE
     image: "my_new_space_picture_500x500.png", // UPDATE HERE

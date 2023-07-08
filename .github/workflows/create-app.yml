@@ -30,6 +30,6 @@ jobs:
           git config --global user.name "Sismo Bot"
           git add -A
           git commit -m "feat: create Sismo Connect App and auto-fill appId" || exit 0
-          git push
+          git push origin HEAD:${{ github.head_ref }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

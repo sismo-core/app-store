@@ -20,27 +20,16 @@ jobs:
       - name: Create Sismo Connect App on the factory
         run: yarn sync-all-apps-factory
         env:
-          SISMO_FACTORY_URL: https://factory-api.staging.zikies.io
+          SISMO_FACTORY_URL: https://factory-api.sismo.io
           SISMO_FACTORY_TOKEN: ${{ secrets.SISMO_FACTORY_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Commit and push filled appId
         run: |
-          git config --global user.email "robot@sismo.com"
-          git config --global user.name "Sismo Robot"
+          git config --global user.email "sismobot@sismo.com"
+          git config --global user.name "Sismo Bot"
           git add -A
-          git commit -m "feat: create and fill appId" || exit 0
+          git commit -m "feat: create Sismo Connect App and auto-fill appId" || exit 0
           git push origin HEAD:${{ github.head_ref }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Add PR comment
-        uses: actions/github-script@v5
-        with:
-          script: |
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: 'App created on the factory!'
-            })

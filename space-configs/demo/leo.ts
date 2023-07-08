@@ -7,22 +7,22 @@ export default {
     slug: "leo",
     name: "Leo test",
     description: "Leo test",
-    image: "space_aave_chan_initiative_pfp_400x400.png",
+    image: "leo.png",
     socialLinks: [],
   },
   apps: [
     {
       type: "zkForm",
       metadata: {
-        slug: "aci-swag",
-        name: "ACI Chads Swag Claim",
+        slug: "leo-swag",
+        name: "Leo Super Swag Claim",
         description: "description",
         tags: ["Swag"],
-        image: "aave_chan_initiative_apps_swag_1014x720.png",
+        image: "leo.png",
         createdAt: new Date("2022-07-01T00:00:00.000Z"),
       },
       sismoConnectRequest: {
-        appId: "0xec73ea804dc56a5d0b36e9b5b92a9df4",
+        appId: "{{ auto-fill }}",
         authRequests: [{ authType: AuthType.VAULT }],
         claimRequests: [
           {

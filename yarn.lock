@@ -9610,6 +9610,21 @@ viem@^1.0.0:
     isomorphic-ws "5.0.0"
     ws "8.12.0"
 
+viem@^1.2.12:
+  version "1.2.12"
+  resolved "https://registry.yarnpkg.com/viem/-/viem-1.2.12.tgz#0342f52d05968bd1c2af5db0b9bc569926ae9151"
+  integrity sha512-TMhvqT2VaCaJyBfuNDyL1h8xPFyPDHeX6Qab66TjWscnNcTwkW0gojO4Uh+A4RuPzFxIlWSW+b5SjS8SJHlHpg==
+  dependencies:
+    "@adraffy/ens-normalize" "1.9.0"
+    "@noble/curves" "1.0.0"
+    "@noble/hashes" "1.3.0"
+    "@scure/bip32" "1.3.0"
+    "@scure/bip39" "1.2.0"
+    "@wagmi/chains" "1.2.0"
+    abitype "0.8.11"
+    isomorphic-ws "5.0.0"
+    ws "8.12.0"
+
 w3c-xmlserializer@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/w3c-xmlserializer/-/w3c-xmlserializer-4.0.0.tgz#aebdc84920d806222936e3cdce408e32488a3073"

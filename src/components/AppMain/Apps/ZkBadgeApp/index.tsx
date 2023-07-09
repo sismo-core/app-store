@@ -115,13 +115,12 @@ export default function ZkBadgeApp({ app, groupSnapshotMetadataList }: Props): J
   const { openConnectModal, connectModalOpen } = useConnectModal();
   const { chain } = useNetwork();
   const { isConnected } = useAccount();
-  const { switchNetwork } = useSwitchNetwork()
 
   const [error, setError] = useState(null);
   const [alreadyMinted, setAlreadyMinted] = useState(false);
   const [minted, setMinted] = useState(false);
-  const [destination, setDestination] = useState(null);
-  const [responseBytes, setResponseBytes] = useState(null);
+  const [destination, setDestination] = useState<`0x${string}`>(null);
+  const [responseBytes, setResponseBytes] = useState<string>(null);
   const [minting, setMinting] = useState(null);
   const [hash, setHash] = useState(null);
   const [vaultId, setVaultId] = useState(null);
@@ -155,6 +154,7 @@ export default function ZkBadgeApp({ app, groupSnapshotMetadataList }: Props): J
     args: [app.tokenId, vaultId],
     enabled: Boolean(vaultId) && Boolean(app.tokenId),
     chainId: networkChainIds[chainApp],
+    account: null,
     onSuccess: (data: BigInt) => {
       if (typeof data === "bigint" && data > 0) {
         setAlreadyMinted(true);
@@ -208,13 +208,15 @@ export default function ZkBadgeApp({ app, groupSnapshotMetadataList }: Props): J
   /****************************** NOT RELAYED *********************************/
   /****************************************************************************/
 
+  const { switchNetwork, isLoading: isSwitchingNetwork } = useSwitchNetwork()
+
   const { config } = usePrepareContractWrite({
-    address: ZK_BADGE_ADDRESSES[chainApp],
-    abi: ZK_BADGE_ABI,
-    functionName: 'claimWithSismoConnect',
-    args: [responseBytes, destination, app.tokenId],
-    chainId: networkChainIds[chainApp],
-    enabled: Boolean(responseBytes) && Boolean(destination) && Boolean(app.tokenId),
+      address: ZK_BADGE_ADDRESSES[chainApp],
+      abi: ZK_BADGE_ABI,
+      functionName: "claimWithSismoConnect",
+      args: [responseBytes, destination, app.tokenId],
+      chainId: networkChainIds[chainApp],
+      enabled: Boolean(responseBytes) && Boolean(destination) && Boolean(app.tokenId),
   })
 
   const { data, write, isLoading: isLoadingWriteContract } = useContractWrite(config);  
@@ -230,6 +232,8 @@ export default function ZkBadgeApp({ app, groupSnapshotMetadataList }: Props): J
   })
 
   const mintNotRelayed = async () => {
+    setError(null);
+    setHash(null);
     if (!isRelayed && !isConnected) {
       openConnectModal();
       return;
@@ -238,8 +242,6 @@ export default function ZkBadgeApp({ app, groupSnapshotMetadataList }: Props): J
       switchNetwork(networkChainIds[chainApp])
       return;
     }
-    setError(null);
-    setHash(null);
     write();
   }
 
@@ -318,7 +320,7 @@ export default function ZkBadgeApp({ app, groupSnapshotMetadataList }: Props): J
                     <Button3D
                       onClick={mintNotRelayed}
                       secondary
-                      loading={isLoadingTransaction || connectModalOpen || isLoadingWriteContract}
+                      loading={isLoadingTransaction || connectModalOpen || isLoadingWriteContract || isSwitchingNetwork}
                     >
                       {
                         isConnected ?
@@ -326,7 +328,7 @@ export default function ZkBadgeApp({ app, groupSnapshotMetadataList }: Props): J
                           {
                             chain.id !== networkChainIds[chainApp] ?
                               <>
-                                Switch Network
+                                {isSwitchingNetwork ? "Switching Network..." : "Switch Network"}
                               </>
                               :
                               <>

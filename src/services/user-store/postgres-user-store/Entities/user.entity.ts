@@ -6,9 +6,9 @@ export class UserEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column("text")
+  @Column("character varying")
   userId: string;
 
-  @Column("text")
+  @Column("character varying")
   appSlug: string;
 }

@@ -17,12 +17,12 @@ export async function POST(req: Request) {
   const { response, spaceSlug, appSlug } = await req.json();
 
   const space = await getSpace({ slug: spaceSlug });
-  const apps = await getApps({ where: { appSlug: appSlug, spaceSlug: space.slug }});
+  const apps = await getApps({ where: { appSlug: appSlug, spaceSlug: space.slug } });
   if (!apps || apps.length !== 1) {
     return errorResponse(`Failed to find app ${appSlug} in space ${spaceSlug}`);
   }
   const app = apps[0] as ZkTelegramBotAppType;
-  
+
   try {
     const telegramId = await sismoConnectVerifyResponse(app, response);
     const isUserAlreadySaved = await userStore.exists({ userId: telegramId, appSlug });

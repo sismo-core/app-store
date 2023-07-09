@@ -23,7 +23,7 @@ export default {
         slug: "leo-zk-badge",
         description: "ZK Badge for leos friends",
         tags: ["Badge"],
-        image: "sismo_badge_test.png",
+        image: "leo_zk_badge.svg",
         createdAt: new Date("2023-07-09T18:00"),
       },
       sismoConnectRequest: {

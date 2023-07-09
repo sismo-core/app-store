@@ -2,7 +2,7 @@
 import { AuthType } from "@sismo-core/sismo-connect-server";
 import { SpaceConfig } from "../types";
 import { Network } from "@/src/libs/contracts/networks";
-
+// test
 export default {
   metadata: {
     name: "Leo",

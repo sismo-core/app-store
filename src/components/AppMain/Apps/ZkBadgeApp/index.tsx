@@ -268,6 +268,8 @@ export default function ZkBadgeApp({ app, groupSnapshotMetadataList }: Props): J
           }}
           app={app}
           destination={destination}
+          tokenId={app.tokenId}
+          network={chainApp}
         />
       ) : (
         <>
@@ -311,7 +313,7 @@ export default function ZkBadgeApp({ app, groupSnapshotMetadataList }: Props): J
             number={2}
             isOpen={hasResponse && Boolean(destination)}
             title={app?.step2CtaText}
-            success={alreadyMinted}
+            success={alreadyMinted && hasResponse && Boolean(destination)}
           >
             { alreadyMinted ? 
               <AlreadyRegistered onClick={() => {

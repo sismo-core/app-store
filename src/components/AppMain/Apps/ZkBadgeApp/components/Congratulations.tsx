@@ -1,7 +1,12 @@
 "use client";
 
+import useEthAccount from "@/src/hooks/useEthAccount";
+import { Network, getErc1155Explorer } from "@/src/libs/contracts/networks";
+import { ZK_BADGE_ADDRESSES } from "@/src/libs/contracts/zk-badge";
 import { ZkBadgeAppType } from "@/src/services/spaces-service/types";
 import Button3D from "@/src/ui/Button3D";
+import { getMinimalEns, getMinimalIdentifier } from "@/src/utils/useMainMinified";
+import { ArrowSquareOut } from "phosphor-react";
 import React from "react";
 import { styled } from "styled-components";
 
@@ -26,19 +31,32 @@ const Subtitle = styled.div`
   line-height: 22px;
   margin-bottom: 24px;
   text-align: center;
+  cursor: pointer;
 `;
 
 type Props = {
   onBackToApps: () => void;
   app: ZkBadgeAppType;
-  destination: string
+  destination: `0x${string}`;
+  network: Network;
+  tokenId: string;
 };
 
-export default function Congratulations({ onBackToApps, app, destination }: Props): JSX.Element {
+export default function Congratulations({ onBackToApps, app, destination, network, tokenId }: Props): JSX.Element {
+  const ethAccount = useEthAccount(destination);
+  
   return (
     <Container>
       <Title style={{ marginBottom: 16 }}>Congratulations</Title>
-      <Subtitle>You have successfully minted the &quot;{app.badgeMetadata.name}&quot; on {destination}</Subtitle>
+      <Subtitle 
+        onClick={() => {
+          const explorer = getErc1155Explorer({contractAddress: ZK_BADGE_ADDRESSES[network], tokenId: tokenId,network: network});
+          window.open(explorer, "_blank");
+        }}
+      >
+        You have successfully minted the &quot;{app.badgeMetadata.name}&quot; on {ethAccount.ens ? getMinimalEns(ethAccount.ens) : getMinimalIdentifier(ethAccount.address)}
+        <ArrowSquareOut style={{ marginTop: -8, marginLeft: 4 }} size={18}/>
+      </Subtitle>
       <Button3D onClick={onBackToApps} secondary>
         Back to the Apps
       </Button3D>

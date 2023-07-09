@@ -1,5 +1,5 @@
 // add an images folder in your space folder if you would like Sismo to host your images
-import { SpaceConfig } from "@/space-config/types";
+import { SpaceConfig } from "@/space-configs/types";
 import { Network } from "@/src/libs/contracts/networks";
 import { AuthType } from "@sismo-core/sismo-connect-server"
 

@@ -53,7 +53,7 @@ export default function useEthAccount(input: string | `0x${string}`): EthAccount
       setIsError(false);
       setAddress(input as `0x${string}`);
 
-      client
+      (client as any)
         .getEnsName({ address: input as `0x${string}` })
         .then((ens) => {
           setIsError(false);
@@ -72,7 +72,7 @@ export default function useEthAccount(input: string | `0x${string}`): EthAccount
       setIsError(false);
       setEns(input);
       
-      client
+      (client as any)
         .getEnsAddress({ name: normalize(input) })
         .then((address) => {
           if (!address) throw new Error("No address found");

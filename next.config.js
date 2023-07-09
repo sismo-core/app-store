@@ -4,7 +4,7 @@ const path = require('path');
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
-    serverComponentsExternalPackages: ["@sismo-core/sismo-connect-server","viem"],
+    serverComponentsExternalPackages: ["@sismo-core/sismo-connect-server"],
   },
   sassOptions: {
     additionalData: `@use "styles/color" as color; @use "styles/mixin" as mixin;`,

@@ -22,12 +22,12 @@ const { connectors } = getDefaultWallets({
     appName: "Sismo app-store",
     projectId: "a042cef969ee1fe381914133aa76b3d5",
     chains,
-  });
+});
    
-  const config = createConfig({
+const config = createConfig({
     publicClient,
     connectors
-  })
+})
   
 type Props = {
   children: React.ReactNode;

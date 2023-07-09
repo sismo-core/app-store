@@ -9,18 +9,16 @@ jobs:
     runs-on: ubuntu-latest
     if: contains(github.event.comment.body, '/create-app')
     steps:
-      - name: Check if organization member
+      - name: Check if sismo-core organisation member
         id: is_organization_member
-        uses: jamessingleton/is-organization-member@1.0.1
+        uses: jamessingleton/is-organization-member@1.0.0
         with:
-          organization: sismo-core
-          username: ${{ github.event.comment.user.login }}
+          organization: "sismo-core"
+          username: ${{ github.actor }}
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - if: steps.is_organization_member.outputs.result == false
-        run: |
-          echo "${{ github.actor }} does not belong to sismo-core"
-          exit 1
+      - if: steps.is_organization_member.outputs.result != 'true'
+        run: exit 1
 
       - name: Checkout code
         uses: actions/checkout@v3

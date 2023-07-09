@@ -14,10 +14,10 @@ jobs:
         uses: jamessingleton/is-organization-member@1.0.1
         with:
           organization: sismo-core
-          username: ${{ github.event.comment.user.login }}
+          username: ${{ github.actor }}
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - if: steps.is_organization_member.outputs.result == false
+      - if: steps.is_organization_member.outputs.result != true
         run: |
           echo "${{ github.actor }} does not belong to sismo-core"
           exit 1

@@ -20,11 +20,12 @@ export async function POST(req: Request) {
 
   const spaces = await spacesService.getSpaces({ where: { spaceSlug: spaceSlug } });
   const apps = await spacesService.getApps({ where: { appSlug: appSlug, spaceSlug: spaces[0].slug }});
+
   if (!apps || apps.length !== 1) {
     return errorResponse(`Failed to find app ${appSlug} in space ${spaceSlug}`);
   }
   const app = apps[0] as ZkTelegramBotAppType;
-  
+
   try {
     const telegramId = await sismoConnectVerifyResponse(app, response);
     const isUserAlreadySaved = await userStore.exists({ userId: telegramId, appSlug });

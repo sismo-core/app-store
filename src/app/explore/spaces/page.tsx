@@ -1,4 +1,4 @@
-import { SpaceConfig } from "@/space-config/types";
+import { SpaceConfig } from "@/space-configs/types";
 import ExploreSpacesMain from "@/src/components/ExploreSpacesMain";
 import ServiceFactory from "@/src/services/service-factory/service-factory";
 import { SpaceType } from "@/src/services/spaces-service";

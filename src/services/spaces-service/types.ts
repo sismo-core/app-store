@@ -1,4 +1,4 @@
-import { ZkBadgeChainName } from "@/space-config/types";
+import { ZkBadgeChainName } from "@/space-configs/types";
 import { ImportedNextImage } from "@/src/utils/getImgSrcFromConfig";
 import { AuthRequest, ClaimRequest } from "@sismo-core/sismo-connect-react";
 
@@ -36,6 +36,7 @@ export type AppCommonType = {
   description: string; // 200 characters max
   innerDescription?: string;
   image: string | ImportedNextImage; // 550x390px can be an url or local file
+  imageFilename: string;
   tags: string[];
   createdAt?: Date;
   lastUpdateAt?: Date;
@@ -55,10 +56,10 @@ export type AppCommonType = {
   appDescription?: string;
 
   space: {
-    slug: string,
-    name: string,
-    profileImage: string | ImportedNextImage
-  }
+    slug: string;
+    name: string;
+    profileImage: string | ImportedNextImage;
+  };
 };
 
 export type UserSelection = FirstComeFirstServed | Lottery;

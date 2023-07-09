@@ -1,12 +1,10 @@
-import { initAppDataSource } from "../../src/services/user-store/postgres-user-store/initAppDataSource";
 // add an images folder in your space folder if you would like Sismo to host your images
 import { AuthType } from "@sismo-core/sismo-connect-server";
 import { SpaceConfig } from "../types";
 import { Network } from "@/src/libs/contracts/networks";
 
-export const sismoConfigDemo: SpaceConfig = {
+export default {
   metadata: {
-    slug: "sismo",
     name: "Sismo",
     description:
       "This Space presents Sismo Apps, offering exclusive benefits for our contributors and community members. Prove your level and unlock access to the apps. Learn more about the Sismo Community and check your level: https://community.sismo.io.",
@@ -535,4 +533,4 @@ export const sismoConfigDemo: SpaceConfig = {
       }
     }
   ],
-};
+} as SpaceConfig;

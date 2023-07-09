@@ -11,19 +11,19 @@ import { AuthType } from "@sismo-core/sismo-connect-server";
 import getImgSrcFromConfig from "@/src/utils/getImgSrcFromConfig";
 import { SpaceConfig } from "@/space-config/types";
 
-export type GetAppsOptions = { 
-  sortedBy?: "createdAt", 
-  where?: { 
+export type GetAppsOptions = {
+  sortedBy?: "createdAt";
+  where?: {
     spaceSlug?: string;
     appSlug?: string;
-  }
-}
+  };
+};
 
 export type GetSpacesOptions = {
   where?: {
-    spaceSlug?: string
-  }
-}
+    spaceSlug?: string;
+  };
+};
 
 export class SpacesService {
   private _spaceConfigs: SpaceConfig[];
@@ -35,7 +35,7 @@ export class SpacesService {
   public async getSpaces(options?: GetSpacesOptions): Promise<SpaceType[]> {
     let spaces = await this._getAllSpaces();
 
-    if(options?.where?.spaceSlug) {
+    if (options?.where?.spaceSlug) {
       spaces = spaces.filter((space) => {
         return space.slug === options?.where?.spaceSlug;
       });
@@ -46,7 +46,7 @@ export class SpacesService {
 
   public async getApps(options?: GetAppsOptions) {
     let apps = await this._getAllApps();
-  
+
     if (options?.sortedBy === "createdAt") {
       apps.sort((a, b) => {
         return b.createdAt.getTime() - a.createdAt.getTime();
@@ -54,11 +54,11 @@ export class SpacesService {
     }
 
     if (options?.where?.appSlug) {
-      apps = apps.filter(app => app.slug === options?.where?.appSlug);
+      apps = apps.filter((app) => app.slug === options?.where?.appSlug);
     }
 
     if (options?.where?.spaceSlug) {
-      apps = apps.filter(app => app.space.slug === options?.where?.spaceSlug);
+      apps = apps.filter((app) => app.space.slug === options?.where?.spaceSlug);
     }
 
     return apps;
@@ -75,17 +75,18 @@ export class SpacesService {
       const spaceProfileImage = await getImgSrcFromConfig({
         configSlug: spaceConfig.metadata.slug,
         fileName: spaceConfig.metadata.image,
-      })
+      });
       for (let appConfig of spaceConfig.apps) {
         const appImage = await getImgSrcFromConfig({
           configSlug: spaceConfig.metadata.slug,
           fileName: appConfig.metadata.image,
-        })
+        });
         const appCommon: AppCommonType = {
           name: appConfig.metadata.name,
           slug: appConfig.metadata.slug,
           description: appConfig.metadata.description,
           image: appImage,
+          imageFilename: appConfig.metadata.image,
           tags: appConfig.metadata.tags,
           claimRequests: appConfig.sismoConnectRequest.claimRequests,
           authRequests: appConfig.sismoConnectRequest.authRequests,
@@ -100,10 +101,10 @@ export class SpacesService {
           space: {
             slug: spaceConfig.metadata.slug,
             name: spaceConfig.metadata.name,
-            profileImage: spaceProfileImage
-          }
+            profileImage: spaceProfileImage,
+          },
         };
-        switch(appConfig.type) {
+        switch (appConfig.type) {
           case "external":
             apps.push({
               type: appConfig.type,
@@ -143,12 +144,12 @@ export class SpacesService {
             } as ZkTelegramBotAppType);
             break;
           case "zkBadge":
-            const chains = appConfig.templateConfig.chains.map(chain => {
+            const chains = appConfig.templateConfig.chains.map((chain) => {
               return {
                 name: chain.name,
-                relayerEnabled: chain.relayerEnabled
-              }
-            })
+                relayerEnabled: chain.relayerEnabled,
+              };
+            });
             apps.push({
               type: appConfig.type,
               ...appCommon,
@@ -159,9 +160,9 @@ export class SpacesService {
               badgeMetadata: {
                 name: appConfig.templateConfig.badgeMetadata.name,
                 description: appConfig.templateConfig.badgeMetadata.description,
-                image: appConfig.templateConfig.badgeMetadata.image
+                image: appConfig.templateConfig.badgeMetadata.image,
               },
-              chains
+              chains,
             } as ZkBadgeAppType);
             break;
         }
@@ -177,7 +178,7 @@ export class SpacesService {
       };
       spaces.push(space);
     }
-  
+
     return spaces;
   }
 

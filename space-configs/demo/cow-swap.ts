@@ -2,12 +2,11 @@
 import { AuthType } from "@sismo-core/sismo-connect-server";
 import { SpaceConfig } from "../types";
 
-export const cowSwapConfigMain: SpaceConfig = {
+export default {
   metadata: {
-    slug: "cow-swap",
-    name: "CoW Swap",
+    name: "Cow Swap",
     description:
-      "Welcome to the CoW Swap Sismo Space. CoW Swap is a decentralized exchange aggregator that protects users from MEV. CoW community, traders and holders can find here exclusive events, swags and premium features.",
+      "This Space is dedicated to Cow Swap, a DEX aggregator. Cow Traders and Holders will get access to gifts and premium features.",
     image: "space_cow_swap_pfp_500x500.png",
     socialLinks: [
       {
@@ -33,9 +32,9 @@ export const cowSwapConfigMain: SpaceConfig = {
       type: "zkForm",
       metadata: {
         slug: "swag",
-        name: "CoW Swag Claim",
+        name: "Cow Swag Claim",
         description:
-          "Prove you are a CoW trader or holder to claim your CoW Swag. You can find us in our booth during EthCC week in Paris. Exclusive items are reserved for Level 2 (Water Flask) and Level 3 (Backpack).",
+          "Prove you are a Cow Trader or Holder to claim your Cow Swag, during EthCC week in Paris. Exclusive for Level 2 (Water Flask) and Level 3 (Water Flask + Backpack).",
         tags: ["Swag"],
         image: "cowswap_app_store_cow_swag_400x400.png",
         createdAt: new Date("2023-07-04T18:00"),
@@ -54,6 +53,7 @@ export const cowSwapConfigMain: SpaceConfig = {
             value: 3,
           },
         ],
+        impersonateAddresses: ["0xb18e3bf33365fd2466c2e99b181e527a165c210c"],
       },
       templateConfig: {
         step2CtaText: "Claim your Swag",
@@ -77,7 +77,7 @@ export const cowSwapConfigMain: SpaceConfig = {
         output: {
           destination: {
             type: "google_sheet",
-            spreadsheetId: "1rNILllaOqsar8tpGbwHULbv39FE43VLZ9K419Hy5V_s",
+            spreadsheetId: "15NlZQM-jyrFdRtuMVXXAjX4w4MjBPIicfRqO2jwQdB4",
           },
           saveAuths: true,
           saveClaims: true,
@@ -91,9 +91,9 @@ export const cowSwapConfigMain: SpaceConfig = {
       type: "zkForm",
       metadata: {
         slug: "event",
-        name: "CoW Event Invitation",
+        name: "Cow Event Invitation",
         description:
-          "Prove you are a CoW trader or holder to register to an invitation-only event organized by CoW Swap, during EthCC week in Paris.",
+          "Prove you are a Cow Trader or Holder to register to an invitation-only event organized by Cow Swap, during EthCC week in Paris.",
         tags: ["Event", "Ticket"],
         image: "cowswap_app_store_cow_event_400x400.png",
         createdAt: new Date("2023-07-04T18:00"),
@@ -107,10 +107,10 @@ export const cowSwapConfigMain: SpaceConfig = {
             value: 1,
           },
         ],
+        impersonateAddresses: ["0xb18e3bf33365fd2466c2e99b181e527a165c210c"],
       },
       templateConfig: {
-        step2CtaText
-        : "Register to get your ticket",
+        step2CtaText: "Register to get your Ticket",
         fields: [
           {
             type: "short-text",
@@ -131,7 +131,7 @@ export const cowSwapConfigMain: SpaceConfig = {
         output: {
           destination: {
             type: "google_sheet",
-            spreadsheetId: "1rqSdDnIc2kOpg51rYNS6TSQmxqXLB_JKm70sdJg2smM",
+            spreadsheetId: "153c26qbdBFxgX1r9mKY7fx3krWPTFjKnYVMpYWEmRM0",
           },
           saveAuths: true,
         },
@@ -142,4 +142,4 @@ export const cowSwapConfigMain: SpaceConfig = {
       },
     },
   ],
-};
+} as SpaceConfig;

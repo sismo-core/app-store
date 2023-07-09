@@ -1,4 +1,4 @@
-import { SpaceConfig } from "@/space-config/types";
+import { SpaceConfig } from "@/space-configs/types";
 
 export const mockTelegramTestSpaceType = (
   appSlug: string = "appSlug",

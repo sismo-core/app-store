@@ -4,7 +4,6 @@ import { AuthRequest, ClaimRequest } from "@sismo-core/sismo-connect-react";
 export type SpaceConfig = {
   metadata: {
     name: string; // 80 characters max
-    slug: string; // spaces.sismo.io/[slug]
     description: string; // 300 characters max
     image?: string; // 160x160px can be an url or local file
     socialLinks?: {
@@ -12,6 +11,7 @@ export type SpaceConfig = {
       link: string;
     }[];
     tags?: string[];
+    slug?: string; // spaces.sismo.io/[slug] - auto-generated with the filename
   };
   apps?: AppConfig[];
   options?: {
@@ -58,7 +58,7 @@ export type ExternalAppConfig = AppCommonConfig & {
   type: "external";
   templateConfig: {
     link: string;
-  }
+  };
 };
 
 export type UserSelection = FirstComeFirstServed | Lottery;
@@ -99,10 +99,12 @@ export type ZkBadgeAppConfig = AppCommonConfig & {
       description: string;
       image: string;
     };
-    chains: [{
-      name: ZkBadgeChainName;
-      relayerEnabled?: boolean;
-    }];
+    chains: [
+      {
+        name: ZkBadgeChainName;
+        relayerEnabled?: boolean;
+      }
+    ];
   };
 };
 
@@ -143,7 +145,6 @@ export type ZkTelegramBotAppConfig = AppCommonConfig & {
     telegramInviteLink: string;
   };
 };
-
 
 export type Field = ShortText | LongText | Select | Number | Social;
 

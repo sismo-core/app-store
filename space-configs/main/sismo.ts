@@ -3,9 +3,8 @@ import { AuthType } from "@sismo-core/sismo-connect-server";
 import { SpaceConfig } from "../types";
 import { Network } from "@/src/libs/contracts/networks";
 
-export const sismoConfigMain: SpaceConfig = {
+export default {
   metadata: {
-    slug: "sismo",
     name: "Sismo",
     description:
       "This Space presents Sismo Apps, offering exclusive benefits for our contributors and community members. Prove your level and unlock access to the apps. Learn more about the Sismo Community and check your level: https://community.sismo.io.",
@@ -101,7 +100,7 @@ export const sismoConfigMain: SpaceConfig = {
     {
       type: "zkTelegramBot",
       metadata: {
-        name: "Join Citadel",
+        name: "Join Citadel Telegram Chat",
         slug: "join-citadel",
         description:
           "Sismo Citadel telegram chat was created specifically for our most active builders and closest friends. It is gated to Sismo Community level 3. Learn more about community levels: https://community.sismo.io.",
@@ -216,4 +215,4 @@ export const sismoConfigMain: SpaceConfig = {
       }
     }
   ],
-};
+} as SpaceConfig;

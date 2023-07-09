@@ -497,7 +497,7 @@ export default {
         },
         chains: [{
           name: Network.Mumbai,
-          relayerEnabled: true
+          relayerEnabled: false
         }]
       }
     },
@@ -528,7 +528,8 @@ export default {
           image: "sismo_badge_test.png"
         },
         chains: [{
-          name: Network.Sepolia
+          name: Network.Sepolia,
+          relayerEnabled: false
         }]
       }
     }

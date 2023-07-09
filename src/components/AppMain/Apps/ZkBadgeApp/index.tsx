@@ -19,8 +19,7 @@ import Error from "@/src/ui/Error";
 import Congratulations from "./components/Congratulations";
 import { getMinimalHash } from "@/src/utils/getMinimalHash";
 import { ArrowSquareOut } from "phosphor-react";
-import { useAccount, useContractRead, useContractWrite, usePrepareContractWrite } from "wagmi";
-import { waitForTransaction, writeContract } from '@wagmi/core'
+import { useAccount, useContractRead, useContractWrite, usePrepareContractWrite, useNetwork, useSwitchNetwork, useWaitForTransaction } from "wagmi";
 import { ZK_BADGE_ADDRESSES } from "@/src/libs/contracts/zk-badge/constants";
 import { ZK_BADGE_ABI } from "@/src/libs/contracts/zk-badge";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
@@ -114,7 +113,9 @@ export default function ZkBadgeApp({ app, groupSnapshotMetadataList }: Props): J
   const router = useRouter();
   
   const { openConnectModal, connectModalOpen } = useConnectModal();
+  const { chain } = useNetwork();
   const { isConnected } = useAccount();
+  const { switchNetwork } = useSwitchNetwork()
 
   const [error, setError] = useState(null);
   const [alreadyMinted, setAlreadyMinted] = useState(false);
@@ -126,42 +127,8 @@ export default function ZkBadgeApp({ app, groupSnapshotMetadataList }: Props): J
   const [vaultId, setVaultId] = useState(null);
   const hasResponse = Boolean(responseBytes);
 
-  const chain = app.chains[0].name;
+  const chainApp = app.chains[0].name;
   const isRelayed = app.chains[0].relayerEnabled;
-
-  useContractRead({
-    address: ZK_BADGE_ADDRESSES[chain],
-    abi: ZK_BADGE_ABI,
-    functionName: 'balanceOfVaultId',
-    args: [app.tokenId, vaultId],
-    enabled: Boolean(vaultId) && Boolean(app.tokenId),
-    chainId: networkChainIds[chain],
-    onSuccess: (data: BigInt) => {
-      if (typeof data === "bigint" && data > 0) {
-        setAlreadyMinted(true);
-      } 
-    }
-  });
-
-  const { config } = usePrepareContractWrite({
-    address: ZK_BADGE_ADDRESSES[chain],
-    abi: ZK_BADGE_ABI,
-    functionName: 'claimWithSismoConnect',
-    args: [responseBytes, destination, app.tokenId],
-    chainId: networkChainIds[chain],
-    enabled: Boolean(responseBytes) && Boolean(destination) && Boolean(app.tokenId)
-  })
-
-  console.log({
-    address: ZK_BADGE_ADDRESSES[chain],
-    abi: ZK_BADGE_ABI,
-    functionName: 'claimWithSismoConnect',
-    args: [responseBytes, destination, app.tokenId],
-    chainId: networkChainIds[chain],
-    enabled: Boolean(responseBytes) && Boolean(destination) && Boolean(app.tokenId)
-  })
-
-  const { writeAsync } = useContractWrite(config);
 
   const sismoConnectConfig = useMemo(() => {
     const config = {
@@ -181,37 +148,28 @@ export default function ZkBadgeApp({ app, groupSnapshotMetadataList }: Props): J
     }
   }, [destination])
 
-  const mint = async () => {
-    if (!isRelayed && !isConnected) {
-      openConnectModal();
-      return;
+  useContractRead({
+    address: ZK_BADGE_ADDRESSES[chainApp],
+    abi: ZK_BADGE_ABI,
+    functionName: 'balanceOfVaultId',
+    args: [app.tokenId, vaultId],
+    enabled: Boolean(vaultId) && Boolean(app.tokenId),
+    chainId: networkChainIds[chainApp],
+    onSuccess: (data: BigInt) => {
+      if (typeof data === "bigint" && data > 0) {
+        setAlreadyMinted(true);
+      } 
     }
+  });
+
+  /****************************************************************************/
+  /******************************** RELAYED ***********************************/
+  /****************************************************************************/
+
+  const mintRelayed = async () => {
     setHash(null);
     setError(null);
     setMinting(true);
-    if (!isRelayed) await mintNotRelayed();
-    if (isRelayed)await  mintRelayed();
-    setMinting(false);
-  };
-
-  const mintNotRelayed = async () => {
-    try {
-      console.log("mintNotRelayed");
-      const tx = await writeAsync();
-      console.log("tx", tx.hash)
-      setHash(tx.hash);
-      await waitForTransaction({
-        hash: tx.hash,
-      })
-      setHash(null);
-      setMinted(true);
-    } catch (e) {
-      console.error(e);
-      setError("Minting error. Please contact us or retry later.");
-    }
-  }
-
-  const mintRelayed = async () => {
     const body = {
       responseBytes: responseBytes,
       destination: destination,
@@ -243,15 +201,47 @@ export default function ZkBadgeApp({ app, groupSnapshotMetadataList }: Props): J
         setError("Minting error. Please contact us or retry later.")
       }
     }
+    setMinting(false);
   }
 
-  useEffect(() => {
-    if (!responseBytes || !destination || !app.tokenId) return;
-    const isAlreadyMinted = (destination: string) => {
-      
+  /****************************************************************************/
+  /****************************** NOT RELAYED *********************************/
+  /****************************************************************************/
+
+  const { config } = usePrepareContractWrite({
+    address: ZK_BADGE_ADDRESSES[chainApp],
+    abi: ZK_BADGE_ABI,
+    functionName: 'claimWithSismoConnect',
+    args: [responseBytes, destination, app.tokenId],
+    chainId: networkChainIds[chainApp],
+    enabled: Boolean(responseBytes) && Boolean(destination) && Boolean(app.tokenId),
+  })
+
+  const { data, write, isLoading: isLoadingWriteContract } = useContractWrite(config);  
+
+  const { isLoading: isLoadingTransaction } = useWaitForTransaction({
+    hash: data?.hash,
+    onSuccess: () => {
+      setMinted(true);
+    },
+    onError: () => {
+      setError("Error while minting your ZK Badge");
     }
-    isAlreadyMinted(destination);
-  }, [responseBytes, destination, app.tokenId])
+  })
+
+  const mintNotRelayed = async () => {
+    if (!isRelayed && !isConnected) {
+      openConnectModal();
+      return;
+    }
+    if (!isRelayed && chain.id !== networkChainIds[chainApp]) {
+      switchNetwork(networkChainIds[chainApp])
+      return;
+    }
+    setError(null);
+    setHash(null);
+    write();
+  }
 
   return <Content>
       {minted ? (
@@ -308,36 +298,58 @@ export default function ZkBadgeApp({ app, groupSnapshotMetadataList }: Props): J
           >
             { alreadyMinted ? 
               <AlreadyRegistered onClick={() => {
-                const explorer = getErc1155Explorer({contractAddress: ZK_BADGE_ADDRESSES[chain],tokenId: app.tokenId,network: chain});
+                const explorer = getErc1155Explorer({contractAddress: ZK_BADGE_ADDRESSES[chainApp],tokenId: app.tokenId,network: chainApp});
                 window.open(explorer, "_blank");
               }}>
                 Badge Already minted <ArrowSquareOut style={{ marginTop: -8, marginLeft: 4 }} size={18}/>
               </AlreadyRegistered>
               :
               <MintContainer>
-                <Button3D
-                  onClick={mint}
-                  secondary
-                  loading={minting}
-                >
-                  {
-                    connectModalOpen ? 
-                    "Connecting wallet..."
-                    :
-                    <>
+                {
+                  isRelayed ?
+                    <Button3D
+                      onClick={mintRelayed}
+                      secondary
+                      loading={minting}
+                    >
                       {minting ? "Minting..." : "Mint Badge"}
-                    </>
-                  }
-                </Button3D>
+                    </Button3D>
+                    :
+                    <Button3D
+                      onClick={mintNotRelayed}
+                      secondary
+                      loading={isLoadingTransaction || connectModalOpen || isLoadingWriteContract}
+                    >
+                      {
+                        isConnected ?
+                        <>  
+                          {
+                            chain.id !== networkChainIds[chainApp] ?
+                              <>
+                                Switch Network
+                              </>
+                              :
+                              <>
+                                {isLoadingTransaction || isLoadingWriteContract ? "Minting..." : "Mint Badge"}
+                              </>
+                          }
+                        </>
+                        :
+                        <>
+                          {connectModalOpen ? "Connecting wallet..." : "Connect Wallet"}
+                        </>
+                      }
+                    </Button3D>
+                }
                 <TransactionLink style={{marginTop: 20 }}>
-                  {hash ? (
+                  {hash || data?.hash ? (
                     <Inline
                       style={{ cursor: "pointer" }}
                       onClick={() => {
-                        window.open(getTxExplorer({ txHash:hash, network: chain}), "_blank");
+                        window.open(getTxExplorer({ txHash:hash ?? data?.hash, network: chainApp}), "_blank");
                       }}
                     >
-                      Transaction hash: {getMinimalHash(hash)}
+                      Transaction hash: {getMinimalHash(hash ?? data?.hash)}
                       <ArrowSquareOut style={{ marginTop: -8, marginLeft: 4 }} size={18}/>
                     </Inline>
                   )

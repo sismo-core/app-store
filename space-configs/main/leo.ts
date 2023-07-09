@@ -19,9 +19,9 @@ export default {
     {
       type: "zkBadge",
       metadata: {
-        name: "ZK Badge test",
-        slug: "sismo-zk-badge-test",
-        description: "Zk badge test description",
+        name: "Leo ZK Badge",
+        slug: "leo-zk-badge",
+        description: "ZK Badge for leos friends",
         tags: ["Badge"],
         image: "sismo_badge_test.png",
         createdAt: new Date("2023-07-09T18:00"),
@@ -35,8 +35,8 @@ export default {
         step2CtaText: "Claim with Sismo",
         tokenId: "40000003",
         badgeMetadata: {
-          name: "Badge Leo",
-          description: "Badge test description",
+          name: "Leo ZK Badge",
+          description: "ZK Badge for leos friends",
           image: "leo_zk_badge.svg"
         },
         chains: [{

@@ -17,15 +17,17 @@ export async function POST(req: Request) {
   const { response, spaceSlug, appSlug } = await req.json();
 
   const space = await getSpace({ slug: spaceSlug });
-  const apps = await getApps({ where: { appSlug: appSlug, spaceSlug: space.slug }});
+  const apps = await getApps({ where: { appSlug: appSlug, spaceSlug: space.slug } });
   if (!apps || apps.length !== 1) {
     return errorResponse(`Failed to find app ${appSlug} in space ${spaceSlug}`);
   }
   const app = apps[0] as ZkTelegramBotAppType;
-  
+
   try {
     const telegramId = await sismoConnectVerifyResponse(app, response);
+    console.log("l28", { userId: telegramId, appSlug });
     const isUserAlreadySaved = await userStore.exists({ userId: telegramId, appSlug });
+    console.log("isUserAlreadySaved", isUserAlreadySaved);
     if (isUserAlreadySaved) {
       logger.debug(`User ${telegramId} is already approved`);
       return NextResponse.json({ status: "already-approved" });
@@ -35,6 +37,7 @@ export async function POST(req: Request) {
       appSlug: app.slug,
       userId: telegramId,
     };
+    console.log("l40", entry);
     logger.debug(`Adding ${JSON.stringify(entry)}`);
     await userStore.add(entry);
     return NextResponse.json({ status: "approved" });

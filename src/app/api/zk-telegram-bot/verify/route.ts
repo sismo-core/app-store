@@ -25,9 +25,7 @@ export async function POST(req: Request) {
 
   try {
     const telegramId = await sismoConnectVerifyResponse(app, response);
-    console.log("l28", { userId: telegramId, appSlug });
     const isUserAlreadySaved = await userStore.exists({ userId: telegramId, appSlug });
-    console.log("isUserAlreadySaved", isUserAlreadySaved);
     if (isUserAlreadySaved) {
       logger.debug(`User ${telegramId} is already approved`);
       return NextResponse.json({ status: "already-approved" });
@@ -37,7 +35,6 @@ export async function POST(req: Request) {
       appSlug: app.slug,
       userId: telegramId,
     };
-    console.log("l40", entry);
     logger.debug(`Adding ${JSON.stringify(entry)}`);
     await userStore.add(entry);
     return NextResponse.json({ status: "approved" });

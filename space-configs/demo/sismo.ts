@@ -472,6 +472,38 @@ export default {
     {
       type: "zkBadge",
       metadata: {
+        name: "ZK Badge test Mumbai Relayed",
+        slug: "sismo-zk-badge-test-mumbai-relayed",
+        description: "Zk badge test description relayed",
+        tags: ["Badge"],
+        image: "sismo_badge_test.png",
+        createdAt: new Date("2023-07-03T18:00"),
+      },
+      sismoConnectRequest: {
+        appId: "0x3c125a4762c34cdef12e3fee6a57155c",
+        authRequests: [{ authType: AuthType.VAULT }],
+        claimRequests: [{ groupId: "0xe9ed316946d3d98dfcd829a53ec9822e" }],
+        impersonateAddresses: [
+          "0x0aedf4529fa7d23f49df72b94b028c51390451b6"
+        ]
+      },
+      templateConfig: {
+        step2CtaText: "Claim with Sismo",
+        tokenId: "40000001",
+        badgeMetadata: {
+          name: "Badge test",
+          description: "Badge test description",
+          image: "sismo_badge_test.png"
+        },
+        chains: [{
+          name: Network.Mumbai,
+          relayerEnabled: true
+        }]
+      }
+    },
+    {
+      type: "zkBadge",
+      metadata: {
         name: "ZK Badge test Mumbai",
         slug: "sismo-zk-badge-test-mumbai",
         description: "Zk badge test description",

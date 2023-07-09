@@ -162,6 +162,21 @@ export default function ZkBadgeApp({ app, groupSnapshotMetadataList }: Props): J
     }
   });
 
+  useContractRead({
+    address: ZK_BADGE_ADDRESSES[chainApp],
+    abi: ZK_BADGE_ABI,
+    functionName: 'balanceOf',
+    args: [destination, app.tokenId],
+    enabled: Boolean(destination) && Boolean(app.tokenId),
+    chainId: networkChainIds[chainApp],
+    account: null,
+    onSuccess: (data: BigInt) => {
+      if (typeof data === "bigint" && data > 0) {
+        setAlreadyMinted(true);
+      } 
+    }
+  });
+
   /****************************************************************************/
   /******************************** RELAYED ***********************************/
   /****************************************************************************/
@@ -174,7 +189,7 @@ export default function ZkBadgeApp({ app, groupSnapshotMetadataList }: Props): J
       responseBytes: responseBytes,
       destination: destination,
       tokenId: app.tokenId,
-      chain
+      chain: chainApp
     };
     const res = await fetch("/api/zk-badge/relay-tx", {
       method: "POST",

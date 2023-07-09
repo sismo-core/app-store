@@ -1,4 +1,4 @@
-import { ZkAppType, getSpaces } from "@/src/libs/spaces";
+import { ZkAppType } from "@/src/services/spaces-service";
 import ServiceFactory from "@/src/services/service-factory/service-factory";
 import fs from "fs";
 
@@ -7,12 +7,12 @@ const APP_REPLACE_PATTERN = /appId: "{{ auto-fill }}"/;
 export const syncAppsFactory = async (directoryLocation: string, save: boolean = false) => {
   const sismoFactory = ServiceFactory.getSismoFactoryService();
   const loggerService = ServiceFactory.getLoggerService();
-  const spaces = await getSpaces();
+  const spaces = ServiceFactory.getSpacesService();
   let updatedFiles: {
     filename: string;
     content: string;
   }[] = [];
-  for (const space of spaces) {
+  for (const space of await spaces.getSpaces()) {
     const apps: ZkAppType[] = space.apps;
     const filename = `${directoryLocation}/${space.slug}.ts`;
     let spaceFileContent = fs.readFileSync(filename, "utf8");

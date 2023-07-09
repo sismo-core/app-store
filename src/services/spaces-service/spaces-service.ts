@@ -9,7 +9,7 @@ import {
 } from "./types";
 import { AuthType } from "@sismo-core/sismo-connect-server";
 import getImgSrcFromConfig from "@/src/utils/getImgSrcFromConfig";
-import { SpaceConfig } from "@/space-config/types";
+import { SpaceConfig } from "@/space-configs/types";
 
 export type GetAppsOptions = {
   sortedBy?: "createdAt";

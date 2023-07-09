@@ -13,7 +13,7 @@ const Label = styled.div`
 `
 
 type Props = {
-  onDestinationSelected: (destination: string) => void;
+  onDestinationSelected: (destination: `0x${string}`) => void;
 };
 
 export default function SelectDestination({

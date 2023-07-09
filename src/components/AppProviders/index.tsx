@@ -13,7 +13,9 @@ const { chains, publicClient } = configureChains(
       polygonMumbai, 
       sepolia
     ],
-    [publicProvider()],
+    [
+      publicProvider()
+    ],
 )
 
 const { connectors } = getDefaultWallets({
@@ -23,11 +25,10 @@ const { connectors } = getDefaultWallets({
   });
    
   const config = createConfig({
-    autoConnect: true,
     publicClient,
     connectors
   })
-
+  
 type Props = {
   children: React.ReactNode;
 };

@@ -28,6 +28,7 @@
     "axios": "^1.4.0",
     "bufferutil": "^4.0.7",
     "classnames": "^2.3.2",
+    "commander": "^11.0.0",
     "defender-autotask-utils": "^1.44.0",
     "defender-relay-client": "^1.44.0",
     "eslint": "8.39.0",

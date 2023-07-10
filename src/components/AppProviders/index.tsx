@@ -1,8 +1,8 @@
 "use client";
 
 import '@rainbow-me/rainbowkit/styles.css';
-import { createConfig, configureChains } from 'wagmi'
-import {  gnosis, polygonMumbai, sepolia } from 'wagmi/chains'
+import { createConfig, configureChains, mainnet } from 'wagmi'
+import {  gnosis, polygon, polygonMumbai, sepolia } from 'wagmi/chains'
 import { publicProvider } from 'wagmi/providers/public'
 import { WagmiConfig } from "wagmi";
 import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
@@ -11,7 +11,9 @@ const { chains, publicClient } = configureChains(
     [
       gnosis, 
       polygonMumbai, 
-      sepolia
+      sepolia,
+      polygon,
+      mainnet
     ],
     [
       publicProvider()

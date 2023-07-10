@@ -14,13 +14,13 @@ describe('GET /api/zk-badge/metadata/[i]', () => {
         spaceMock1,
         spaceMock2
     ]
-    spacesService.updateConfig(configs);
+    spacesService.updateConfigs(configs);
   })
 
-  afterAll(() => {
+  afterEach(() => {
     let configs = ServiceFactory.getSpaceConfigs();
     let spacesService = ServiceFactory.getSpacesService();
-    spacesService.updateConfig(configs);
+    spacesService.updateConfigs(configs);
   })
   
   it('should return an error response if no badge is found', async () => {

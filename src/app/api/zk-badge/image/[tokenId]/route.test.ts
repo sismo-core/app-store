@@ -16,13 +16,13 @@ describe('GET /api/zk-badge/image/[tokenId]', () => {
           spaceMock1,
           spaceMock2
       ]
-      spacesService.updateConfig(configs);
+      spacesService.updateConfigs(configs);
     })
   
-    afterAll(() => {
+    afterEach(() => {
       let configs = ServiceFactory.getSpaceConfigs();
       let spacesService = ServiceFactory.getSpacesService();
-      spacesService.updateConfig(configs);
+      spacesService.updateConfigs(configs);
       jest.clearAllMocks();
     })
 

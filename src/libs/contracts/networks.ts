@@ -27,7 +27,7 @@ export const networkChainIds: { [network in Network]: number } = {
     [Network.OptimismGoerli]: 420,
     [Network.ArbitrumOne]: 42161,
     [Network.ArbitrumGoerli]: 421613,
-    [Network.ScrollTestnet]: 534353,
+    [Network.ScrollTestnet]: 534353
 };
 
 export const networkRpcUrls: { [network in Network]?: string } = {
@@ -40,6 +40,8 @@ export const explorers: { [network in Network]?: string } = {
   [Network.Mumbai]: "https://mumbai.polygonscan.com",
   [Network.Gnosis]: "https://gnosisscan.io",
   [Network.Sepolia]: "https://sepolia.etherscan.io",
+  [Network.Polygon]: "https://polygonscan.com",
+  [Network.Mainnet]: "https://etherscan.io"
 };
 
 export const getTxExplorer = ({ txHash, network }: { txHash: string, network: Network }) => {

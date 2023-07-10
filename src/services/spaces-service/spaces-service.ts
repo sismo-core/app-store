@@ -64,7 +64,7 @@ export class SpacesService {
     return apps;
   }
 
-  public async updateConfig(spaceConfigs: SpaceConfig[]) {
+  public async updateConfigs(spaceConfigs: SpaceConfig[]) {
     this._spaceConfigs = spaceConfigs;
   }
 

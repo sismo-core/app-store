@@ -1,3 +1,5 @@
+import { Network } from "./libs/contracts/networks";
+
 type Environment = {
   isMain: boolean;
   isDemo: boolean;
@@ -6,6 +8,15 @@ type Environment = {
   hubApiUrl: string;
   redirection: string;
   telegramBotToken: string;
+  defenderAPIKeys: {
+    [network in Network]: {
+      key: string,
+      secret: string
+    }
+  },
+  zkBadgeAddresses: {
+    [network in Network]: `0x${string}`
+  }
 };
 
 type EnvNames = "demo" | "dev" | "main" | "test";
@@ -26,6 +37,8 @@ const env: Environment = {
   hubApiUrl: process.env.NEXT_PUBLIC_HUB_API_URL,
   redirection: process.env.NEXT_PUBLIC_REDIRECTION,
   telegramBotToken: process.env.TELEGRAM_BOT_TOKEN,
+  defenderAPIKeys: process.env.SH_RELAY_DEFENDER_API_KEYS && JSON.parse(process.env.SH_RELAY_DEFENDER_API_KEYS),
+  zkBadgeAddresses: process.env.NEXT_PUBLIC_ZK_BADGE_ADDRESSES && JSON.parse(process.env.NEXT_PUBLIC_ZK_BADGE_ADDRESSES),
 };
 
 if (env.isDemo) {

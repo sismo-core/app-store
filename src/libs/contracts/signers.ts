@@ -4,26 +4,19 @@ import {
 } from "defender-relay-client/lib/ethers";
 import { Network } from "./networks";
 import { Signer } from "ethers";
+import env from "@/src/environments";
 
-const SH_RELAY_DEFENDER_API_KEYS = process.env.SH_RELAY_DEFENDER_API_KEYS;
 
 export const getDefenderRelayerSigner = (network: Network): Signer => {
-  if (!SH_RELAY_DEFENDER_API_KEYS) {
+  if (!env.defenderAPIKeys) {
     throw new Error(
-      "SH_RELAY_DEFENDER_API_KEY or SH_RELAY_DEFENDER_API_SECRET env variables missing."
+      "SH_RELAY_DEFENDER_API_KEYS env variables missing."
     );
   }
-  const shRelayDefenderApiKeysJson = JSON.parse(SH_RELAY_DEFENDER_API_KEYS);
-
-  const SH_RELAY_DEFENDER_API_KEY =
-    shRelayDefenderApiKeysJson[`${network}`].key;
-
-  const SH_RELAY_DEFENDER_API_SECRET =
-    shRelayDefenderApiKeysJson[`${network}`].secret;
 
   const credentials = {
-    apiKey: SH_RELAY_DEFENDER_API_KEY,
-    apiSecret: SH_RELAY_DEFENDER_API_SECRET,
+    apiKey: env.defenderAPIKeys[network]?.key,
+    apiSecret: env.defenderAPIKeys[network]?.secret,
   };
 
   const provider = new DefenderRelayProvider(credentials);

@@ -1,7 +1,7 @@
 // add an images folder in your space folder if you would like Sismo to host your images
 import { AuthType, ClaimType } from "@sismo-core/sismo-connect-server";
 import { SpaceConfig } from "../types";
-
+// add a line
 export default {
   metadata: {
     name: "Privacy Is Normal 🌼",

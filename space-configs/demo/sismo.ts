@@ -464,7 +464,6 @@ export default {
         userSelection: { type: "Lottery", maxNumberOfEntries: 1000, numberOfWinners: 10 },
       },
       options: {
-        endDate: new Date("2023-07-07T18:00"),
         isFeatured: true,
       },
     },

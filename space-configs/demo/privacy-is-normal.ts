@@ -2,6 +2,8 @@
 import { AuthType, ClaimType } from "@sismo-core/sismo-connect-server";
 import { SpaceConfig } from "../types";
 
+// test32
+
 export default {
   metadata: {
     name: "Privacy Is Normal 🌼",

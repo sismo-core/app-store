@@ -185,5 +185,36 @@ export default {
         isFeatured: true,
       },
     },
+    {
+      type: "zkDrop",
+      metadata: {
+        name: "ZK Badge name",
+        slug: "sismo-zk-badge-slug",
+        description: "Zk badge test description2",
+        tags: ["Badge"],
+        image: "image.png",
+        createdAt: new Date("2023-07-03T18:00"),
+      },
+      sismoConnectRequest: {
+        appId: "0xd3448b2ad00929478df698a73ae98fe1",
+        authRequests: [{ authType: AuthType.VAULT }],
+        claimRequests: [{ groupId: "0x1cde61966decb8600dfd0749bd371f12" }],
+      },
+      templateConfig: {
+        nftMetadata: {
+          name: "NFT Test",
+          description: "This is a test description",
+          image: "sismo-zkdrop.png"
+        },
+        chains: [{
+            contractAddress: "{{ auto-fill }}",
+            name: "sepolia",
+            relayerEnabled: true
+        }],
+        step1CtaText: "step 1",
+        step2CtaText: "step 2",
+        appDescription: "App description"
+      }
+    }
   ],
 } as SpaceConfig;

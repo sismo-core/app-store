@@ -6,6 +6,7 @@ import {
   ZkFormAppType,
   ZkTelegramBotAppType,
   ZkBadgeAppType,
+  ZkDropAppType,
 } from "./types";
 import { AuthType } from "@sismo-core/sismo-connect-server";
 import getImgSrcFromConfig from "@/src/utils/getImgSrcFromConfig";
@@ -164,6 +165,17 @@ export class SpacesService {
               },
               chains,
             } as ZkBadgeAppType);
+            break;
+          case "zkDrop":
+            apps.push({
+              type: appConfig.type,
+              ...appCommon,
+              nftMetadata: appConfig.templateConfig.nftMetadata,
+              chains: appConfig.templateConfig.chains,
+              step1CtaText: appConfig.templateConfig.step1CtaText ?? "Sign in with Sismo",
+              step2CtaText: appConfig.templateConfig.step2CtaText,
+              appDescription: appConfig.templateConfig.appDescription,
+            } as ZkDropAppType);
             break;
         }
       }

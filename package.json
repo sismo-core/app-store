@@ -11,6 +11,7 @@
     "prebuild": "yarn run build-config",
     "build-config": "tsx ./src/scripts/configs-to-json/configs-to-json.script.ts",
     "sync-all-apps-factory": "NEXT_PUBLIC_NODE_ENV=main yarn sync-apps-factory && NEXT_PUBLIC_NODE_ENV=demo yarn sync-apps-factory",
+    "upload-zk-drop-metadata": "tsx -r ./svgMock.js ./src/scripts/upload-metadata/upload-metadata.script.ts",
     "sync-apps-factory": "yarn run build-config && tsx -r ./svgMock.js ./src/scripts/sync-apps-factory/sync-apps-factory.script.ts",
     "prettier": "prettier --write 'src/**/*.ts' '.github' 'README.md'"
   },

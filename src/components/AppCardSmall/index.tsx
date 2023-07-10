@@ -9,7 +9,7 @@ import SpaceTag from "../SpaceTag";
 import { useState } from "react";
 import Default from "@/src/assets/default.svg";
 import colors from "@/src/themes/colors";
-import { ExternalAppType, ZkDropAppType, Lottery, ZkAppType } from "@/src/services/spaces-service";
+import { ExternalAppType, ZkDropAppType, Lottery, ZkAppType, ZkFormAppType } from "@/src/services/spaces-service";
 import Link from "next/link";
 
 const CardContainer = styled.div<{ $isSeparator: boolean }>`
@@ -264,9 +264,9 @@ export default function AppCardLarge({ app, className, isSeparator }: Props): JS
   const isDisabled = hasEnded;
 
   const maxNumberOfEntries =
-    (app?.type == "zkForm" || app?.type == "zkdrop") &&
-    (app as unknown as ZkDropAppType)?.userSelection?.type == "Lottery" &&
-    ((app as unknown as ZkDropAppType)?.userSelection as Lottery)?.maxNumberOfEntries;
+    app?.type == "zkForm" &&
+    (app as unknown as ZkFormAppType)?.userSelection?.type == "Lottery" &&
+    ((app as unknown as ZkFormAppType)?.userSelection as Lottery)?.maxNumberOfEntries;
 
   const link =
     app?.type === "external"

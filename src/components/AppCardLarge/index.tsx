@@ -8,7 +8,7 @@ import { getHumanReadableRemainingTimeTag } from "@/src/utils/getHumanReadableTi
 import SpaceTag from "../SpaceTag";
 import Default from "@/src/assets/default.svg";
 import colors from "@/src/themes/colors";
-import { ExternalAppType, Lottery, ZkAppType, ZkDropAppType } from "@/src/services/spaces-service";
+import { ExternalAppType, Lottery, ZkAppType, ZkDropAppType, ZkFormAppType } from "@/src/services/spaces-service";
 import Link from "next/link";
 
 const Container = styled(Link)<{ $isDisabled: boolean }>`
@@ -202,9 +202,9 @@ export default function AppCardLarge({ app }: Props): JSX.Element {
   const isDisabled = hasEnded;
 
   const maxNumberOfEntries =
-    (app?.type == "zkForm" || app?.type == "zkdrop") &&
-    (app as unknown as ZkDropAppType)?.userSelection?.type == "Lottery" &&
-    ((app as unknown as ZkDropAppType)?.userSelection as Lottery)?.maxNumberOfEntries;
+    app?.type == "zkForm" &&
+    (app as unknown as ZkFormAppType)?.userSelection?.type == "Lottery" &&
+    ((app as unknown as ZkFormAppType)?.userSelection as Lottery)?.maxNumberOfEntries;
 
   const link = app?.type === "external" ? (app as unknown as ExternalAppType)?.link : `/${app.space.slug}/${app.slug}`;
   if (app)

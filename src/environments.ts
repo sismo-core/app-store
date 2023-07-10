@@ -16,6 +16,9 @@ type Environment = {
   },
   zkBadgeAddresses: {
     [network in Network]: `0x${string}`
+  },
+  pinata: {
+    jwtToken?: string
   }
 };
 
@@ -39,6 +42,9 @@ const env: Environment = {
   telegramBotToken: process.env.TELEGRAM_BOT_TOKEN,
   defenderAPIKeys: process.env.SH_RELAY_DEFENDER_API_KEYS && JSON.parse(process.env.SH_RELAY_DEFENDER_API_KEYS),
   zkBadgeAddresses: process.env.NEXT_PUBLIC_ZK_BADGE_ADDRESSES && JSON.parse(process.env.NEXT_PUBLIC_ZK_BADGE_ADDRESSES),
+  pinata: {
+    jwtToken: process.env.PINATA_JWT_TOKEN
+  }
 };
 
 if (env.isDemo) {

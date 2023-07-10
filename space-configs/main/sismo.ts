@@ -112,6 +112,8 @@ export default {
         claimRequests: [{ groupId: "0xd630aa769278cacde879c5c0fe5d203c", value: 3 }],
       },
       templateConfig: {
+        step1CtaText: "LFGGGGGGGGGG",
+        appDescription: "allllllllllllezzzzzzzz",
         step2CtaText: "Join Gated Telegram Chat",
         telegramGroupId: "-1001930531830",
         telegramInviteLink: "https://t.me/+5oMohki7dhgwNDJi",

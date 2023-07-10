@@ -38,13 +38,18 @@ jobs:
       - id: changed-files
         uses: ahmadnassri/action-changed-files@v1
 
+      - name: content
+        run: |
+          echo 'Changed files:'
+          echo "${{ steps.changed-files.outputs.files }}"
+
       - name: Get modified spaces and apps
         id: updated-spaces
         run: |
           echo 'Changed files:'
-          DEMO_UPDATED_SPACES=$(steps.changed-files.outputs.files | sed -n 's/^space-configs\/demo\/\(.*\)\.ts$/\1/p' | tr '\n' ' ')
+          DEMO_UPDATED_SPACES=$(echo ${{steps.changed-files.outputs.files}} | sed -n 's/^space-configs\/demo\/\(.*\)\.ts$/\1/p' | tr '\n' ' ')
           echo "::set-output name=demo_updated_spaces::'$(echo "$DEMO_UPDATED_SPACES")'"
-          MAIN_UPDATED_SPACES=$(steps.changed-files.outputs.files | sed -n 's/^space-configs\/main\/\(.*\)\.ts$/\1/p' | tr '\n' ' ')
+          MAIN_UPDATED_SPACES=$(echo ${{steps.changed-files.outputs.files}} | sed -n 's/^space-configs\/main\/\(.*\)\.ts$/\1/p' | tr '\n' ' ')
           echo "::set-output name=main_updated_spaces::'$(echo "$MAIN_UPDATED_SPACES")'"
 
       - name: Display changes

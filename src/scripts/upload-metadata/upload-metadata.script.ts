@@ -10,7 +10,7 @@ program
     console.log("spaces", spaces);
     let formattedSpaces = [];
     for (const space of spaces) {
-      formattedSpaces.push(space.split(" "));
+      formattedSpaces.push(...space.split(" "));
     }
     uploadMetadata(formattedSpaces);
   });

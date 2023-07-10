@@ -23,6 +23,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
+          fetch-depth: 0 # fetch all branches and tags
           token: ${{secrets.SISMOBOT_TOKEN}}
 
       - name: Checkout Pull Request
@@ -33,14 +34,22 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
+      - id: changed-files
+        uses: ahmadnassri/action-changed-files@v1
+
+      - name: content
+        run: |
+          echo 'Changed files:'
+          echo "${{ steps.changed-files.outputs.files }}"
+
       - name: Get modified spaces and apps
         id: updated-spaces
         run: |
           echo 'Changed files:'
-          DEMO_UPDATED_SPACES=$(git diff --name-only origin/main -- 'space-configs/demo')
-          echo "::set-output name=demo_updated_spaces::$(echo "$DEMO_UPDATED_SPACES")"
-          MAIN_UPDATED_SPACES=$(git diff --name-only origin/main -- 'space-configs/main')
-          echo "::set-output name=main_updated_spaces::$(echo "$MAIN_UPDATED_SPACES")"
+          DEMO_UPDATED_SPACES=$(echo ${{steps.changed-files.outputs.files}} | awk 'BEGIN {OFS=FS=" "} {for(i=1; i<=NF; i++) {if ($i ~ /demo/){split($i,a,"/"); n=split(a[length(a)],b,"."); print b[1]}}}' | xargs)
+          echo "::set-output name=demo_updated_spaces::'$(echo "$DEMO_UPDATED_SPACES")'"
+          MAIN_UPDATED_SPACES=$(echo ${{steps.changed-files.outputs.files}} | awk 'BEGIN {OFS=FS=" "} {for(i=1; i<=NF; i++) {if ($i ~ /main/){split($i,a,"/"); n=split(a[length(a)],b,"."); print b[1]}}}' | xargs)
+          echo "::set-output name=main_updated_spaces::'$(echo "$MAIN_UPDATED_SPACES")'"
 
       - name: Display changes
         run: |
@@ -48,3 +57,17 @@ jobs:
           echo "${{ steps.updated-spaces.outputs.demo_updated_spaces }}"
           echo "[MAIN] Modified spaces and apps in commit:"
           echo "${{ steps.updated-spaces.outputs.main_updated_spaces }}"
+
+      - name: Run Upload metadata script [demo]
+        env:
+          NEXT_PUBLIC_NODE_ENV: demo
+          PINATA_JWT_TOKEN: ${{ secrets.PINATA_JWT_TOKEN }}
+        run: |
+          yarn upload-zk-drop-metadata ${{ steps.updated-spaces.outputs.demo_updated_spaces }}
+
+      - name: Run Upload metadata script [main]
+        env:
+          NEXT_PUBLIC_NODE_ENV: main
+          PINATA_JWT_TOKEN: ${{ secrets.PINATA_JWT_TOKEN }}
+        run: |
+          yarn upload-zk-drop-metadata ${{ steps.updated-spaces.outputs.main_updated_spaces }}

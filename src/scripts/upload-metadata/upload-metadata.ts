@@ -27,10 +27,11 @@ export const uploadMetadata = async (spacesSlugs: string[]) => {
       const metadata = {
         name: app.nftMetadata.name,
         description: app.nftMetadata.description,
-        image: imageIpfsHash,
+        image: `ipfs://${imageIpfsHash}`,
       };
-      loggerService.info(`Pinning ${metadata}...`);
+      loggerService.info(`Pinning ${JSON.stringify(metadata, null, 2)}...`);
       const { ipfsHash: metadataIpfsHash } = await pinJSONToIPFS(metadata);
+      uploadedHash[space.slug] = uploadedHash[space.slug] || {};
       uploadedHash[space.slug][app.slug] = metadataIpfsHash;
     }
   }

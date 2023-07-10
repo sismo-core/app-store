@@ -62,11 +62,13 @@ jobs:
       - name: Run Upload metadata script [demo]
         env:
           NEXT_PUBLIC_NODE_ENV: demo
+          PINATA_JWT_TOKEN: ${{ secrets.PINATA_JWT_TOKEN }}
         run: |
           yarn upload-zk-drop-metadata ${{ steps.updated-spaces.outputs.demo_updated_spaces }}
 
       - name: Run Upload metadata script [main]
         env:
           NEXT_PUBLIC_NODE_ENV: main
+          PINATA_JWT_TOKEN: ${{ secrets.PINATA_JWT_TOKEN }}
         run: |
           yarn upload-zk-drop-metadata ${{ steps.updated-spaces.outputs.main_updated_spaces }}

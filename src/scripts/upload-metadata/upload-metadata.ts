@@ -2,15 +2,15 @@ import { ZkAppType } from "@/src/services/spaces-service";
 import ServiceFactory from "@/src/services/service-factory/service-factory";
 import { pinFileToIPFS, pinJSONToIPFS } from "./utils/pin-ipfs";
 
-export const uploadMetadata = async (spacesSlugs: string[], env: "demo" | "main" = "main") => {
+export const uploadMetadata = async (spacesSlugs: string[]) => {
   const sismoFactory = ServiceFactory.getSismoFactoryService();
   const loggerService = ServiceFactory.getLoggerService();
   const spacesService = ServiceFactory.getSpacesService();
 
   let uploadedHash: {
     [spaceSlug: string]: {
-      [appSlug: string]: string
-    }
+      [appSlug: string]: string;
+    };
   } = {};
 
   for (const space of await spacesService.getSpaces()) {
@@ -28,8 +28,8 @@ export const uploadMetadata = async (spacesSlugs: string[], env: "demo" | "main"
       const metadata = {
         name: app.nftMetadata.name,
         description: app.nftMetadata.description,
-        image: imageIpfsHash
-      }
+        image: imageIpfsHash,
+      };
       loggerService.info(`Pinning ${metadata}...`);
       const { ipfsHash: metadataIpfsHash } = await pinJSONToIPFS(metadata);
       uploadedHash[space.slug][app.slug] = metadataIpfsHash;
@@ -38,5 +38,3 @@ export const uploadMetadata = async (spacesSlugs: string[], env: "demo" | "main"
 
   return uploadedHash;
 };
-
-

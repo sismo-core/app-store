@@ -61,5 +61,5 @@ jobs:
 
       - name: Run Upload metadata script
         run: |
-          yarn upload-zk-drop-metadata demo ${{ steps.updated-spaces.outputs.demo_updated_spaces }} 
-          yarn upload-zk-drop-metadata main ${{ steps.updated-spaces.outputs.main_updated_spaces }}
+          NEXT_PUBLIC_NODE_ENV=demo yarn upload-zk-drop-metadata ${{ steps.updated-spaces.outputs.demo_updated_spaces }} 
+          NEXT_PUBLIC_NODE_ENV=main yarn upload-zk-drop-metadata ${{ steps.updated-spaces.outputs.main_updated_spaces }}

@@ -49,6 +49,10 @@ export const getTxExplorer = ({ txHash, network }: { txHash: string, network: Ne
   return `${explorers[network]}/tx/${txHash}`;
 } 
 
+export const getErc721Explorer = ({ contractAddress, network }: { contractAddress:string, network: Network }) => {
+  return "todo";
+}
+
 export const getErc1155Explorer = ({ contractAddress, tokenId, network }: { contractAddress:string, tokenId: string, network: Network }) => {
   if (!explorers[network]) return null;
   return `${explorers[network]}/token/${contractAddress}?a=${tokenId}`;

@@ -89,7 +89,7 @@ export type ZkDropAppType = AppCommonType & {
     image: string;
   };
   chains: {
-      contractAddress: string;
+      contractAddress: `0x${string}`;
       name: ZkDropChainName;
       relayerEnabled?: boolean;
   }[];

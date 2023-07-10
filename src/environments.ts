@@ -9,12 +9,23 @@ type Environment = {
   redirection: string;
   telegramBotToken: string;
   defenderAPIKeys: {
-    [network in Network]: {
-      key: string,
-      secret: string
+    zkDrop: {
+      [network in Network]: {
+        key: string,
+        secret: string
+      }
+    },
+    zkBadge: {
+      [network in Network]: {
+        key: string,
+        secret: string
+      }
     }
   },
   zkBadgeAddresses: {
+    [network in Network]: `0x${string}`
+  },
+  zkDropAddresses: {
     [network in Network]: `0x${string}`
   },
   pinata: {
@@ -40,8 +51,12 @@ const env: Environment = {
   hubApiUrl: process.env.NEXT_PUBLIC_HUB_API_URL,
   redirection: process.env.NEXT_PUBLIC_REDIRECTION,
   telegramBotToken: process.env.TELEGRAM_BOT_TOKEN,
-  defenderAPIKeys: process.env.SH_RELAY_DEFENDER_API_KEYS && JSON.parse(process.env.SH_RELAY_DEFENDER_API_KEYS),
+  defenderAPIKeys: {
+    zkDrop: process.env.SH_ZK_DROP_RELAY_DEFENDER_API_KEYS && JSON.parse(process.env.SH_ZK_DROP_RELAY_DEFENDER_API_KEYS),
+    zkBadge: process.env.SH_ZK_BADGE_RELAY_DEFENDER_API_KEYS && JSON.parse(process.env.SH_ZK_BADGE_RELAY_DEFENDER_API_KEYS),
+  },
   zkBadgeAddresses: process.env.NEXT_PUBLIC_ZK_BADGE_ADDRESSES && JSON.parse(process.env.NEXT_PUBLIC_ZK_BADGE_ADDRESSES),
+  zkDropAddresses: process.env.NEXT_PUBLIC_ZK_DROP_ADDRESSES && JSON.parse(process.env.NEXT_PUBLIC_ZK_DROP_ADDRESSES),
   pinata: {
     jwtToken: process.env.PINATA_JWT_TOKEN
   }

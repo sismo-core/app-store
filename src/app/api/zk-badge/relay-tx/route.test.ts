@@ -13,9 +13,7 @@ jest.mock("../../../../libs/contracts/signers", () => {
 });
 
 jest.mock('../../../../libs/contracts/zk-badge', () => {
-    // Use the 'mockImplementation' method to mock the 'ZkBadgeContract' class
     const originalModule = jest.requireActual("../../../../libs/contracts/zk-badge");
-
     return {
         __esModule: true,
         ...originalModule,
@@ -36,9 +34,7 @@ describe('POST /api/zk-badge/relay-tx', () => {
                 tokenId: 'mockTokenId'
             })
         };
-
         await POST(req);
-
         expect(mockMint).toHaveBeenCalledWith({
             responseBytes: 'mockResponseBytes',
             address: 'mockDestination',

@@ -171,7 +171,8 @@ export const spaceMock1: SpaceConfig = {
         chains: [{
             contractAddress: "{{ auto-fill }}",
             name: Network.Sepolia,
-            relayerEnabled: true
+            relayerEnabled: true,
+            isTransferable: true
         }],
         step1CtaText: "step 1",
         step2CtaText: "step 2",

@@ -24,6 +24,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
+          fetch-depth: 0 # fetch all branches and tags
           token: ${{secrets.SISMOBOT_TOKEN}}
 
       # - name: Checkout Pull Request
@@ -34,13 +35,16 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
+      - id: changed-files
+        uses: ahmadnassri/action-changed-files@v1
+
       - name: Get modified spaces and apps
         id: updated-spaces
         run: |
           echo 'Changed files:'
-          DEMO_UPDATED_SPACES=$(git diff --name-only origin/main -- 'space-configs/demo' | sed -n 's/^space-configs\/demo\/\(.*\)\.ts$/\1/p' | tr '\n' ' ')
+          DEMO_UPDATED_SPACES=$(steps.changed-files.outputs.files | sed -n 's/^space-configs\/demo\/\(.*\)\.ts$/\1/p' | tr '\n' ' ')
           echo "::set-output name=demo_updated_spaces::'$(echo "$DEMO_UPDATED_SPACES")'"
-          MAIN_UPDATED_SPACES=$(git diff --name-only origin/main -- 'space-configs/main' | sed -n 's/^space-configs\/main\/\(.*\)\.ts$/\1/p' | tr '\n' ' ')
+          MAIN_UPDATED_SPACES=$(steps.changed-files.outputs.files | sed -n 's/^space-configs\/main\/\(.*\)\.ts$/\1/p' | tr '\n' ' ')
           echo "::set-output name=main_updated_spaces::'$(echo "$MAIN_UPDATED_SPACES")'"
 
       - name: Display changes

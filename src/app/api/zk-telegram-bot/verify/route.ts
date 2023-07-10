@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { ZkAppType, ZkTelegramBotAppType, getApps, getSpace } from "@/src/libs/spaces";
+import { ZkAppType, ZkTelegramBotAppType } from "@/src/services/spaces-service";
 import {
   AuthType,
   SismoConnect,
@@ -14,10 +14,13 @@ import { errorResponse } from "@/src/libs/helper/api";
 export async function POST(req: Request) {
   const logger = ServiceFactory.getLoggerService();
   const userStore = ServiceFactory.getZkTelegramBotUserStore();
+  const spacesService = ServiceFactory.getSpacesService();
+  
   const { response, spaceSlug, appSlug } = await req.json();
 
-  const space = await getSpace({ slug: spaceSlug });
-  const apps = await getApps({ where: { appSlug: appSlug, spaceSlug: space.slug } });
+  const spaces = await spacesService.getSpaces({ where: { spaceSlug: spaceSlug } });
+  const apps = await spacesService.getApps({ where: { appSlug: appSlug, spaceSlug: spaces[0].slug }});
+
   if (!apps || apps.length !== 1) {
     return errorResponse(`Failed to find app ${appSlug} in space ${spaceSlug}`);
   }

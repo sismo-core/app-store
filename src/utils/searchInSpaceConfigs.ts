@@ -1,5 +1,5 @@
 
-import { SpaceType } from "../libs/spaces";
+import { SpaceType } from "../services/spaces-service";
 import { deepSearch } from "./deepSearch";
 
 export const searchInSpaceConfigs = ({

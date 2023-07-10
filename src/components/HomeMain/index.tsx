@@ -5,7 +5,7 @@ import AppCardLarge from "../AppCardLarge";
 import SpaceCard from "../SpaceCard";
 import AppCardSmall from "../AppCardSmall";
 import AppListGrid from "../Layouts/AppListGrid";
-import { SpaceType, ZkAppType } from "@/src/libs/spaces";
+import { SpaceType, ZkAppType } from "@/src/services/spaces-service";
 
 const Container = styled.main`
   display: flex;

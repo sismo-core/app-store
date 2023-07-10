@@ -1,6 +1,6 @@
 "use client";
 
-import { SpaceType } from "@/src/libs/spaces";
+import { SpaceType } from "@/src/services/spaces-service";
 import { textShorten } from "@/src/utils/textShorten";
 import Image from "next/image";
 import Link from "next/link";

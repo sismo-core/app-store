@@ -7,7 +7,7 @@ import Select, { SelectOption } from "@/src/ui/Select";
 import capitalizeFirstLetter from "@/src/utils/capitalizeFirstLetter";
 import { searchInSpaceConfigs } from "@/src/utils/searchInSpaceConfigs";
 import SpaceCard from "../SpaceCard";
-import { SpaceType } from "@/src/libs/spaces";
+import { SpaceType } from "@/src/services/spaces-service";
 
 const Container = styled.div`
   flex-grow: 1;

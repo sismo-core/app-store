@@ -9,7 +9,7 @@ import { searchInApps } from "@/src/utils/searchInApps";
 import { CaretDown, MagnifyingGlass } from "phosphor-react";
 import Select, { SelectOption } from "@/src/ui/Select";
 import capitalizeFirstLetter from "@/src/utils/capitalizeFirstLetter";
-import { ZkAppType } from "@/src/libs/spaces";
+import { ZkAppType } from "@/src/services/spaces-service";
 
 const Container = styled.div`
   flex-grow: 1;

@@ -37,7 +37,6 @@ export default {
           "Future of France is an invitation-only event during EthCC week in Paris, organized by French-based crypto startups. The number of tickets is limited. Exclusive for members of Sismo Community Level 3.",
         tags: ["Event", "Ticket"],
         image: "sismo_appstore_fof_tickets.png",
-
         createdAt: new Date("2023-07-03T18:00"),
       },
       sismoConnectRequest: {

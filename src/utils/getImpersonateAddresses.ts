@@ -1,4 +1,4 @@
-import { ZkAppType } from "../libs/spaces"
+import { ZkAppType } from "../services/spaces-service"
 
 export const getImpersonateAddresses = (app: ZkAppType) => {
     return app.impersonateAddresses || [

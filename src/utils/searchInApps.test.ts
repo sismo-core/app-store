@@ -1,4 +1,4 @@
-import { ZkAppType } from "../libs/spaces";
+import { ZkAppType } from "../services/spaces-service";
 import { searchInApps } from "./searchInApps";
 
 describe("searchInApps", () => {

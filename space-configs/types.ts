@@ -1,3 +1,4 @@
+import { Network } from "@/src/libs/contracts/networks";
 import { AuthRequest, ClaimRequest } from "@sismo-core/sismo-connect-react";
 
 export type SpaceConfig = {
@@ -53,12 +54,11 @@ type AppCommonConfig = {
   };
 };
 
-export type ExternalAppTemplateConfig = {
-  link: string;
-};
 export type ExternalAppConfig = AppCommonConfig & {
   type: "external";
-  templateConfig: ExternalAppTemplateConfig;
+  templateConfig: {
+    link: string;
+  };
 };
 
 export type UserSelection = FirstComeFirstServed | Lottery;
@@ -86,14 +86,25 @@ export type ZkDropAppConfig = AppCommonConfig & {
   };
 };
 
+export type ZkBadgeChainName = Network.Gnosis | Network.Mumbai | Network.Sepolia;
 export type ZkBadgeAppConfig = AppCommonConfig & {
-  type: "zkbadge";
+  type: "zkBadge";
   templateConfig: {
     step1CtaText?: string;
     step2CtaText: string;
     appDescription?: string;
-    chainId: number;
-    collectionId: string;
+    tokenId: string;
+    badgeMetadata: {
+      name: string;
+      description: string;
+      image: string;
+    };
+    chains: [
+      {
+        name: ZkBadgeChainName;
+        relayerEnabled?: boolean;
+      }
+    ];
   };
 };
 

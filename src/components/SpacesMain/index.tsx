@@ -11,7 +11,7 @@ import colors from "@/src/themes/colors";
 import Link from "next/link";
 import { TelegramFilled } from "@/src/ui/SismoReactIcon";
 import Default from "@/src/assets/default.svg";
-import { SpaceType } from "@/src/libs/spaces";
+import { SpaceType } from "@/src/services/spaces-service";
 
 const Container = styled.div`
   display: flex;

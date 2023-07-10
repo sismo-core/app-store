@@ -20,11 +20,13 @@ import { DemoUserStore } from "@/src/services/user-store/demo-user-store";
 import { MemoryUserStore } from "@/src/services/user-store/memory-user-store";
 import { PostgresUserStore } from "@/src/services/user-store/postgres-user-store";
 import { UserStore } from "@/src/services/user-store/store";
+import { SpacesService } from "../spaces-service";
 
 let zkTelegramBotUserStore: UserStore;
 let zkFormTableStore: TableStore;
 let telegramBotService: TelegramBotInterface;
 let configService: SpaceConfig[];
+let spacesService: SpacesService;
 let loggerService: LoggerService;
 let sismoFactoryService: SismoFactoryService;
 
@@ -93,6 +95,13 @@ const ServiceFactory = {
       }
     }
     return configService;
+  },
+  getSpacesService: (): SpacesService => {
+    if (!spacesService) {
+      const spaceConfigs = ServiceFactory.getSpaceConfigs();
+      spacesService = new SpacesService({ spaceConfigs });
+    }
+    return spacesService;
   },
   getSismoFactoryService: (): SismoFactoryService => {
     if (!sismoFactoryService) {

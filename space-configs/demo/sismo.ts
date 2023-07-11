@@ -466,6 +466,6 @@ export default {
       options: {
         isFeatured: true,
       },
-    }
+    },
   ],
 } as SpaceConfig;

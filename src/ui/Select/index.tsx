@@ -59,6 +59,10 @@ const StyledCaret = styled(CaretDown)<{ $isOpen: boolean }>`
   transition: transform ${({ theme }) => theme.animations.transition};
 `;
 
+const Placeholder = styled.div`
+  color: ${props => props.theme.colors.neutral5};
+`
+
 export type SelectOption = {
   value: string;
   label: string;
@@ -68,10 +72,12 @@ type Props = {
   value: string;
   options: SelectOption[];
   onChange: (value: string) => void;
+  placeholder?: string;
 };
 
 export default function Select({
   value,
+  placeholder,
   options,
   onChange,
 }: Props): JSX.Element {
@@ -85,7 +91,13 @@ export default function Select({
 
   return (
     <Container ref={ref} onClick={ () => !isDisabled && setIsOpen(!isOpen)} $isDisabled={isDisabled} >
-      {label}
+      {label ? 
+        label 
+        :
+        <Placeholder>
+          {placeholder}
+        </Placeholder>
+      }
       {!isDisabled && <StyledCaret $isOpen={isOpen} size={20} />}
       {isOpen && 
       <Dropdown>

@@ -79,6 +79,9 @@ export default {
           },
         },
       },
+      options: {
+        endDate: new Date("2023-07-11T10:00"),
+      },
     },
   ],
 } as SpaceConfig;

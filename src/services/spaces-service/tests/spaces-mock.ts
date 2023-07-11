@@ -163,6 +163,7 @@ export const spaceMock1: SpaceConfig = {
         claimRequests: [{ groupId: "0x04" }],
       },
       templateConfig: {
+        isTransferable: true,
         nftMetadata: {
           name: "NFT Test",
           description: "This is a test description",
@@ -171,8 +172,7 @@ export const spaceMock1: SpaceConfig = {
         chains: [{
             contractAddress: "{{ auto-fill }}",
             name: Network.Sepolia,
-            relayerEnabled: true,
-            isTransferable: true
+            relayerEnabled: true
         }],
         step1CtaText: "step 1",
         step2CtaText: "step 2",

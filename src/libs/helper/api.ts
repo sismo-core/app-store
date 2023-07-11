@@ -10,3 +10,12 @@ export const errorResponse = (message: string): Response => {
     message: message,
   });
 };
+
+export const error404Response = (message: string): Response => {
+  return NextResponse.json(
+    {
+      error: message,
+    },
+    { status: 404 }
+  );
+};

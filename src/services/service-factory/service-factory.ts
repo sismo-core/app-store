@@ -123,6 +123,7 @@ const ServiceFactory = {
     loggerService = null;
     zkFormTableStore = null;
     sismoFactoryService = null;
+    spacesService = null;
   },
 };
 

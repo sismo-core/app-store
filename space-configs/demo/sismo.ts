@@ -467,42 +467,5 @@ export default {
         isFeatured: true,
       },
     },
-    {
-      type: "zkDrop",
-      metadata: {
-        name: "ZK Drop name",
-        slug: "sismo-zk-drop-slug",
-        description: "Zk drop test description2",
-        tags: ["Badge"],
-        image: "sismo-zkdrop.png",
-        createdAt: new Date("2023-07-03T18:00"),
-      },
-      sismoConnectRequest: {
-        appId: "0xe05ddc846d6d2de36763027aa02ad27e",
-        authRequests: [{ authType: AuthType.VAULT }],
-        claimRequests: [{ groupId: "0xe9ed316946d3d98dfcd829a53ec9822e" }],
-        impersonateAddresses: [ "0x024f36b02608a5129c61f8df54dc7286f9113dee" ]
-      },
-      templateConfig: {
-        nftMetadata: {
-          name: "NFT Test",
-          description: "This is a test description",
-          image: "sismo-zkdrop.png"
-        },
-        chains: [{
-          contractAddress: "0xDB0a602Da6ba43337fD0D308531f3e9d318BEb40",
-          name: "sepolia",
-          relayerEnabled: false,
-          isTransferable: true
-        }, {
-          contractAddress: "0xB818C9d41445c8486c9bC56860eF3Caf6BD9Ba83",
-          name: "mumbai",
-          relayerEnabled: true,
-          isTransferable: true
-        }],
-        step1CtaText: "step 1",
-        step2CtaText: "step 2"
-      }
-    }
   ],
 } as SpaceConfig;

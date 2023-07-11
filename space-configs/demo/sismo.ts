@@ -1,6 +1,7 @@
 // add an images folder in your space folder if you would like Sismo to host your images
 import { AuthType } from "@sismo-core/sismo-connect-server";
 import { SpaceConfig } from "../types";
+import { Network } from "@/src/libs/contracts/networks";
 
 export default {
   metadata: {
@@ -465,6 +466,37 @@ export default {
       },
       options: {
         isFeatured: true,
+      },
+    },
+    {
+      type: "zkDrop",
+      metadata: {
+        name: "Sismo Early Community Minting",
+        slug: "zk-drop-early-community",
+        description: "Prove you are an early member of Sismo Community to mint your Sismo Early Community NFT.",
+        tags: ["NFT"],
+        image: "sismo_app_store_zkdrop_early_community_500x500.png",
+        createdAt: new Date("2023-07-11T10:00"),
+        isTransferable: false,
+      },
+      sismoConnectRequest: {
+        appId: "0x5b7249cf5d8a1669cec21e5aa554299d",
+        authRequests: [{ authType: AuthType.VAULT }],
+        claimRequests: [{ groupId: "0xd630aa769278cacde879c5c0fe5d203c", value: 1 },],
+        impersonateAddresses: ["0x8ab1760889F26cBbf33A75FD2cF1696BFccDc9e6"],
+      },
+      templateConfig: {
+        nftMetadata: {
+          name: "Sismo Early Community",
+          description: "NFT owned by early Sismo community members.",
+          image: "nft_sismo_early_community_1000x1000.png",
+        },
+        chains: [{
+            contractAddress: "{{ auto-fill }}",
+            name: Network.Gnosis,
+            relayerEnabled: true,
+        }],
+        step2CtaText: "Mint your Sismo Early Community NFT",
       },
     },
   ],

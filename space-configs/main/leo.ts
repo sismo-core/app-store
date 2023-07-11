@@ -46,7 +46,7 @@ export default {
       templateConfig: {
         nftMetadata: {
           name: "NFT Claim leo test",  // UPDATE HERE
-          description: "This is a leo airdrop test",// UPDATE HERE
+          description: "This is a leo airdrop test relayed",// UPDATE HERE
           image: "leo_cover_400x400.png" // UPDATE HERE
         },
         chains: [{
@@ -98,7 +98,7 @@ export default {
       templateConfig: {
         nftMetadata: {
           name: "NFT Claim leo test",  // UPDATE HERE
-          description: "This is a leo airdrop test",// UPDATE HERE
+          description: "This is a leo airdrop test not relayed",// UPDATE HERE
           image: "leo_cover_400x400.png" // UPDATE HERE
         },
         chains: [{

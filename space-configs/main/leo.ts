@@ -66,6 +66,10 @@ export default {
           contractAddress: "0x65D478De77a161CC9824e4c40cc9B979deDED366",
           name: "polygon", // UPDATE HERE choose your chain name
           relayerEnabled: true
+        }, {
+          contractAddress: "0x65D478De77a161CC9824e4c40cc9B979deDED366",
+          name: "gnosis", // UPDATE HERE choose your chain name
+          relayerEnabled: true
         }],
         step1CtaText: "Prove eligibility", 
         step2CtaText: "Claim!",
@@ -110,6 +114,10 @@ export default {
           contractAddress: "0x09519fb0E2363D2253338a4Cdc2911f67fE9A2C4",
           name: "polygon", // UPDATE HERE choose your chain name
           relayerEnabled: false
+        }, {
+          contractAddress: "0x4744189928214fF879646a24B3FB2A2080152351",
+          name: "gnosis", // UPDATE HERE choose your chain name
+          relayerEnabled: true
         }],
         step1CtaText: "Prove eligibility", 
         step2CtaText: "Claim!",

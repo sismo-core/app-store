@@ -323,7 +323,7 @@ export default function ZkDropApp({ app, groupSnapshotMetadataList }: Props): JS
                 });
                 window.open(explorer, "_blank");
               }}>
-                Drop Already minted <ArrowSquareOut style={{ marginTop: -8, marginLeft: 4 }} size={18}/>
+                NFT Already minted <ArrowSquareOut style={{ marginTop: -8, marginLeft: 4 }} size={18}/>
               </AlreadyRegistered>
               :
               <MintContainer>
@@ -334,7 +334,7 @@ export default function ZkDropApp({ app, groupSnapshotMetadataList }: Props): JS
                       secondary
                       loading={minting}
                     >
-                      {minting ? "Minting..." : `Mint ${app.nftMetadata.name}`}
+                      {minting ? "Minting..." : `Mint NFT`}
                     </Button3D>
                     :
                     <Button3D
@@ -352,7 +352,7 @@ export default function ZkDropApp({ app, groupSnapshotMetadataList }: Props): JS
                               </>
                               :
                               <>
-                                {isLoadingTransaction || isLoadingWriteContract ? "Minting..." : `Mint ${app.nftMetadata.name}`}
+                                {isLoadingTransaction || isLoadingWriteContract ? "Minting..." : `Mint NFT`}
                               </>
                           }
                         </>

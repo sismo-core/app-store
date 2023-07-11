@@ -39,7 +39,7 @@ export default {
         createdAt: new Date("2023-07-03T18:00"), // UPDATE HERE WITH CURRENT DATE
       },
       sismoConnectRequest: {
-        appId: "{{ auto-fill }}",
+        appId: "0x2301cda9ff54957f06fa9750ad537ef5",
         authRequests: [{ authType: AuthType.VAULT }],
         claimRequests: [{ groupId: "0xd4cdaae916464870f7413a03b1fe8c31" }],  // UPDATE HERE WITH YOUR GROUP
       },

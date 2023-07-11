@@ -77,10 +77,12 @@ export const getErc721Explorer = ({ contractAddress, network, tokenId }: { contr
       case Network.Sepolia:
           return `https://testnets.opensea.io/assets/${network}/${contractAddress}${tokenId ? "/" + tokenId : ""}`;
       case Network.Mainnet:
-      case Network.Polygon:
       case Network.Optimism:
-      case Network.ArbitrumOne:
           return `https://opensea.io/assets/${network}/${contractAddress}${tokenId ? "/" + tokenId : ""}`;
+      case Network.ArbitrumOne:
+          return `https://opensea.io/assets/arbitrum/${contractAddress}${tokenId ? "/" + tokenId : ""}`;
+      case Network.Polygon:
+          return `https://opensea.io/assets/matic/${contractAddress}${tokenId ? "/" + tokenId : ""}`;
       case Network.Gnosis:
           if (tokenId)
             return `https://gnosisscan.io/nft/${contractAddress}/${tokenId}`

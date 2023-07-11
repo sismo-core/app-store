@@ -140,5 +140,35 @@ export default {
         isFeatured: true,
       },
     },
+    {
+      type: "zkDrop",
+      metadata: {
+        name: "Cow Trader Rare",
+        slug: "zk-drop-trader-tier-1",
+        description: "Prove you have traded on CoW Swap 37 times or more to claim your Cow Trader Rare NFT.",
+        tags: ["Drop"],
+        image: "cowswap_app_store_cow_event_400x400.png",
+        createdAt: new Date("2023-07-11T10:00"),
+      },
+      sismoConnectRequest: {
+        appId: "0x90e7e9cee2de45bd484985e63f69b946",
+        authRequests: [{ authType: AuthType.VAULT }],
+        claimRequests: [{ groupId: "0x34dba00caed5fbe69db7313adebf1eaf", value: 1 },],
+      },
+      templateConfig: {
+        nftMetadata: {
+          name: "Cow Trader Rare",
+          description: "NFT owned by users that traded on CoW Swap 37 times or more.",
+          image: "cowswap_app_store_cow_event_400x400.png",
+        },
+        chains: [{
+            contractAddress: "{{ auto-fill }}",
+            name: Network.Gnosis,
+            relayerEnabled: true,
+            isTransferable: false
+        }],
+        step2CtaText: "Mint your Cow Trader Rare NFT",
+      },
+    },
   ],
 } as SpaceConfig;

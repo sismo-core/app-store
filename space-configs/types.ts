@@ -100,6 +100,8 @@ export type ZkDropChainName = Network.Gnosis | Network.Mumbai | Network.Sepolia 
 export type ZkDropAppConfig = AppCommonConfig & {
   type: "zkDrop";
   templateConfig: {
+    owner?: `0x${string}`;
+    isTransferable: boolean;
     nftMetadata: {
       name: string;
       description: string;
@@ -108,7 +110,6 @@ export type ZkDropAppConfig = AppCommonConfig & {
     chains: {
         contractAddress: string;
         name: ZkDropChainName;
-        isTransferable: boolean;
         relayerEnabled?: boolean;
     }[];
     step1CtaText?: string;

@@ -32,7 +32,7 @@ export default {
       type: "zkDrop",
       metadata: {
         name: "Leo ZK Drop relayer", // UPDATE HERE
-        slug: "claim-your-airdrop", // UPDATE HERE
+        slug: "claim-your-airdrop-relayed", // UPDATE HERE
         description: "Claim your Zk Drp", // UPDATE HERE
         tags: ["Airdrop"],
         image: "leo_cover_400x400.png", // UPDATE HERE
@@ -84,7 +84,7 @@ export default {
       type: "zkDrop",
       metadata: {
         name: "Leo ZK Drop not relayed", // UPDATE HERE
-        slug: "claim-your-airdrop", // UPDATE HERE
+        slug: "claim-your-airdrop-not-relayed", // UPDATE HERE
         description: "Claim your Zk Drp", // UPDATE HERE
         tags: ["Airdrop"],
         image: "leo_cover_400x400.png", // UPDATE HERE

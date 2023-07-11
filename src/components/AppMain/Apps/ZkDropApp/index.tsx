@@ -12,16 +12,16 @@ import { getImpersonateAddresses } from "@/src/utils/getImpersonateAddresses";
 import env from "@/src/environments";
 import SelectDestination from "./components/SelectDestination";
 import Requirements from "./components/Requirements";
-import { getErc721Explorer, getTxExplorer, networkChainIds } from "@/src/libs/contracts/networks";
+import { Network, getErc721Explorer, getTxExplorer, networkChainIds } from "@/src/libs/contracts/networks";
 import { getMessageSignature } from "./utils/getMessageSignature";
 import Error from "@/src/ui/Error";
 import Congratulations from "./components/Congratulations";
 import { getMinimalHash } from "@/src/utils/getMinimalHash";
 import { ArrowSquareOut } from "phosphor-react";
 import { useAccount, useContractWrite, usePrepareContractWrite, useNetwork, useSwitchNetwork, useWaitForTransaction, useContractRead } from "wagmi";
-import { ZK_BADGE_ADDRESSES } from "@/src/libs/contracts/zk-badge/constants";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 import { ZK_DROP_ABI } from "@/src/libs/contracts/zk-drop";
+import SelectChain from "./components/SelectChain";
 
 const Content = styled.div`
   width: 580px;
@@ -122,14 +122,12 @@ export default function ZkDropApp({ app, groupSnapshotMetadataList }: Props): JS
   const [responseBytes, setResponseBytes] = useState<string>(null);
   const [minting, setMinting] = useState(null);
   const [hash, setHash] = useState(null);
-  const [vaultId, setVaultId] = useState(null);
   const hasResponse = Boolean(responseBytes);
+  const [vaultId, setVaultId] = useState(null);
 
-  const chainApp = app.chains[0].name;
+  const [chainApp, setChainApp] = useState<Network>(app?.chains?.length === 1 ? app?.chains[0]?.name : null);
   const isRelayed = app.chains[0].relayerEnabled;
-
-  console.log("chainApp", chainApp);
-
+  
   const sismoConnectConfig = useMemo(() => {
     const config = {
       appId: app.appId,
@@ -144,9 +142,15 @@ export default function ZkDropApp({ app, groupSnapshotMetadataList }: Props): JS
 
   useEffect(() => {
     if (destination) {
-      window.localStorage.setItem("destination", destination);
+      window.localStorage.setItem("destination_zk_drop", destination);
     }
   }, [destination])
+
+  useEffect(() => {
+    if (chainApp) {
+      window.localStorage.setItem("chain_app_zk_drop", chainApp);
+    }
+  }, [chainApp])
 
   const contractAddress = app.chains.find(chain => chain.name === chainApp)?.contractAddress;
   useContractRead({
@@ -154,7 +158,7 @@ export default function ZkDropApp({ app, groupSnapshotMetadataList }: Props): JS
     abi: ZK_DROP_ABI,
     functionName: 'balanceOf',
     args: [destination],
-    enabled: Boolean(destination),
+    enabled: Boolean(destination) && Boolean(chainApp),
     chainId: networkChainIds[chainApp],
     account: null,
     onSuccess: (data: BigInt) => {
@@ -189,16 +193,7 @@ export default function ZkDropApp({ app, groupSnapshotMetadataList }: Props): JS
     }
     const data = await res.json();
     if (data.success) {
-      try {
-        setHash(data.txHash);
-        // const provider = await getProvider(chainApp);
-        // await provider.waitForTransaction(data.txHash);
-        // setMinted(true);
-        // setHash(null);
-      } catch (e) {
-        console.log(e);
-        setError("Minting error. Please contact us or retry later.")
-      }
+      setHash(data.txHash);
     } else {
       if (data.code === "minting-error") {
         setError("Minting error. Please contact us or retry later.")
@@ -263,6 +258,7 @@ export default function ZkDropApp({ app, groupSnapshotMetadataList }: Props): JS
           app={app}
           destination={destination}
           network={chainApp}
+          tokenId={vaultId ? BigInt(vaultId)?.toString() :null}
         />
       ) : (
         <>
@@ -275,9 +271,13 @@ export default function ZkDropApp({ app, groupSnapshotMetadataList }: Props): JS
           >
             <Requirements app={app} groupSnapshotMetadataList={groupSnapshotMetadataList}/>
             <SelectDestination onDestinationSelected={(_destination: `0x${string}`) => setDestination(_destination)}/>
-            <SismoButtonContainer disabled={!destination}>
+            {
+              app.chains.length > 1 &&
+              <SelectChain onChainSelected={(_chain: Network) => setChainApp(_chain)} selectedChain={chainApp} chains={app.chains.map(chain => chain.name)}/>
+            }
+            <SismoButtonContainer disabled={!destination || !chainApp}>
               {
-                !destination && <DisabledButton/>
+                !destination || !chainApp && <DisabledButton/>
               }
               <SismoConnectButton
                 config={sismoConnectConfig}
@@ -288,7 +288,11 @@ export default function ZkDropApp({ app, groupSnapshotMetadataList }: Props): JS
                 callbackPath={pathname}
                 onResponseBytes={(response) => {
                   setResponseBytes(response);
-                  setDestination(window.localStorage.getItem("destination") as `0x${string}`);
+                  setDestination(window.localStorage.getItem("destination_zk_drop") as `0x${string}`);
+                  const chainAppZkDrop = window.localStorage.getItem("chain_app_zk_drop") as Network;
+                  if (chainAppZkDrop && app.chains.find(chain => chain.name === chainAppZkDrop)) {
+                    setChainApp(chainAppZkDrop);
+                  }
                 }}
                 onResponse={(response) => {
                   const vaultId = response.proofs.find(proof => {
@@ -310,7 +314,11 @@ export default function ZkDropApp({ app, groupSnapshotMetadataList }: Props): JS
           >
             { alreadyMinted ? 
               <AlreadyRegistered onClick={() => {
-                const explorer = getErc721Explorer({contractAddress: ZK_BADGE_ADDRESSES[chainApp],network: chainApp});
+                const explorer = getErc721Explorer({ 
+                  contractAddress: app.chains.find(chain => chain.name === chainApp)?.contractAddress, 
+                  network: chainApp,
+                  tokenId: vaultId ? BigInt(vaultId)?.toString() :null
+                });
                 window.open(explorer, "_blank");
               }}>
                 Badge Already minted <ArrowSquareOut style={{ marginTop: -8, marginLeft: 4 }} size={18}/>

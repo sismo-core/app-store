@@ -39,9 +39,10 @@ type Props = {
   app: ZkDropAppType;
   destination: `0x${string}`;
   network: Network;
+  tokenId?: string | null;
 };
 
-export default function Congratulations({ onBackToApps, app, destination, network }: Props): JSX.Element {
+export default function Congratulations({ onBackToApps, app, destination, network, tokenId }: Props): JSX.Element {
   const ethAccount = useEthAccount(destination);
   
   return (
@@ -49,7 +50,11 @@ export default function Congratulations({ onBackToApps, app, destination, networ
       <Title style={{ marginBottom: 16 }}>Congratulations</Title>
       <Subtitle 
         onClick={() => {
-          const explorer = getErc721Explorer({contractAddress: ZK_BADGE_ADDRESSES[network], network: network});
+          const explorer = getErc721Explorer({
+            contractAddress: app.chains.find(chain => chain.name === network)?.contractAddress, 
+            network: network,
+            tokenId: tokenId
+          });
           window.open(explorer, "_blank");
         }}
       >

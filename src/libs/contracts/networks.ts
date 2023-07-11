@@ -30,6 +30,20 @@ export const networkChainIds: { [network in Network]: number } = {
     [Network.ScrollTestnet]: 534353
 };
 
+export const networkLabels: { [network in Network]?: string } = {
+  [Network.Goerli]: "Goerli",
+  [Network.Sepolia]: "Sepolia",
+  [Network.Mainnet]: "Mainnet",
+  [Network.Gnosis]: "Gnosis",
+  [Network.Polygon]: "Polygon",
+  [Network.Mumbai]: "Mumbai",
+  [Network.Optimism]: "Optimism",
+  [Network.OptimismGoerli]: "Optimism Goerli",
+  [Network.ArbitrumOne]: "Arbitrum",
+  [Network.ArbitrumGoerli]: "Arbitrum Goerli",
+  [Network.ScrollTestnet]: "Scroll Testnet"
+};
+
 export const networkRpcUrls: { [network in Network]?: string } = {
     [Network.ArbitrumOne]: "https://1rpc.io/arb",
     [Network.ArbitrumGoerli]: "https://rpc.goerli.arbitrum.gateway.fm",
@@ -44,7 +58,9 @@ export const explorers: { [network in Network]?: string } = {
   [Network.Mainnet]: "https://etherscan.io",
   [Network.Goerli]: "https://goerli.etherscan.io",
   [Network.Optimism]: "https://optimistic.etherscan.io",
-  [Network.ArbitrumOne]: "https://arbiscan.io"
+  [Network.OptimismGoerli]: "https://goerli-optimism.etherscan.io",
+  [Network.ArbitrumOne]: "https://arbiscan.io",
+  [Network.ArbitrumGoerli]: "https://goerli.arbiscan.io"
 };
 
 export const getTxExplorer = ({ txHash, network }: { txHash: string, network: Network }) => {
@@ -52,8 +68,25 @@ export const getTxExplorer = ({ txHash, network }: { txHash: string, network: Ne
   return `${explorers[network]}/tx/${txHash}`;
 } 
 
-export const getErc721Explorer = ({ contractAddress, network }: { contractAddress:string, network: Network }) => {
-  return "todo";
+export const getErc721Explorer = ({ contractAddress, network, tokenId }: { contractAddress: string, network: Network, tokenId?: string }) => {
+  switch (network) {
+      case Network.ArbitrumGoerli:
+      case Network.Goerli:      
+      case Network.Mumbai:
+      case Network.OptimismGoerli:
+      case Network.Sepolia:
+          return `https://testnets.opensea.io/assets/${network}/${contractAddress}${tokenId ? "/" + tokenId : ""}`;
+      case Network.Mainnet:
+      case Network.Polygon:
+      case Network.Optimism:
+      case Network.ArbitrumOne:
+          return `https://opensea.io/assets/${network}/${contractAddress}${tokenId ? "/" + tokenId : ""}`;
+      case Network.Gnosis:
+          return `https://gnosisscan.io/token/${contractAddress}`
+      default:
+          console.error('Unsupported network or no dedicated NFT explorer for this network.');
+          return null;
+  }
 }
 
 export const getErc1155Explorer = ({ contractAddress, tokenId, network }: { contractAddress:string, tokenId: string, network: Network }) => {

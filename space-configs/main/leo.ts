@@ -53,12 +53,12 @@ export default {
           contractAddress: "{{ auto-fill }}",
           name: "sepolia", // UPDATE HERE choose your chain name
           relayerEnabled: true, 
-          isTransferable: true
+          isTransferable: false
         }, {
           contractAddress: "{{ auto-fill }}",
           name: "goerli", // UPDATE HERE choose your chain name
           relayerEnabled: true, 
-          isTransferable: true
+          isTransferable: false
         }, {
           contractAddress: "{{ auto-fill }}",
           name: "mumbai", // UPDATE HERE choose your chain name
@@ -73,7 +73,7 @@ export default {
           contractAddress: "{{ auto-fill }}",
           name: "polygon", // UPDATE HERE choose your chain name
           relayerEnabled: true, 
-          isTransferable: true
+          isTransferable: false
         }],
         step1CtaText: "Prove eligibility", 
         step2CtaText: "Claim!",
@@ -115,12 +115,12 @@ export default {
           contractAddress: "{{ auto-fill }}",
           name: "mumbai", // UPDATE HERE choose your chain name
           relayerEnabled: false, 
-          isTransferable: false
+          isTransferable: true
         }, {
           contractAddress: "{{ auto-fill }}",
           name: "gnosis", // UPDATE HERE choose your chain name
           relayerEnabled: false, 
-          isTransferable: false
+          isTransferable: true
         }, {
           contractAddress: "{{ auto-fill }}",
           name: "polygon", // UPDATE HERE choose your chain name

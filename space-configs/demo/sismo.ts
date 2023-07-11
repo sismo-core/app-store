@@ -68,6 +68,11 @@ export default {
             name: "mumbai",
             relayerEnabled: false,
           },
+          {
+            contractAddress: "{{ auto-fill }}",
+            name: "goerli",
+            relayerEnabled: false,
+          },
         ],
         step2CtaText: "Mint your Sismo Early Community NFT",
       },

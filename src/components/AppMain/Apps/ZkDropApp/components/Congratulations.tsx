@@ -1,8 +1,7 @@
 "use client";
 
 import useEthAccount from "@/src/hooks/useEthAccount";
-import { Network, getErc1155Explorer, getErc721Explorer } from "@/src/libs/contracts/networks";
-import { ZK_BADGE_ADDRESSES } from "@/src/libs/contracts/zk-badge";
+import { Network, getErc721Explorer } from "@/src/libs/contracts/networks";
 import { ZkDropAppType } from "@/src/services/spaces-service";
 import Button3D from "@/src/ui/Button3D";
 import { getMinimalEns, getMinimalIdentifier } from "@/src/utils/useMainMinified";

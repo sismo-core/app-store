@@ -45,7 +45,7 @@ describe('GET /api/zk-badge/image/[tokenId]', () => {
 
     const params = { tokenId: "40000001" };
     const dummyImageBuffer = Buffer.from([0, 1, 2, 3, 4, 5]); 
-    const imagePath = path.join(process.cwd(), '/space-config/space/images/image.png'); 
+    const imagePath = path.join(process.cwd(), '/space-configs/images/image.png'); 
   
     (fs.readFileSync as jest.Mock).mockImplementation((path) => {
         if (path === imagePath) {

@@ -2,7 +2,7 @@
 
 import '@rainbow-me/rainbowkit/styles.css';
 import { createConfig, configureChains, mainnet } from 'wagmi'
-import {  gnosis, polygon, polygonMumbai, sepolia } from 'wagmi/chains'
+import {  arbitrum, arbitrumGoerli, gnosis, goerli, optimism, optimismGoerli, polygon, polygonMumbai, scrollTestnet, sepolia } from 'wagmi/chains'
 import { publicProvider } from 'wagmi/providers/public'
 import { WagmiConfig } from "wagmi";
 import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
@@ -13,7 +13,12 @@ const { chains, publicClient } = configureChains(
       polygonMumbai, 
       sepolia,
       polygon,
-      mainnet
+      mainnet,
+      goerli,
+      optimism,
+      optimismGoerli,
+      arbitrumGoerli,
+      arbitrum
     ],
     [
       publicProvider()

@@ -18,7 +18,7 @@ export async function GET(req: Request, { params }: { params: { tokenId: string 
 
     let readableStream;
     try {
-        const imagePath = path.join(process.cwd(), `/space-config/${badge.space.slug}/images/${badge.badgeMetadata.image}`);
+        const imagePath = path.join(process.cwd(), `/space-configs/images/${badge.badgeMetadata.image}`);
         const file = fs.readFileSync(imagePath);
         readableStream = new ReadableStream({
             start(controller) {

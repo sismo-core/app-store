@@ -49,25 +49,26 @@ export default {
           name: "Sismo Early Community NFT",
           description: "Claimable by the early community of Sismo, this NFT is a small gift to everyone that helped us to build Sismo before July 11 2023.",
           image: "nft_sismo_early_community_1000x1000.png",
+          symbol: "SEarlyNFT",
         },
         chains: [
           {
-            contractAddress: "0x498310AD2c30349143DcBa65cd6e055d7D68cB4B",
+            contractAddress: "",
             name: "gnosis",
             relayerEnabled: true,
           },
           {
-            contractAddress: "0x498310AD2c30349143DcBa65cd6e055d7D68cB4B",
+            contractAddress: "",
             name: "optimism",
             relayerEnabled: false,
           },
           {
-            contractAddress: "0x65D478De77a161CC9824e4c40cc9B979deDED366",
+            contractAddress: "",
             name: "arbitrum",
             relayerEnabled: false,
           },
           {
-            contractAddress: "0x4744189928214fF879646a24B3FB2A2080152351",
+            contractAddress: "",
             name: "polygon",
             relayerEnabled: false,
           },

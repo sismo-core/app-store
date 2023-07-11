@@ -54,7 +54,7 @@ export default {
         },
         chains: [{
             contractAddress: "{{ auto-fill }}",
-            name: Network.Polygon,
+            name: Network.Mumbai,
             relayerEnabled: false,
         }],
         step2CtaText: "Mint your Sismo Early Community NFT",

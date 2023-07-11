@@ -82,6 +82,8 @@ export const getErc721Explorer = ({ contractAddress, network, tokenId }: { contr
       case Network.ArbitrumOne:
           return `https://opensea.io/assets/${network}/${contractAddress}${tokenId ? "/" + tokenId : ""}`;
       case Network.Gnosis:
+          if (tokenId)
+            return `https://gnosisscan.io/nft/${contractAddress}/${tokenId}`
           return `https://gnosisscan.io/token/${contractAddress}`
       default:
           console.error('Unsupported network or no dedicated NFT explorer for this network.');

@@ -44,6 +44,7 @@ export default {
         claimRequests: [{ groupId: "0xd4cdaae916464870f7413a03b1fe8c31" }],  // UPDATE HERE WITH YOUR GROUP
       },
       templateConfig: {
+        isTransferable: false
         nftMetadata: {
           name: "NFT Claim leo test",  // UPDATE HERE
           description: "This is a leo airdrop test relayed",// UPDATE HERE
@@ -53,27 +54,22 @@ export default {
           contractAddress: "{{ auto-fill }}",
           name: "sepolia", // UPDATE HERE choose your chain name
           relayerEnabled: true, 
-          isTransferable: false
         }, {
           contractAddress: "{{ auto-fill }}",
           name: "goerli", // UPDATE HERE choose your chain name
-          relayerEnabled: true, 
-          isTransferable: false
+          relayerEnabled: true
         }, {
           contractAddress: "{{ auto-fill }}",
           name: "mumbai", // UPDATE HERE choose your chain name
-          relayerEnabled: true, 
-          isTransferable: false
+          relayerEnabled: true
         }, {
           contractAddress: "{{ auto-fill }}",
           name: "gnosis", // UPDATE HERE choose your chain name
-          relayerEnabled: true, 
-          isTransferable: false
+          relayerEnabled: true
         }, {
           contractAddress: "{{ auto-fill }}",
           name: "polygon", // UPDATE HERE choose your chain name
-          relayerEnabled: true, 
-          isTransferable: false
+          relayerEnabled: true
         }],
         step1CtaText: "Prove eligibility", 
         step2CtaText: "Claim!",
@@ -96,6 +92,7 @@ export default {
         claimRequests: [{ groupId: "0xd4cdaae916464870f7413a03b1fe8c31" }],  // UPDATE HERE WITH YOUR GROUP
       },
       templateConfig: {
+        isTransferable: true,
         nftMetadata: {
           name: "NFT Claim leo test",  // UPDATE HERE
           description: "This is a leo airdrop test not relayed",// UPDATE HERE
@@ -105,27 +102,22 @@ export default {
           contractAddress: "{{ auto-fill }}",
           name: "sepolia", // UPDATE HERE choose your chain name
           relayerEnabled: false, 
-          isTransferable: true
         }, {
           contractAddress: "{{ auto-fill }}",
           name: "goerli", // UPDATE HERE choose your chain name
-          relayerEnabled: false, 
-          isTransferable: true
+          relayerEnabled: false
         }, {
           contractAddress: "{{ auto-fill }}",
           name: "mumbai", // UPDATE HERE choose your chain name
-          relayerEnabled: false, 
-          isTransferable: true
+          relayerEnabled: false
         }, {
           contractAddress: "{{ auto-fill }}",
           name: "gnosis", // UPDATE HERE choose your chain name
-          relayerEnabled: false, 
-          isTransferable: true
+          relayerEnabled: false
         }, {
           contractAddress: "{{ auto-fill }}",
           name: "polygon", // UPDATE HERE choose your chain name
-          relayerEnabled: false, 
-          isTransferable: true
+          relayerEnabled: false
         }],
         step1CtaText: "Prove eligibility", 
         step2CtaText: "Claim!",

@@ -334,7 +334,7 @@ export default function ZkDropApp({ app, groupSnapshotMetadataList }: Props): JS
                       secondary
                       loading={minting}
                     >
-                      {minting ? "Minting..." : "Mint Drop"}
+                      {minting ? "Minting..." : `Mint ${app.nftMetadata.name}`}
                     </Button3D>
                     :
                     <Button3D

@@ -51,23 +51,19 @@ export default {
           image: "leo_cover_400x400.png" // UPDATE HERE
         },
         chains: [{
-          contractAddress: "{{ auto-fill }}",
+          contractAddress: "0x4744189928214fF879646a24B3FB2A2080152351",
           name: "sepolia", // UPDATE HERE choose your chain name
           relayerEnabled: true, 
         }, {
-          contractAddress: "{{ auto-fill }}",
+          contractAddress: "0x498310AD2c30349143DcBa65cd6e055d7D68cB4B",
           name: "goerli", // UPDATE HERE choose your chain name
           relayerEnabled: true
         }, {
-          contractAddress: "{{ auto-fill }}",
+          contractAddress: "0x498310AD2c30349143DcBa65cd6e055d7D68cB4B",
           name: "mumbai", // UPDATE HERE choose your chain name
           relayerEnabled: true
         }, {
-          contractAddress: "{{ auto-fill }}",
-          name: "gnosis", // UPDATE HERE choose your chain name
-          relayerEnabled: true
-        }, {
-          contractAddress: "{{ auto-fill }}",
+          contractAddress: "0x65D478De77a161CC9824e4c40cc9B979deDED366",
           name: "polygon", // UPDATE HERE choose your chain name
           relayerEnabled: true
         }],
@@ -99,23 +95,19 @@ export default {
           image: "leo_cover_400x400.png" // UPDATE HERE
         },
         chains: [{
-          contractAddress: "{{ auto-fill }}",
+          contractAddress: "0x498310AD2c30349143DcBa65cd6e055d7D68cB4B",
           name: "sepolia", // UPDATE HERE choose your chain name
           relayerEnabled: false, 
         }, {
-          contractAddress: "{{ auto-fill }}",
+          contractAddress: "0x4744189928214fF879646a24B3FB2A2080152351",
           name: "goerli", // UPDATE HERE choose your chain name
           relayerEnabled: false
         }, {
-          contractAddress: "{{ auto-fill }}",
+          contractAddress: "0x4744189928214fF879646a24B3FB2A2080152351",
           name: "mumbai", // UPDATE HERE choose your chain name
           relayerEnabled: false
         }, {
-          contractAddress: "{{ auto-fill }}",
-          name: "gnosis", // UPDATE HERE choose your chain name
-          relayerEnabled: false
-        }, {
-          contractAddress: "{{ auto-fill }}",
+          contractAddress: "0x09519fb0E2363D2253338a4Cdc2911f67fE9A2C4",
           name: "polygon", // UPDATE HERE choose your chain name
           relayerEnabled: false
         }],

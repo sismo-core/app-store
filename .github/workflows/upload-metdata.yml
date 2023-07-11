@@ -34,13 +34,26 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
-      - id: changed-files
-        uses: ahmadnassri/action-changed-files@v1
-
-      - name: content
+      - name: Get list of changed files from pull request
+        id: changed-files
+        env:
+          GITHUB_TOKEN: ${{ secrets.SISMOBOT_TOKEN }}
         run: |
-          echo 'Changed files:'
-          echo "${{ steps.changed-files.outputs.files }}"
+          PR_NUMBER=${{ github.event.issue.number }}
+
+          # Make sure jq is installed
+          sudo apt-get install -y jq
+
+          # Fetch the list of files from the GitHub API
+          FILES=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+                      -H "Accept: application/vnd.github.v3+json" \
+                      "https://api.github.com/repos/sismo-core/app-store/pulls/${PR_NUMBER}/files")
+
+          # Use jq to parse out the filenames and join them into one line
+          FILENAMES=$(echo "$FILES" | jq -r '.[].filename' | tr '\n' ' ')
+
+          # Set the output for subsequent steps
+          echo "::set-output name=files::$FILENAMES"
 
       - name: Get modified spaces and apps
         id: updated-spaces

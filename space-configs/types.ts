@@ -106,6 +106,7 @@ export type ZkDropAppConfig = AppCommonConfig & {
       name: string;
       description: string;
       image: string;
+      symbol: string;
     };
     chains: {
         contractAddress: string;

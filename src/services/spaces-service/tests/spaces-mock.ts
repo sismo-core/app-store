@@ -167,7 +167,8 @@ export const spaceMock1: SpaceConfig = {
         nftMetadata: {
           name: "NFT Test",
           description: "This is a test description",
-          image: "sismo-zkdrop.png"
+          image: "sismo-zkdrop.png",
+          symbol: "TEST"
         },
         chains: [{
             contractAddress: "{{ auto-fill }}",

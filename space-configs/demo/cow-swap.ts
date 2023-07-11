@@ -1,6 +1,7 @@
 // add an images folder in your space folder if you would like Sismo to host your images
 import { AuthType } from "@sismo-core/sismo-connect-server";
 import { SpaceConfig } from "../types";
+import { Network } from "@/src/libs/contracts/networks";
 
 export default {
   metadata: {
@@ -138,6 +139,38 @@ export default {
       },
       options: {
         isFeatured: true,
+      },
+    },
+    {
+      type: "zkDrop",
+      metadata: {
+        name: "Cow Trader Tier 1 Minting",
+        slug: "zk-drop-trader-tier-1",
+        description: "Prove you have traded on CoW Swap 37 times or more to mint your Cow Trader Tier 1 NFT.",
+        tags: ["NFT"],
+        image: "cowswap_app_store_cow_event_400x400.png",
+        createdAt: new Date("2023-07-11T10:00"),
+      },
+      sismoConnectRequest: {
+        appId: "0x90e7e9cee2de45bd484985e63f69b946",
+        authRequests: [{ authType: AuthType.VAULT }],
+        claimRequests: [{ groupId: "0x34dba00caed5fbe69db7313adebf1eaf", value: 3 },],
+        impersonateAddresses: ["0x0ed46170eab92730b8e59baed60cb482e7b4abae"],
+      },
+      templateConfig: {
+        owner: "null",
+        isTransferable: false,
+        nftMetadata: {
+          name: "Cow Trader Tier 1",
+          description: "NFT owned by users that traded on CoW Swap 37 times or more.",
+          image: "cowswap_app_store_cow_event_400x400.png",
+        },
+        chains: [{
+            contractAddress: "{{ auto-fill }}",
+            name: Network.Gnosis,
+            relayerEnabled: true,
+        }],
+        step2CtaText: "Mint your Cow Trader Tier 1 NFT",
       },
     },
   ],

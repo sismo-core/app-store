@@ -53,7 +53,7 @@ export default {
           image: "nft_sismo_early_community_1000x1000.png",
         },
         chains: [{
-            contractAddress: "{{ auto-fill }}",
+            contractAddress: "0xbba628f1B649Ce20C9e90fc8564F116ceeaF8b7a",
             name: Network.Mumbai,
             relayerEnabled: false,
         }],

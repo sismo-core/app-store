@@ -215,7 +215,7 @@ export default function ZkDropApp({ app, groupSnapshotMetadataList }: Props): JS
       functionName: "claimWithSismoConnect",
       args: [responseBytes, destination],
       chainId: networkChainIds[chainApp],
-      enabled: Boolean(responseBytes) && Boolean(destination),
+      enabled: Boolean(responseBytes) && Boolean(destination) ,
   })
 
   const { data, write, isLoading: isLoadingWriteContract } = useContractWrite(config);  
@@ -233,7 +233,7 @@ export default function ZkDropApp({ app, groupSnapshotMetadataList }: Props): JS
       setMinting(false);
     },
     onError: () => {
-      setError("Error while minting your ZK Badge");
+      setError("Error while minting your ZK Drop");
     }
   })
 
@@ -323,7 +323,7 @@ export default function ZkDropApp({ app, groupSnapshotMetadataList }: Props): JS
                 });
                 window.open(explorer, "_blank");
               }}>
-                Badge Already minted <ArrowSquareOut style={{ marginTop: -8, marginLeft: 4 }} size={18}/>
+                Drop Already minted <ArrowSquareOut style={{ marginTop: -8, marginLeft: 4 }} size={18}/>
               </AlreadyRegistered>
               :
               <MintContainer>
@@ -334,7 +334,7 @@ export default function ZkDropApp({ app, groupSnapshotMetadataList }: Props): JS
                       secondary
                       loading={minting}
                     >
-                      {minting ? "Minting..." : "Mint Badge"}
+                      {minting ? "Minting..." : "Mint Drop"}
                     </Button3D>
                     :
                     <Button3D
@@ -352,7 +352,7 @@ export default function ZkDropApp({ app, groupSnapshotMetadataList }: Props): JS
                               </>
                               :
                               <>
-                                {isLoadingTransaction || isLoadingWriteContract ? "Minting..." : "Mint Badge"}
+                                {isLoadingTransaction || isLoadingWriteContract ? "Minting..." : `Mint ${app.nftMetadata.name}`}
                               </>
                           }
                         </>

@@ -25,9 +25,6 @@ type Environment = {
   zkBadgeAddresses: {
     [network in Network]: `0x${string}`
   },
-  zkDropAddresses: {
-    [network in Network]: `0x${string}`
-  },
   pinata: {
     jwtToken?: string
   }
@@ -56,7 +53,6 @@ const env: Environment = {
     zkBadge: process.env.SH_ZK_BADGE_RELAY_DEFENDER_API_KEYS && JSON.parse(process.env.SH_ZK_BADGE_RELAY_DEFENDER_API_KEYS),
   },
   zkBadgeAddresses: process.env.NEXT_PUBLIC_ZK_BADGE_ADDRESSES && JSON.parse(process.env.NEXT_PUBLIC_ZK_BADGE_ADDRESSES),
-  zkDropAddresses: process.env.NEXT_PUBLIC_ZK_DROP_ADDRESSES && JSON.parse(process.env.NEXT_PUBLIC_ZK_DROP_ADDRESSES),
   pinata: {
     jwtToken: process.env.PINATA_JWT_TOKEN
   }

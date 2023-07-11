@@ -49,14 +49,27 @@ export default {
       templateConfig: {
         nftMetadata: {
           name: "Sismo Early Community NFT",
+          symbol: "SEarlyNFT",
           description: "Claimable by the early community of Sismo, this NFT is a small gift to everyone that helped us to build Sismo before July 11 2023.",
           image: "nft_sismo_early_community_1000x1000.png",
         },
-        chains: [{
-            contractAddress: "0xbba628f1B649Ce20C9e90fc8564F116ceeaF8b7a",
-            name: Network.Mumbai,
+        chains: [
+          {
+            contractAddress: "{{ auto-fill }}",
+            name: "optimism-goerli",
             relayerEnabled: false,
-        }],
+          },
+          {
+            contractAddress: "{{ auto-fill }}",
+            name: "arbitrum-goerli",
+            relayerEnabled: false,
+          },
+          {
+            contractAddress: "{{ auto-fill }}",
+            name: "mumbai",
+            relayerEnabled: false,
+          },
+        ],
         step2CtaText: "Mint your Sismo Early Community NFT",
       },
       options: {

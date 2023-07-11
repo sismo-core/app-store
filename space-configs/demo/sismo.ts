@@ -477,7 +477,7 @@ export default {
         tags: ["NFT"],
         image: "sismo_app_store_zkdrop_early_community_500x500.png",
         createdAt: new Date("2023-07-11T10:00"),
-        isTransferable: false,
+        isTransferable: true,
       },
       sismoConnectRequest: {
         appId: "0x5b7249cf5d8a1669cec21e5aa554299d",
@@ -493,10 +493,13 @@ export default {
         },
         chains: [{
             contractAddress: "{{ auto-fill }}",
-            name: Network.Gnosis,
-            relayerEnabled: true,
+            name: Network.Polygon,
+            relayerEnabled: false,
         }],
         step2CtaText: "Mint your Sismo Early Community NFT",
+      },
+      options: {
+        endDate: new Date("2023-09-01T10:00"),
       },
     },
   ],

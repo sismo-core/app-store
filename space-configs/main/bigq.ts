@@ -52,22 +52,22 @@ export default {
         },
         chains: [
           {
-            contractAddress: "",
+            contractAddress: "0x498310AD2c30349143DcBa65cd6e055d7D68cB4B",
             name: "gnosis", // UPDATE HERE choose your chain name
             relayerEnabled: true,
           },
           {
-            contractAddress: "",
+            contractAddress: "0x498310AD2c30349143DcBa65cd6e055d7D68cB4B",
             name: "optimism", // UPDATE HERE choose your chain name
             relayerEnabled: false,
           },
           {
-            contractAddress: "",
+            contractAddress: "0x65D478De77a161CC9824e4c40cc9B979deDED366",
             name: "arbitrum", // UPDATE HERE choose your chain name
             relayerEnabled: false,
           },
           {
-            contractAddress: "",
+            contractAddress: "0x4744189928214fF879646a24B3FB2A2080152351",
             name: "polygon", // UPDATE HERE choose your chain name
             relayerEnabled: false,
           },

@@ -54,17 +54,17 @@ export default {
         },
         chains: [
           {
-            contractAddress: "{{ auto-fill }}",
+            contractAddress: "0x56265e9dA5B0ECE019590D4AA77261471f814758",
             name: "optimism-goerli",
             relayerEnabled: false,
           },
           {
-            contractAddress: "{{ auto-fill }}",
+            contractAddress: "0xBacDAe186628A88f4a6CE1F3D668c889935c8F06",
             name: "arbitrum-goerli",
             relayerEnabled: false,
           },
           {
-            contractAddress: "{{ auto-fill }}",
+            contractAddress: "0xF34E9055e063aC57BBc6ff4f1eDBD2981bf21303",
             name: "mumbai",
             relayerEnabled: false,
           },

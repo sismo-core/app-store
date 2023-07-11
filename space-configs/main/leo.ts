@@ -44,7 +44,7 @@ export default {
         claimRequests: [{ groupId: "0xd4cdaae916464870f7413a03b1fe8c31" }],  // UPDATE HERE WITH YOUR GROUP
       },
       templateConfig: {
-        isTransferable: false
+        isTransferable: false,
         nftMetadata: {
           name: "NFT Claim leo test",  // UPDATE HERE
           description: "This is a leo airdrop test relayed",// UPDATE HERE

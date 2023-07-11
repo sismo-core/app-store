@@ -126,7 +126,7 @@ export default function ZkDropApp({ app, groupSnapshotMetadataList }: Props): JS
   const [vaultId, setVaultId] = useState(null);
 
   const [chainApp, setChainApp] = useState<Network>(app?.chains?.length === 1 ? app?.chains[0]?.name : null);
-  const isRelayed = app.chains[0].relayerEnabled;
+  const [isRelayed, setIsRelayed] = useState<boolean>(app?.chains?.length === 1 ? app?.chains[0]?.relayerEnabled : null);
   
   const sismoConnectConfig = useMemo(() => {
     const config = {
@@ -147,10 +147,12 @@ export default function ZkDropApp({ app, groupSnapshotMetadataList }: Props): JS
   }, [destination])
 
   useEffect(() => {
-    if (chainApp) {
+    if (!app.chains) return;
+    if (chainApp && app.chains.find(chain => chain.name === chainApp)) {
+      setIsRelayed(app.chains.find(chain => chain.name === chainApp)?.relayerEnabled);
       window.localStorage.setItem("chain_app_zk_drop", chainApp);
     }
-  }, [chainApp])
+  }, [chainApp, app.chains])
 
   const contractAddress = app.chains.find(chain => chain.name === chainApp)?.contractAddress;
   useContractRead({

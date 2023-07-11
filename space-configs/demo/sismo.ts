@@ -50,6 +50,7 @@ export default {
           name: "Sismo Early Community NFT",
           description: "Claimable by the early community of Sismo, this NFT is a small gift to everyone that helped us to build Sismo before July 11 2023.",
           image: "nft_sismo_early_community_1000x1000.png",
+          symbol: "SEarlyNFT",
         },
         chains: [
           {

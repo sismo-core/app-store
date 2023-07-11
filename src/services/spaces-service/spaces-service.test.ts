@@ -41,7 +41,7 @@ describe('SpacesService', () => {
   describe('getApps', () => {
     it('should return all apps when no options provided', async () => {
       const result = await service.getApps();
-      expect(result.length).toBe(8);
+      expect(result.length).toBe(9);
     });
 
     it('should return filtered apps when spaceSlug is provide', async () => {
@@ -51,7 +51,7 @@ describe('SpacesService', () => {
         }
         };
       const result = await service.getApps(options);
-      expect(result.length).toBe(4);
+      expect(result.length).toBe(5);
     });
 
     it('should return apps sorted by createdAt when sortedBy option is provided', async () => {

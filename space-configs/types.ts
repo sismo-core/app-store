@@ -74,18 +74,6 @@ export type FirstComeFirstServed = {
   maxNumberOfUsers: number;
 };
 
-export type ZkDropAppConfig = AppCommonConfig & {
-  type: "zkdrop";
-  templateConfig: {
-    step1CtaText?: string;
-    step2CtaText: string;
-    appDescription?: string;
-    chainId: number;
-    userSelection?: UserSelection; // default none
-    contractAddress: string;
-  };
-};
-
 export type ZkBadgeChainName = Network.Gnosis | Network.Mumbai | Network.Sepolia;
 export type ZkBadgeAppConfig = AppCommonConfig & {
   type: "zkBadge";
@@ -105,6 +93,27 @@ export type ZkBadgeAppConfig = AppCommonConfig & {
         relayerEnabled?: boolean;
       }
     ];
+  };
+};
+
+export type ZkDropChainName = Network.Gnosis | Network.Mumbai | Network.Sepolia;
+export type ZkDropAppConfig = AppCommonConfig & {
+  type: "zkDrop";
+  templateConfig: {
+    nftMetadata: {
+      name: string;
+      description: string;
+      image: string;
+    };
+    chains: {
+        contractAddress: string;
+        name: ZkDropChainName;
+        isTransferable: boolean;
+        relayerEnabled?: boolean;
+    }[];
+    step1CtaText?: string;
+    step2CtaText: string;
+    appDescription?: string;
   };
 };
 

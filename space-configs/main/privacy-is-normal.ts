@@ -152,6 +152,7 @@ export default {
           },
         },
       },
+      
     },
   ],
 } as SpaceConfig;

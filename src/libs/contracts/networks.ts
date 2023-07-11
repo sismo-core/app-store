@@ -41,13 +41,20 @@ export const explorers: { [network in Network]?: string } = {
   [Network.Gnosis]: "https://gnosisscan.io",
   [Network.Sepolia]: "https://sepolia.etherscan.io",
   [Network.Polygon]: "https://polygonscan.com",
-  [Network.Mainnet]: "https://etherscan.io"
+  [Network.Mainnet]: "https://etherscan.io",
+  [Network.Goerli]: "https://goerli.etherscan.io",
+  [Network.Optimism]: "https://optimistic.etherscan.io",
+  [Network.ArbitrumOne]: "https://arbiscan.io"
 };
 
 export const getTxExplorer = ({ txHash, network }: { txHash: string, network: Network }) => {
   if (!explorers[network]) return null;
   return `${explorers[network]}/tx/${txHash}`;
 } 
+
+export const getErc721Explorer = ({ contractAddress, network }: { contractAddress:string, network: Network }) => {
+  return "todo";
+}
 
 export const getErc1155Explorer = ({ contractAddress, tokenId, network }: { contractAddress:string, tokenId: string, network: Network }) => {
   if (!explorers[network]) return null;

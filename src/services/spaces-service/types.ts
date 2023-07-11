@@ -1,4 +1,4 @@
-import { ZkBadgeChainName } from "@/space-configs/types";
+import { ZkBadgeChainName, ZkDropChainName } from "@/space-configs/types";
 import { ImportedNextImage } from "@/src/utils/getImgSrcFromConfig";
 import { AuthRequest, ClaimRequest } from "@sismo-core/sismo-connect-react";
 
@@ -80,15 +80,24 @@ export type ExternalAppType = AppCommonType & {
   link: string;
 };
 
+
 export type ZkDropAppType = AppCommonType & {
-  type: "zkdrop";
-  chainId: number;
-  userSelection?: UserSelection; // default none
-  contractAddress: string;
-  step1CtaText: string;
+  type: "zkDrop";
+  nftMetadata: {
+    name: string;
+    description: string;
+    image: string;
+  };
+  chains: {
+      contractAddress: `0x${string}`;
+      name: ZkDropChainName;
+      relayerEnabled?: boolean;
+  }[];
+  step1CtaText?: string;
   step2CtaText: string;
   appDescription?: string;
 };
+
 
 export type ZkBadgeAppType = AppCommonType & {
   type: "zkBadge";

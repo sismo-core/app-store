@@ -12,6 +12,7 @@ import { redirect } from "next/navigation";
 import Timer from "./Apps/components/Timer";
 import { ZkAppType } from "@/src/services/spaces-service";
 import ZkBadgeApp from "./Apps/ZkBadgeApp";
+import ZkDropApp from "./Apps/ZkDropApp";
 
 const Container = styled.div`
   flex-grow: 1;
@@ -206,6 +207,9 @@ export default function AppMain({ app, groupSnapshotMetadataList }: Props) {
             )}
             {app?.type == "zkBadge" && (
               <ZkBadgeApp app={app} groupSnapshotMetadataList={groupSnapshotMetadataList} />
+            )}
+            {app?.type == "zkDrop" && (
+              <ZkDropApp app={app} groupSnapshotMetadataList={groupSnapshotMetadataList} />
             )}
           </>
         )}

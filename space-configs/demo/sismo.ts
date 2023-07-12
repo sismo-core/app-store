@@ -69,7 +69,7 @@ export default {
             relayerEnabled: false,
           },
           {
-            contractAddress: "{{ auto-fill }}",
+            contractAddress: "0xBacDAe186628A88f4a6CE1F3D668c889935c8F06",
             name: "goerli",
             relayerEnabled: false,
           },

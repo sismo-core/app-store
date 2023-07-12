@@ -71,7 +71,7 @@ export default function useEthAccount(input: string | `0x${string}`): EthAccount
       setIsLoading(true);
       setIsError(false);
       setEns(input);
-      
+
       (client as any)
         .getEnsAddress({ name: normalize(input) })
         .then((address) => {

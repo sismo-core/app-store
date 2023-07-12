@@ -4,4 +4,4 @@ import zkBadge from "./abi.json";
 
 export const ZK_BADGE_ADDRESSES: { [network in Network]?: `0x${string}` } = env.zkBadgeAddresses;
 
-export const ZK_BADGE_ABI = zkBadge.abi
+export const ZK_BADGE_ABI = zkBadge.abi;

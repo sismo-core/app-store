@@ -27,7 +27,7 @@ export async function POST(req: Request) {
   const store = ServiceFactory.getZkFormTableStore();
   const spacesService = ServiceFactory.getSpacesService();
 
-  const apps = await spacesService.getApps({ where: { appSlug: appSlug, spaceSlug: spaceSlug }});
+  const apps = await spacesService.getApps({ where: { appSlug: appSlug, spaceSlug: spaceSlug } });
 
   if (!apps || apps.length !== 1 || apps[0].type !== "zkForm") {
     return errorResponse(`App ${appSlug} not found or not a zkForm app`);

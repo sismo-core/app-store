@@ -1,10 +1,7 @@
 import { DateTime, Duration } from "luxon";
 import { useEffect, useRef, useState } from "react";
 
-export default function useRemainingTime(time: {
-  startDate?: Date;
-  endDate?: Date;
-}) {
+export default function useRemainingTime(time: { startDate?: Date; endDate?: Date }) {
   const [remainingStartTime, setRemainingStartTime] = useState<Duration>(null);
   const [hasStarted, setHasStarted] = useState<boolean>(true);
   const [hasEnded, setHasEnded] = useState<boolean>(false);
@@ -15,10 +12,8 @@ export default function useRemainingTime(time: {
 
     function getDuration() {
       const now = DateTime.now().toUTC();
-      const luxonUTCStartDate =
-        time?.startDate && DateTime.fromJSDate(time?.startDate);
-      const luxonUTCEndDate =
-        time?.endDate && DateTime.fromJSDate(time?.endDate);
+      const luxonUTCStartDate = time?.startDate && DateTime.fromJSDate(time?.startDate);
+      const luxonUTCEndDate = time?.endDate && DateTime.fromJSDate(time?.endDate);
 
       if (luxonUTCStartDate) {
         const remainingTimeForStartDate = luxonUTCStartDate.diff(now, [

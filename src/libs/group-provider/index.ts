@@ -111,17 +111,17 @@ export class GroupProvider {
         console.log(err);
       });
 
-      const groupMetadata = {
-        id: groups.id,
-        name: groups.name,
-        description: groups.description,
-        specs: groups.specs,
-        accountsNumber: groupsSnapshotMetadata.accountsNumber,
-        groupGeneratorName: groups.generatedBy,
-        lastGenerationTimestamp: groupsSnapshotMetadata.timestamp,
-        generationFrequency: groupsGenerator?.generationFrequency ?? "once",
-        dataUrl: groupsSnapshotMetadata.dataUrl,
-      }
+    const groupMetadata = {
+      id: groups.id,
+      name: groups.name,
+      description: groups.description,
+      specs: groups.specs,
+      accountsNumber: groupsSnapshotMetadata.accountsNumber,
+      groupGeneratorName: groups.generatedBy,
+      lastGenerationTimestamp: groupsSnapshotMetadata.timestamp,
+      generationFrequency: groupsGenerator?.generationFrequency ?? "once",
+      dataUrl: groupsSnapshotMetadata.dataUrl,
+    };
 
     return groupMetadata;
   }

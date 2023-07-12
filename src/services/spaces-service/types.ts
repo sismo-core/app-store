@@ -80,7 +80,6 @@ export type ExternalAppType = AppCommonType & {
   link: string;
 };
 
-
 export type ZkDropAppType = AppCommonType & {
   type: "zkDrop";
   nftMetadata: {
@@ -89,15 +88,14 @@ export type ZkDropAppType = AppCommonType & {
     image: string;
   };
   chains: {
-      contractAddress: `0x${string}`;
-      name: ZkDropChainName;
-      relayerEnabled?: boolean;
+    contractAddress: `0x${string}`;
+    name: ZkDropChainName;
+    relayerEnabled?: boolean;
   }[];
   step1CtaText?: string;
   step2CtaText: string;
   appDescription?: string;
 };
-
 
 export type ZkBadgeAppType = AppCommonType & {
   type: "zkBadge";

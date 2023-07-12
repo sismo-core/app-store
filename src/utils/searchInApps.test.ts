@@ -14,7 +14,7 @@ describe("searchInApps", () => {
     {
       name: "Third App",
       description: "This is a third app",
-    }
+    },
   ] as ZkAppType[];
 
   it("returns all apps if search string is falsy", () => {
@@ -36,7 +36,7 @@ describe("searchInApps", () => {
       {
         name: "Third App",
         description: "This is a third app",
-      }
+      },
     ]);
   });
 
@@ -46,10 +46,9 @@ describe("searchInApps", () => {
       {
         name: "Third App",
         description: "This is a third app",
-      }
+      },
     ]);
   });
-
 
   it("returns an empty array if no matches are found", () => {
     const result = searchInApps({ apps, searchString: "test" });

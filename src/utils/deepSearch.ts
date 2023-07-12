@@ -1,11 +1,11 @@
-export const deepSearch = ({obj, searchString}: {obj: any, searchString: string}): boolean => {
+export const deepSearch = ({ obj, searchString }: { obj: any; searchString: string }): boolean => {
   let found = false;
 
   if (typeof obj === "object" && obj !== null) {
     // If the input is an object
     for (const key in obj) {
       // Loop through all object properties
-      if (deepSearch({obj: obj[key], searchString})) {
+      if (deepSearch({ obj: obj[key], searchString })) {
         // Call the function recursively
         found = true;
         break;
@@ -14,7 +14,7 @@ export const deepSearch = ({obj, searchString}: {obj: any, searchString: string}
   } else if (Array.isArray(obj)) {
     // If the input is an array
     for (let i = 0; i < obj.length; i++) {
-      if (deepSearch({obj: obj[i], searchString})) {
+      if (deepSearch({ obj: obj[i], searchString })) {
         // Call the function recursively
         found = true;
         break;

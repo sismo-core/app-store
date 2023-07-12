@@ -29,6 +29,60 @@ export default {
   },
   apps: [
     {
+      type: "zkDrop",
+      metadata: {
+        name: "Sismo Early Community NFT",
+        slug: "zk-drop-early-community",
+        description:
+          "Prove you are an early member of Sismo Community to claim your Sismo Early Community NFT.",
+        tags: ["NFT"],
+        image: "sismo_app_store_zkdrop_early_community_500x500.png",
+        createdAt: new Date("2023-07-11T10:00"),
+        isTransferable: true,
+      },
+      sismoConnectRequest: {
+        appId: "0x5b7249cf5d8a1669cec21e5aa554299d",
+        authRequests: [{ authType: AuthType.VAULT }],
+        claimRequests: [{ groupId: "0xc90878eaa974c31bc62c52ad86121765" }],
+        impersonateAddresses: ["0x8ab1760889F26cBbf33A75FD2cF1696BFccDc9e6"],
+      },
+      templateConfig: {
+        nftMetadata: {
+          name: "Sismo Early Community NFT",
+          description:
+            "Claimable by the early community of Sismo, this NFT is a small gift to everyone that helped us to build Sismo before July 11 2023.",
+          image: "nft_sismo_early_community_1000x1000.png",
+          symbol: "SEarlyNFT",
+        },
+        chains: [
+          {
+            contractAddress: "0x56265e9dA5B0ECE019590D4AA77261471f814758",
+            name: "optimism-goerli",
+            relayerEnabled: false,
+          },
+          {
+            contractAddress: "0xBacDAe186628A88f4a6CE1F3D668c889935c8F06",
+            name: "arbitrum-goerli",
+            relayerEnabled: false,
+          },
+          {
+            contractAddress: "0xF34E9055e063aC57BBc6ff4f1eDBD2981bf21303",
+            name: "mumbai",
+            relayerEnabled: false,
+          },
+          {
+            contractAddress: "0xBacDAe186628A88f4a6CE1F3D668c889935c8F06",
+            name: "goerli",
+            relayerEnabled: false,
+          },
+        ],
+        step2CtaText: "Claim your Sismo Early Community NFT",
+      },
+      options: {
+        endDate: new Date("2023-09-01T10:00"),
+      },
+    },
+    {
       type: "zkTelegramBot",
       metadata: {
         name: "Join Demo Sismo Builders Group",

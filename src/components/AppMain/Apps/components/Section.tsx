@@ -9,7 +9,7 @@ const Container = styled.div`
   padding: 16px;
 `;
 
-const Title = styled.div<{ $disabled: boolean; $success: boolean }>`
+const Title = styled.div<{ $disabled: boolean; $success: boolean; clickable: boolean }>`
   display: flex;
   font-family: ${(props) => props.theme.fonts.semibold};
   color: ${(props) =>
@@ -20,6 +20,11 @@ const Title = styled.div<{ $disabled: boolean; $success: boolean }>`
     `
         color: ${props.theme.colors.green1};
     `}
+  ${(props) =>
+    props.clickable &&
+    `
+    cursor: pointer;
+  `}
 `;
 
 const Number = styled.div<{ $disabled: boolean; $success: boolean; $number: number }>`
@@ -61,6 +66,7 @@ type Props = {
   isOpen: boolean;
   success?: boolean;
   style?: React.CSSProperties;
+  onClick?: () => void;
 };
 
 export default function Section({
@@ -70,10 +76,11 @@ export default function Section({
   isOpen,
   success,
   style,
+  onClick,
 }: Props): JSX.Element {
   return (
     <Container style={style}>
-      <Title $disabled={!isOpen} $success={success}>
+      <Title $disabled={!isOpen} $success={success} onClick={onClick} clickable={Boolean(onClick)}>
         <Number $disabled={!isOpen} $success={success} $number={number}>
           {number}
         </Number>

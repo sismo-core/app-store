@@ -29,6 +29,62 @@ export default {
   },
   apps: [
     {
+      type: "zkDrop",
+      metadata: {
+        name: "Sismo Early Community NFT",
+        slug: "zk-drop-early-community",
+        description: "Prove you are an early member of Sismo Community to claim your Sismo Early Community NFT.",
+        tags: ["NFT"],
+        image: "sismo_app_store_zkdrop_early_community_500x500.png",
+        createdAt: new Date("2023-07-11T10:00"),
+        isTransferable: true,
+      },
+      sismoConnectRequest: {
+        appId: "0x5b7249cf5d8a1669cec21e5aa554299d",
+        authRequests: [{ authType: AuthType.VAULT }],
+        claimRequests: [{ groupId: "0xc90878eaa974c31bc62c52ad86121765" },],
+      },
+      templateConfig: {
+        nftMetadata: {
+          name: "Sismo Early Community NFT",
+          description: "Claimable by the early community of Sismo, this NFT is a small gift to everyone that helped us to build Sismo before July 11 2023.",
+          image: "nft_sismo_early_community_1000x1000.png",
+          symbol: "SEarlyNFT",
+        },
+        chains: [
+          {
+            contractAddress: "0xF27a25BF230c02f52721324266583aAeD85284E8",
+            name: "gnosis",
+            relayerEnabled: true,
+          },
+          {
+            contractAddress: "0xF27a25BF230c02f52721324266583aAeD85284E8",
+            name: "optimism",
+            relayerEnabled: false,
+          },
+          {
+            contractAddress: "0x4744189928214fF879646a24B3FB2A2080152351",
+            name: "arbitrum",
+            relayerEnabled: false,
+          },
+          {
+            contractAddress: "0x498310AD2c30349143DcBa65cd6e055d7D68cB4B",
+            name: "polygon",
+            relayerEnabled: false,
+          },
+          {
+            contractAddress: "0x09519fb0E2363D2253338a4Cdc2911f67fE9A2C4",
+            name: "mainnet",
+            relayerEnabled: false,
+          },
+        ],
+        step2CtaText: "Claim your Sismo Early Community NFT",
+      },
+      options: {
+        endDate: new Date("2023-09-01T10:00"),
+      },
+    },
+    {
       type: "zkForm",
       metadata: {
         name: "Future of France Invitation",

@@ -21,22 +21,21 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <head>
-      </head>
+      <head></head>
       <body>
         <div id="tooltip-root" style={{ position: "fixed", zIndex: 9999 }} />
         <div id="modal-root" style={{ zIndex: 9999 }} />
         <PlausibleProvider domain={env.isDemo ? "demo.apps.sismo.io" : "apps.sismo.io"}>
           <StyledComponentsRegistry>
-              <Theme>
-                <AppProviders>
-                  <PageContainer>
-                    <Navbar />
-                    <PageContent>{children}</PageContent>
-                    <Footer />
-                  </PageContainer>
-                </AppProviders>
-              </Theme>
+            <Theme>
+              <AppProviders>
+                <PageContainer>
+                  <Navbar />
+                  <PageContent>{children}</PageContent>
+                  <Footer />
+                </PageContainer>
+              </AppProviders>
+            </Theme>
           </StyledComponentsRegistry>
         </PlausibleProvider>
       </body>

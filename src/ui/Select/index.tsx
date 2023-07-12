@@ -61,6 +61,7 @@ const StyledCaret = styled(CaretDown)<{ $isOpen: boolean }>`
 
 const Placeholder = styled.div`
   color: ${props => props.theme.colors.neutral5};
+  font-style: italic;
 `
 
 export type SelectOption = {
@@ -85,9 +86,8 @@ export default function Select({
   const ref = useRef<HTMLDivElement>(null);
   const label = options.find((option) => option.value === value)?.label;
   useOnClickOutside(ref, () => setIsOpen(false));
-  const optionsWithoutSelected = options.filter(option => option.value !== value);
 
-  const isDisabled = Boolean(optionsWithoutSelected?.length === 0);
+  const isDisabled = Boolean(options?.length === 0);
 
   return (
     <Container ref={ref} onClick={ () => !isDisabled && setIsOpen(!isOpen)} $isDisabled={isDisabled} >
@@ -101,7 +101,7 @@ export default function Select({
       {!isDisabled && <StyledCaret $isOpen={isOpen} size={20} />}
       {isOpen && 
       <Dropdown>
-        {optionsWithoutSelected.map((option) => (
+        {options.map((option) => (
           <Item key={option.value} onClick={() => onChange(option.value)}>
             {option.label}
           </Item>

@@ -158,7 +158,7 @@ export default {
       templateConfig: {
         nftMetadata: {
           name: "Astronaut CoW NFT",
-          description: "Claimable by users that have held ≥ 56.8k COW on July 1, 2023 or swapped ≥ 37 times on CoW between January 1, 2023 and July 1, 2023.",
+          description: "Claimable by users that have held ≥ 56.8k COW on July 1, 2023 or swapped ≥ 37 times on CoW Swap between January 1, 2023 and July 1, 2023.",
           image: "nft_cow_astronaut_1000x1000.png",
           symbol: "GoldenCoWNFT",
         },
@@ -169,7 +169,7 @@ export default {
             relayerEnabled: true,
           },
         ],
-        step2CtaText: "Claim your Astronaut Cow NFT",
+        step2CtaText: "Claim your Astronaut CoW NFT",
       },
     },
     {
@@ -192,7 +192,7 @@ export default {
       templateConfig: {
         nftMetadata: {
           name: "Moon Calf CoW NFT",
-          description: "Claimable by users that have held ≥ 26.5k COW on July 1, 2023 or swapped ≥ 6 times on CoW between January 1, 2023 and July 1, 2023.",
+          description: "Claimable by users that have held ≥ 26.5k COW on July 1, 2023 or swapped ≥ 6 times on CoW Swap between January 1, 2023 and July 1, 2023.",
           image: "nft_cow_moon_calf_1000x1000.png",
           symbol: "SilverCoWNFT",
         },
@@ -203,7 +203,7 @@ export default {
             relayerEnabled: true,
           },
         ],
-        step2CtaText: "Claim your Moon Calf Cow NFT",
+        step2CtaText: "Claim your Moon Calf CoW NFT",
       },
     },
     {
@@ -226,7 +226,7 @@ export default {
       templateConfig: {
         nftMetadata: {
           name: "Meadow CoW NFT",
-          description: "Claimable by users that have held ≥ 2k COW on July 1, 2023 or swapped ≥ 2 times on CoW between January 1, 2023 and July 1, 2023.",
+          description: "Claimable by users that have held ≥ 2k COW on July 1, 2023 or swapped ≥ 2 times on CoW Swap between January 1, 2023 and July 1, 2023.",
           image: "nft_cow_bronze_1000x1000.png",
           symbol: "BronzeCoWNFT",
         },
@@ -237,7 +237,7 @@ export default {
             relayerEnabled: true,
           },
         ],
-        step2CtaText: "Claim your Meadow Cow NFT",
+        step2CtaText: "Claim your Meadow CoW NFT",
       },
     },
   ],

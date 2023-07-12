@@ -31,9 +31,9 @@ export default {
     {
       type: "zkDrop",
       metadata: {
-        name: "Sismo Early Community Minting",
+        name: "Sismo Early Community NFT",
         slug: "zk-drop-early-community",
-        description: "Prove you are an early member of Sismo Community to mint your Sismo Early Community NFT.",
+        description: "Prove you are an early member of Sismo Community to claim your Sismo Early Community NFT.",
         tags: ["NFT"],
         image: "sismo_app_store_zkdrop_early_community_500x500.png",
         createdAt: new Date("2023-07-11T10:00"),
@@ -73,7 +73,7 @@ export default {
             relayerEnabled: false,
           },
         ],
-        step2CtaText: "Mint your Sismo Early Community NFT",
+        step2CtaText: "Claim your Sismo Early Community NFT",
       },
       options: {
         endDate: new Date("2023-09-01T10:00"),

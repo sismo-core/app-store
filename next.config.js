@@ -14,7 +14,8 @@ const nextConfig = {
     styledComponents: true
   },
   webpack: config => {
-    config.resolve.fallback = { fs: false, net: false, tls: false };
+    config.resolve.fallback = { fs: false, net: false, tls: false, "pino-pretty": false, lokijs: false };
+    
     return config;
   },
 }

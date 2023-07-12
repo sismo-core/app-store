@@ -9,7 +9,7 @@ export enum Network {
     Mumbai = "mumbai",
     Optimism = "optimism",
     OptimismGoerli = "optimism-goerli",
-    ArbitrumOne = "arbitrum-one",
+    Arbitrum = "arbitrum",
     ArbitrumGoerli = "arbitrum-goerli",
     ScrollTestnet = "scroll-testnet",
 }
@@ -25,7 +25,7 @@ export const networkChainIds: { [network in Network]: number } = {
     [Network.Mumbai]: 80001,
     [Network.Optimism]: 10,
     [Network.OptimismGoerli]: 420,
-    [Network.ArbitrumOne]: 42161,
+    [Network.Arbitrum]: 42161,
     [Network.ArbitrumGoerli]: 421613,
     [Network.ScrollTestnet]: 534353
 };
@@ -39,13 +39,13 @@ export const networkLabels: { [network in Network]?: string } = {
   [Network.Mumbai]: "Mumbai",
   [Network.Optimism]: "Optimism",
   [Network.OptimismGoerli]: "Optimism Goerli",
-  [Network.ArbitrumOne]: "Arbitrum",
+  [Network.Arbitrum]: "Arbitrum",
   [Network.ArbitrumGoerli]: "Arbitrum Goerli",
   [Network.ScrollTestnet]: "Scroll Testnet"
 };
 
 export const networkRpcUrls: { [network in Network]?: string } = {
-    [Network.ArbitrumOne]: "https://1rpc.io/arb",
+    [Network.Arbitrum]: "https://1rpc.io/arb",
     [Network.ArbitrumGoerli]: "https://rpc.goerli.arbitrum.gateway.fm",
     [Network.ScrollTestnet]: "https://alpha-rpc.scroll.io/l2",
 };
@@ -59,7 +59,7 @@ export const explorers: { [network in Network]?: string } = {
   [Network.Goerli]: "https://goerli.etherscan.io",
   [Network.Optimism]: "https://optimistic.etherscan.io",
   [Network.OptimismGoerli]: "https://goerli-optimism.etherscan.io",
-  [Network.ArbitrumOne]: "https://arbiscan.io",
+  [Network.Arbitrum]: "https://arbiscan.io",
   [Network.ArbitrumGoerli]: "https://goerli.arbiscan.io"
 };
 
@@ -79,7 +79,7 @@ export const getErc721Explorer = ({ contractAddress, network, tokenId }: { contr
       case Network.Mainnet:
       case Network.Optimism:
           return `https://opensea.io/assets/${network}/${contractAddress}${tokenId ? "/" + tokenId : ""}`;
-      case Network.ArbitrumOne:
+      case Network.Arbitrum:
           return `https://opensea.io/assets/arbitrum/${contractAddress}${tokenId ? "/" + tokenId : ""}`;
       case Network.Polygon:
           return `https://opensea.io/assets/matic/${contractAddress}${tokenId ? "/" + tokenId : ""}`;

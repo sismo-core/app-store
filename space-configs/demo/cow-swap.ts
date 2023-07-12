@@ -167,7 +167,7 @@ export default {
         },
         chains: [
           {
-            contractAddress: "",
+            contractAddress: "0xdc9dF24414b9528b1f954a1956e423804BfEcc10",
             name: "mumbai",
             relayerEnabled: true,
           },

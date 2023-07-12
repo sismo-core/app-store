@@ -10,12 +10,9 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   border-radius: 4px;
-  border: 1px solid ${(props) => props.theme.colors.neutral7};
-  height: 340px;
+  height: 216px;
 `;
-
 const Subtitle = styled.div`
   font-family: ${(props) => props.theme.fonts.regular};
   color: ${(props) => props.theme.colors.neutral1};
@@ -24,6 +21,7 @@ const Subtitle = styled.div`
   margin-bottom: 32px;
   text-align: center;
   line-height: 22px;
+  margin-top: 48px;
 `;
 
 type Props = {
@@ -35,7 +33,7 @@ type Props = {
 export default function AlreadyMinted({ app, network, tokenId }: Props): JSX.Element {
   return (
     <Container>
-      <Subtitle onClick={() => {}}>You already claimed your NFT</Subtitle>
+      <Subtitle onClick={() => {}}>You already claimed your NFT!</Subtitle>
       <Button3D
         secondary
         onClick={() => {

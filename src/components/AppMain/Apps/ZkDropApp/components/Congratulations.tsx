@@ -52,7 +52,7 @@ export default function Congratulations({
     <Container>
       <Title style={{ marginBottom: 12 }}>Congratulations</Title>
       <Subtitle>
-        You have receive your NFT on{" "}
+        You have received your NFT on{" "}
         {ethAccount.ens ? getMinimalEns(ethAccount.ens) : getMinimalIdentifier(ethAccount.address)}
       </Subtitle>
       <Button3D

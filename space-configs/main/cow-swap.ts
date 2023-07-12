@@ -1,6 +1,7 @@
 // add an images folder in your space folder if you would like Sismo to host your images
 import { AuthType } from "@sismo-core/sismo-connect-server";
 import { SpaceConfig } from "../types";
+import { Network } from "@/src/libs/contracts/networks";
 
 export default {
   metadata: {
@@ -137,6 +138,40 @@ export default {
       options: {
         isFeatured: true,
         endDate: new Date("2023-07-19T18:00Z"),
+      },
+    },
+    {
+      type: "zkDrop",
+      metadata: {
+        name: "Golden Cow Trader Minting",
+        slug: "zk-drop-golden-trader",
+        description: "Prove you have swapped ≥ 37 times on CoW to mint your Golden CoW Trader NFT.",
+        tags: ["NFT"],
+        image: "cow_app_store_zkdrop_golden_trader_500x500.png",
+        createdAt: new Date("2023-07-12T10:00"),
+        isTransferable: false,
+      },
+      sismoConnectRequest: {
+        appId: "0x90e7e9cee2de45bd484985e63f69b946",
+        authRequests: [{ authType: AuthType.VAULT }],
+        claimRequests: [{ groupId: "0x34dba00caed5fbe69db7313adebf1eaf", value: 3 },],
+        impersonateAddresses: ["0x32ae635f5136adb181a442cc890be39263bc13c8"],
+      },
+      templateConfig: {
+        nftMetadata: {
+          name: "Golden Cow Trader NFT",
+          description: "Claimable by users that have swapped ≥ 37 times on CoW between January 1, 2023 and July 1, 2023.",
+          image: "nft_cow_golden_trader_1000x1000.png",
+          symbol: "GCoWTraderNFT",
+        },
+        chains: [
+          {
+            contractAddress: "",
+            name: "gnosis",
+            relayerEnabled: true,
+          },
+        ],
+        step2CtaText: "Mint your Golden Cow Trader NFT",
       },
     },
   ],

@@ -201,21 +201,6 @@ export default function ZkDropApp({ app, groupSnapshotMetadataList }: Props): JS
   useContractRead({
     address: contractAddress,
     abi: ZK_DROP_ABI,
-    functionName: "balanceOf",
-    args: [destination],
-    enabled: Boolean(destination) && Boolean(chainApp),
-    chainId: networkChainIds[chainApp],
-    account: null,
-    onSuccess: (data: BigInt) => {
-      if (typeof data === "bigint" && data > 0) {
-        setAlreadyMinted(true);
-      }
-    },
-  });
-
-  useContractRead({
-    address: contractAddress,
-    abi: ZK_DROP_ABI,
     functionName: "ownerOf",
     args: [vaultId],
     enabled: Boolean(vaultId),
@@ -326,144 +311,134 @@ export default function ZkDropApp({ app, groupSnapshotMetadataList }: Props): JS
         <NFTLabel>Claim {app.nftMetadata.name}</NFTLabel>
       </NFTVisual>
       <Content>
-        {minted ? (
-          <Congratulations
-            app={app}
-            destination={destination}
-            network={chainApp}
-            tokenId={vaultId ? BigInt(vaultId)?.toString() : null}
+        <Section
+          number={1}
+          isOpen={!hasResponse || !destination}
+          title={app?.step1CtaText}
+          style={{ marginBottom: 16 }}
+          success={hasResponse && Boolean(destination)}
+          onClick={() => {
+            window.location.href = window.location.origin + window.location.pathname;
+          }}
+        >
+          <Requirements app={app} groupSnapshotMetadataList={groupSnapshotMetadataList} />
+          <Label>NFT Recipient</Label>
+          {app.chains.length > 1 && (
+            <SelectChain
+              style={{
+                marginBottom: 8,
+              }}
+              onChainSelected={(_chain: Network) => setChainApp(_chain)}
+              selectedChain={chainApp}
+              chains={app.chains.map((chain) => chain.name)}
+            />
+          )}
+          <SelectDestination
+            onDestinationSelected={(_destination: `0x${string}`) => setDestination(_destination)}
           />
-        ) : (
-          <>
-            {alreadyMinted && hasResponse ? (
-              <AlreadyMinted
-                app={app}
-                network={chainApp}
-                tokenId={vaultId ? BigInt(vaultId)?.toString() : null}
-              />
-            ) : (
-              <>
-                <Section
-                  number={1}
-                  isOpen={!hasResponse || !destination}
-                  title={app?.step1CtaText}
-                  style={{ marginBottom: 16 }}
-                  success={hasResponse && Boolean(destination)}
-                >
-                  <Requirements app={app} groupSnapshotMetadataList={groupSnapshotMetadataList} />
-                  <Label>NFT Recipient</Label>
-                  {app.chains.length > 1 && (
-                    <SelectChain
-                      style={{
-                        marginBottom: 8,
-                      }}
-                      onChainSelected={(_chain: Network) => setChainApp(_chain)}
-                      selectedChain={chainApp}
-                      chains={app.chains.map((chain) => chain.name)}
-                    />
+          <SismoButtonContainer disabled={!destination || !chainApp}>
+            {(!destination || !chainApp) && <DisabledButton />}
+            <SismoConnectButton
+              config={sismoConnectConfig}
+              claims={app?.claimRequests}
+              auths={app?.authRequests}
+              signature={{ message: getMessageSignature({ destination }) }}
+              text={"Sign in with Sismo"}
+              callbackPath={pathname}
+              onResponseBytes={(response) => {
+                setResponseBytes(response);
+                setDestination(window.localStorage.getItem("destination_zk_drop") as `0x${string}`);
+                const chainAppZkDrop = window.localStorage.getItem("chain_app_zk_drop") as Network;
+                if (chainAppZkDrop && app.chains.find((chain) => chain.name === chainAppZkDrop)) {
+                  setChainApp(chainAppZkDrop);
+                }
+              }}
+              onResponse={(response) => {
+                const vaultId = response.proofs.find((proof) => {
+                  if (!proof.auths) return false;
+                  if (proof.auths[0].authType === AuthType.VAULT) {
+                    return true;
+                  }
+                })?.auths[0]?.userId;
+                setVaultId(vaultId);
+              }}
+            />
+          </SismoButtonContainer>
+        </Section>
+        <Section
+          number={2}
+          isOpen={hasResponse && Boolean(destination)}
+          title={app?.step2CtaText}
+          success={(alreadyMinted && hasResponse) || minted}
+        >
+          {minted ? (
+            <Congratulations
+              app={app}
+              destination={destination}
+              network={chainApp}
+              tokenId={vaultId ? BigInt(vaultId)?.toString() : null}
+            />
+          ) : (
+            <>
+              {alreadyMinted && hasResponse ? (
+                <AlreadyMinted
+                  app={app}
+                  network={chainApp}
+                  tokenId={vaultId ? BigInt(vaultId)?.toString() : null}
+                />
+              ) : (
+                <MintContainer>
+                  {isRelayed ? (
+                    <Button3D onClick={mintRelayed} secondary loading={minting}>
+                      {minting ? "Claiming..." : `Claim NFT`}
+                    </Button3D>
+                  ) : (
+                    <Button3D
+                      onClick={mintNotRelayed}
+                      secondary
+                      loading={
+                        isLoadingTransaction ||
+                        connectModalOpen ||
+                        isLoadingWriteContract ||
+                        isSwitchingNetwork
+                      }
+                    >
+                      {isConnected ? (
+                        <>
+                          {chain.id !== networkChainIds[chainApp] ? (
+                            <>{isSwitchingNetwork ? "Switching Network..." : "Switch Network"}</>
+                          ) : (
+                            <>
+                              {isLoadingTransaction || isLoadingWriteContract
+                                ? "Claiming..."
+                                : `Claim NFT`}
+                            </>
+                          )}
+                        </>
+                      ) : (
+                        <>{connectModalOpen ? "Connecting wallet..." : "Connect Wallet"}</>
+                      )}
+                    </Button3D>
                   )}
-                  <SelectDestination
-                    onDestinationSelected={(_destination: `0x${string}`) =>
-                      setDestination(_destination)
-                    }
-                  />
-                  <SismoButtonContainer disabled={!destination || !chainApp}>
-                    {(!destination || !chainApp) && <DisabledButton />}
-                    <SismoConnectButton
-                      config={sismoConnectConfig}
-                      claims={app?.claimRequests}
-                      auths={app?.authRequests}
-                      signature={{ message: getMessageSignature({ destination }) }}
-                      text={"Sign in with Sismo"}
-                      callbackPath={pathname}
-                      onResponseBytes={(response) => {
-                        setResponseBytes(response);
-                        setDestination(
-                          window.localStorage.getItem("destination_zk_drop") as `0x${string}`
-                        );
-                        const chainAppZkDrop = window.localStorage.getItem(
-                          "chain_app_zk_drop"
-                        ) as Network;
-                        if (
-                          chainAppZkDrop &&
-                          app.chains.find((chain) => chain.name === chainAppZkDrop)
-                        ) {
-                          setChainApp(chainAppZkDrop);
-                        }
-                      }}
-                      onResponse={(response) => {
-                        const vaultId = response.proofs.find((proof) => {
-                          if (!proof.auths) return false;
-                          if (proof.auths[0].authType === AuthType.VAULT) {
-                            return true;
-                          }
-                        })?.auths[0]?.userId;
-                        setVaultId(vaultId);
-                      }}
-                    />
-                  </SismoButtonContainer>
-                </Section>
-                <Section
-                  number={2}
-                  isOpen={hasResponse && Boolean(destination)}
-                  title={app?.step2CtaText}
-                >
-                  <MintContainer>
-                    {isRelayed ? (
-                      <Button3D onClick={mintRelayed} secondary loading={minting}>
-                        {minting ? "Claiming..." : `Claim NFT`}
-                      </Button3D>
-                    ) : (
-                      <Button3D
-                        onClick={mintNotRelayed}
-                        secondary
-                        loading={
-                          isLoadingTransaction ||
-                          connectModalOpen ||
-                          isLoadingWriteContract ||
-                          isSwitchingNetwork
-                        }
+                  {hash && (
+                    <TransactionLink style={{ marginTop: 20 }}>
+                      <Inline
+                        style={{ cursor: "pointer" }}
+                        onClick={() => {
+                          window.open(getTxExplorer({ txHash: hash, network: chainApp }), "_blank");
+                        }}
                       >
-                        {isConnected ? (
-                          <>
-                            {chain.id !== networkChainIds[chainApp] ? (
-                              <>{isSwitchingNetwork ? "Switching Network..." : "Switch Network"}</>
-                            ) : (
-                              <>
-                                {isLoadingTransaction || isLoadingWriteContract
-                                  ? "Claiming..."
-                                  : `Claim NFT`}
-                              </>
-                            )}
-                          </>
-                        ) : (
-                          <>{connectModalOpen ? "Connecting wallet..." : "Connect Wallet"}</>
-                        )}
-                      </Button3D>
-                    )}
-                    {hash && (
-                      <TransactionLink style={{ marginTop: 20 }}>
-                        <Inline
-                          style={{ cursor: "pointer" }}
-                          onClick={() => {
-                            window.open(
-                              getTxExplorer({ txHash: hash, network: chainApp }),
-                              "_blank"
-                            );
-                          }}
-                        >
-                          Transaction hash: {getMinimalHash(hash)}
-                          <ArrowSquareOut style={{ marginTop: -8, marginLeft: 4 }} size={18} />
-                        </Inline>
-                      </TransactionLink>
-                    )}
-                  </MintContainer>
-                </Section>
-              </>
-            )}
-            {error && <Error style={{ marginTop: 16 }}>{error}</Error>}
-          </>
-        )}
+                        Transaction hash: {getMinimalHash(hash)}
+                        <ArrowSquareOut style={{ marginTop: -8, marginLeft: 4 }} size={18} />
+                      </Inline>
+                    </TransactionLink>
+                  )}
+                </MintContainer>
+              )}
+            </>
+          )}
+        </Section>
+        {error && <Error style={{ marginTop: 16 }}>{error}</Error>}
       </Content>
     </Container>
   );

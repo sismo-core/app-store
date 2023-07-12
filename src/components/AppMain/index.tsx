@@ -60,6 +60,7 @@ const ImageContainer = styled.div`
   height: 98px;
   flex-shrink: 0;
   border-radius: 8px;
+  cursor: pointer;
 
   @media (max-width: 900px) {
     width: 88px;
@@ -171,7 +172,9 @@ export default function AppMain({ app, groupSnapshotMetadataList }: Props) {
   return (
     <Container>
       <Top>
-        <ImageContainer>
+        <ImageContainer
+          onClick={() => (window.location.href = window.location.origin + window.location.pathname)}
+        >
           {app.image && app.name && (
             <StyledImage
               src={app.image || Default}

@@ -12,10 +12,8 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   border-radius: 4px;
-  border: 1px solid ${(props) => props.theme.colors.neutral7};
-  height: 340px;
+  height: 216px;
 `;
 
 const Title = styled.div`
@@ -23,7 +21,7 @@ const Title = styled.div`
   color: ${(props) => props.theme.colors.neutral1};
   font-size: 32px;
   line-height: 38px;
-  margin-bottom: 16px;
+  margin-top: 32px;
 `;
 
 const Subtitle = styled.div`
@@ -52,7 +50,7 @@ export default function Congratulations({
 
   return (
     <Container>
-      <Title style={{ marginBottom: 16 }}>Congratulations</Title>
+      <Title style={{ marginBottom: 12 }}>Congratulations</Title>
       <Subtitle>
         You have receive your NFT on{" "}
         {ethAccount.ens ? getMinimalEns(ethAccount.ens) : getMinimalIdentifier(ethAccount.address)}

@@ -10,6 +10,7 @@ You have two approaches to start building applications with Sismo Connect:
 Available templates include:
     - zkForm template: More than just a gated form.
     - zkTelegramBot template: Facilitates privacy-preserving gated telegram group chats.
+    - zkDrop template: Simplifies privacy-preserving gated NFT airdrops creation.
 
 2. Custom apps (soon): You will be able to build custom apps
 

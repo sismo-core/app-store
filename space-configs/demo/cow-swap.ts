@@ -136,9 +136,6 @@ export default {
           saveAuths: true,
         },
       },
-      options: {
-        isFeatured: true,
-      },
     },
   ],
 } as SpaceConfig;

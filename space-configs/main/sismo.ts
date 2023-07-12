@@ -82,6 +82,7 @@ export default {
       },
       options: {
         endDate: new Date("2023-09-01T10:00"),
+        isFeatured: true,
       },
     },
     {

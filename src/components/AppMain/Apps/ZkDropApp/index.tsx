@@ -154,8 +154,8 @@ export default function ZkDropApp({ app, groupSnapshotMetadataList }: Props): JS
   const { isConnected } = useAccount();
 
   const [error, setError] = useState(null);
-  const [alreadyMinted, setAlreadyMinted] = useState(true);
-  const [minted, setMinted] = useState(true);
+  const [alreadyMinted, setAlreadyMinted] = useState(false);
+  const [minted, setMinted] = useState(false);
   const [destination, setDestination] = useState<`0x${string}`>(null);
   const [responseBytes, setResponseBytes] = useState<string>(null);
   const [minting, setMinting] = useState(null);
@@ -197,21 +197,6 @@ export default function ZkDropApp({ app, groupSnapshotMetadataList }: Props): JS
   }, [chainApp, app.chains]);
 
   const contractAddress = app.chains.find((chain) => chain.name === chainApp)?.contractAddress;
-
-  useContractRead({
-    address: contractAddress,
-    abi: ZK_DROP_ABI,
-    functionName: "balanceOf",
-    args: [destination],
-    enabled: Boolean(destination) && Boolean(chainApp),
-    chainId: networkChainIds[chainApp],
-    account: null,
-    onSuccess: (data: BigInt) => {
-      if (typeof data === "bigint" && data > 0) {
-        setAlreadyMinted(true);
-      }
-    },
-  });
 
   useContractRead({
     address: contractAddress,

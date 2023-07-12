@@ -227,7 +227,7 @@ export default {
         nftMetadata: {
           name: "Meadow CoW NFT",
           description: "Claimable by users that have held ≥ 2k COW on July 1, 2023 or swapped ≥ 2 times on CoW Swap between January 1, 2023 and July 1, 2023.",
-          image: "nft_cow_bronze_1000x1000.png",
+          image: "nft_cow_meadow_1000x1000.png",
           symbol: "BronzeCoWNFT",
         },
         chains: [

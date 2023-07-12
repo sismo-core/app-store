@@ -96,7 +96,7 @@ export type ZkBadgeAppConfig = AppCommonConfig & {
   };
 };
 
-export type ZkDropChainName = Network.Gnosis | Network.Mumbai | Network.Sepolia | Network.Polygon | Network.Mainnet |Network.Goerli | Network.Optimism | Network.ArbitrumOne;
+export type ZkDropChainName = Network.Gnosis | Network.Mumbai | Network.Sepolia | Network.Polygon | Network.Mainnet |Network.Goerli | Network.Optimism | Network.Arbitrum;
 export type ZkDropAppConfig = AppCommonConfig & {
   type: "zkDrop";
   templateConfig: {

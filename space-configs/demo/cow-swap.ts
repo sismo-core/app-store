@@ -5,7 +5,7 @@ import { Network } from "@/src/libs/contracts/networks";
 
 export default {
   metadata: {
-    name: "Cow Swap",
+    name: "CoW Swap",
     description:
       "This Space is dedicated to Cow Swap, a DEX aggregator. Cow Traders and Holders will get access to gifts and premium features.",
     image: "space_cow_swap_pfp_500x500.png",
@@ -144,7 +144,7 @@ export default {
         name: "Astronaut CoW NFT",
         slug: "zk-drop-astronaut",
         description: "Prove you are a Golden Trader or Holder to claim your Astronaut CoW NFT.",
-        tags: ["NFT"],
+        tags: ["NT-NFT"],
         image: "cow_app_store_zkdrop_astronaut_500x500.png",
         createdAt: new Date("2023-07-12T10:00"),
         isTransferable: false,
@@ -178,7 +178,7 @@ export default {
         name: "Moon Calf CoW NFT",
         slug: "zk-drop-moon-calf",
         description: "Prove you are a Silver Trader or Holder to claim your Moon Calf CoW NFT.",
-        tags: ["NFT"],
+        tags: ["NT-NFT"],
         image: "cow_app_store_zkdrop_moon_calf_500x500.png",
         createdAt: new Date("2023-07-12T10:00"),
         isTransferable: false,
@@ -212,7 +212,7 @@ export default {
         name: "Meadow CoW NFT",
         slug: "zk-drop-meadow",
         description: "Prove you are a Bronze Trader or Holder to claim your Meadow CoW NFT.",
-        tags: ["NFT"],
+        tags: ["NT-NFT"],
         image: "cow_app_store_zkdrop_meadow_500x500.png",
         createdAt: new Date("2023-07-12T10:00"),
         isTransferable: false,

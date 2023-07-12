@@ -33,7 +33,7 @@ const colors = {
   // no modification on orange
   orange0: "#F2EADA",
   orange1: "#EAD8B3",
-  orange2: "#E2C488", 
+  orange2: "#E2C488",
   orange3: "#DAAD5A",
   orange4: "#D29329",
   orange5: "#A76F22",

@@ -35,19 +35,13 @@ export const getMinimalEns = (ens: string): string => {
 
 export const useMainMinified = (address: string) => {
   const [main, setMain] = useState<string>(address);
-  const [mainMinified, setMainMinified] = useState<string>(
-    getMinimalIdentifier(address)
-  );
+  const [mainMinified, setMainMinified] = useState<string>(getMinimalIdentifier(address));
   const [mainExtraMinified, setMainExtraMinified] = useState<string>(
     getExtraMinimalIdentifier(address)
   );
 
   const mainnetProvider = useMemo(
-    () =>
-      new ethers.providers.InfuraProvider(
-        1,
-        "6f9a75d029ce430794e3155621e2d620"
-      ),
+    () => new ethers.providers.InfuraProvider(1, "6f9a75d029ce430794e3155621e2d620"),
     []
   );
 

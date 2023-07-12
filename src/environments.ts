@@ -11,23 +11,23 @@ type Environment = {
   defenderAPIKeys: {
     zkDrop: {
       [network in Network]: {
-        key: string,
-        secret: string
-      }
-    },
+        key: string;
+        secret: string;
+      };
+    };
     zkBadge: {
       [network in Network]: {
-        key: string,
-        secret: string
-      }
-    }
-  },
+        key: string;
+        secret: string;
+      };
+    };
+  };
   zkBadgeAddresses: {
-    [network in Network]: `0x${string}`
-  },
+    [network in Network]: `0x${string}`;
+  };
   pinata: {
-    jwtToken?: string
-  }
+    jwtToken?: string;
+  };
 };
 
 type EnvNames = "demo" | "dev" | "main" | "test";
@@ -49,13 +49,19 @@ const env: Environment = {
   redirection: process.env.NEXT_PUBLIC_REDIRECTION,
   telegramBotToken: process.env.TELEGRAM_BOT_TOKEN,
   defenderAPIKeys: {
-    zkDrop: process.env.SH_ZK_DROP_RELAY_DEFENDER_API_KEYS && JSON.parse(process.env.SH_ZK_DROP_RELAY_DEFENDER_API_KEYS),
-    zkBadge: process.env.SH_ZK_BADGE_RELAY_DEFENDER_API_KEYS && JSON.parse(process.env.SH_ZK_BADGE_RELAY_DEFENDER_API_KEYS),
+    zkDrop:
+      process.env.SH_ZK_DROP_RELAY_DEFENDER_API_KEYS &&
+      JSON.parse(process.env.SH_ZK_DROP_RELAY_DEFENDER_API_KEYS),
+    zkBadge:
+      process.env.SH_ZK_BADGE_RELAY_DEFENDER_API_KEYS &&
+      JSON.parse(process.env.SH_ZK_BADGE_RELAY_DEFENDER_API_KEYS),
   },
-  zkBadgeAddresses: process.env.NEXT_PUBLIC_ZK_BADGE_ADDRESSES && JSON.parse(process.env.NEXT_PUBLIC_ZK_BADGE_ADDRESSES),
+  zkBadgeAddresses:
+    process.env.NEXT_PUBLIC_ZK_BADGE_ADDRESSES &&
+    JSON.parse(process.env.NEXT_PUBLIC_ZK_BADGE_ADDRESSES),
   pinata: {
-    jwtToken: process.env.PINATA_JWT_TOKEN
-  }
+    jwtToken: process.env.PINATA_JWT_TOKEN,
+  },
 };
 
 if (env.isDemo) {

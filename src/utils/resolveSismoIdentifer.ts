@@ -5,12 +5,8 @@ const startsWithHexadecimal = (str) => {
   return hexRegex.test(str);
 };
 
-export const resolveSismoIdentifier = (
-  sismoIdentifier: string,
-  authType: AuthType
-) => {
-  if (authType === AuthType.EVM_ACCOUNT || authType === AuthType.VAULT)
-    return sismoIdentifier;
+export const resolveSismoIdentifier = (sismoIdentifier: string, authType: AuthType) => {
+  if (authType === AuthType.EVM_ACCOUNT || authType === AuthType.VAULT) return sismoIdentifier;
   if (!startsWithHexadecimal(sismoIdentifier)) return sismoIdentifier;
 
   const removeLeadingZeros = (str) => {

@@ -5,9 +5,7 @@ describe("useOnClickOutside", () => {
   it("calls the callback when clicking outside the ref element", () => {
     const outsideClickCallback = jest.fn();
     const ref = { current: document.createElement("div") };
-    const { result } = renderHook(() =>
-    useOnClickOutside(ref, outsideClickCallback)
-  );
+    const { result } = renderHook(() => useOnClickOutside(ref, outsideClickCallback));
 
     act(() => {
       document.dispatchEvent(new MouseEvent("mousedown", { bubbles: true }));
@@ -19,9 +17,7 @@ describe("useOnClickOutside", () => {
   it("does not call the callback when clicking inside the ref element", () => {
     const outsideClickCallback = jest.fn();
     const ref = { current: document.createElement("div") };
-    const { result } = renderHook(() =>
-      useOnClickOutside(ref, outsideClickCallback)
-    );
+    const { result } = renderHook(() => useOnClickOutside(ref, outsideClickCallback));
 
     act(() => {
       ref.current.dispatchEvent(new MouseEvent("mousedown", { bubbles: true }));
@@ -33,9 +29,7 @@ describe("useOnClickOutside", () => {
   it("calls the callback when pressing the Escape key", () => {
     const outsideClickCallback = jest.fn();
     const ref = { current: document.createElement("div") };
-    const { result } = renderHook(() =>
-      useOnClickOutside(ref, outsideClickCallback)
-    );
+    const { result } = renderHook(() => useOnClickOutside(ref, outsideClickCallback));
 
     act(() => {
       document.dispatchEvent(new KeyboardEvent("keydown", { code: "Escape" }));
@@ -47,9 +41,7 @@ describe("useOnClickOutside", () => {
   it("does not call the callback when pressing a different key", () => {
     const outsideClickCallback = jest.fn();
     const ref = { current: document.createElement("div") };
-    const { result } = renderHook(() =>
-      useOnClickOutside(ref, outsideClickCallback)
-    );
+    const { result } = renderHook(() => useOnClickOutside(ref, outsideClickCallback));
 
     act(() => {
       document.dispatchEvent(new KeyboardEvent("keydown", { code: "Enter" }));

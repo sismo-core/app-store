@@ -15,8 +15,8 @@ describe("deepSearch", () => {
         street: "123 Main St",
         city: "Anytown",
         state: "CA",
-        zip: "12345"
-      }
+        zip: "12345",
+      },
     };
     expect(deepSearch({ obj, searchString: "main" })).toEqual(true);
     expect(deepSearch({ obj, searchString: "CA" })).toEqual(true);
@@ -26,7 +26,7 @@ describe("deepSearch", () => {
     const obj = {
       name: "John",
       age: 30,
-      hobbies: ["reading", "writing", "swimming"]
+      hobbies: ["reading", "writing", "swimming"],
     };
     expect(deepSearch({ obj, searchString: "writing" })).toEqual(true);
     expect(deepSearch({ obj, searchString: "swim" })).toEqual(true);
@@ -36,7 +36,7 @@ describe("deepSearch", () => {
     const obj = {
       name: "John",
       age: 30,
-      occupation: "Software Engineer"
+      occupation: "Software Engineer",
     };
     expect(deepSearch({ obj, searchString: "software" })).toEqual(true);
     expect(deepSearch({ obj, searchString: "30" })).toEqual(true);
@@ -50,8 +50,8 @@ describe("deepSearch", () => {
         street: "123 Main St",
         city: "Anytown",
         state: "CA",
-        zip: "12345"
-      }
+        zip: "12345",
+      },
     };
     expect(deepSearch({ obj, searchString: "test" })).toEqual(false);
   });

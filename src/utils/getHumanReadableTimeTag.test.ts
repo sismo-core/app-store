@@ -36,9 +36,9 @@ describe("getHumanReadableRemainingTimeTag", () => {
     it("throws an error if both startDuration and endDuration are defined", () => {
       const startDuration = Duration.fromObject({ days: 1 });
       const endDuration = Duration.fromObject({ hours: 2 });
-      expect(() =>
-        getHumanReadableRemainingTimeTag({ startDuration, endDuration })
-      ).toThrowError("startDuration and endDuration cannot be both defined");
+      expect(() => getHumanReadableRemainingTimeTag({ startDuration, endDuration })).toThrowError(
+        "startDuration and endDuration cannot be both defined"
+      );
     });
   });
 

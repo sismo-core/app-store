@@ -12,7 +12,7 @@ describe("SCRIPT upload-metadata", () => {
 
   beforeEach(async () => {
     spaceService = await ServiceFactory.getSpacesService();
-    spaceService.updateConfigs([spaceMock1])
+    spaceService.updateConfigs([spaceMock1]);
   });
 
   it("should upload ", async () => {

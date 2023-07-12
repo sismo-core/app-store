@@ -16,4 +16,4 @@ export const mapAuthTypeToSheetColumnName = (authType: AuthType): string => {
   if (authType === AuthType.VAULT) {
     return "VaultId";
   }
-}
+};

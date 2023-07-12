@@ -72,6 +72,11 @@ export default {
             name: "polygon",
             relayerEnabled: false,
           },
+          {
+            contractAddress: "0x09519fb0E2363D2253338a4Cdc2911f67fE9A2C4",
+            name: "mainnet",
+            relayerEnabled: false,
+          },
         ],
         step2CtaText: "Claim your Sismo Early Community NFT",
       },

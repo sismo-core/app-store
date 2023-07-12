@@ -144,7 +144,7 @@ export default {
       metadata: {
         name: "Golden Cow Trader Minting",
         slug: "zk-drop-golden-trader",
-        description: "Prove you have swapped  ≥ 37 times on CoW to mint your Golden CoW Trader NFT.",
+        description: "Prove you have swapped ≥ 37 times on CoW to mint your Golden CoW Trader NFT.",
         tags: ["NFT"],
         image: "cow_app_store_zkdrop_golden_trader_500x500.png",
         createdAt: new Date("2023-07-12T10:00"),
@@ -159,7 +159,7 @@ export default {
       templateConfig: {
         nftMetadata: {
           name: "Golden Cow Trader NFT",
-          description: "Claimable by users that have swapped  ≥ 37 times on CoW between January 1, 2023 and July 1, 2023.",
+          description: "Claimable by users that have swapped ≥ 37 times on CoW between January 1, 2023 and July 1, 2023.",
           image: "nft_cow_golden_trader_1000x1000.png",
           symbol: "GCoWTraderNFT",
         },

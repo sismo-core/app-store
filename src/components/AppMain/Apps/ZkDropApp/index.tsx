@@ -12,13 +12,26 @@ import { getImpersonateAddresses } from "@/src/utils/getImpersonateAddresses";
 import env from "@/src/environments";
 import SelectDestination from "./components/SelectDestination";
 import Requirements from "./components/Requirements";
-import { Network, getErc721Explorer, getTxExplorer, networkChainIds } from "@/src/libs/contracts/networks";
+import {
+  Network,
+  getErc721Explorer,
+  getTxExplorer,
+  networkChainIds,
+} from "@/src/libs/contracts/networks";
 import { getMessageSignature } from "./utils/getMessageSignature";
 import Error from "@/src/ui/Error";
 import Congratulations from "./components/Congratulations";
 import { getMinimalHash } from "@/src/utils/getMinimalHash";
 import { ArrowSquareOut } from "phosphor-react";
-import { useAccount, useContractWrite, usePrepareContractWrite, useNetwork, useSwitchNetwork, useWaitForTransaction, useContractRead } from "wagmi";
+import {
+  useAccount,
+  useContractWrite,
+  usePrepareContractWrite,
+  useNetwork,
+  useSwitchNetwork,
+  useWaitForTransaction,
+  useContractRead,
+} from "wagmi";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 import { ZK_DROP_ABI } from "@/src/libs/contracts/zk-drop";
 import SelectChain from "./components/SelectChain";
@@ -56,22 +69,24 @@ const AlreadyRegistered = styled.div`
   cursor: pointer;
 `;
 
-const SismoButtonContainer = styled.div<{disabled: boolean}>`
+const SismoButtonContainer = styled.div<{ disabled: boolean }>`
   width: 100%;
   position: relative;
   display: flex;
   justify-content: center;
-  ${props => props.disabled && `
+  ${(props) =>
+    props.disabled &&
+    `
     opacity: 0.5;
   `}
-`
+`;
 
 const DisabledButton = styled.div`
   z-index: 1;
   width: 100%;
   height: 100%;
   position: absolute;
-`
+`;
 
 const MintContainer = styled.div`
   display: flex;
@@ -79,20 +94,20 @@ const MintContainer = styled.div`
   justify-content: center;
   align-items: center;
   margin-top: 32px;
-`
+`;
 
 const BackToAppStore = styled.div`
   font-size: 16px;
-  font-family: ${props => props.theme.fonts.medium};
+  font-family: ${(props) => props.theme.fonts.medium};
   cursor: pointer;
-`
+`;
 
 const TransactionLink = styled.div`
   font-size: 14px;
   margin-top: 20px;
   height: 30px;
   font-size: 16px;
-  font-family: ${props => props.theme.fonts.medium};
+  font-family: ${(props) => props.theme.fonts.medium};
 `;
 
 const Inline = styled.div`
@@ -100,6 +115,12 @@ const Inline = styled.div`
   width: 100%;
   align-items: center;
   justify-content: flex-end;
+`;
+
+const Label = styled.div`
+  font-size: 16px;
+  margin-bottom: 8px;
+  font-family: ${(props) => props.theme.fonts.bold};
 `;
 
 type Props = {
@@ -110,7 +131,7 @@ type Props = {
 export default function ZkDropApp({ app, groupSnapshotMetadataList }: Props): JSX.Element {
   const pathname = usePathname();
   const router = useRouter();
-  
+
   const { openConnectModal, connectModalOpen } = useConnectModal();
   const { chain } = useNetwork();
   const { isConnected } = useAccount();
@@ -125,9 +146,13 @@ export default function ZkDropApp({ app, groupSnapshotMetadataList }: Props): JS
   const hasResponse = Boolean(responseBytes);
   const [vaultId, setVaultId] = useState(null);
 
-  const [chainApp, setChainApp] = useState<Network>(app?.chains?.length === 1 ? app?.chains[0]?.name : null);
-  const [isRelayed, setIsRelayed] = useState<boolean>(app?.chains?.length === 1 ? app?.chains[0]?.relayerEnabled : null);
-  
+  const [chainApp, setChainApp] = useState<Network>(
+    app?.chains?.length === 1 ? app?.chains[0]?.name : null
+  );
+  const [isRelayed, setIsRelayed] = useState<boolean>(
+    app?.chains?.length === 1 ? app?.chains[0]?.relayerEnabled : null
+  );
+
   const sismoConnectConfig = useMemo(() => {
     const config = {
       appId: app.appId,
@@ -144,21 +169,21 @@ export default function ZkDropApp({ app, groupSnapshotMetadataList }: Props): JS
     if (destination) {
       window.localStorage.setItem("destination_zk_drop", destination);
     }
-  }, [destination])
+  }, [destination]);
 
   useEffect(() => {
     if (!app.chains) return;
-    if (chainApp && app.chains.find(chain => chain.name === chainApp)) {
-      setIsRelayed(app.chains.find(chain => chain.name === chainApp)?.relayerEnabled);
+    if (chainApp && app.chains.find((chain) => chain.name === chainApp)) {
+      setIsRelayed(app.chains.find((chain) => chain.name === chainApp)?.relayerEnabled);
       window.localStorage.setItem("chain_app_zk_drop", chainApp);
     }
-  }, [chainApp, app.chains])
+  }, [chainApp, app.chains]);
 
-  const contractAddress = app.chains.find(chain => chain.name === chainApp)?.contractAddress;
+  const contractAddress = app.chains.find((chain) => chain.name === chainApp)?.contractAddress;
   useContractRead({
     address: contractAddress,
     abi: ZK_DROP_ABI,
-    functionName: 'balanceOf',
+    functionName: "balanceOf",
     args: [destination],
     enabled: Boolean(destination) && Boolean(chainApp),
     chainId: networkChainIds[chainApp],
@@ -166,8 +191,8 @@ export default function ZkDropApp({ app, groupSnapshotMetadataList }: Props): JS
     onSuccess: (data: BigInt) => {
       if (typeof data === "bigint" && data > 0) {
         setAlreadyMinted(true);
-      } 
-    }
+      }
+    },
   });
 
   /****************************************************************************/
@@ -183,7 +208,7 @@ export default function ZkDropApp({ app, groupSnapshotMetadataList }: Props): JS
       destination: destination,
       chain: chainApp,
       spaceSlug: app.space.slug,
-      appSlug: app.slug
+      appSlug: app.slug,
     };
     const res = await fetch("/api/zk-drop/relay-tx", {
       method: "POST",
@@ -198,32 +223,32 @@ export default function ZkDropApp({ app, groupSnapshotMetadataList }: Props): JS
       setHash(data.txHash);
     } else {
       if (data.code === "minting-error") {
-        setError("Minting error. Please contact us or retry later.")
+        setError("Minting error. Please contact us or retry later.");
       }
     }
-  }
+  };
 
   /****************************************************************************/
   /****************************** NOT RELAYED *********************************/
   /****************************************************************************/
 
-  const { switchNetwork, isLoading: isSwitchingNetwork } = useSwitchNetwork()
+  const { switchNetwork, isLoading: isSwitchingNetwork } = useSwitchNetwork();
 
   const { config } = usePrepareContractWrite({
-      address: contractAddress,
-      abi: ZK_DROP_ABI,
-      functionName: "claimWithSismoConnect",
-      args: [responseBytes, destination],
-      chainId: networkChainIds[chainApp],
-      enabled: Boolean(responseBytes) && Boolean(destination) ,
-  })
+    address: contractAddress,
+    abi: ZK_DROP_ABI,
+    functionName: "claimWithSismoConnect",
+    args: [responseBytes, destination],
+    chainId: networkChainIds[chainApp],
+    enabled: Boolean(responseBytes) && Boolean(destination),
+  });
 
-  const { data, write, isLoading: isLoadingWriteContract } = useContractWrite(config);  
+  const { data, write, isLoading: isLoadingWriteContract } = useContractWrite(config);
   useEffect(() => {
     if (data && data.hash) {
       setHash(data.hash);
     }
-  }, [data])
+  }, [data]);
 
   const { isLoading: isLoadingTransaction } = useWaitForTransaction({
     hash: hash,
@@ -234,8 +259,8 @@ export default function ZkDropApp({ app, groupSnapshotMetadataList }: Props): JS
     },
     onError: () => {
       setError("Error while minting your ZK Drop");
-    }
-  })
+    },
+  });
 
   const mintNotRelayed = async () => {
     setError(null);
@@ -245,13 +270,14 @@ export default function ZkDropApp({ app, groupSnapshotMetadataList }: Props): JS
       return;
     }
     if (!isRelayed && chain.id !== networkChainIds[chainApp]) {
-      switchNetwork(networkChainIds[chainApp])
+      switchNetwork(networkChainIds[chainApp]);
       return;
     }
     write();
-  }
+  };
 
-  return <Content>
+  return (
+    <Content>
       {minted ? (
         <Congratulations
           onBackToApps={() => {
@@ -260,7 +286,7 @@ export default function ZkDropApp({ app, groupSnapshotMetadataList }: Props): JS
           app={app}
           destination={destination}
           network={chainApp}
-          tokenId={vaultId ? BigInt(vaultId)?.toString() :null}
+          tokenId={vaultId ? BigInt(vaultId)?.toString() : null}
         />
       ) : (
         <>
@@ -271,16 +297,21 @@ export default function ZkDropApp({ app, groupSnapshotMetadataList }: Props): JS
             style={{ marginBottom: 16 }}
             success={hasResponse && Boolean(destination)}
           >
-            <Requirements app={app} groupSnapshotMetadataList={groupSnapshotMetadataList}/>
-            <SelectDestination onDestinationSelected={(_destination: `0x${string}`) => setDestination(_destination)}/>
-            {
-              app.chains.length > 1 &&
-              <SelectChain onChainSelected={(_chain: Network) => setChainApp(_chain)} selectedChain={chainApp} chains={app.chains.map(chain => chain.name)}/>
-            }
+            <Requirements app={app} groupSnapshotMetadataList={groupSnapshotMetadataList} />
+            <Label>NFT Recipient</Label>
+            {app.chains.length > 1 && (
+              <SelectChain
+                onChainSelected={(_chain: Network) => setChainApp(_chain)}
+                selectedChain={chainApp}
+                chains={app.chains.map((chain) => chain.name)}
+                style={{ marginBottom: 8 }}
+              />
+            )}
+            <SelectDestination
+              onDestinationSelected={(_destination: `0x${string}`) => setDestination(_destination)}
+            />
             <SismoButtonContainer disabled={!destination || !chainApp}>
-              {
-                !destination || !chainApp && <DisabledButton/>
-              }
+              {(!destination || !chainApp) && <DisabledButton />}
               <SismoConnectButton
                 config={sismoConnectConfig}
                 claims={app?.claimRequests}
@@ -290,14 +321,18 @@ export default function ZkDropApp({ app, groupSnapshotMetadataList }: Props): JS
                 callbackPath={pathname}
                 onResponseBytes={(response) => {
                   setResponseBytes(response);
-                  setDestination(window.localStorage.getItem("destination_zk_drop") as `0x${string}`);
-                  const chainAppZkDrop = window.localStorage.getItem("chain_app_zk_drop") as Network;
-                  if (chainAppZkDrop && app.chains.find(chain => chain.name === chainAppZkDrop)) {
+                  setDestination(
+                    window.localStorage.getItem("destination_zk_drop") as `0x${string}`
+                  );
+                  const chainAppZkDrop = window.localStorage.getItem(
+                    "chain_app_zk_drop"
+                  ) as Network;
+                  if (chainAppZkDrop && app.chains.find((chain) => chain.name === chainAppZkDrop)) {
                     setChainApp(chainAppZkDrop);
                   }
                 }}
                 onResponse={(response) => {
-                  const vaultId = response.proofs.find(proof => {
+                  const vaultId = response.proofs.find((proof) => {
                     if (!proof.auths) return false;
                     if (proof.auths[0].authType === AuthType.VAULT) {
                       return true;
@@ -314,79 +349,76 @@ export default function ZkDropApp({ app, groupSnapshotMetadataList }: Props): JS
             title={app?.step2CtaText}
             success={alreadyMinted && hasResponse && Boolean(destination)}
           >
-            { alreadyMinted ? 
-              <AlreadyRegistered onClick={() => {
-                const explorer = getErc721Explorer({ 
-                  contractAddress: app.chains.find(chain => chain.name === chainApp)?.contractAddress, 
-                  network: chainApp,
-                  tokenId: vaultId ? BigInt(vaultId)?.toString() :null
-                });
-                window.open(explorer, "_blank");
-              }}>
-                NFT Already minted <ArrowSquareOut style={{ marginTop: -8, marginLeft: 4 }} size={18}/>
+            {alreadyMinted ? (
+              <AlreadyRegistered
+                onClick={() => {
+                  const explorer = getErc721Explorer({
+                    contractAddress: app.chains.find((chain) => chain.name === chainApp)
+                      ?.contractAddress,
+                    network: chainApp,
+                    tokenId: vaultId ? BigInt(vaultId)?.toString() : null,
+                  });
+                  window.open(explorer, "_blank");
+                }}
+              >
+                NFT Already minted{" "}
+                <ArrowSquareOut style={{ marginTop: -8, marginLeft: 4 }} size={18} />
               </AlreadyRegistered>
-              :
+            ) : (
               <MintContainer>
-                {
-                  isRelayed ?
-                    <Button3D
-                      onClick={mintRelayed}
-                      secondary
-                      loading={minting}
-                    >
-                      {minting ? "Minting..." : `Mint NFT`}
-                    </Button3D>
-                    :
-                    <Button3D
-                      onClick={mintNotRelayed}
-                      secondary
-                      loading={isLoadingTransaction || connectModalOpen || isLoadingWriteContract || isSwitchingNetwork}
-                    >
-                      {
-                        isConnected ?
-                        <>  
-                          {
-                            chain.id !== networkChainIds[chainApp] ?
-                              <>
-                                {isSwitchingNetwork ? "Switching Network..." : "Switch Network"}
-                              </>
-                              :
-                              <>
-                                {isLoadingTransaction || isLoadingWriteContract ? "Minting..." : `Mint NFT`}
-                              </>
-                          }
-                        </>
-                        :
-                        <>
-                          {connectModalOpen ? "Connecting wallet..." : "Connect Wallet"}
-                        </>
-                      }
-                    </Button3D>
-                }
-                <TransactionLink style={{marginTop: 20 }}>
+                {isRelayed ? (
+                  <Button3D onClick={mintRelayed} secondary loading={minting}>
+                    {minting ? "Minting..." : `Mint NFT`}
+                  </Button3D>
+                ) : (
+                  <Button3D
+                    onClick={mintNotRelayed}
+                    secondary
+                    loading={
+                      isLoadingTransaction ||
+                      connectModalOpen ||
+                      isLoadingWriteContract ||
+                      isSwitchingNetwork
+                    }
+                  >
+                    {isConnected ? (
+                      <>
+                        {chain.id !== networkChainIds[chainApp] ? (
+                          <>{isSwitchingNetwork ? "Switching Network..." : "Switch Network"}</>
+                        ) : (
+                          <>
+                            {isLoadingTransaction || isLoadingWriteContract
+                              ? "Minting..."
+                              : `Mint NFT`}
+                          </>
+                        )}
+                      </>
+                    ) : (
+                      <>{connectModalOpen ? "Connecting wallet..." : "Connect Wallet"}</>
+                    )}
+                  </Button3D>
+                )}
+                <TransactionLink style={{ marginTop: 20 }}>
                   {hash ? (
                     <Inline
                       style={{ cursor: "pointer" }}
                       onClick={() => {
-                        window.open(getTxExplorer({ txHash:hash, network: chainApp}), "_blank");
+                        window.open(getTxExplorer({ txHash: hash, network: chainApp }), "_blank");
                       }}
                     >
                       Transaction hash: {getMinimalHash(hash)}
-                      <ArrowSquareOut style={{ marginTop: -8, marginLeft: 4 }} size={18}/>
+                      <ArrowSquareOut style={{ marginTop: -8, marginLeft: 4 }} size={18} />
                     </Inline>
-                  )
-                  :
-                  <BackToAppStore onClick={() => router.push("/")}>
-                    Back to App Store
-                  </BackToAppStore>
-                }
+                  ) : (
+                    <BackToAppStore onClick={() => router.push("/")}>
+                      Back to App Store
+                    </BackToAppStore>
+                  )}
                 </TransactionLink>
               </MintContainer>
-            }
+            )}
           </Section>
-          {
-            error && <Error style={{ marginTop: 24 }}>{error}</Error>
-          }
+          {error && <Error style={{ marginTop: 24 }}>{error}</Error>}
           {hasResponse && alreadyMinted && (
             <Bottom>
               <Button3D
@@ -401,5 +433,6 @@ export default function ZkDropApp({ app, groupSnapshotMetadataList }: Props): JS
           )}
         </>
       )}
-    </Content>;
+    </Content>
+  );
 }

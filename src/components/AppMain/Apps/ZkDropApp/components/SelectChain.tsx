@@ -4,39 +4,32 @@ import { styled } from "styled-components";
 
 const Container = styled.div`
   width: 100%;
-  margin-bottom: 32px;
 `;
-
-const Label = styled.div`
-  font-size: 16px;
-  margin-bottom: 8px;
-  font-family: ${(props) => props.theme.fonts.bold};
-`
 
 type Props = {
   selectedChain: Network | null;
   chains: Network[];
   onChainSelected: (chain: Network) => void;
+  style: React.CSSProperties;
 };
 
 export default function SelectChain({
-    selectedChain,
-    chains,
-    onChainSelected
+  selectedChain,
+  chains,
+  onChainSelected,
+  style,
 }: Props): JSX.Element {
-
-  return <Container>
-    <Label>
-      Chain:
-    </Label>
-    <Select
-      options={chains.map(chain => ({ 
-        value: chain,
-        label: networkLabels[chain]
-      }))}
-      placeholder="Select your chain"
-      value={selectedChain}
-      onChange={(chain) => onChainSelected(chain as Network)}
-    />
-  </Container>;
+  return (
+    <Container style={style}>
+      <Select
+        options={chains.map((chain) => ({
+          value: chain,
+          label: networkLabels[chain],
+        }))}
+        placeholder="Select a chain"
+        value={selectedChain}
+        onChange={(chain) => onChainSelected(chain as Network)}
+      />
+    </Container>
+  );
 }

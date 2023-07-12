@@ -42,7 +42,7 @@ export default {
       sismoConnectRequest: {
         appId: "0x5b7249cf5d8a1669cec21e5aa554299d",
         authRequests: [{ authType: AuthType.VAULT }],
-        claimRequests: [{ groupId: "0xc90878eaa974c31bc62c52ad86121765", value: 1 },],
+        claimRequests: [{ groupId: "0xc90878eaa974c31bc62c52ad86121765" },],
         impersonateAddresses: ["0x8ab1760889F26cBbf33A75FD2cF1696BFccDc9e6"],
       },
       templateConfig: {

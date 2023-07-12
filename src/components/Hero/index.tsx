@@ -195,7 +195,7 @@ const ImageBadgeBottom = styled(Image)`
   }
 `;
 
-const options : ToggleOption[] = [
+const options: ToggleOption[] = [
   { label: "Live", value: "live" },
   { label: "Demo", value: "demo" },
 ];
@@ -205,14 +205,13 @@ export default function Hero(): JSX.Element {
   const [selected, setSelected] = useState<string>(env.isDemo ? "demo" : "live");
   function onToggleChange(value: string) {
     setSelected(options.find((option) => option.value === value).value);
-    if(value === "demo"){
+    if (value === "demo") {
       router.push("https://demo.apps.sismo.io");
     }
-    if(value === "live"){
+    if (value === "live") {
       router.push("https://apps.sismo.io");
     }
   }
-
 
   return (
     <Container>
@@ -241,12 +240,7 @@ export default function Hero(): JSX.Element {
         width={292}
         height={223}
       />
-      <ImageHeart
-        src={"./HomeHero/hearts.svg"}
-        alt="Background Ziki"
-        width={33}
-        height={45}
-      />
+      <ImageHeart src={"./HomeHero/hearts.svg"} alt="Background Ziki" width={33} height={45} />
       <ImageBadgeTopLeft
         src={"./HomeHero/badge-top-left.svg"}
         alt="Background Ziki"
@@ -266,23 +260,16 @@ export default function Hero(): JSX.Element {
         height={36}
       />
       <TextContainer>
-        <Toggle
-          selected={selected}
-          options={options}
-          onChange={onToggleChange}
-        />
+        <Toggle selected={selected} options={options} onChange={onToggleChange} />
         <Title style={{ marginBottom: 29 }}>Sismo App Store</Title>
         <Subtitle>
-        Explore Sismo Connect Apps built by<br/>the community
+          Explore Sismo Connect Apps built by
+          <br />
+          the community
         </Subtitle>
         <Button3D
-          style={{ width: 186}}
-          onClick={() =>
-            window.open(
-              "https://app.deform.cc/form/5d8438a7-75a9-4b02-bf0d-b42b63cd2b85/",
-              "_blank"
-            )
-          }
+          style={{ width: 186 }}
+          onClick={() => window.open("https://app-store-resources.sismo.io", "_blank")}
         >
           Create your app
         </Button3D>

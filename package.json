@@ -13,7 +13,8 @@
     "sync-all-apps-factory": "NEXT_PUBLIC_NODE_ENV=main yarn sync-apps-factory && NEXT_PUBLIC_NODE_ENV=demo yarn sync-apps-factory",
     "upload-zk-drop-metadata": "yarn run build-config && tsx -r ./svgMock.js ./src/scripts/upload-metadata/upload-metadata.script.ts",
     "sync-apps-factory": "yarn run build-config && tsx -r ./svgMock.js ./src/scripts/sync-apps-factory/sync-apps-factory.script.ts",
-    "prettier": "prettier --write 'src/**/*.ts' '.github' 'README.md'"
+    "prettier": "prettier --write 'src/**/*.ts' '.github' 'README.md'",
+    "prettier-check": "prettier --check 'src/**/*.ts' '.github' 'README.md'"
   },
   "dependencies": {
     "@google-cloud/local-auth": "^2.1.1",
@@ -63,6 +64,7 @@
     "@types/styled-components": "^5.1.26",
     "@types/testing-library__jest-dom": "5.14.5",
     "encoding": "^0.1.13",
+    "husky": "^8.0.3",
     "jest": "^29.5.0",
     "jest-date-mock": "^1.0.8",
     "jest-environment-jsdom": "29.5.0",

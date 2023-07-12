@@ -37,7 +37,7 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
       - name: Prettier
-        run: yarn prettier
+        run: yarn prettier-check
   test:
     name: Tests
     runs-on: ubuntu-latest

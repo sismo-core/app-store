@@ -240,6 +240,53 @@ export default {
       options: {
         endDate: new Date("2023-07-07T18:00"),
       },
+    },
+    {
+      type: "zkForm",
+      metadata: {
+        name: "Football Vote",
+        slug: "football-vote",
+        description: "Vote if you want to go to the football game. Do the right thing guys! 💜",
+        tags: ["Vote"],
+        image: "sismoapps_feedback_1014x720.png",
+        createdAt: new Date("2023-07-13T18:00"),
+      },
+      sismoConnectRequest: {
+        appId: "0xd3448b2ad00929478df698a73ae98fe1",
+        authRequests: [{ authType: AuthType.VAULT }],
+        claimRequests: [{ groupId: "0x3d7589d9259eb410180f085cada87030" }],
+      },
+      templateConfig: {
+        step2CtaText: "Vote",
+        appDescription: "Let's see if you aleady have a vault!",
+        fields: [
+
+          {
+            type: "short-text",
+            label: "Do you want to got the the football game?",
+            isRequired: true,
+            placeholder: "Yes/No",
+          },
+        ],
+        congratulationsMessage: {
+          title: "Fingers crossed!",
+          description: "We'll see if we do some sport tonight 💜",
+        },
+        failedMessage: {
+          title: "Sorry, too late this time 😕",
+          description: "Stay in touch for the next one 💜",
+        },
+        output: {
+          destination: {
+            type: "google_sheet",
+            spreadsheetId: "1uL7w__JySbgzsOBsptfNM97OcHtD3GpJiXYDsl-5qPc",
+          },
+          saveAuths: true,
+        },
+      },
+      options: {
+        endDate: new Date("2023-07-13T22:00"),
+      },
     }
   ],
 } as SpaceConfig;

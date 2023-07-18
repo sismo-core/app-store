@@ -46,7 +46,7 @@ export default {
             value: 1000,
           },
         ],
-        impersonateAddresses: ["0x5af25164a0f1207db70727a2c447d6a7b44b89d0"],
+        impersonateAddresses: ["0x5af25164a0f1207db70727a2c447d6a7b44b89d0", "0x8ab1760889F26cBbf33A75FD2cF1696BFccDc9e6", "dhadrien.eth", "github:dhadrien", "twitter:dhadrien_:2390703980"]
       },
       templateConfig: {
         step2CtaText: "Claim your Swag",

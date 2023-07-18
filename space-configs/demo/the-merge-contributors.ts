@@ -25,6 +25,7 @@ export default {
         appId: "0x0f38b4eb4d51fbd7906c9c7574df075e",
         authRequests: [{ authType: AuthType.VAULT }],
         claimRequests: [{ groupId: "0x42c768bb8ae79e4c5c05d3b51a4ec74a" }], // Mergooor contributor groupID "0x42c768bb8ae79e4c5c05d3b51a4ec74a"
+        impersonateAddresses: ["vitalik.eth", "github:vbuterin", "twitter:VitalikButerin:295218901"],
       },
       templateConfig: {
         step2CtaText: "Register to get tickets",

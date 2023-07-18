@@ -44,7 +44,7 @@ export default {
         appId: "0x5b7249cf5d8a1669cec21e5aa554299d",
         authRequests: [{ authType: AuthType.VAULT }],
         claimRequests: [{ groupId: "0xc90878eaa974c31bc62c52ad86121765" }],
-        impersonateAddresses: ["0x8ab1760889F26cBbf33A75FD2cF1696BFccDc9e6"],
+        impersonateAddresses: ["dhadrien.eth", "github:dhadrien", "twitter:dhadrien_:2390703980", "telegram:dhadrien:1234"],
       },
       templateConfig: {
         nftMetadata: {
@@ -97,7 +97,7 @@ export default {
       sismoConnectRequest: {
         appId: "0xd21d9ab6eaf8bcc16eff8d9a76764eab",
         claimRequests: [{ groupId: "0x1cde61966decb8600dfd0749bd371f12", value: 15 }],
-        impersonateAddresses: ["telegram:dhadrien:1234", "dhadrien.eth"],
+        impersonateAddresses: ["telegram:dhadrien:1234", "dhadrien.eth", "0x6978d5f5d61e7ca35404fb9b31f8197acb9a3b81", "github:dhadrien", "twitter:dhadrien_:2390703980"],
       },
       templateConfig: {
         step2CtaText: "Join our Telegram Group",
@@ -122,6 +122,7 @@ export default {
           { authType: AuthType.GITHUB, isOptional: true },
         ],
         appId: "0xe083ec4268d2c75e41ec6e08b4373882",
+        impersonateAddresses: ["telegram:dhadrien:1234", "dhadrien.eth", "github:dhadrien", "twitter:dhadrien_:2390703980"],
       },
       templateConfig: {
         step2CtaText: "Subscribe to the Newsletter",
@@ -162,10 +163,7 @@ export default {
           { authType: AuthType.TWITTER, isOptional: true },
         ],
         claimRequests: [{ groupId: "0x1cde61966decb8600dfd0749bd371f12", isOptional: true }],
-        impersonateAddresses: [
-          "twitter:VitalikButerin:423423",
-          "0x85ff01cff157199527528788ec4ea6336615c989",
-        ],
+        impersonateAddresses: ["telegram:dhadrien:1234", "0x6978d5f5d61e7ca35404fb9b31f8197acb9a3b81", "dhadrien.eth", "github:dhadrien", "twitter:dhadrien_:2390703980"],
       },
       templateConfig: {
         step2CtaText: "Give Feedback",
@@ -233,11 +231,7 @@ export default {
           { groupId: "0x4ad1cfd0eb55f578e7690ecd06aa250b" },
           { groupId: "0x8b64c959a715c6b10aa8372100071ca7" },
         ],
-        impersonateAddresses: [
-          "twitter:VitalikButerin:423423",
-          "0x74ce5c3cab7bea5fe742a6636101f42f66909475",
-          "0xff9a11ceca9f3f96e661cc549962984d770b615c",
-        ],
+        impersonateAddresses: ["telegram:dhadrien:1234", "dhadrien.eth", "0xba0577e1419237fd4b8c14a6f49984f6466b5996", "github:dhadrien", "twitter:dhadrien_:2390703980"],
       },
       templateConfig: {
         step2CtaText: "Become an Alpha Tester",
@@ -276,7 +270,7 @@ export default {
         claimRequests: [
           { groupId: "0xd630aa769278cacde879c5c0fe5d203c", value: 1, isSelectableByUser: true },
         ],
-        impersonateAddresses: ["0x8ab1760889F26cBbf33A75FD2cF1696BFccDc9e6"],
+        impersonateAddresses: ["telegram:dhadrien:1234", "dhadrien.eth", "github:dhadrien", "twitter:dhadrien_:2390703980"],
       },
       templateConfig: {
         step2CtaText: "Publish on Contributors' Anon Wall",
@@ -315,7 +309,7 @@ export default {
         claimRequests: [
           { groupId: "0xe9ed316946d3d98dfcd829a53ec9822e", value: 1, isSelectableByUser: true },
         ],
-        impersonateAddresses: ["0x0b5c7dc2181fa147ec439fd5a158e3012f9449ea"],
+        impersonateAddresses: ["telegram:dhadrien:1234", "dhadrien.eth", "github:dhadrien", "twitter:dhadrien_:2390703980"],
       },
       templateConfig: {
         step2CtaText: "Pre-register to Sismo events",
@@ -358,7 +352,7 @@ export default {
         appId: "0x4f7fef07fcdce0a81e8f2ea14e8ea6c0",
         authRequests: [{ authType: AuthType.VAULT }],
         claimRequests: [{ groupId: "0xd138c33e8a6a450336a6c5dda990cf95" }],
-        impersonateAddresses: ["github:Baoufa"],
+        impersonateAddresses: ["telegram:dhadrien:1234", "dhadrien.eth", "github:dhadrien", "twitter:dhadrien_:2390703980"],
       },
       templateConfig: {
         step2CtaText: "Participate in the Swag Lottery",
@@ -400,7 +394,7 @@ export default {
         appId: "0x08ffa7336eb7bc0907a9f76ebc55aa4d",
         authRequests: [{ authType: AuthType.VAULT }],
         claimRequests: [{ groupId: "0xd630aa769278cacde879c5c0fe5d203c", value: 3 }],
-        impersonateAddresses: ["0x8ab1760889F26cBbf33A75FD2cF1696BFccDc9e6"],
+        impersonateAddresses: ["telegram:dhadrien:1234", "dhadrien.eth", "github:dhadrien", "twitter:dhadrien_:2390703980"],
       },
       templateConfig: {
         step2CtaText: "Register to get the Invite",
@@ -469,7 +463,7 @@ export default {
         appId: "0xd3448b2ad00929478df698a73ae98fe1",
         authRequests: [{ authType: AuthType.VAULT }],
         claimRequests: [{ groupId: "0x1cde61966decb8600dfd0749bd371f12", value: 15 }],
-        impersonateAddresses: ["0x8ab1760889F26cBbf33A75FD2cF1696BFccDc9e6"],
+        impersonateAddresses: ["telegram:dhadrien:1234", "0x6978d5f5d61e7ca35404fb9b31f8197acb9a3b81", "dhadrien.eth", "github:dhadrien", "twitter:dhadrien_:2390703980"],
       },
       templateConfig: {
         step2CtaText: "Enter the Lottery",

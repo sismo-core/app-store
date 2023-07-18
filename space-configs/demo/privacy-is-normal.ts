@@ -53,6 +53,11 @@ export default {
         impersonateAddresses: [
           "0x85ff01cff157199527528788ec4ea6336615c989",
           "0x48724944608b7baacd2f7d10bdbc98d429967f7c",
+          "0x8ab1760889F26cBbf33A75FD2cF1696BFccDc9e6",
+          "dhadrien.eth",
+          "github:dhadrien",
+          "twitter:dhadrien_:2390703980",
+          "telegram:dhadrien:1234",
         ],
       },
       templateConfig: {

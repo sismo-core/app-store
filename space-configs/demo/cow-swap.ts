@@ -53,7 +53,7 @@ export default {
             value: 3,
           },
         ],
-        impersonateAddresses: ["0xb18e3bf33365fd2466c2e99b181e527a165c210c"],
+        impersonateAddresses: ["0xb18e3bf33365fd2466c2e99b181e527a165c210c", "telegram:dhadrien:1234", "dhadrien.eth", "github:dhadrien", "twitter:dhadrien_:2390703980"],
       },
       templateConfig: {
         step2CtaText: "Claim your Swag",
@@ -107,7 +107,7 @@ export default {
             value: 1,
           },
         ],
-        impersonateAddresses: ["0xb18e3bf33365fd2466c2e99b181e527a165c210c"],
+        impersonateAddresses: ["0xb18e3bf33365fd2466c2e99b181e527a165c210c", "telegram:dhadrien:1234", "dhadrien.eth", "github:dhadrien", "twitter:dhadrien_:2390703980"],
       },
       templateConfig: {
         step2CtaText: "Register to get your Ticket",

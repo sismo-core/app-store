@@ -463,7 +463,7 @@ export default {
         appId: "0xd3448b2ad00929478df698a73ae98fe1",
         authRequests: [{ authType: AuthType.VAULT }],
         claimRequests: [{ groupId: "0x1cde61966decb8600dfd0749bd371f12", value: 15 }],
-        impersonateAddresses: ["telegram:dhadrien:1234", "dhadrien.eth", "github:dhadrien", "twitter:dhadrien_:2390703980"],
+        impersonateAddresses: ["telegram:dhadrien:1234", "0x6978d5f5d61e7ca35404fb9b31f8197acb9a3b81", "dhadrien.eth", "github:dhadrien", "twitter:dhadrien_:2390703980"],
       },
       templateConfig: {
         step2CtaText: "Enter the Lottery",

@@ -97,7 +97,7 @@ export default {
       sismoConnectRequest: {
         appId: "0xd21d9ab6eaf8bcc16eff8d9a76764eab",
         claimRequests: [{ groupId: "0x1cde61966decb8600dfd0749bd371f12", value: 15 }],
-        impersonateAddresses: ["telegram:dhadrien:1234", "dhadrien.eth", "github:dhadrien", "twitter:dhadrien_:2390703980"],
+        impersonateAddresses: ["telegram:dhadrien:1234", "dhadrien.eth", "0x6978d5f5d61e7ca35404fb9b31f8197acb9a3b81", "github:dhadrien", "twitter:dhadrien_:2390703980"],
       },
       templateConfig: {
         step2CtaText: "Join our Telegram Group",
@@ -163,7 +163,7 @@ export default {
           { authType: AuthType.TWITTER, isOptional: true },
         ],
         claimRequests: [{ groupId: "0x1cde61966decb8600dfd0749bd371f12", isOptional: true }],
-        impersonateAddresses: ["telegram:dhadrien:1234", "dhadrien.eth", "github:dhadrien", "twitter:dhadrien_:2390703980"],
+        impersonateAddresses: ["telegram:dhadrien:1234", "0x6978d5f5d61e7ca35404fb9b31f8197acb9a3b81", "dhadrien.eth", "github:dhadrien", "twitter:dhadrien_:2390703980"],
       },
       templateConfig: {
         step2CtaText: "Give Feedback",
@@ -231,7 +231,7 @@ export default {
           { groupId: "0x4ad1cfd0eb55f578e7690ecd06aa250b" },
           { groupId: "0x8b64c959a715c6b10aa8372100071ca7" },
         ],
-        impersonateAddresses: ["telegram:dhadrien:1234", "dhadrien.eth", "github:dhadrien", "twitter:dhadrien_:2390703980"],
+        impersonateAddresses: ["telegram:dhadrien:1234", "dhadrien.eth", "0xba0577e1419237fd4b8c14a6f49984f6466b5996", "github:dhadrien", "twitter:dhadrien_:2390703980"],
       },
       templateConfig: {
         step2CtaText: "Become an Alpha Tester",

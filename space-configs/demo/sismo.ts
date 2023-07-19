@@ -516,5 +516,52 @@ export default {
         isFeatured: true,
       },
     },
+    {
+      // NO UPDATE. Template type
+      type: "zkDrop",
+      // UPDATE. App information
+      metadata: {
+        name: "testnft", // UPDATE. Your app name
+        slug: "testnft", // UPDATE. Your app name in the form of a slug (no spaces allowed). It will be the last part in the URL, eg: apps.sismo.io/sismo/zk-drop-early-community
+        description: "Prove you are an early member of Sismo Community to claim your Sismo Early Community NFT.", // UPDATE. The description is used for SEO and social media preview of your app
+        image: "sismo_zkdrop_early_community_500x500.png", // UPDATE. Image for your app, to be placed in the images folder
+        tags: ["NFT"], // UPDATE. Add one or two tags to describe your app
+        createdAt: new Date("2022-07-01T00:00:00.000Z"), // UPDATE. Edit the date here to today's date YYYY-MM-DD
+        lastUpdateAt: new Date("2022-07-01T00:00:00.000Z"), // UPDATE OR REMOVE. Edit the date here to last update date YYYY-MM-DD
+      },
+      // UPDATE. Sismo Connect request, see "Cheatsheet: Build Your Sismo Connect Request"
+      sismoConnectRequest: {
+        appId: "{{ auto-fill }}", // NO UPDATE. Sismo Connect appId is automatically created based on your app metadata
+        authRequests: [{ authType: AuthType.VAULT }], // UPDATE OR REMOVE. Select auth
+        claimRequests: [{ groupId: "0xc90878eaa974c31bc62c52ad86121765" }], // UPDATE OR REMOVE. Select group
+      },
+      // UPDATE. Config for zkForm
+      templateConfig: {
+        owner: "{{ evm address }}", // UPDATE OR REMOVE. Evm address owner of the contract. If empty, Sismo is owner by default. Owner will have rights to update NFT metadata and expiry date.
+        isTransferable: true, // UPDATE. Make the NFT transferable or not
+        nftMetadata: {
+          name: "Sismo Early Community NFT", // UPDATE. Name for your NFT
+          description: "Claimable by the early community of Sismo, this NFT is a small gift to everyone that helped us to build Sismo before July 11 2023.", // UPDATE. Description for your NFT
+          image: "nft_sismo_early_community_1000x1000.png", // UPDATE. Image for your NFT, to be placed in the images folder
+          symbol: "SEarlyNFT", // UPDATE. Symbol for your NFT
+        },
+        chains: [
+          {
+            contractAddress: "{{ auto-fill }}", // The contract address will be automatically created based on your chain name
+            name: "gnosis", // UPDATE. Your chain name: "gnosis", "mainnet", "arbitrum", "optimism", "polygon", “mumbai”, “arbitrum-goerli”, “goerli”, “optimism-goerli”
+            relayerEnabled: true, // UPDATE. Relayer enabled or not to pay fees for users and ensure full privacy-preserving claiming, set to false by default.
+          },
+        ],
+        step1CtaText: "Prove you are Eligible", // UPDATE OR REMOVE. 1st step text when users click on the app, "Sign in with Sismo" by default
+        step2CtaText: "Claim your Sismo Early Community NFT", // UPDATE. 2nd step button text, on submitting the form
+      },
+      // UPDATE OR REMOVE. App dates
+      options: {
+        startDate: new Date("2023-05-12T18:00"), // UPDATE OR REMOVE. Your start date YYYY-MM-DD
+        endDate: new Date("2023-05-19T18:00"), // UPDATE OR REMOVE. Your end date YYYY-MM-DD
+      },
+    }, 
   ],
 } as SpaceConfig;
+
+

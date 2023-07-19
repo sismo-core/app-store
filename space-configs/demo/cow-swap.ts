@@ -53,7 +53,7 @@ export default {
             value: 3,
           },
         ],
-        impersonateAddresses: ["0xb18e3bf33365fd2466c2e99b181e527a165c210c", "telegram:dhadrien:1234", "dhadrien.eth", "github:dhadrien", "twitter:dhadrien_:2390703980"],
+        impersonateAddresses: ["0xb18e3bf33365fd2466c2e99b181e527a165c210c", "dhadrien.sismo.eth", "0xA4C94A6091545e40fc9c3E0982AEc8942E282F38", "0x1b9424ed517f7700e7368e34a9743295a225d889”, “0x82fbed074f62386ed43bb816f748e8817bf46ff7", "0xc281bd4db5bf94f02a8525dca954db3895685700", "telegram:dhadrien:1234", "github:dhadrien", "twitter:dhadrien_:2390703980"],
       },
       templateConfig: {
         step2CtaText: "Claim your Swag",
@@ -107,7 +107,7 @@ export default {
             value: 1,
           },
         ],
-        impersonateAddresses: ["0xb18e3bf33365fd2466c2e99b181e527a165c210c", "telegram:dhadrien:1234", "dhadrien.eth", "github:dhadrien", "twitter:dhadrien_:2390703980"],
+        impersonateAddresses: ["0xb18e3bf33365fd2466c2e99b181e527a165c210c", "dhadrien.sismo.eth", "0xA4C94A6091545e40fc9c3E0982AEc8942E282F38", "0x1b9424ed517f7700e7368e34a9743295a225d889”, “0x82fbed074f62386ed43bb816f748e8817bf46ff7", "0xc281bd4db5bf94f02a8525dca954db3895685700", "telegram:dhadrien:1234", "github:dhadrien", "twitter:dhadrien_:2390703980"],
       },
       templateConfig: {
         step2CtaText: "Register to get your Ticket",

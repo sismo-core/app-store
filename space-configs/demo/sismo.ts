@@ -524,14 +524,14 @@ export default {
         name: "testnft", // UPDATE. Your app name
         slug: "testnft", // UPDATE. Your app name in the form of a slug (no spaces allowed). It will be the last part in the URL, eg: apps.sismo.io/sismo/zk-drop-early-community
         description: "Prove you are an early member of Sismo Community to claim your Sismo Early Community NFT.", // UPDATE. The description is used for SEO and social media preview of your app
-        image: "sismo_zkdrop_early_community_500x500.png", // UPDATE. Image for your app, to be placed in the images folder
+        image: "sismoapps_feedback_1014x720.png",
         tags: ["NFT"], // UPDATE. Add one or two tags to describe your app
         createdAt: new Date("2022-07-01T00:00:00.000Z"), // UPDATE. Edit the date here to today's date YYYY-MM-DD
         lastUpdateAt: new Date("2022-07-01T00:00:00.000Z"), // UPDATE OR REMOVE. Edit the date here to last update date YYYY-MM-DD
       },
       // UPDATE. Sismo Connect request, see "Cheatsheet: Build Your Sismo Connect Request"
       sismoConnectRequest: {
-        appId: "{{ auto-fill }}", // NO UPDATE. Sismo Connect appId is automatically created based on your app metadata
+        appId: "0x08ffa7336eb7bc0907a9f76ebc55aa4d", // NO UPDATE. Sismo Connect appId is automatically created based on your app metadata
         authRequests: [{ authType: AuthType.VAULT }], // UPDATE OR REMOVE. Select auth
         claimRequests: [{ groupId: "0xc90878eaa974c31bc62c52ad86121765" }], // UPDATE OR REMOVE. Select group
       },
@@ -570,14 +570,14 @@ export default {
         slug: "testbot", // UPDATE. Your app name in the form of a slug (no spaces allowed). It will be the last part in the URL, eg: apps.sismo.io/sismo/citadel
         description:
           "Prove you are a Sismo Community member to join our private Sismo Citadel Telegram Group.", // UPDATE. The description is used for SEO and social media preview of your app
-        image: "sismo_zktelegrambot_citadel_500x500.png", // UPDATE. Image for your app, to be placed in the images folder
+        image: "sismoapps_feedback_1014x720.png",
         tags: ["Telegram"], // UPDATE. Add one or two tags to describe your app
         createdAt: new Date("2022-07-01T00:00:00.000Z"), // UPDATE. Edit the date here to today's date YYYY-MM-DD
         lastUpdateAt: new Date("2022-07-01T00:00:00.000Z"), // UPDATE OR REMOVE. Edit the date here to last update date YYYY-MM-DD
       },
       // UPDATE. Sismo Connect request, see "Cheatsheet: Build Your Sismo Connect Request"
       sismoConnectRequest: {
-        appId: "{{ auto-fill }}", // NO UPDATE. Sismo Connect appId is automatically created based on your app metadata
+        appId: "0x08ffa7336eb7bc0907a9f76ebc55aa4d", // NO UPDATE. Sismo Connect appId is automatically created based on your app metadata
         claimRequests: [{ groupId: "0xd630aa769278cacde879c5c0fe5d203c" }], // UPDATE OR REMOVE. Select group
       },
       // UPDATE. Config for zkTelegramBot
@@ -587,6 +587,63 @@ export default {
         appDescription: "You will prove that you are a member of Sismo Community to join our Sismo Citadel Telegram Group.", // UPDATE OR REMOVE. Description for your app
         telegramGroupId: "", // UPDATE. See "Add your App in the Sismo App Store"
         telegramInviteLink: "", // UPDATE. See "Add your App in the Sismo App Store"
+      },
+    },
+    {
+      // NO UPDATE. Template type
+      type: "zkForm",
+      // UPDATE. App information
+      metadata: {
+        name: "zkformtest", // UPDATE. Your app name
+        slug: "testkzform", // UPDATE. Your app name in the form of a slug (no spaces allowed). It will be the last part in the URL, eg: apps.sismo.io/sismo/swag-lottery
+        description:
+          "Prove you are a Sismo Community member to participate in the Lottery.", // UPDATE. The description is used for SEO and social media preview of your app
+        image: "sismoapps_feedback_1014x720.png",
+        tags: ["Swag"], // UPDATE. Add one or two tags to describe your app
+        createdAt: new Date("2022-07-01T00:00:00.000Z"), // UPDATE. Edit the date here to today's date YYYY-MM-DD
+        lastUpdateAt: new Date("2022-07-01T00:00:00.000Z"), // UPDATE OR REMOVE. Edit the date here to last update date YYYY-MM-DD
+      },
+      // UPDATE. Sismo Connect request, see "Cheatsheet: Build Your Sismo Connect Request"
+      sismoConnectRequest: {
+        appId: "0x08ffa7336eb7bc0907a9f76ebc55aa4d", // NO UPDATE. Sismo Connect appId is automatically created based on your app metadata
+        authRequests: [{ authType: AuthType.VAULT }], // UPDATE OR REMOVE. Select auth
+        claimRequests: [{ groupId: "0xc90878eaa974c31bc62c52ad86121765" }], // UPDATE OR REMOVE. Select group
+      },
+      // UPDATE. Config for zkForm
+      templateConfig: {
+        step1CtaText: "Prove you are Eligible", // UPDATE OR REMOVE. 1st step text when users click on the app, "Sign in with Sismo" by default
+        step2CtaText: "Participate in the Swag Lottery", // UPDATE. 2nd step button text, on submitting the form
+        appDescription: "You will prove that you are a member of Sismo Community to participate in the lottery by providing your email.", // UPDATE OR REMOVE. Description for your app
+        // UPDATE OR REMOVE. Form fields
+        fields: [ 
+          {
+            type: "short-text", // NO UPDATE. Your field type
+            label: "Email", // UPDATE. Your field name
+            placeholder: "Double check please!", // UPDATE OR REMOVE. Your helper text
+            isRequired: true, // UPDATE OR REMOVE. Field required or not, true by default
+          },
+        ],
+        // UPDATE OR REMOVE. Success form message
+        congratulationsMessage: {
+          title: "Fingers crossed!", // UPDATE. Your title
+          description: "We hope to have you as a lucky winner :)", // UPDATE. Your message
+        },
+        // UPDATE OR REMOVE. User selection
+        userSelection: { type: "Lottery", maxNumberOfEntries: 10, numberOfWinners: 10 }, // UPDATE. Your type: "Lottery" or "FCFS". If "FCFS", only use parameter "maxNumberOfUsers". See Parameters explanation below.
+        // UPDATE. Data storage
+        output: {
+          destination: {
+            type: "google_sheet", // NO UPDATE.
+            spreadsheetId: "", // UPDATE. See "Add your App in the Sismo App Store"
+          },
+          saveAuths: true, // UPDATE OR REMOVE. Save Auths outputs in spreadsheet
+          saveClaims: true, // UPDATE OR REMOVE. Save Claims outputs in spreadsheet
+        },
+      },
+      // UPDATE OR REMOVE. App dates
+      options: {
+        startDate: new Date("2023-05-12T18:00"), // UPDATE OR REMOVE. Your start date YYYY-MM-DD
+        endDate: new Date("2024-05-19T18:00"), // UPDATE OR REMOVE. Your end date YYYY-MM-DD
       },
     },
   ],

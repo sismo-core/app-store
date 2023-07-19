@@ -558,9 +558,37 @@ export default {
       // UPDATE OR REMOVE. App dates
       options: {
         startDate: new Date("2023-05-12T18:00"), // UPDATE OR REMOVE. Your start date YYYY-MM-DD
-        endDate: new Date("2023-05-19T18:00"), // UPDATE OR REMOVE. Your end date YYYY-MM-DD
+        endDate: new Date("2024-05-19T18:00"), // UPDATE OR REMOVE. Your end date YYYY-MM-DD
       },
     }, 
+    {
+      // NO UPDATE. Template type
+      type: "zkTelegramBot",
+      // UPDATE. App information
+      metadata: {
+        name: "testbot", // UPDATE. Your app name
+        slug: "testbot", // UPDATE. Your app name in the form of a slug (no spaces allowed). It will be the last part in the URL, eg: apps.sismo.io/sismo/citadel
+        description:
+          "Prove you are a Sismo Community member to join our private Sismo Citadel Telegram Group.", // UPDATE. The description is used for SEO and social media preview of your app
+        image: "sismo_zktelegrambot_citadel_500x500.png", // UPDATE. Image for your app, to be placed in the images folder
+        tags: ["Telegram"], // UPDATE. Add one or two tags to describe your app
+        createdAt: new Date("2022-07-01T00:00:00.000Z"), // UPDATE. Edit the date here to today's date YYYY-MM-DD
+        lastUpdateAt: new Date("2022-07-01T00:00:00.000Z"), // UPDATE OR REMOVE. Edit the date here to last update date YYYY-MM-DD
+      },
+      // UPDATE. Sismo Connect request, see "Cheatsheet: Build Your Sismo Connect Request"
+      sismoConnectRequest: {
+        appId: "{{ auto-fill }}", // NO UPDATE. Sismo Connect appId is automatically created based on your app metadata
+        claimRequests: [{ groupId: "0xd630aa769278cacde879c5c0fe5d203c" }], // UPDATE OR REMOVE. Select group
+      },
+      // UPDATE. Config for zkTelegramBot
+      templateConfig: {
+        step1CtaText: "Prove you are Eligible", // UPDATE OR REMOVE. 1st step text when users click on the app, "Sign in with Sismo" by default
+        step2CtaText: "Join the Citadel Telegram Group", // UPDATE. 2nd step button text, on submitting the form
+        appDescription: "You will prove that you are a member of Sismo Community to join our Sismo Citadel Telegram Group.", // UPDATE OR REMOVE. Description for your app
+        telegramGroupId: "", // UPDATE. See "Add your App in the Sismo App Store"
+        telegramInviteLink: "", // UPDATE. See "Add your App in the Sismo App Store"
+      },
+    },
   ],
 } as SpaceConfig;
 

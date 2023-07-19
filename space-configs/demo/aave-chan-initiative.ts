@@ -46,7 +46,7 @@ export default {
             value: 1000,
           },
         ],
-        impersonateAddresses: ["0x5af25164a0f1207db70727a2c447d6a7b44b89d0", "0x8ab1760889F26cBbf33A75FD2cF1696BFccDc9e6", "dhadrien.eth", "telegram:dhadrien:1234", "github:dhadrien", "twitter:dhadrien_:2390703980"]
+        impersonateAddresses: ["0x5af25164a0f1207db70727a2c447d6a7b44b89d0", "0x8ab1760889F26cBbf33A75FD2cF1696BFccDc9e6", "dhadrien.sismo.eth", "0xA4C94A6091545e40fc9c3E0982AEc8942E282F38", "0x1b9424ed517f7700e7368e34a9743295a225d889", "0x82fbed074f62386ed43bb816f748e8817bf46ff7", "0xc281bd4db5bf94f02a8525dca954db3895685700", "telegram:dhadrien:1234", "github:dhadrien", "twitter:dhadrien_:2390703980"]
       },
       templateConfig: {
         step2CtaText: "Claim your Swag",

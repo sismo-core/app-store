@@ -25,7 +25,7 @@ export default {
         appId: "0x0f38b4eb4d51fbd7906c9c7574df075e",
         authRequests: [{ authType: AuthType.VAULT }],
         claimRequests: [{ groupId: "0x42c768bb8ae79e4c5c05d3b51a4ec74a" }], // Mergooor contributor groupID "0x42c768bb8ae79e4c5c05d3b51a4ec74a"
-        impersonateAddresses: ["vitalik.eth", "github:vbuterin", "twitter:VitalikButerin:295218901", "dhadrien.sismo.eth", "0xA4C94A6091545e40fc9c3E0982AEc8942E282F38", "0x1b9424ed517f7700e7368e34a9743295a225d889”, “0x82fbed074f62386ed43bb816f748e8817bf46ff7", "0xc281bd4db5bf94f02a8525dca954db3895685700", "telegram:dhadrien:1234", "github:dhadrien", "twitter:dhadrien_:2390703980"],
+        impersonateAddresses: ["vitalik.eth", "github:vbuterin", "twitter:VitalikButerin:295218901", "dhadrien.sismo.eth", "0xA4C94A6091545e40fc9c3E0982AEc8942E282F38", "0x1b9424ed517f7700e7368e34a9743295a225d889", "0x82fbed074f62386ed43bb816f748e8817bf46ff7", "0xc281bd4db5bf94f02a8525dca954db3895685700", "telegram:dhadrien:1234", "github:dhadrien", "twitter:dhadrien_:2390703980"],
       },
       templateConfig: {
         step2CtaText: "Register to get tickets",

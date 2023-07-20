@@ -6,7 +6,7 @@ export default {
     name: "Spyglass Space", // UPDATE HERE
     description:
       "This Space is dedicated to my Spyglass Space to explore ZK Tech", // UPDATE HERE
-    image: "my_awesome_space_picture_400x400.png", // UPDATE HERE
+    image: "coding.jpg", // UPDATE HERE
     socialLinks: [
       {
         type: "link", 

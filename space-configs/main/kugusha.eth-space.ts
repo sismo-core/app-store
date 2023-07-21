@@ -6,7 +6,7 @@ export default {
     name: "kugusha.eth space", // UPDATE HERE
     description:
       "This is a space of kugusha.eth" // UPDATE HERE
-    image: "space_pic_pfp.png", // UPDATE HERE
+    image: "kugusha_eth_space_pic_pfp.png", // UPDATE HERE
     socialLinks: [
       {
         type: "twitter", 

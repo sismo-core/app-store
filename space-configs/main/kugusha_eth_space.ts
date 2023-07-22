@@ -5,7 +5,7 @@ export default {
   metadata: {
     name: "kugusha.eth space", // UPDATE HERE
     description:
-      "This is a space of kugusha.eth" // UPDATE HERE
+      "This is a space of kugusha.eth", // UPDATE HERE
     image: "kugusha_eth_space_pic_pfp.png", // UPDATE HERE
     socialLinks: [
       {

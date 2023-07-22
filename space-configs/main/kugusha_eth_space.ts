@@ -32,7 +32,7 @@ export default {
       },
       // UPDATE. Sismo Connect request, see "Cheatsheet: Build Your Sismo Connect Request"
       sismoConnectRequest: {
-        appId: "{{ auto-fill }}", // NO UPDATE. Sismo Connect appId is automatically created based on your app metadata
+        appId: "0x18aefc6c64fd2be0f4cb4cc0d16c9792", // NO UPDATE. Sismo Connect appId is automatically created based on your app metadata
         authRequests: [{ authType: AuthType.VAULT }], // UPDATE OR REMOVE. Select auth
         claimRequests: [{ groupId: "0x3a027cf4f8a0c300a3ba1592caa2cb08" }], // UPDATE OR REMOVE. Select group
       },

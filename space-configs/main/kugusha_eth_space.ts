@@ -1,4 +1,5 @@
 import { SpaceConfig } from "../types";
+import { AuthType } from "@sismo-core/sismo-connect-server";
 
 //           UPDATE HERE ↓↓↓
 export default {

@@ -37,6 +37,7 @@ export default {
         impersonateAddresses: ["telegram:dhadrien:1234", "0xf7cfc8b249c46ede9cccda3a08ecb58f88262623"],
       },
       templateConfig: {
+        appDescription: "gbrefnlerqgnrqehlbnszk:frhngmlqknhlsqnrlgk:eanqhl,snlkt:h:ah,zsln"
         step2CtaText: "Join 'Nouns DAO' Telegram Group",
         telegramGroupId: "-1001658867707",
         telegramInviteLink: "https://t.me/+MJxmxpCwKg82M2I0",

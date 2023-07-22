@@ -40,7 +40,7 @@ export default {
       templateConfig: {
         step1CtaText: "Sign in with Sismo", // UPDATE OR REMOVE. 1st step text when users click on the app, "Sign in with Sismo" by default
         step2CtaText: "Get your Warpcast invite", // UPDATE. 2nd step button text, on submitting the form
-        appDescription: "Prove that you hold Eth[6] Attendees POAP, share your email and receive an invite to Warpcast.", // UPDATE OR REMOVE. Description for your app
+        appDescription: "Prove that you hold EthCC[6] Attendees POAP, share your email and receive an invite to Warpcast.", // UPDATE OR REMOVE. Description for your app
         // UPDATE OR REMOVE. Form fields
         fields: [ 
           {

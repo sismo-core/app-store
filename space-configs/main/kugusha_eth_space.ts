@@ -4,14 +4,14 @@ import { AuthType } from "@sismo-core/sismo-connect-server";
 //           UPDATE HERE ↓↓↓
 export default {
   metadata: {
-    name: "kugusha.eth space", // UPDATE HERE
+    name: "Farcaster protocol", // UPDATE HERE
     description:
-      "This is a space of kugusha.eth", // UPDATE HERE
-    image: "kugusha_eth_space_pic_pfp.png", // UPDATE HERE
+      "Space dedicated to Farcaster protocol.", // UPDATE HERE
+    image: "warpcast-space_pfp.png", // UPDATE HERE
     socialLinks: [
       {
-        type: "twitter", 
-        link: "https://twitter.com/kugusha", // UPDATE HERE
+        type: "link", 
+        link: "https://www.farcaster.xyz/", // UPDATE HERE
       },
     ],
   },

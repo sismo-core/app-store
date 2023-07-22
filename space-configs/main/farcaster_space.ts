@@ -7,7 +7,7 @@ export default {
     name: "Farcaster protocol", // UPDATE HERE
     description:
       "Space dedicated to Farcaster protocol.", // UPDATE HERE
-    image: "warpcast-space_pfp.png", // UPDATE HERE
+    image: "farcaster_space_pfp.png", // UPDATE HERE
     socialLinks: [
       {
         type: "link", 

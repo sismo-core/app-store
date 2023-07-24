@@ -3,7 +3,7 @@ import Image from "next/image";
 import { textShorten } from "@/src/utils/textShorten";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { AppFront } from "@/src/utils/getSpaceConfigsFront";
+import { ZkAppType } from "@/src/services/spaces-service";
 
 const SpaceLine = styled.div`
   display: inline-flex;
@@ -38,7 +38,7 @@ const StyledSpaceImage = styled(Image)`
 `;
 
 type Props = {
-  app: AppFront;
+  app: ZkAppType;
   isDisabled?: boolean;
 };
 
@@ -55,18 +55,21 @@ export default function SpaceTag({
       onMouseLeave={() => setIsHovered(false)}
       onClick={(event) => {
         event.preventDefault()
-        router.push(`/${app.spaceSlug}`)}}
+        router.push(`/${app.space.slug}`)}}
     >
       <SpaceImageContainer $isDisabled={isDisabled}>
-        <StyledSpaceImage
-          src={app.configImage}
-          alt={app.space}
-          fill={true}
-          placeholder="blur"
-          sizes="10vw"
-        />
+        {
+          app.space.profileImage && 
+          <StyledSpaceImage
+            src={app.space.profileImage}
+            alt={app.space.name}
+            fill={true}
+            placeholder="blur"
+            sizes="10vw"
+          />
+        }
       </SpaceImageContainer>
-      <SpaceName $isHovered={isHovered}>{app.space}</SpaceName>
+      <SpaceName $isHovered={isHovered}>{app.space.name}</SpaceName>
     </SpaceLine>
   );
 }

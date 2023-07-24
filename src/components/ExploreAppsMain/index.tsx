@@ -1,4 +1,5 @@
 "use client";
+
 import styled from "styled-components";
 import AppCardSmall from "../AppCardSmall";
 import AppListGrid from "../Layouts/AppListGrid";
@@ -8,7 +9,7 @@ import { searchInApps } from "@/src/utils/searchInApps";
 import { CaretDown, MagnifyingGlass } from "phosphor-react";
 import Select, { SelectOption } from "@/src/ui/Select";
 import capitalizeFirstLetter from "@/src/utils/capitalizeFirstLetter";
-import { AppFront } from "@/src/utils/getSpaceConfigsFront";
+import { ZkAppType } from "@/src/services/spaces-service";
 
 const Container = styled.div`
   flex-grow: 1;
@@ -76,7 +77,7 @@ const StyledCaretDown = styled(CaretDown)<{ $isHovered: boolean }>`
 `;
 
 type Props = {
-  apps: AppFront[];
+  apps: ZkAppType[];
 };
 
 export default function ExploreAppsMain({ apps }: Props): JSX.Element {
@@ -85,11 +86,10 @@ export default function ExploreAppsMain({ apps }: Props): JSX.Element {
   const [loadMoreHovered, setLoadMoreHovered] = useState<boolean>(false);
   const tagOptions: SelectOption[] = [{ label: "All", value: "" }];
   const [searchInput, setSearchInput] = useState("");
-  const [selectedFromTagsApps, setSelectedFromTagsApps] =
-    useState<AppFront[]>(apps);
-  const [filteredApps, setFilteredApps] = useState<AppFront[]>(apps);
+  const [selectedFromTagsApps, setSelectedFromTagsApps] = useState<ZkAppType[]>(apps);
+  const [filteredApps, setFilteredApps] = useState<ZkAppType[]>(apps);
   const [selectedTag, setSelectedTag] = useState<string>("");
-  const [displayedApps, setDisplayedApps] = useState<AppFront[]>(
+  const [displayedApps, setDisplayedApps] = useState<ZkAppType[]>(
     apps.slice(0, BATCH)
   );
   const [loadMore, setLoadMore] = useState<number>(0);
@@ -163,7 +163,7 @@ export default function ExploreAppsMain({ apps }: Props): JSX.Element {
           {displayedApps.map((app, index) => (
             <AppCardSmall
               app={app}
-              key={app.spaceSlug + app.slug + index }
+              key={app.space.slug + app.slug + index }
               isSeparator={
                 displayedApps.length % 2 === 0
                   ? index !== displayedApps.length - 1 &&

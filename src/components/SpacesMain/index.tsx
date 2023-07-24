@@ -1,7 +1,6 @@
 "use client";
 
 import styled from "styled-components";
-import { SpaceConfigFront } from "@/src/utils/getSpaceConfigsFront";
 import AppCardSmall from "../AppCardSmall";
 import Image from "next/image";
 import { useLayoutEffect, useRef, useState } from "react";
@@ -12,6 +11,7 @@ import colors from "@/src/themes/colors";
 import Link from "next/link";
 import { TelegramFilled } from "@/src/ui/SismoReactIcon";
 import Default from "@/src/assets/default.svg";
+import { SpaceType } from "@/src/services/spaces-service";
 
 const Container = styled.div`
   display: flex;
@@ -144,13 +144,13 @@ const AppList = styled.div`
 `;
 
 type Props = {
-  config: SpaceConfigFront;
+  space: SpaceType;
 };
 
-export default function SpacesMain({ config }: Props) {
+export default function SpacesMain({ space }: Props) {
   const TWO_LINES = 62;
   const [twoLines, setTwoLines] = useState(TWO_LINES);
-  const isShortened = Boolean(config?.description?.length > twoLines);
+  const isShortened = Boolean(space?.description?.length > twoLines);
   const [isFolded, setIsFolded] = useState(isShortened);
   const ref = useRef<HTMLParagraphElement>(null);
 
@@ -176,16 +176,16 @@ export default function SpacesMain({ config }: Props) {
       <Left>
         <ImageContainer>
           <StyledImage
-            src={config?.profileImage || Default}
+            src={space?.profileImage || Default}
             fill={true}
             placeholder="blur"
-            alt={config?.name}
+            alt={space?.name}
             sizes="40vw"
           />
         </ImageContainer>
-        <SpaceTitle>{config?.name}</SpaceTitle>
+        <SpaceTitle>{space?.name}</SpaceTitle>
         <SpaceDescription $isFolded={isFolded} ref={ref}>
-          {config?.description}
+          {space?.description}
         </SpaceDescription>
         {isShortened && (
           <ShowMore onClick={() => setIsFolded(!isFolded)}>
@@ -194,11 +194,11 @@ export default function SpacesMain({ config }: Props) {
           </ShowMore>
         )}
         <NumberOfApps>
-          {config?.apps?.length} app{config?.apps?.length > 1 && "s"}
+          {space?.apps?.length} app{space?.apps?.length > 1 && "s"}
         </NumberOfApps>
-        {config?.socialLinks?.length > 0 && (
+        {space?.socialLinks?.length > 0 && (
           <SocialWrapper>
-            {config.socialLinks.map((socialLink, index) => {
+            {space.socialLinks.map((socialLink, index) => {
               switch (socialLink?.type) {
                 case "twitter":
                   return (
@@ -237,15 +237,15 @@ export default function SpacesMain({ config }: Props) {
           </SocialWrapper>
         )}
       </Left>
-      {config?.apps?.length > 0 && (
+      {space?.apps?.length > 0 && (
         <Right>
           <ListTitle>Applications</ListTitle>
           <AppList>
-            {config.apps.map((app, index) => (
+            {space.apps.map((app, index) => (
               <AppCardSmall
                 key={app.slug + index}
                 app={app}
-                isSeparator={index !== config?.apps.length - 1}
+                isSeparator={index !== space?.apps.length - 1}
               />
             ))}
           </AppList>

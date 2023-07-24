@@ -1,0 +1,86 @@
+name: Upload zkDrop Metadata
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  create-app:
+    runs-on: ubuntu-latest
+    if: contains(github.event.comment.body, '/upload-metadata')
+    steps:
+      - name: Check if sismo-core organisation member
+        id: is_organization_member
+        uses: jamessingleton/is-organization-member@1.0.0
+        with:
+          organization: "sismo-core"
+          username: ${{ github.actor }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - if: steps.is_organization_member.outputs.result != 'true'
+        run: exit 1
+
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # fetch all branches and tags
+          token: ${{secrets.SISMOBOT_TOKEN}}
+
+      - name: Checkout Pull Request
+        run: hub pr checkout ${{ github.event.issue.number }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.SISMOBOT_TOKEN }}
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Get list of changed files from pull request
+        id: changed-files
+        env:
+          GITHUB_TOKEN: ${{ secrets.SISMOBOT_TOKEN }}
+        run: |
+          PR_NUMBER=${{ github.event.issue.number }}
+
+          # Make sure jq is installed
+          sudo apt-get install -y jq
+
+          # Fetch the list of files from the GitHub API
+          FILES=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+                      -H "Accept: application/vnd.github.v3+json" \
+                      "https://api.github.com/repos/sismo-core/app-store/pulls/${PR_NUMBER}/files")
+
+          # Use jq to parse out the filenames and join them into one line
+          FILENAMES=$(echo "$FILES" | jq -r '.[].filename' | tr '\n' ' ')
+
+          # Set the output for subsequent steps
+          echo "::set-output name=files::$FILENAMES"
+
+      - name: Get modified spaces and apps
+        id: updated-spaces
+        run: |
+          echo 'Changed files:'
+          DEMO_UPDATED_SPACES=$(echo ${{steps.changed-files.outputs.files}} | awk 'BEGIN {OFS=FS=" "} {for(i=1; i<=NF; i++) {if ($i ~ /demo/){split($i,a,"/"); n=split(a[length(a)],b,"."); print b[1]}}}' | xargs)
+          echo "::set-output name=demo_updated_spaces::'$(echo "$DEMO_UPDATED_SPACES")'"
+          MAIN_UPDATED_SPACES=$(echo ${{steps.changed-files.outputs.files}} | awk 'BEGIN {OFS=FS=" "} {for(i=1; i<=NF; i++) {if ($i ~ /main/){split($i,a,"/"); n=split(a[length(a)],b,"."); print b[1]}}}' | xargs)
+          echo "::set-output name=main_updated_spaces::'$(echo "$MAIN_UPDATED_SPACES")'"
+
+      - name: Display changes
+        run: |
+          echo "[DEMO] Modified spaces and apps in commit:"
+          echo "${{ steps.updated-spaces.outputs.demo_updated_spaces }}"
+          echo "[MAIN] Modified spaces and apps in commit:"
+          echo "${{ steps.updated-spaces.outputs.main_updated_spaces }}"
+
+      - name: Run Upload metadata script [demo]
+        env:
+          NEXT_PUBLIC_NODE_ENV: demo
+          PINATA_JWT_TOKEN: ${{ secrets.PINATA_JWT_TOKEN }}
+        run: |
+          yarn upload-zk-drop-metadata ${{ steps.updated-spaces.outputs.demo_updated_spaces }}
+
+      - name: Run Upload metadata script [main]
+        env:
+          NEXT_PUBLIC_NODE_ENV: main
+          PINATA_JWT_TOKEN: ${{ secrets.PINATA_JWT_TOKEN }}
+        run: |
+          yarn upload-zk-drop-metadata ${{ steps.updated-spaces.outputs.main_updated_spaces }}

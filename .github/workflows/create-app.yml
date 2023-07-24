@@ -1,0 +1,54 @@
+name: Create Sismo Connect App
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  create-app:
+    runs-on: ubuntu-latest
+    if: contains(github.event.comment.body, '/create-app')
+    steps:
+      - name: Check if sismo-core organisation member
+        id: is_organization_member
+        uses: jamessingleton/is-organization-member@1.0.0
+        with:
+          organization: "sismo-core"
+          username: ${{ github.actor }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - if: steps.is_organization_member.outputs.result != 'true'
+        run: exit 1
+
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          token: ${{secrets.SISMOBOT_TOKEN}}
+
+      - name: Checkout Pull Request
+        run: hub pr checkout ${{ github.event.issue.number }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.SISMOBOT_TOKEN }}
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Create Sismo Connect App on the factory
+        run: yarn sync-all-apps-factory
+        env:
+          SISMO_FACTORY_URL: https://factory-api.sismo.io
+          SISMO_FACTORY_TOKEN: ${{ secrets.SISMO_FACTORY_TOKEN }}
+
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SISMOBOT_SSH }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+
+      - name: Commit and push filled appId
+        run: |
+          git config --global user.email "robot@sismo.io"
+          git config --global user.name "sismobot"
+          git commit -a -m "feat: create Sismo Connect App and auto-fill appId" || exit 0
+          git push

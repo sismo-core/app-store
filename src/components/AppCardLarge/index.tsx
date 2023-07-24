@@ -6,10 +6,9 @@ import useRemainingTime from "@/src/utils/useRemainingTime";
 import { ArrowSquareOut, Clock } from "phosphor-react";
 import { getHumanReadableRemainingTimeTag } from "@/src/utils/getHumanReadableTimeTag";
 import SpaceTag from "../SpaceTag";
-import { AppFront } from "@/src/utils/getSpaceConfigsFront";
 import Default from "@/src/assets/default.svg";
 import colors from "@/src/themes/colors";
-import { ExternalAppType, Lottery, ZkDropAppType } from "@/src/libs/spaces";
+import { ExternalAppType, Lottery, ZkAppType, ZkDropAppType, ZkFormAppType } from "@/src/services/spaces-service";
 import Link from "next/link";
 
 const Container = styled(Link)<{ $isDisabled: boolean }>`
@@ -193,7 +192,7 @@ const BottomItem = styled.div`
 `;
 
 type Props = {
-  app: AppFront;
+  app: ZkAppType;
 };
 
 export default function AppCardLarge({ app }: Props): JSX.Element {
@@ -203,11 +202,11 @@ export default function AppCardLarge({ app }: Props): JSX.Element {
   const isDisabled = hasEnded;
 
   const maxNumberOfEntries =
-    (app?.type == "zkForm" || app?.type == "zkdrop") &&
-    (app as unknown as ZkDropAppType)?.userSelection?.type == "Lottery" &&
-    ((app as unknown as ZkDropAppType)?.userSelection as Lottery)?.maxNumberOfEntries;
+    app?.type == "zkForm" &&
+    (app as unknown as ZkFormAppType)?.userSelection?.type == "Lottery" &&
+    ((app as unknown as ZkFormAppType)?.userSelection as Lottery)?.maxNumberOfEntries;
 
-  const link = app?.type === "external" ? (app as unknown as ExternalAppType)?.link : `/${app.spaceSlug}/${app.slug}`;
+  const link = app?.type === "external" ? (app as unknown as ExternalAppType)?.link : `/${app.space.slug}/${app.slug}`;
   if (app)
     return (
       <Container
@@ -276,7 +275,7 @@ export default function AppCardLarge({ app }: Props): JSX.Element {
                   )}
                 </AppTitle>
               )}
-              {app.configImage && app.space && (
+              {app && app.space && (
                 <SpaceTag app={app} isDisabled={isDisabled} />
               )}
               {app.description && (

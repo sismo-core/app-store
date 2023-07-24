@@ -7,6 +7,7 @@ import { PageContent } from "../components/Layouts/PageContent";
 import PageContainer from "../components/Layouts/PageContainer";
 import PlausibleProvider from "next-plausible";
 import env from "../environments";
+import AppProviders from "../components/AppProviders";
 
 export const metadata = {
   title: env.isDemo
@@ -20,20 +21,21 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <head>
-      </head>
+      <head></head>
       <body>
         <div id="tooltip-root" style={{ position: "fixed", zIndex: 9999 }} />
         <div id="modal-root" style={{ zIndex: 9999 }} />
         <PlausibleProvider domain={env.isDemo ? "demo.apps.sismo.io" : "apps.sismo.io"}>
           <StyledComponentsRegistry>
-              <Theme>
+            <Theme>
+              <AppProviders>
                 <PageContainer>
                   <Navbar />
                   <PageContent>{children}</PageContent>
                   <Footer />
                 </PageContainer>
-              </Theme>
+              </AppProviders>
+            </Theme>
           </StyledComponentsRegistry>
         </PlausibleProvider>
       </body>

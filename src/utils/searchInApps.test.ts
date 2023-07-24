@@ -1,5 +1,5 @@
+import { ZkAppType } from "../services/spaces-service";
 import { searchInApps } from "./searchInApps";
-import { AppFront } from "./getSpaceConfigsFront";
 
 describe("searchInApps", () => {
   const apps = [
@@ -15,7 +15,7 @@ describe("searchInApps", () => {
       name: "Third App",
       description: "This is a third app",
     }
-  ] as AppFront[];
+  ] as ZkAppType[];
 
   it("returns all apps if search string is falsy", () => {
     const result = searchInApps({ apps, searchString: "" });

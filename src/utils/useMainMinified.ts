@@ -3,7 +3,7 @@ import { ethers } from "ethers";
 
 const EnsCache = {};
 
-const getMinimalIdentifier = (identifier: string): string => {
+export const getMinimalIdentifier = (identifier: string): string => {
   if (identifier) {
     if (identifier.length <= 20) return identifier;
     const start = identifier?.slice(0, 6);

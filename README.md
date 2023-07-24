@@ -10,23 +10,29 @@ You have two approaches to start building applications with Sismo Connect:
 Available templates include:
     - zkForm template: More than just a gated form.
     - zkTelegramBot template: Facilitates privacy-preserving gated telegram group chats.
+    - zkDrop template: Simplifies privacy-preserving gated NFT airdrops creation.
 
 2. Custom apps (soon): You will be able to build custom apps
 
 ### Configuration
 
-All configurations for templates are located in the [space-config](./space-config/) folder.
+All configurations for templates are located in the [space-configs](./space-configs/) folder.
 
-For example, the [configuration](./space-config/aave-chan-initiative/demo.ts) for the [aave-chan-initiative](https://demo.apps.sismo.io/aave-chan-initiative/aci-swag) the configuration is setup in this files tree.
+For example, the [configuration](./space-configs/demo/aave-chan-initiative.ts) for the [aave-chan-initiative](https://demo.apps.sismo.io/aave-chan-initiative/aci-swag) the configuration is setup in this files tree.
 ```bash
-space-config/
-├── aave-chan-initiative
-│   ├── demo.ts
-│   ├── main.ts
-│   └── images
-│       ├── aave_chan_initiative_apps_swag_1014x720.png
-│       ├── ...
-├── index.ts
+space-configs/
+├── main
+│   ├── aave-chan-initiative.ts
+│   ├── cow-swap.ts
+│   ├── ...
+├── demo
+│   ├── aave-chan-initiative.ts
+│   ├── cow-swap.ts
+│   ├── ...
+├── images
+│   ├── aave_chan_initiative_apps_swag_1014x720.png
+│   ├── aave_chan_initiative_apps_swag_400x400.png
+│   └── ...
 └── types.ts
 ```
 
@@ -73,4 +79,6 @@ Contact us in [Telegram](https://bit.ly/builders-telegram) or [Discord](https://
 ## Deploy on Vercel
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+
 

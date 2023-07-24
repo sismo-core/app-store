@@ -1,22 +1,21 @@
 import env from "@/src/environments";
-import { TableStore } from "@/src/libs/table-store";
+import { TableStore } from "@/src/services/table-store";
 import {
   AuthType,
   SismoConnect,
   SismoConnectResponse,
   SismoConnectConfig,
   SismoConnectVerifiedResult,
-  ClaimType,
   SismoConnectServerOptions,
 } from "@sismo-core/sismo-connect-server";
 import { NextResponse } from "next/server";
 import { mapAuthTypeToSheetColumnName } from "@/src/utils/mapAuthTypeToSheetColumnName";
-import { getApp } from "@/src/libs/spaces";
 import { getImpersonateAddresses } from "@/src/utils/getImpersonateAddresses";
-import { ZkAppType, ZkFormAppType } from "@/src/libs/spaces/types";
-import ServiceFactory from "@/src/libs/service-factory/service-factory";
+import { ZkAppType, ZkFormAppType } from "@/src/services/spaces-service/types";
+import ServiceFactory from "@/src/services/service-factory/service-factory";
 import { errorResponse } from "@/src/libs/helper/api";
 import { isClaimEquals } from "@/src/app/api/zk-form/verify/helper";
+import { JsonRpcProviderMock } from "@/src/libs/helper/json-rpc-provider-mock";
 
 export type Field = {
   name: string;
@@ -26,11 +25,14 @@ export type Field = {
 export async function POST(req: Request) {
   const { fields, response, spaceSlug, appSlug } = await req.json();
   const store = ServiceFactory.getZkFormTableStore();
-  const app = getApp({ appSlug: appSlug, spaceSlug: spaceSlug });
+  const spacesService = ServiceFactory.getSpacesService();
 
-  if (!app || app.type !== "zkForm") {
+  const apps = await spacesService.getApps({ where: { appSlug: appSlug, spaceSlug: spaceSlug }});
+
+  if (!apps || apps.length !== 1 || apps[0].type !== "zkForm") {
     return errorResponse(`App ${appSlug} not found or not a zkForm app`);
   }
+  const app = apps[0];
 
   const headers = computeHeaders(app);
   const row = [];
@@ -138,12 +140,16 @@ const verifyResponse = async (
       impersonate: getImpersonateAddresses(app as ZkAppType),
     };
   }
-  let options: SismoConnectServerOptions = {};
+
   // todo should be handled in a better way (code should not be aware of env)
-  // if (env.isTest) {
-  //   options.verifier.hydraS3.registryRoot =
-  //     "0x08f621c0e87bb0b37e0e66b8b9e7620d11aa0f15e9f5a60b986364b2db59dbed";
-  // }
+  let options: SismoConnectServerOptions = {
+    ...(env.isTest
+      ? {
+          // mocked provider to avoid checking the route on chain
+          provider: new JsonRpcProviderMock(),
+        }
+      : {}),
+  };
 
   const sismoConnect = SismoConnect({ config, options });
   return await sismoConnect.verify(response, {

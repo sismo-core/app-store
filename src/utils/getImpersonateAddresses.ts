@@ -1,7 +1,6 @@
-import { ZkAppType } from "../libs/spaces"
-import { AppFront } from "./getSpaceConfigsFront"
+import { ZkAppType } from "../services/spaces-service"
 
-export const getImpersonateAddresses = (app: AppFront | ZkAppType) => {
+export const getImpersonateAddresses = (app: ZkAppType) => {
     return app.impersonateAddresses || [
         "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",
         "github:vbuterin",

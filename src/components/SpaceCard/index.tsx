@@ -1,6 +1,6 @@
 "use client";
 
-import { SpaceConfigFront } from "@/src/utils/getSpaceConfigsFront";
+import { SpaceType } from "@/src/services/spaces-service";
 import { textShorten } from "@/src/utils/textShorten";
 import Image from "next/image";
 import Link from "next/link";
@@ -59,25 +59,25 @@ const NumberOfApps = styled.div`
 `;
 
 type Props = {
-  config: SpaceConfigFront;
+  space: SpaceType;
   className?: string;
 };
 
-export default function SpaceCard({ config, className }: Props): JSX.Element {
+export default function SpaceCard({ space, className }: Props): JSX.Element {
   return (
-    <Container href={`/${config.slug}`} className={className}>
+    <Container href={`/${space.slug}`} className={className}>
       <ProfileImageContainer>
         <Image
-          src={config.profileImage}
+          src={space.profileImage}
           alt={"Space profile image"}
           placeholder="blur"
           fill={true}
           sizes="40vw"
         />
       </ProfileImageContainer>
-      <Name>{config.name}</Name>
+      <Name>{space.name}</Name>
       <NumberOfApps>
-        {config.apps.length} app{config.apps.length > 1 && "s"}
+        {space.apps.length} app{space.apps.length > 1 && "s"}
       </NumberOfApps>
     </Container>
   );

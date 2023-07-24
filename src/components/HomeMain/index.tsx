@@ -5,7 +5,7 @@ import AppCardLarge from "../AppCardLarge";
 import SpaceCard from "../SpaceCard";
 import AppCardSmall from "../AppCardSmall";
 import AppListGrid from "../Layouts/AppListGrid";
-import { AppFront, SpaceConfigFront } from "@/src/utils/getSpaceConfigsFront";
+import { SpaceType, ZkAppType } from "@/src/services/spaces-service";
 
 const Container = styled.main`
   display: flex;
@@ -117,16 +117,16 @@ const StyledAppListGrid = styled(AppListGrid)`
 `;
 
 type Props = {
-  configs: SpaceConfigFront[];
-  apps: AppFront[];
+  spaces: SpaceType[];
+  apps: ZkAppType[];
 };
 
-export default function HomeMain({ configs, apps }: Props): JSX.Element {
+export default function HomeMain({ spaces, apps }: Props): JSX.Element {
   const featuredApps = apps.filter((app) => {
       return app.isFeatured;
   });
   const newApps = apps.slice(0, 6);
-  const firstFiver = configs.slice(0, 5);
+  const firstFiver = spaces.slice(0, 5);
 
   return (
     <Container>
@@ -138,7 +138,7 @@ export default function HomeMain({ configs, apps }: Props): JSX.Element {
         <SlideGrid>
           {featuredApps.length > 0 &&
             featuredApps.map((app) => (
-              <AppCardLarge key={"featured/" + app.spaceSlug + "/" + app.slug} app={app} />
+              <AppCardLarge key={"featured/" + app.appId + "/" + app.slug} app={app} />
             ))}
         </SlideGrid>
       </Section>
@@ -153,7 +153,7 @@ export default function HomeMain({ configs, apps }: Props): JSX.Element {
             newApps.map((app, index) => (
               <AppCardSmall
                 app={app}
-                key={app.spaceSlug+ "/" + app.slug + "/" + index}
+                key={app.space.slug + "/" + app.slug + "/" + index}
                 isSeparator={
                   newApps.length % 2 === 0
                     ? index !== newApps.length - 1 &&
@@ -170,8 +170,8 @@ export default function HomeMain({ configs, apps }: Props): JSX.Element {
           <ExploreAll href="/explore/spaces">Explore all</ExploreAll>
         </TitleLine>
         <SpaceFlex>
-          {firstFiver.map((config) => (
-            <SpaceCard key={"space/" + config.slug} config={config} />
+          {firstFiver.map((space) => (
+            <SpaceCard key={"space/" + space.slug} space={space} />
           ))}
         </SpaceFlex>
       </Section>

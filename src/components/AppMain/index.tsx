@@ -1,17 +1,19 @@
 "use client";
 
-import { AppFront } from "@/src/utils/getSpaceConfigsFront";
 import styled from "styled-components";
-import ZkFormApp from "../Apps/ZkFormApp";
+import ZkFormApp from "./Apps/ZkFormApp";
 import { GroupSnapshotMetadata } from "@/src/libs/group-provider";
 import Image from "next/image";
 import SpaceTag from "../SpaceTag";
 import Default from "@/src/assets/default.svg";
-import ZkBotApp from "@/src/components/Apps/ZkTelegramBotApp";
+import ZkBotApp from "@/src/components/AppMain/Apps/ZkTelegramBotApp";
 import useRemainingTime from "@/src/utils/useRemainingTime";
 import { redirect } from "next/navigation";
-import Timer from "../Apps/components/Timer";
-import { customApps } from "@/space-config/zk-custom-apps";
+import { customApps } from "@/custom-apps";
+import Timer from "./Apps/components/Timer";
+import { ZkAppType } from "@/src/services/spaces-service";
+import ZkBadgeApp from "./Apps/ZkBadgeApp";
+import ZkDropApp from "./Apps/ZkDropApp";
 
 const Container = styled.div`
   flex-grow: 1;
@@ -59,6 +61,7 @@ const ImageContainer = styled.div`
   height: 98px;
   flex-shrink: 0;
   border-radius: 8px;
+  cursor: pointer;
 
   @media (max-width: 900px) {
     width: 88px;
@@ -153,7 +156,7 @@ const Separator = styled.div`
 `;
 
 type Props = {
-  app: AppFront;
+  app: ZkAppType;
   groupSnapshotMetadataList: GroupSnapshotMetadata[];
 };
 
@@ -170,7 +173,9 @@ export default function AppMain({ app, groupSnapshotMetadataList }: Props) {
   return (
     <Container>
       <Top>
-        <ImageContainer>
+        <ImageContainer
+          onClick={() => (window.location.href = window.location.origin + window.location.pathname)}
+        >
           {app.image && app.name && (
             <StyledImage
               src={app.image || Default}
@@ -184,7 +189,7 @@ export default function AppMain({ app, groupSnapshotMetadataList }: Props) {
 
         <TitleAndDescription>
           {app.name && <AppTitle>{app.name}</AppTitle>}
-          {app.configImage && app.space && <SpaceTag app={app} />}
+          {app.space && <SpaceTag app={app} />}
           {app.description && <Description>{app.description}</Description>}
         </TitleAndDescription>
       </Top>
@@ -204,13 +209,15 @@ export default function AppMain({ app, groupSnapshotMetadataList }: Props) {
             {app?.type == "zkTelegramBot" && (
               <ZkBotApp app={app} groupSnapshotMetadataList={groupSnapshotMetadataList} />
             )}
+            {app?.type == "zkBadge" && (
+              <ZkBadgeApp app={app} groupSnapshotMetadataList={groupSnapshotMetadataList} />
+            )}
+            {app?.type == "zkDrop" && (
+              <ZkDropApp app={app} groupSnapshotMetadataList={groupSnapshotMetadataList} />
+            )}
           </>
         )}
-        {
-          app?.type == "custom" && (
-            customApps[app.spaceSlug][app.slug]
-          )
-        }
+        {app?.type == "custom" && customApps[app.space.slug][app.slug]}
       </AppContainer>
     </Container>
   );

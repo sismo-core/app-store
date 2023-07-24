@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { ZkAppType, ZkTelegramBotAppType, getApp, getSpace } from "@/src/libs/spaces";
+import { ZkAppType, ZkTelegramBotAppType } from "@/src/services/spaces-service";
 import {
   AuthType,
   SismoConnect,
@@ -7,21 +7,24 @@ import {
   SismoConnectConfig,
 } from "@sismo-core/sismo-connect-server";
 import env from "@/src/environments";
-import ServiceFactory from "@/src/libs/service-factory/service-factory";
+import ServiceFactory from "@/src/services/service-factory/service-factory";
 import { getImpersonateAddresses } from "@/src/utils/getImpersonateAddresses";
 import { errorResponse } from "@/src/libs/helper/api";
 
 export async function POST(req: Request) {
   const logger = ServiceFactory.getLoggerService();
   const userStore = ServiceFactory.getZkTelegramBotUserStore();
+  const spacesService = ServiceFactory.getSpacesService();
+  
   const { response, spaceSlug, appSlug } = await req.json();
 
-  const space = getSpace({ slug: spaceSlug });
-  const app = getApp({ appSlug: appSlug, spaceSlug: space.slug }) as ZkTelegramBotAppType;
+  const spaces = await spacesService.getSpaces({ where: { spaceSlug: spaceSlug } });
+  const apps = await spacesService.getApps({ where: { appSlug: appSlug, spaceSlug: spaces[0].slug }});
 
-  if (!app) {
+  if (!apps || apps.length !== 1) {
     return errorResponse(`Failed to find app ${appSlug} in space ${spaceSlug}`);
   }
+  const app = apps[0] as ZkTelegramBotAppType;
 
   try {
     const telegramId = await sismoConnectVerifyResponse(app, response);

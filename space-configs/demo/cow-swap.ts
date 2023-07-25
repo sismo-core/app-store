@@ -83,9 +83,6 @@ export default {
           saveClaims: true,
         },
       },
-      options: {
-        endDate: new Date("2023-07-19T18:00Z"),
-      },
     },
     {
       type: "zkForm",

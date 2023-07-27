@@ -97,7 +97,7 @@ export default {
       sismoConnectRequest: {
         appId: "0xd21d9ab6eaf8bcc16eff8d9a76764eab",
         claimRequests: [{ groupId: "0x1cde61966decb8600dfd0749bd371f12", value: 15 }],
-        impersonateAddresses: ["dhadrien.sismo.eth", "0xA4C94A6091545e40fc9c3E0982AEc8942E282F38", "0x1b9424ed517f7700e7368e34a9743295a225d889", "0x82fbed074f62386ed43bb816f748e8817bf46ff7", "0xc281bd4db5bf94f02a8525dca954db3895685700", "telegram:dhadrien:1234", "github:dhadrien", "twitter:dhadrien_:2390703980", "0x6978d5f5d61e7ca35404fb9b31f8197acb9a3b81"],
+        impersonateAddresses: ["dhadrien.sismo.eth", "0xb7b53fe02DA4395a562CB51Bc8F955e021665dce", "0xA4C94A6091545e40fc9c3E0982AEc8942E282F38", "0x1b9424ed517f7700e7368e34a9743295a225d889", "0x82fbed074f62386ed43bb816f748e8817bf46ff7", "0xc281bd4db5bf94f02a8525dca954db3895685700", "telegram:dhadrien:1234", "github:dhadrien", "twitter:dhadrien_:2390703980", "0x6978d5f5d61e7ca35404fb9b31f8197acb9a3b81"],
       },
       templateConfig: {
         step2CtaText: "Join our Telegram Group",
@@ -163,7 +163,7 @@ export default {
           { authType: AuthType.TWITTER, isOptional: true },
         ],
         claimRequests: [{ groupId: "0x1cde61966decb8600dfd0749bd371f12", isOptional: true }],
-        impersonateAddresses: ["0x6978d5f5d61e7ca35404fb9b31f8197acb9a3b81", "dhadrien.sismo.eth", "0xA4C94A6091545e40fc9c3E0982AEc8942E282F38", "0x1b9424ed517f7700e7368e34a9743295a225d889", "0x82fbed074f62386ed43bb816f748e8817bf46ff7", "0xc281bd4db5bf94f02a8525dca954db3895685700", "telegram:dhadrien:1234", "github:dhadrien", "twitter:dhadrien_:2390703980"],
+        impersonateAddresses: ["0x6978d5f5d61e7ca35404fb9b31f8197acb9a3b81", "dhadrien.sismo.eth", "0xb7b53fe02DA4395a562CB51Bc8F955e021665dce", "0xA4C94A6091545e40fc9c3E0982AEc8942E282F38", "0x1b9424ed517f7700e7368e34a9743295a225d889", "0x82fbed074f62386ed43bb816f748e8817bf46ff7", "0xc281bd4db5bf94f02a8525dca954db3895685700", "telegram:dhadrien:1234", "github:dhadrien", "twitter:dhadrien_:2390703980"],
       },
       templateConfig: {
         step2CtaText: "Give Feedback",
@@ -463,7 +463,7 @@ export default {
         appId: "0xd3448b2ad00929478df698a73ae98fe1",
         authRequests: [{ authType: AuthType.VAULT }],
         claimRequests: [{ groupId: "0x1cde61966decb8600dfd0749bd371f12", value: 15 }],
-        impersonateAddresses: ["dhadrien.sismo.eth", "0xA4C94A6091545e40fc9c3E0982AEc8942E282F38", "0x1b9424ed517f7700e7368e34a9743295a225d889", "0x82fbed074f62386ed43bb816f748e8817bf46ff7", "0xc281bd4db5bf94f02a8525dca954db3895685700", "telegram:dhadrien:1234", "github:dhadrien", "twitter:dhadrien_:2390703980", "0x6978d5f5d61e7ca35404fb9b31f8197acb9a3b81"],
+        impersonateAddresses: ["dhadrien.sismo.eth", "0xb7b53fe02DA4395a562CB51Bc8F955e021665dce", "0xA4C94A6091545e40fc9c3E0982AEc8942E282F38", "0x1b9424ed517f7700e7368e34a9743295a225d889", "0x82fbed074f62386ed43bb816f748e8817bf46ff7", "0xc281bd4db5bf94f02a8525dca954db3895685700", "telegram:dhadrien:1234", "github:dhadrien", "twitter:dhadrien_:2390703980", "0x6978d5f5d61e7ca35404fb9b31f8197acb9a3b81"],
       },
       templateConfig: {
         step2CtaText: "Enter the Lottery",

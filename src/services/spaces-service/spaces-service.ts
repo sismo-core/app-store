@@ -12,8 +12,13 @@ import { AuthType } from "@sismo-core/sismo-connect-server";
 import getImgSrcFromConfig from "@/src/utils/getImgSrcFromConfig";
 import { SpaceConfig } from "@/space-configs/types";
 
+export type AppSortByOption = {
+  label: "createdAt" | "endDate";
+  order: "asc" | "desc";
+};
+
 export type GetAppsOptions = {
-  sortedBy?: "createdAt";
+  sortedBy?: AppSortByOption[];
   where?: {
     spaceSlug?: string;
     appSlug?: string;
@@ -48,18 +53,37 @@ export class SpacesService {
   public async getApps(options?: GetAppsOptions) {
     let apps = await this._getAllApps();
 
-    if (options?.sortedBy === "createdAt") {
-      apps.sort((a, b) => {
-        return b.createdAt.getTime() - a.createdAt.getTime();
-      });
+    for (const sortedBy of options?.sortedBy ?? []) {
+      switch (sortedBy?.label) {
+        case "createdAt":
+          apps.sort((a, b) => {
+            return sortedBy.order === "desc"
+              ? b.createdAt.getTime() - a.createdAt.getTime()
+              : a.createdAt.getTime() - b.createdAt.getTime();
+          });
+          break;
+        case "endDate":
+          apps.sort((a, b) => {
+            const aEndDate = a?.endDate?.getTime?.();
+            const bEndDate = b?.endDate?.getTime?.();
+
+            if (isNaN(aEndDate) && isNaN(bEndDate)) return 0;
+            if (isNaN(aEndDate)) return sortedBy.order === "desc" ? -1 : 1;
+            if (isNaN(bEndDate)) return sortedBy.order === "desc" ? 1 : -1;
+            return sortedBy.order === "desc" ?  bEndDate - aEndDate:  aEndDate - bEndDate;
+          });
+          break;
+        default:
+          break;
+      }
     }
 
     if (options?.where?.appSlug) {
-      apps = apps.filter((app) => app.slug === options?.where?.appSlug);
+      apps = apps.filter((app) => app.slug === options.where.appSlug);
     }
 
     if (options?.where?.spaceSlug) {
-      apps = apps.filter((app) => app.space.slug === options?.where?.spaceSlug);
+      apps = apps.filter((app) => app.space.slug === options.where.spaceSlug);
     }
 
     return apps;

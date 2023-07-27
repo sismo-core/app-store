@@ -1,7 +1,7 @@
 import { SpaceConfig } from "@/space-configs/types";
 import ExploreAppsMain from "@/src/components/ExploreAppsMain";
 import ServiceFactory from "@/src/services/service-factory/service-factory";
-import { ZkAppType } from "@/src/services/spaces-service";
+import { GetAppsOptions, ZkAppType } from "@/src/services/spaces-service";
 
 export type SpaceImportedImage = {
   config: SpaceConfig;
@@ -11,7 +11,17 @@ export type SpaceImportedImage = {
 export default async function ExplorePage() {
   const spacesService = ServiceFactory.getSpacesService();
 
-  const apps: ZkAppType[] = await spacesService.getApps({ sortedBy: "createdAt" });
+  const appSortOption: GetAppsOptions = {
+    sortedBy: [
+      { label: "createdAt", order: "desc" },
+      {
+        label: "endDate",
+        order: "desc",
+      },
+    ],
+  };
+
+  const apps: ZkAppType[] = await spacesService.getApps(appSortOption);
 
   return (
       <ExploreAppsMain apps={apps} />

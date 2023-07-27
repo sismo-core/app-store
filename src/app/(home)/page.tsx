@@ -1,5 +1,4 @@
-
-import { SpaceType, ZkAppType } from "../../services/spaces-service";
+import { GetAppsOptions, SpaceType, ZkAppType } from "../../services/spaces-service";
 import HomeMain from "@/src/components/HomeMain";
 import env from "@/src/environments";
 import ServiceFactory from "@/src/services/service-factory/service-factory";
@@ -42,7 +41,18 @@ export default async function HomePage() {
   const spacesService = ServiceFactory.getSpacesService();
 
   const spaces: SpaceType[] = await spacesService.getSpaces();
-  const apps: ZkAppType[] = await spacesService.getApps({ sortedBy: "createdAt" });
 
-  return <>{spaces && <HomeMain spaces={spaces} apps={apps}/>}</>;
+  const appSortOption: GetAppsOptions = {
+    sortedBy: [
+      { label: "createdAt", order: "desc" },
+      {
+        label: "endDate",
+        order: "desc",
+      },
+    ],
+  };
+
+  const apps: ZkAppType[] = await spacesService.getApps(appSortOption);
+
+  return <>{spaces && <HomeMain spaces={spaces} apps={apps} />}</>;
 }

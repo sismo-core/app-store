@@ -46,7 +46,7 @@ export default {
       },
       // UPDATE. Config for zkForm
       templateConfig: {
-        owner: "{{ evm address }}", 
+        owner: "{{ "0x1de2A056508E0D0dd88A88f1f5cdf9cfa510795c" }}", 
         isTransferable: true,
         nftMetadata: {
           name: "OPimism citizen badge holder", // UPDATE. Name for your NFT

@@ -42,7 +42,7 @@ export default {
       sismoConnectRequest: {
         appId: "{{ auto-fill }}", // NO UPDATE. Sismo Connect appId is automatically created based on your app metadata
         authRequests: [{ authType: AuthType.VAULT }], // UPDATE OR REMOVE. Select auth
-        claimRequests: [{ groupId: "0xc90878eaa974c31bc62c52ad86121765" }], // UPDATE OR REMOVE. Select group
+        claimRequests: [{ groupId: "0x5fe0678a73ac7ad401e7dc52262791af" }], // UPDATE OR REMOVE. Select group 
       },
       // UPDATE. Config for zkForm
       templateConfig: {

@@ -11,6 +11,8 @@ export enum Network {
   OptimismGoerli = "optimism-goerli",
   Arbitrum = "arbitrum",
   ArbitrumGoerli = "arbitrum-goerli",
+  Base = "base",
+  BaseGoerli = "base-goerli",
   ScrollTestnet = "scroll-testnet",
 }
 
@@ -27,6 +29,8 @@ export const networkChainIds: { [network in Network]: number } = {
   [Network.OptimismGoerli]: 420,
   [Network.Arbitrum]: 42161,
   [Network.ArbitrumGoerli]: 421613,
+  [Network.Base]: 8453,
+  [Network.BaseGoerli]: 84531,
   [Network.ScrollTestnet]: 534353,
 };
 
@@ -41,12 +45,16 @@ export const networkLabels: { [network in Network]?: string } = {
   [Network.OptimismGoerli]: "Optimism Goerli",
   [Network.Arbitrum]: "Arbitrum",
   [Network.ArbitrumGoerli]: "Arbitrum Goerli",
+  [Network.Base]: "Base",
+  [Network.BaseGoerli]: "Base Goerli",
   [Network.ScrollTestnet]: "Scroll Testnet",
 };
 
 export const networkRpcUrls: { [network in Network]?: string } = {
   [Network.Arbitrum]: "https://1rpc.io/arb",
   [Network.ArbitrumGoerli]: "https://rpc.goerli.arbitrum.gateway.fm",
+  [Network.Base]: "https://mainnet.base.org",
+  [Network.BaseGoerli]: "https://goerli.base.org",
   [Network.ScrollTestnet]: "https://alpha-rpc.scroll.io/l2",
 };
 
@@ -61,6 +69,8 @@ export const explorers: { [network in Network]?: string } = {
   [Network.OptimismGoerli]: "https://goerli-optimism.etherscan.io",
   [Network.Arbitrum]: "https://arbiscan.io",
   [Network.ArbitrumGoerli]: "https://goerli.arbiscan.io",
+  [Network.Base]: "https://basescan.org/",
+  [Network.BaseGoerli]: "https://goerli.basescan.org/",
 };
 
 export const getTxExplorer = ({ txHash, network }: { txHash: string; network: Network }) => {
@@ -83,11 +93,13 @@ export const getErc721Explorer = ({
     case Network.Mumbai:
     case Network.OptimismGoerli:
     case Network.Sepolia:
+    case Network.BaseGoerli:
       return `https://testnets.opensea.io/assets/${network}/${contractAddress}${
         tokenId ? "/" + tokenId : ""
       }`;
     case Network.Mainnet:
       return `https://opensea.io/assets/ethereum/${contractAddress}${tokenId ? "/" + tokenId : ""}`;
+    case Network.Base:
     case Network.Optimism:
       return `https://opensea.io/assets/${network}/${contractAddress}${
         tokenId ? "/" + tokenId : ""

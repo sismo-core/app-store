@@ -71,6 +71,11 @@ export default {
             name: "polygon", // UPDATE HERE choose your chain name
             relayerEnabled: false,
           },
+          {
+            contractAddress: "0xBacDAe186628A88f4a6CE1F3D668c889935c8F06",
+            name: "base-goerli", // UPDATE HERE choose your chain name
+            relayerEnabled: false,
+          },
         ],
         step1CtaText: "Prove eligibility",
         step2CtaText: "Claim!",

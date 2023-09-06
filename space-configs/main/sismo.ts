@@ -171,7 +171,7 @@ export default {
       templateConfig: {
         step2CtaText: "Join Gated Telegram Chat",
         telegramGroupId: "-1001930531830",
-        telegramInviteLink: "https://t.me/+5oMohki7dhgwNDJi",
+        telegramInviteLink: "https://t.me/+rgcTRM_DW8c5OWUy",
       },
     },
     {

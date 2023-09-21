@@ -40,23 +40,23 @@ export default {
     authRequests: [
       { 
       authType: AuthType.VAULT,
-      } 
+      },
       { 
       authType: AuthType.TWITTER, 
       isOptional: true,
-      }
+      },
     ], 
     claimRequests: [
       {
       // Sismo comunity member
       groupId: "0xd630aa769278cacde879c5c0fe5d203c",
       isSelectableByUser: true, 
-      }
+      },
       {
       // gitcoin-passport-holders
       groupId: "0x1cde61966decb8600dfd0749bd371f12",
       value: 10, 
-      }
+      },
       signature: { message: "I want a hug" }
     ],
   },

@@ -57,7 +57,6 @@ export default {
       groupId: "0x1cde61966decb8600dfd0749bd371f12",
       value: 10, 
       },
-      signature: { message: "I want a hug" }
     ],
   },
   // UPDATE. Config for zkForm

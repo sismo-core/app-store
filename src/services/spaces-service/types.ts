@@ -24,7 +24,8 @@ export type ZkAppType =
   | ZkFormAppType
   | ZkTelegramBotAppType
   | ZkDropAppType
-  | ZkBadgeAppType;
+  | ZkBadgeAppType
+  | CustomAppType;
 
 type SocialType = "twitter" | "discord" | "link" | "github" | "telegram";
 
@@ -145,6 +146,11 @@ export type ZkTelegramBotAppType = AppCommonType & {
   step2CtaText: string;
   appDescription?: string;
 };
+
+export type CustomAppType = AppCommonType & {
+  type: "custom";
+  extraData: any;
+}
 
 export type Field = ShortText | LongText | Select | Number | Social;
 

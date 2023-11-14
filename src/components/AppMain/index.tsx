@@ -9,6 +9,7 @@ import Default from "@/src/assets/default.svg";
 import ZkBotApp from "@/src/components/AppMain/Apps/ZkTelegramBotApp";
 import useRemainingTime from "@/src/utils/useRemainingTime";
 import { redirect } from "next/navigation";
+import { customApps } from "@/custom-apps";
 import Timer from "./Apps/components/Timer";
 import { ZkAppType } from "@/src/services/spaces-service";
 import ZkBadgeApp from "./Apps/ZkBadgeApp";
@@ -216,6 +217,7 @@ export default function AppMain({ app, groupSnapshotMetadataList }: Props) {
             )}
           </>
         )}
+        {app?.type == "custom" && customApps[app.space.slug][app.slug]}
       </AppContainer>
     </Container>
   );

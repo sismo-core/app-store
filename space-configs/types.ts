@@ -25,7 +25,8 @@ export type AppConfig =
   | ZkDropAppConfig
   | ExternalAppConfig
   | ZkBadgeAppConfig
-  | ZkTelegramBotAppConfig;
+  | ZkTelegramBotAppConfig
+  | CustomAppConfig;
 
 type SocialType = "twitter" | "discord" | "link" | "github" | "telegram";
 
@@ -96,7 +97,20 @@ export type ZkBadgeAppConfig = AppCommonConfig & {
   };
 };
 
-export type ZkDropChainName = Network.Gnosis | Network.Mumbai | Network.Sepolia | Network.Polygon | Network.Mainnet |Network.Goerli | Network.Optimism | Network.Arbitrum;
+export type CustomAppConfig = AppCommonConfig & {
+  type: "custom";
+  templateConfig: any;
+};
+
+export type ZkDropChainName =
+  | Network.Gnosis
+  | Network.Mumbai
+  | Network.Sepolia
+  | Network.Polygon
+  | Network.Mainnet
+  | Network.Goerli
+  | Network.Optimism
+  | Network.Arbitrum;
 export type ZkDropAppConfig = AppCommonConfig & {
   type: "zkDrop";
   templateConfig: {
@@ -109,9 +123,9 @@ export type ZkDropAppConfig = AppCommonConfig & {
       symbol: string;
     };
     chains: {
-        contractAddress: string;
-        name: ZkDropChainName;
-        relayerEnabled?: boolean;
+      contractAddress: string;
+      name: ZkDropChainName;
+      relayerEnabled?: boolean;
     }[];
     step1CtaText?: string;
     step2CtaText: string;

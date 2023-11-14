@@ -7,6 +7,7 @@ import {
   ZkTelegramBotAppType,
   ZkBadgeAppType,
   ZkDropAppType,
+  CustomAppType,
 } from "./types";
 import { AuthType } from "@sismo-core/sismo-connect-server";
 import getImgSrcFromConfig from "@/src/utils/getImgSrcFromConfig";
@@ -176,6 +177,16 @@ export class SpacesService {
               step2CtaText: appConfig.templateConfig.step2CtaText,
               appDescription: appConfig.templateConfig.appDescription,
             } as ZkDropAppType);
+            break;
+          case "custom":
+            apps.push({
+              type: appConfig.type,
+              ...appCommon,
+              authRequests: appConfig.sismoConnectRequest.authRequests ?? [
+                { authType: AuthType.VAULT },
+              ],
+              extraData: appConfig.templateConfig,
+            } as CustomAppType);
             break;
         }
       }
